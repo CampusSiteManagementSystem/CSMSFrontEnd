@@ -8,7 +8,7 @@
             <template slot="title"><i class="el-icon-message"></i>导航一</template>
             <el-menu-item-group>         
               <el-menu-item index="test" >查看场地</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
+              <el-menu-item index="ShowMap">查看地图</el-menu-item>
               <el-menu-item index="1-3">选项3</el-menu-item>
               <el-menu-item index="1-4">选项4</el-menu-item>           
             </el-menu-item-group>

@@ -17,7 +17,13 @@ const routes = [{
         name: 'conttestent',
         component: () =>
         import('../page/ShowPlaceDetail.vue')
-    }]
+    },{
+        path: '/ShowMap',
+        name: 'ShowMap',
+        component: () =>
+        import('../page/ShowMap.vue')
+    },
+]
 
 }, {
     path: '/SearchPlace',
