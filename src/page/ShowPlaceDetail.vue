@@ -17,8 +17,24 @@
       <el-table-column prop="room" label="房间号"> </el-table-column>
       <el-table-column prop="capacity" label="可容纳人数"> </el-table-column>
       <el-table-column prop="description" label="详情"> </el-table-column>
-      <el-button type="primary" icon="el-icon-edit" circle></el-button>
-      <el-button type="success" icon="el-icon-check" circle></el-button>
+      <el-table-column label="操作" width="200">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="primary"
+            icon="el-icon-edit"
+            @click="handleEdit(scope.$index, scope.row)"
+            >查看</el-button
+          >
+          <el-button
+            size="mini"
+            type="Success"
+            icon="el-icon-check"
+            @click="addFood(scope.$index, scope.row)"
+            >申请</el-button
+          >
+        </template>
+      </el-table-column>
     </el-table>
     <div id="maphtml">
       <div v-html="maps">{{ maps }}</div>
@@ -35,7 +51,7 @@ export default {
       floor: "4",
       room: "402",
       capacity: 100,
-      description: "F楼大教室,",
+      description: "F楼大教室",
     };
     const places = [
       {
@@ -106,7 +122,36 @@ export default {
     return {
       tableData: Array(20).fill(item),
       options: places,
+
+      baseUrl,
+      baseImgPath,
+      city: {},
+      offset: 0,
+      limit: 20,
+      count: 0,
+      // tableData: [],
+      currentPage: 1,
+      selectTable: {},
+      dialogFormVisible: false,
+      categoryOptions: [],
+      selectedCategory: [],
+      address: {},
     };
+  },
+  methods: {
+    handleEdit() {},
+    handleEdit(index, row) {
+      this.selectTable = row;
+      this.address.address = row.address;
+      this.dialogFormVisible = true;
+      this.selectedCategory = row.category.split("/");
+      if (!this.categoryOptions.length) {
+        this.getCategory();
+      }
+    },
+    addFood(index, row) {
+      this.$router.push({ path: "addGoods", query: { restaurant_id: row.id } });
+    },
   },
 };
 </script>

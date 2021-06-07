@@ -23,7 +23,7 @@ export default {
       let map = new this.$mapboxgl.Map({ // eslint-disable-line no-unused-vars
         container: 'map', // container ID
         style: 'mapbox://styles/mapbox/streets-v11', // style URL
-        center: [121.21, 31.288], // starting position [lng, lat]
+        center: [121.21, 31.288],
         zoom: 16 // starting zoom
         // pitch: 60, //视野倾斜，0-60
         // bearing: -17.6,//视野旋转角度
@@ -39,7 +39,6 @@ export default {
 </script>
  
 <style scoped>
-
 @import url("https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css");
 #map {
   height: 700px;
