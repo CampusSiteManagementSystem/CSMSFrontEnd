@@ -25,26 +25,30 @@
       </el-col>
       <el-col :span="14" style="height: 100%">
         <el-card class="bottom" style="height: 97%; overflow: auto">
-          <div slot="header" class="clearfix">
-            <el-row>
-              <el-button type="text" @click="displaySystemAnnouncement"
-                >系统公告</el-button
+          <el-tabs>
+            <el-tab-pane label="系统公告">
+              <el-row
+                v-for="announcement in systemAnnouncement"
+                :key="announcement.title"
               >
-              <el-button type="text" @click="displayActivityAnnouncement"
-                >活动公告</el-button
+                <el-col :span="19">{{ announcement.title }}</el-col>
+                <el-col :span="5"
+                  >{{ announcement.date }} {{ announcement.time }}</el-col
+                >
+              </el-row>
+            </el-tab-pane>
+            <el-tab-pane label="活动公告">
+              <el-row
+                v-for="announcement in activityAnnouncement"
+                :key="announcement.title"
               >
-            </el-row>
-          </div>
-
-          <el-row
-            v-for="announcement in showAnnouncement"
-            :key="announcement.title"
-          >
-            <el-col :span="19">{{ announcement.title }}</el-col>
-            <el-col :span="5"
-              >{{ announcement.date }} {{ announcement.time }}</el-col
-            >
-          </el-row>
+                <el-col :span="19">{{ announcement.title }}</el-col>
+                <el-col :span="5"
+                  >{{ announcement.date }} {{ announcement.time }}</el-col
+                >
+              </el-row>
+            </el-tab-pane>
+          </el-tabs>
         </el-card>
       </el-col>
     </el-row>
@@ -88,9 +92,6 @@
 
 <script>
 export default {
-  created() {
-    this.showAnnouncement = this.systemAnnouncement;
-  },
   data() {
     return {
       //第一块卡片信息
@@ -168,7 +169,6 @@ export default {
           time: "13:00",
         },
       ],
-      showAnnouncement: "",
       //第三块卡片信息
       futureActivity: [
         {
@@ -222,15 +222,6 @@ export default {
         },
       ],
     };
-  },
-
-  methods: {
-    displaySystemAnnouncement: function () {
-      this.showAnnouncement = this.systemAnnouncement;
-    },
-    displayActivityAnnouncement: function () {
-      this.showAnnouncement = this.activityAnnouncement;
-    },
   },
 };
 </script>

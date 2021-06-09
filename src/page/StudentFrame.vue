@@ -7,8 +7,8 @@
             <img src="../assets/TongJiLogo.jpg" class="logoImage" />
             <p>校园场地管理系统</p>
           </el-row>
-          <el-menu mode="vertical" default-active="1" router>
-            <el-menu-item index="1" route="/StudentFrame/Main">
+          <el-menu mode="vertical" default-active="Main" router>
+            <el-menu-item index="Main">
               <i class="el-icon-s-home"></i
               ><!--to do添加route属性-->
               主页
@@ -29,7 +29,7 @@
               <i class="el-icon-s-custom"></i>
               查找组织
             </el-menu-item>
-            <el-menu-item index="6">
+            <el-menu-item index="Favorite">
               <i class="el-icon-s-flag"></i>
               查看收藏
             </el-menu-item>

@@ -32,6 +32,11 @@ const routes = [{
             name: "StudentFrameMain",
             component: () =>
                 import ('../page/StudentMain.vue')
+        }, {
+            path: "Favorite",
+            name: "StudentFrameFavorite",
+            component: () =>
+                import ('../page/StudentFavorite.vue')
         }]
     }
 ]
