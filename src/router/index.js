@@ -4,14 +4,37 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [{
-    path: '/',
-    name: 'Home',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-        import ('../page/IdentitySelection.vue')
-}, ]
+        path: '/',
+        name: 'Home',
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ('../page/IdentitySelection.vue')
+
+    },
+    {
+        path: '/Login',
+        name: 'Login',
+        component: () =>
+            import ('../page/Login.vue')
+    },
+    {
+        path: '/Register',
+        name: 'Register',
+        component: () =>
+            import ('../page/Register.vue')
+    },
+    {
+        path: "/StudentFrame",
+        component: () =>
+            import ('../page/StudentFrame.vue'),
+        children: [{
+            path: "Main",
+            name: "StudentFrameMain",
+            component: () =>
+                import ('../page/StudentMain.vue')
+        }]
+    }
+]
 
 const router = new VueRouter({
     routes
