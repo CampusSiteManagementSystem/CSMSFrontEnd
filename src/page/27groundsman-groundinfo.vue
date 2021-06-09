@@ -1,0 +1,180 @@
+<template>
+  <el-container class="666" style="height=100%">
+    <!-- 顶栏 -->
+          <el-aside width="15%"><sidebar></sidebar></el-aside>
+
+    <!-- 嵌套容器 -->
+    <el-container style="height=100%">
+      <!-- 侧边导航菜单 -->
+      <el-header height="8%">
+        <myheader></myheader>
+    </el-header>
+      <!-- 内容 -->
+      <el-main>
+        <el-card class="">
+          <el-row class="upper-row">
+            <div class="block">
+              <el-image :src="groundinfo.imgsrc">
+                <div slot="placeholder" class="image-slot">
+                  加载中<span class="dot">...</span>
+                </div>
+              </el-image>
+            </div>
+            <h1>{{ groundinfo.building + " " + groundinfo.roomno }}</h1>
+
+            <p v-if="!editstate">{{ groundinfo.description }}</p>
+            <el-input
+              v-else
+              class="descriptioninput"
+              v-model="groundinfo.description"
+            ></el-input>
+            <!-- <el-col :span="12" class="upper-row-left-col"></el-col>
+                <el-col :span="12" class="upper-row-left-right"></el-col> -->
+          </el-row>
+          <el-divider content-position="center">详细信息</el-divider>
+          <el-row class="lower-row">
+            <el-form
+              v-if="editstate"
+              ref="form"
+              :model="form"
+              label-width="80px"
+            >
+              <el-form-item label="座位数">
+                <el-input v-model="groundinfo.seatnum"></el-input>
+              </el-form-item>
+              <el-form-item label="电脑数">
+                <el-input v-model="groundinfo.computernum"></el-input>
+              </el-form-item>
+              <el-form-item label="楼层">
+                <el-input v-model="groundinfo.floor"></el-input>
+              </el-form-item>
+              <el-form-item label="面积">
+                <el-input v-model="groundinfo.area"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="onSubmit">提交</el-button>
+                <el-button>取消</el-button>
+              </el-form-item>
+            </el-form>
+            <div v-else>
+              <p>座位数：{{ groundinfo.seatnum }}</p>
+              <p>电脑数：{{ groundinfo.computernum }}</p>
+              <p>楼层：{{ groundinfo.floor }}</p>
+              <p>面积：{{ groundinfo.area }}</p>
+              <div class="editbutton">
+                <el-button @click="edit" type="primary" icon="el-icon-edit"
+                  >修改信息</el-button
+                >
+              </div>
+            </div>
+          </el-row>
+        </el-card>
+      </el-main>
+    </el-container>
+    <!-- 底栏 -->
+    <!-- <el-footer height="30px">&copy;究极死胖兽 2019</el-footer> -->
+  </el-container>
+</template>
+
+
+
+<style>
+html,
+body,
+#app,
+.el-container {
+  /*设置内部填充为0，几个布局元素之间没有间距*/
+  padding: 0px;
+  /*外部间距也是如此设置*/
+  margin: 0px;
+  /*统一设置高度为100%*/
+  height: 100%;
+}
+
+.el-header {
+  background-color: white;
+}
+.el-aside {
+  background-color: white;
+}
+.el-main {
+  background-color: rgb(237, 241, 245);
+  height: 100%;
+}
+
+.el-card {
+  height: 99.6%;
+}
+
+.upper-row {
+  height: 250px;
+  padding: 20px;
+}
+.lower-row {
+  padding: 20px;
+  height: 100%;
+}
+
+.block {
+  float: right;
+  width: 300px;
+  height: 300px;
+}
+.detailinfo {
+  height: 30px;
+}
+.editbutton {
+  height: 60px;
+  float: right;
+}
+
+.descriptioninput {
+  height: 20px;
+  width: 30%;
+}
+
+.seatnumcol {
+  height: 100%;
+}
+.el-input {
+  height: auto;
+}
+
+</style>
+
+
+
+<script>
+import sidebar from "../components/sidebar.vue";
+import myheader from "../components/myheader.vue";
+
+export default {
+  components: {myheader, sidebar, },
+  name: "groundinfo",
+  data() {
+    return {
+      editstate: false,
+      groundinfo: {
+        seatnum: 10,
+        computernum: 6,
+        building: "同心楼",
+        floor: 2,
+        roomno: 666,
+        area: 100.66,
+        description: "这是一个教室，非常适合学习，开会也可以",
+        imgsrc:
+          "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
+        indoor: true,
+      },
+    };
+  },
+  methods: {
+    edit() {
+      this.editstate = true;
+    },
+    onSubmit() {
+      this.editstate = false;
+    },
+  },
+};
+</script>
