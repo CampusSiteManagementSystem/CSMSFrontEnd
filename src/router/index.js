@@ -23,6 +23,7 @@ const routes = [{
         component: () =>
             import ('../page/Register.vue')
     },
+    //学生界面
     {
         path: "/StudentFrame",
         component: () =>
@@ -53,7 +54,46 @@ const routes = [{
             component: () =>
                 import ('../page/ShowSchedule.vue')
         }]
+    },
+    //系统管理员
+    {
+        path: "/SystemAdminHomePage",
+        name: "SystemAdminHomePage",
+        component: () =>
+            import ('../page/SystemAdminHomePage.vue'),
+    },
+    {
+        path: "/SystemAdminFrame",
+        name: "SystemAdminFrame",
+        component: () =>
+            import ('../page/SystemAdminFrame.vue'),
+        children: [{
+                path: "SystemAdminGroupVerifyList",
+                name: "SystemAdminGroupVerifyList",
+                component: () =>
+                    import ('../page/SystemAdminGroupVerifyList.vue')
+            },
+            {
+                path: "SystemAdminMaintainUserInfo",
+                name: "SystemAdminMaintainUserInfo",
+                component: () =>
+                    import ('../page/SystemAdminMaintainUserInfo.vue')
+            },
+            {
+                path: "SystemAdminAccountModify",
+                name: "SystemAdminAccountModify",
+                component: () =>
+                    import ('../page/SystemAdminAccountModify.vue')
+            },
+            {
+                path: "SystemAdminGroupVerify",
+                name: "SystemAdminGroupVerify",
+                component: () =>
+                    import ('../page/SystemAdminGroupVerify.vue')
+            }
+        ]
     }
+
 ]
 
 const router = new VueRouter({
