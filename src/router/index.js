@@ -3,15 +3,86 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+
+{
     path: '/',
     name: 'Home',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-        import ('../page/IdentitySelection.vue')
-}, ]
+        import ('../page/SystemHomePage.vue')
+}, 
+
+{
+    path: '/groupverifylist',
+    name: 'Home',
+    component: () =>
+        import ('../page/GroupVerifyList.vue')
+}, 
+
+{
+    path: '/groupverify',
+    name: 'Home',
+    component: () =>
+        import ('../page/GroupVerify.vue')
+}, 
+
+{
+    path: '/accountmodifylist',
+    name: 'Home',
+    component: () =>
+        import ('../page/AccountModifyList.vue')
+}, 
+
+{
+    path: '/accountmodify',
+    name: 'Home',
+    component: () =>
+        import ('../page/AccountModify.vue')
+}, 
+
+{
+    path: '/testl',
+    name: 'Home',
+    component: () =>
+        import ('../page/testGroupVerifyList.vue')
+}, 
+
+{
+    path: '/testv',
+    name: 'Home',
+    component: () =>
+        import ('../page/testGroupVerify.vue')
+}, 
+
+
+{
+    path: '/testml',
+    name: 'Home',
+    component: () =>
+        import ('../page/testAccountModifyList.vue')
+}, 
+
+
+{
+    path: '/testm',
+    name: 'Home',
+    component: () =>
+        import ('../page/testAccountModify.vue')
+}, 
+
+{
+    path: '/test',
+    name: 'Home',
+    component: () =>
+        import ('../page/test.vue')
+}, 
+
+
+]
+
+
+
+
 
 const router = new VueRouter({
     routes
