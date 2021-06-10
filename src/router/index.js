@@ -22,6 +22,11 @@ const routes = [{
         name: 'ShowMap',
         component: () =>
         import('../page/ShowMap.vue')
+    }, {
+        path: '/ShowSchedule',
+        name: 'ShowSchedule',
+        component: () =>
+            import('../page/ShowSchedule.vue')
     },
 ]
 
@@ -30,11 +35,6 @@ const routes = [{
     name: 'SearchPlace',
     component: () =>
         import('../page/SearchPlace.vue')
-}, {
-    path: '/test',
-    name: 'test',
-    component: () =>
-        import('../page/ShowPlaceDetail.vue')
 }, ]
 
 const router = new VueRouter({

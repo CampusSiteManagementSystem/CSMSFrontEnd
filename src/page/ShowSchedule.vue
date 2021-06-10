@@ -1,30 +1,34 @@
 <template>
-  <div>
-<el-row :gutter="10">
-  <el-col :xs="3" :sm="5" :md="7" :lg="9"><div class="grid-content bg-purple"></div></el-col>
-  <el-col :xs="3" :sm="5" :md="7" :lg="9"><div class="grid-content bg-purple-light"></div></el-col>
-</el-row>
-
-</div>
+  <div class="main">
+    <el-row :gutter="10">
+      <el-col :xs="24" :sm="24" :md="12" :lg="12"
+        ><div class="grid-content">
+          <PicCard /></div
+      ></el-col>
+      <el-col :xs="24" :sm="24" :md="12" :lg="12">
+        <CourseTable />
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
+import CourseTable from "../components/CourseTable.vue";
+import PicCard from "../components/PicCard.vue";
 export default {
-
-}
+  name: "ScheduleAndPic",
+  components: {
+    CourseTable,
+    PicCard,
+  },
+  data() {},
+};
 </script>
 
 <style scoped>
-.bg-purple {
-    background: #7e2970;
-  }
-  .bg-purple-light {
-    background: #071c4d;
-  }
-  .grid-content {
-    background-color: rgb(44, 143, 121);
-    border-radius: 4px;
-    min-height: 150px;
-    min-width: 100px;
-  }
+.grid-content {
+  border-radius: 4px;
+  height: 100%;
+  width: 100%;
+}
 </style>

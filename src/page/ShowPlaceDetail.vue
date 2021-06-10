@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="search">
-      <span class="demonstration">请选择地点 </span>
       <el-cascader
         :options="options"
         :props="{ multiple: true, checkStrictly: true }"
@@ -19,20 +18,18 @@
       <el-table-column prop="description" label="详情"> </el-table-column>
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
-          <el-button
+          <router-link to="/ShowSchedule"  
             size="mini"
             type="primary"
-            icon="el-icon-edit"
-            @click="handleEdit(scope.$index, scope.row)"
-            >查看</el-button
-          >
-          <el-button
+            tag='el-button' 
+             @click="handleEdit(scope.$index, scope.row)"
+            class="el-icon-edit choose-button">查看</router-link>
+            <router-link to="/ShowSchedule"  
             size="mini"
-            type="Success"
-            icon="el-icon-check"
-            @click="addFood(scope.$index, scope.row)"
-            >申请</el-button
-          >
+            type="primary"
+            tag='el-button' 
+             @click="addFood(scope.$index, scope.row)"
+            class="el-icon-check choose-button">申请</router-link>
         </template>
       </el-table-column>
     </el-table>
@@ -123,35 +120,35 @@ export default {
       tableData: Array(20).fill(item),
       options: places,
 
-      baseUrl,
-      baseImgPath,
-      city: {},
-      offset: 0,
-      limit: 20,
-      count: 0,
-      // tableData: [],
-      currentPage: 1,
-      selectTable: {},
-      dialogFormVisible: false,
-      categoryOptions: [],
-      selectedCategory: [],
-      address: {},
+      // baseUrl,
+      // baseImgPath,
+      // city: {},
+      // offset: 0,
+      // limit: 20,
+      // count: 0,
+      // // tableData: [],
+      // currentPage: 1,
+      // selectTable: {},
+      // dialogFormVisible: false,
+      // categoryOptions: [],
+      // selectedCategory: [],
+      // address: {},
     };
   },
   methods: {
-    handleEdit() {},
-    handleEdit(index, row) {
-      this.selectTable = row;
-      this.address.address = row.address;
-      this.dialogFormVisible = true;
-      this.selectedCategory = row.category.split("/");
-      if (!this.categoryOptions.length) {
-        this.getCategory();
-      }
-    },
-    addFood(index, row) {
-      this.$router.push({ path: "addGoods", query: { restaurant_id: row.id } });
-    },
+    // handleEdit() {},
+    // handleEdit(index, row) {
+    //   this.selectTable = row;
+    //   this.address.address = row.address;
+    //   this.dialogFormVisible = true;
+    //   this.selectedCategory = row.category.split("/");
+    //   if (!this.categoryOptions.length) {
+    //     this.getCategory();
+    //   }
+    // },
+    // addFood(index, row) {
+    //   this.$router.push({ path: "addGoods", query: { restaurant_id: row.id } });
+    // },
   },
 };
 </script>
