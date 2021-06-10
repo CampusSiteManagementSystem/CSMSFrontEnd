@@ -39,12 +39,4 @@ npm run lint
 2. [http](https://www.runoob.com/http/http-tutorial.html)
 3. [axios](https://www.runoob.com/vue2/vuejs-ajax-axios.html)
 4. [Vue router](https://router.vuejs.org/zh/guide/)
-5. [一些库（挺多的）](https://blog.csdn.net/weixin_43720095/article/details/88982224)
-6. [实例1](https://github.com/alirizaadiyahsi/Nucleus)
-7. [实例2(超级多资源)](https://github.com/vuejs/awesome-vue#authenticationauthorization)
-8. 待补充：Javascript ES6一些语法、异步等
-
-
-
-
-
+5. 待补充：Javascript ES6一些语法、异步等

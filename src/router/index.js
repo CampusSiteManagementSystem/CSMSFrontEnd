@@ -4,45 +4,40 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [{
-        path: '/',
-        name: 'Home',
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import ('../page/IdentitySelection.vue')
+    path: '/',
+    name: 'Home',
 
-    },
-    {
-        path: '/Login',
-        name: 'Login',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+        import('../page/SearchPlace.vue'),
+    children: [{
+        path: '/test',
+        name: 'conttestent',
         component: () =>
-            import ('../page/Login.vue')
-    },
-    {
-        path: '/Register',
-        name: 'Register',
+        import('../page/ShowPlaceDetail.vue')
+    },{
+        path: '/ShowMap',
+        name: 'ShowMap',
         component: () =>
-            import ('../page/Register.vue')
-    },
-    {
-        path: "/StudentFrame",
+        import('../page/ShowMap.vue')
+    }, {
+        path: '/ShowSchedule',
+        name: 'ShowSchedule',
         component: () =>
-            import ('../page/StudentFrame.vue'),
-        children: [{
-            path: "Main",
-            name: "StudentFrameMain",
-            component: () =>
-                import ('../page/StudentMain.vue')
-        }, {
-            path: "Favorite",
-            name: "StudentFrameFavorite",
-            component: () =>
-                import ('../page/StudentFavorite.vue')
-        }]
-    }
+            import('../page/ShowSchedule.vue')
+    },
 ]
 
+}, {
+    path: '/SearchPlace',
+    name: 'SearchPlace',
+    component: () =>
+        import('../page/SearchPlace.vue')
+}, ]
+
 const router = new VueRouter({
-    mode: "history",
     routes
 })
 
