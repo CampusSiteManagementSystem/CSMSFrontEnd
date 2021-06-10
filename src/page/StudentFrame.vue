@@ -13,11 +13,11 @@
               ><!--to do添加route属性-->
               主页
             </el-menu-item>
-            <el-menu-item index="2">
+            <el-menu-item index="ShowMap">
               <i class="el-icon-map-location"></i>
               查看地图
             </el-menu-item>
-            <el-menu-item index="3">
+            <el-menu-item index="ShowPlaceDetail">
               <i class="el-icon-location"></i>
               查找地点
             </el-menu-item>

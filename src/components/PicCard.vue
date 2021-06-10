@@ -5,7 +5,7 @@
           <p style="text-align: center;font-size:x-large">{{room}}</p>
           <p style="text-align: center;font-size:small">{{building}}</p>    
         <img
-          src="..\assets\Indoor.jpg"
+          src="../assets/Indoor.jpg"
           class="image"
         />
       </el-card>
@@ -32,7 +32,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .time {
   font-size: 13px;
   color: #999;

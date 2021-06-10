@@ -37,6 +37,21 @@ const routes = [{
             name: "StudentFrameFavorite",
             component: () =>
                 import ('../page/StudentFavorite.vue')
+        }, {
+            path: "ShowMap",
+            name: "ShowMap",
+            component: () =>
+                import ('../page/ShowMap.vue')
+        }, {
+            path: "ShowPlaceDetail",
+            name: "ShowPlaceDetail",
+            component: () =>
+                import ('../page/ShowPlaceDetail.vue')
+        }, {
+            path: "ShowSchedule",
+            name: "ShowSchedule",
+            component: () =>
+                import ('../page/ShowSchedule.vue')
         }]
     }
 ]

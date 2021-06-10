@@ -18,7 +18,7 @@
       <el-table-column prop="description" label="详情"> </el-table-column>
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
-          <router-link to="/ShowSchedule"  
+          <router-link to="/StudentFrame/ShowSchedule"  
             size="mini"
             type="primary"
             tag='el-button' 
