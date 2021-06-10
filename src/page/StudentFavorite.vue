@@ -18,7 +18,7 @@
 
       <el-table :data="matchList" style="width: 100%">
         <el-table-column
-          label="种类"
+          label="地点"
           prop="position"
           width="auto"
         ></el-table-column>
@@ -37,9 +37,7 @@
         </el-table-column>
 
         <el-table-column label="查看" width="auto">
-          
-            <el-button size="mini">前往</el-button>
-          
+          <el-button size="mini">前往</el-button>
         </el-table-column>
       </el-table>
     </el-card>

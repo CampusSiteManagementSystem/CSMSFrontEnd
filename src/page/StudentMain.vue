@@ -79,9 +79,9 @@
         <el-card class="bottom" style="height: 93%">
           <div slot="header" class="clearfix">占用中的场地</div>
           <el-table :data="occupation" stripe style="width: 100%" height="270">
-            <el-table-column prop="position" label="发起人" width="auto">
+            <el-table-column prop="position" label="地点" width="auto">
             </el-table-column>
-            <el-table-column prop="activityName" label="开始日期" width="auto">
+            <el-table-column prop="activityName" label="活动名" width="auto">
             </el-table-column>
           </el-table>
         </el-card>
