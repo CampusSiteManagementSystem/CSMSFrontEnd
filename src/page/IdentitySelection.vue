@@ -7,11 +7,11 @@
                 <h4>Campus Site Management</h4>
             </div>
             <div class="select">
-                <router-link to="/" tag='el-button' class="el-icon-user choose-button">学生登录</router-link>
-                <router-link to="/" tag='el-button' class="el-icon-coordinate choose-button">场地管理员登陆</router-link>
+                <router-link to="/Appointment" tag='el-button' class="el-icon-user choose-button">学生登录</router-link>
+                <router-link to="/CreditScore" tag='el-button' class="el-icon-coordinate choose-button">场地管理员登陆</router-link>
                 <br>
-                <router-link to="/" tag='el-button' class="el-icon-s-custom choose-button">组织登录</router-link>
-                <router-link to="/" tag='el-button' class="el-icon-s-check choose-button">系统管理员登录</router-link>
+                <router-link to="/ljj" tag='el-button' class="el-icon-s-custom choose-button">组织登录</router-link>
+                <router-link to="/ApplySite" tag='el-button' class="el-icon-s-check choose-button">系统管理员登录</router-link>
             </div>
         </div>
     </div>
