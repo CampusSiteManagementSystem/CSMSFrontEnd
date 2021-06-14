@@ -26,8 +26,10 @@
   "error_code": 0,
   "data": {
       "places": [
-        { "groundID":"F202","type": "室内", "building": "F","floor":"2","room":"202","description": "","isPublic":true,},
-        { "groundID":"F202","type": "室外", "building": "篮球场","floor":"","description": "","isPublic":true,},      
+        { "groundID":"F202","type": "室内", "building": "F","floor":"2","room":"202","description": "",
+        "isPublic":true,
+        "coordinates":["121.21004743281384", "31.288682727520325"],
+        },   
       ]
     }
   }
@@ -45,6 +47,7 @@
 | room         | String  | 房间号                      |
 | description  | String  | 对场地的描述                     |
 | isPublic       | Boolean  | 是否可以被公开                       |
+|coordinates|Array|经纬度|
 
 
 **备注**
