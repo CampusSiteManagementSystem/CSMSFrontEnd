@@ -1,34 +1,28 @@
 <template>
   <div class="main">
-      <el-row>
-      <el-card :body-style="{padding: '0,10%,10%,10%',margin:'4%，4%，4%，4%'}">
-          <p style="text-align: center;font-size:x-large">{{room}}</p>
-          <p style="text-align: center;font-size:small">{{building}}</p>    
-        <img
-          src="..\assets\Indoor.jpg"
-          class="image"
-        />
-      </el-card>
-      </el-row>
-      <el-row>
-      <el-card :body-style="{padding: '2%,10%,10%,10%',}">
-        <div style="padding: 10%">
-          <span>{{placeType}}</span>
-          <p v-for="(value,key) in utils" :key="value">{{key}}:{{value}}</p>
-          <div class="bottom clearfix">
-            <time class="time">{{ currentDate }}</time>
-            <el-button  icon="el-icon-star-off" class="button" circle=""></el-button>
-            <el-button type="primary" icon="el-icon-star-off" class="button">预约</el-button>
-            <!-- <router-link to="/预约界面"  
+    <el-row>
+      <p style="text-align: center; font-size: x-large">{{ room }}</p>
+      <p style="text-align: center; font-size: small">{{ building }}</p>
+      <img src="..\assets\Indoor.jpg" class="image" />
+    </el-row>
+    <el-row style="padding: 14px;">
+      <span>{{ placeType }}</span>
+      <p v-for="(value, key) in utils" :key="value">{{ key }}:{{ value }}</p>
+    </el-row>
+    <el-row>
+      <div class="bottom clearfix">
+        <time class="time">{{ currentDate }}</time>
+        <el-button icon="el-icon-star-off" class="button" circle=""></el-button>
+        <el-button type="primary" icon="el-icon-star-off" class="button"
+          >预约</el-button
+        >
+        <!-- <router-link to="/预约界面"  
             type="primary"
             tag='el-button' 
              @click="handleEdit(scope.$index, scope.row)"
             class="el-icon-edit choose-button button">预约</router-link> -->
-            
-          </div>
-        </div>
-      </el-card>
-      </el-row>
+      </div>
+    </el-row>
   </div>
 </template>
 
@@ -44,8 +38,7 @@
 }
 
 .button {
-  /* padding: 0; */
-  margin: 10px,10px,10px,10px;
+  margin: 10px, 10px, 10px, 10px;
   float: right;
 }
 
@@ -69,18 +62,17 @@
 export default {
   name: "PicCard",
   data() {
-      const utils={
-          电脑数量:100,
-          桌子数量:100,
-      }
+    const utils = {
+      电脑数量: 100,
+      桌子数量: 100,
+    };
     return {
-        utils:utils,
+      utils: utils,
       currentDate: new Date(),
-      building:"F",
-      floor:'层号',
-      room:"202",
-      placeType:"室内场地"
-
+      building: "F",
+      floor: "层号",
+      room: "202",
+      placeType: "室内场地",
     };
   },
 };
