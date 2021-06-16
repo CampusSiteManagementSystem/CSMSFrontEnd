@@ -51,6 +51,26 @@ const routes = [{
             name: 'ApplySiteWindow',
             component: () =>
                 import ('../page/ApplyForSite.vue')
+        },{
+            path: '/ShowMap',
+            name: 'ShowMap',
+            component: () =>
+            import('../page/ShowMap.vue')
+        },{
+            path: '/ShowPlaceDetail',
+            name: 'conttestent',
+            component: () =>
+            import('../page/ShowPlaceDetail.vue')
+        },{
+            path: '/ShowMap',
+            name: 'ShowMap',
+            component: () =>
+            import('../page/ShowMap.vue')
+        }, {
+            path: '/ShowSchedule',
+            name: 'ShowSchedule',
+            component: () =>
+                import('../page/ShowSchedule.vue')
         }]
 },{
     path: '/wywt',
@@ -58,6 +78,7 @@ const routes = [{
     component: () =>
         import ('../page/SearchPlace.vue')
 }]
+
 
 const router = new VueRouter({
     routes

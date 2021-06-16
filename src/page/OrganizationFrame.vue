@@ -8,7 +8,7 @@
             <p>校园场地管理系统</p>
           </el-row>
           <el-menu mode="vertical" default-active="Main" router>
-            <el-menu-item index="0">
+            <el-menu-item index="/ShowPlaceDetail">
               <i class="el-icon-s-home"></i
               ><!--to do添加route属性-->
               主页
@@ -33,7 +33,7 @@
                 </el-menu-item>
             </el-menu-item-group>
             </el-submenu>
-            <el-menu-item index="2">
+            <el-menu-item index="/ShowMap">
               <i class="el-icon-map-location"></i>
               查看地图
             </el-menu-item>
