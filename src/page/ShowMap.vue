@@ -55,7 +55,7 @@ export default {
         console.log(e.lngLat);
       });
 
-      map.on("load", function () {
+      map.on("load", function () { //on设置监听，以及触发时的回调，这是加载时的触发的生成3d地图的例子
         map.flyTo({
           center: [121.21, 31.288],
           zoom: 16,
@@ -192,7 +192,53 @@ export default {
         let popup = new temp.Popup({
           closeButton: false,
           closeOnClick: false,
-        });
+        } );
+         // Insert the layer beneath any symbol layer.
+        var layers = map.getStyle().layers;
+
+        var labelLayerId;
+        for (var i = 0; i < layers.length; i++) {
+          if (layers[i].type === "symbol" && layers[i].layout["text-field"]) {
+            labelLayerId = layers[i].id;
+            break;
+          }
+        }
+
+        map.addLayer(
+          //在地图样式中添加一个Mapbox样式图层。(图层，layerid)
+          {
+            id: "3d-buildings",
+            source: "composite",
+            "source-layer": "building",
+            filter: ["==", "extrude", "true"],
+            type: "fill-extrusion",
+            minzoom: 15,
+            paint: {
+              "fill-extrusion-color": "#aaa",
+              "fill-extrusion-height": [
+                "interpolate", //使用'interpolate'表达式添加平滑的过渡效果到
+                ["linear"],
+                ["zoom"],
+                15,
+                0,
+                15.05,
+                ["get", "height"],
+              ],
+              "fill-extrusion-base": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                15,
+                0,
+                15.05,
+                ["get", "min_height"],
+              ],
+              "fill-extrusion-opacity": 0.6,
+            },
+          },
+          labelLayerId
+        );
+     
 
         map.on("mouseenter", "places", function (e) {
           console.log(e);
@@ -222,91 +268,26 @@ export default {
         });
       });
 
-      // map.on("load", function () {
-      //   //on设置监听，以及触发时的回调，这是加载时的触发的生成3d地图的例子
-      //   map.flyTo({
-      //     center: [121.21, 31.288],
-      //     zoom: 16,
-      //     speed: 0.2,
-      //     curve: 2,
-      //     pitch: 30,
-      //   });
-
-      //   // Insert the layer beneath any symbol layer.
-      //   var layers = map.getStyle().layers;
-
-      //   var labelLayerId;
-      //   for (var i = 0; i < layers.length; i++) {
-      //     if (layers[i].type === "symbol" && layers[i].layout["text-field"]) {
-      //       labelLayerId = layers[i].id;
-      //       break;
-      //     }
-      //   }
-
-      //   map.addLayer(
-      //     //在地图样式中添加一个Mapbox样式图层。(图层，layerid)
-      //     {
-      //       id: "3d-buildings",
-      //       source: "composite",
-      //       "source-layer": "building",
-      //       filter: ["==", "extrude", "true"],
-      //       type: "fill-extrusion",
-      //       minzoom: 15,
-      //       paint: {
-      //         "fill-extrusion-color": "#aaa",
-      //         "fill-extrusion-height": [
-      //           "interpolate", //使用'interpolate'表达式添加平滑的过渡效果到
-      //           ["linear"],
-      //           ["zoom"],
-      //           15,
-      //           0,
-      //           15.05,
-      //           ["get", "height"],
-      //         ],
-      //         "fill-extrusion-base": [
-      //           "interpolate",
-      //           ["linear"],
-      //           ["zoom"],
-      //           15,
-      //           0,
-      //           15.05,
-      //           ["get", "min_height"],
-      //         ],
-      //         "fill-extrusion-opacity": 0.6,
-      //       },
-      //     },
-      //     labelLayerId
-      //   );
-      // });
-      // map.on("mousemove", function (e) {
-
-      //   let features = map.queryRenderedFeatures(e.point, {
-      //     layers: ["3d-buildings"],
-      //   });
-      //   console.log(features)
-      //   if (features.length > 0) {
-      //     map.setPaintProperty(
-      //       "3d-buildings",
-      //       "fill-extrusion-color",
-      //       "#faafee"
-      //     );
-      //   } else {
-      //     map.setPaintProperty(
-      //       "3d-buildings",
-      //       "fill-extrusion-color",
-      //       "#FFA54F"
-      //     );
-      //   }
-      // });
-      // // map.on("load", () => {
-      //   map.flyTo({
-      //     center: [121.21, 31.288],
-      //     zoom: 16,
-      //     speed: 0.2,
-      //     curve: 2,
-      //     pitch: 30,
-      //   });
-      // });
+      map.on("mousemove", function (e) {
+        let features = map.queryRenderedFeatures(e.point, {
+          layers: ["3d-buildings"],
+        });
+        console.log(features)
+        if (features.length > 0) {
+          map.setPaintProperty(
+            "3d-buildings",
+            "fill-extrusion-color",
+            "#faafee"
+          );
+        } else {
+          map.setPaintProperty(
+            "3d-buildings",
+            "fill-extrusion-color",
+            "#FFA54F"
+          );
+        }
+      });
+      
     },
   },
 };
