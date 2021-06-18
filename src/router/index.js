@@ -4,44 +4,32 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [{
-    path: '/',
-    name: 'Home',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-        // import ('../components/personinfocard')
-         import ('../page/8grandsman-homepage')
+  path: '/',
+  name: 'Home',
+  component: () =>
+    // import ('../components/personinfocard')
+    import('../page/8grandsman-homepage')
 },
 {
-    path: '/groundinfo',
-    name: 'Groundinfo',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-        // import ('../components/personinfocard')
-         import ('../page/27groundsman-groundinfo')
-}, 
-{
-    path: '/groundannouncement',
-    name: 'Groundannouncement',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-        // import ('../components/personinfocard')
-         import ('../page/30grandsman-groundannouncement')
+  path: '/groundinfo',
+  name: 'Groundinfo',
+  component: () =>
+    // import ('../components/personinfocard')
+    import('../page/27groundsman-groundinfo')
 },
 {
-    path: '/creditscoring',
-    name: 'Creditscoring',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-        // import ('../components/personinfocard')
-         import ('../page/28grandsman-creditscoring')
+  path: '/groundannouncement',
+  name: 'Groundannouncement',
+  component: () =>
+    // import ('../components/personinfocard')
+    import('../page/30grandsman-groundannouncement')
+},
+{
+  path: '/creditscoring',
+  name: 'Creditscoring',
+  component: () =>
+    // import ('../components/personinfocard')
+    import('../page/28grandsman-creditscoring')
 },
 // {
 //     path: '/creditdetail',
@@ -54,14 +42,11 @@ const routes = [{
 //          import ('../page/29groundsman-creditdetail')
 // },
 {
-    path: '/activitylist',
-    name: 'Activitylist',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-        // import ('../components/personinfocard')
-         import ('../page/28or29groundsman-activitylist')
+  path: '/activitylist',
+  name: 'Activitylist',
+  component: () =>
+    // import ('../components/personinfocard')
+    import('../page/28or29groundsman-activitylist')
 },
 // {
 //     path: '/test',
@@ -78,42 +63,68 @@ const routes = [{
 
 //罗
 {
-    path: '/SystemAdmin/PublishSystemAnnouncement',
-    name: 'Publish',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../page/Publish.vue')
+  path: '/SystemAdmin/PublishSystemAnnouncement',
+  name: 'Publish',
+  component: () => import(/* webpackChunkName: "about" */ '../page/Publish.vue')
+},
+{
+  path: '/Groundsman/ActivityList',
+  name: 'ActivityList',
+  component: () => import(/* webpackChunkName: "about" */ '../page/ActivityList.vue')
+},
+{
+  path: '/Groundsman/GroundList',
+  name: 'GroundList',
+  component: () => import(/* webpackChunkName: "about" */ '../page/GroundList.vue')
+},
+{
+  path: '/Groundsman/ActivityInfo',
+  name: 'ActivityInfo',
+  component: () => import(/* webpackChunkName: "about" */ '../page/ActivityInfo.vue')
+},
+
+{
+  path: '/GroundsmanFrame',
+  component: () =>
+    // import ('../components/personinfocard')
+    import('../page/GroundsmanFrame'),
+  children: [{
+    path: "Home",
+    name: "Home",
+    component: () =>
+      import('../page/8GroundsmanHome.vue')
   },
   {
-    path: '/Groundsman/ActivityList',
-    name: 'ActivityList',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../page/ActivityList.vue')
+    path: "ScoringActivityList",
+    name: "ScoringActivityList",
+    component: () =>
+      import('../page/28or29ScoringActivityList.vue'),
   },
   {
-    path: '/Groundsman/GroundList',
-    name: 'GroundList',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../page/GroundList.vue')
+    path: "ScoringActivity/:ID",
+    name: "ScoringActivity",
+    component: () =>
+      import('../page/28ScoringActivity'),
   },
   {
-    path: '/Groundsman/ActivityInfo',
-    name: 'ActivityInfo',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../page/ActivityInfo.vue')
+    path: "ReleaseGroundAnnouncement",
+    name: "ReleaseGroundAnnouncement",
+    component: () =>
+      import('../page/30ReleaseGroundAnnouncement'),
+  },
+  {
+    path: "test",
+    name: "test",
+    component: () =>
+      import('../page/待议29groundsman-creditdetail'),
   }
+  ]
+},
 
 ]
 
 const router = new VueRouter({
-    routes
+  routes
 })
 
 export default router
