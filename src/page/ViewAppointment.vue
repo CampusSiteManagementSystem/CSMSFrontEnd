@@ -8,6 +8,8 @@
     :data="tableData"
     height="592"
     stripe
+    highlight-current-row
+    @current-change="handleCurrentChange1"
     style="width: 100%"
     :default-sort = "{prop: 'date', order: 'descending'}">
         <el-table-column type="expand">
@@ -90,11 +92,16 @@
     :data="tableData"
     height="592"
     stripe
+    highlight-current-row
+    @current-change="handleCurrentChange2"
     style="width: 100%"
     :default-sort = "{prop: 'date', order: 'descending'}">
         <el-table-column type="expand">
       <template slot-scope="props">
         <el-form label-position="left"  class="demo-table-expand">
+         <el-form-item label="活动ID">
+            <span>{{ props.row.ID }}</span>
+          </el-form-item>
           <el-form-item label="活动名称">
             <span>{{ props.row.name }}</span>
           </el-form-item>
@@ -169,6 +176,8 @@
     :data="tableData"
     height="592"
     stripe
+    highlight-current-row
+    @current-change="handleCurrentChange3"
     style="width: 100%"
     :default-sort = "{prop: 'date', order: 'descending'}">
         <el-table-column type="expand">
@@ -234,10 +243,10 @@
     </el-table-column>
         <el-table-column label="操作">
       <template slot-scope="scope">
-        <el-button
+        <router-link to="/FeedBack"><el-button
           size="mini"
           type="primary"
-          @click="handleFeedback(scope.$index, scope.row)">反馈</el-button>
+          @click="handleFeedback(scope.$index, scope.row)">反馈</el-button></router-link>
       </template>
     </el-table-column>
   </el-table>    
@@ -248,11 +257,16 @@
     :data="tableData"
     height="592"
     stripe
+    highlight-current-row
+    @current-change="handleCurrentChange4"
     style="width: 100%"
     :default-sort = "{prop: 'date', order: 'descending'}">
         <el-table-column type="expand">
       <template slot-scope="props">
         <el-form label-position="left"  class="demo-table-expand">
+          <el-form-item label="活动ID">
+            <span>{{ props.row.ID }}</span>
+          </el-form-item>
           <el-form-item label="活动名称">
             <span>{{ props.row.name }}</span>
           </el-form-item>
@@ -310,10 +324,10 @@
     </el-table-column>
         <el-table-column label="操作">
       <template slot-scope="scope">
-        <el-button
+         <router-link to="/ApplySite"><el-button
           size="mini"
           type="success"
-          @click="handleRenew(scope.$index, scope.row)">重新申请</el-button>
+          @click="handleRenew(scope.$index, scope.row)">重新申请</el-button></router-link>
       </template>
     </el-table-column>
   </el-table>    
@@ -452,6 +466,22 @@ export default {
       handleRenew(index, row) {
         console.log(index, row);
       },
+      handleCurrentChange1(val) {
+        this.currentRow = val;
+        this.$router.push('/RecordDetails')
+      },
+            handleCurrentChange2(val) {
+        this.currentRow = val;
+        this.$router.push('/RecordDetails')
+      },
+            handleCurrentChange3(val) {
+        this.currentRow = val;
+        this.$router.push('/RecordDetails')
+      },
+            handleCurrentChange4(val) {
+        this.currentRow = val;
+        this.$router.push('/RecordDetails')
+      }
     }
 }
 </script>

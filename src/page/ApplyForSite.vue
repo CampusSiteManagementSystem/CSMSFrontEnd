@@ -65,9 +65,7 @@
                 </table>
             </div>
             <div style="margin: 20px 0;"></div>
-            <router-link to="/">
-                <el-button type="primary" class="submit">提交</el-button>
-            </router-link>
+                <el-button type="primary" class="submit"  @click="open">提交</el-button>
             <router-link to="/" tag='el-button' class="cancel">取消</router-link>
         </div>
     </div>
@@ -297,6 +295,7 @@
             label: '组件交互文档'
           }]
         }],
+        id:'222222',
         site: [],
         date: '',
         time: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
@@ -309,7 +308,7 @@
     methods: {
       handleChange(value) {
         console.log(value);
-              },
+      },
       getSite(value){
         JSON.parse(JSON.stringify(value));
         console.log(this.site);
@@ -317,6 +316,19 @@
       getTime(value){
         JSON.parse(JSON.stringify(value));
         console.log(this.time);
+      },
+      open() {
+        this.$alert('您的活动ID为'+this.id, '活动ID分配', {
+          confirmButtonText: '确定',
+          callback: action => {
+          if (action === 'confirm') {
+            this.$message({
+              type: 'success',
+              message: '申请成功'
+            });
+          }
+          }
+        });
       }
     }
   };
