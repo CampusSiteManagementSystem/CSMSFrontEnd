@@ -45,6 +45,8 @@
 </template>
 
 <script>
+
+
 export default {
   data() {
     return {
@@ -73,6 +75,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //提交表单到后台验证身份，并路由到指定页面
+          this.$router.push("/StudentFrame");
           alert("submit!");
         } else {
           alert("Recomplete!");
