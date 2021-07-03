@@ -88,7 +88,7 @@
  </template>
 
 <!-- 布局容器的style -->
-<style>
+<style scoped>
   .el-header {
     background-color: #B3C0D1;
     color: #333;

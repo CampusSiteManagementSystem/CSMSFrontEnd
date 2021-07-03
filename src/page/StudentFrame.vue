@@ -7,25 +7,25 @@
             <img src="../assets/TongJiLogo.jpg" class="logoImage" />
             <p>校园场地管理系统</p>
           </el-row>
-          <el-menu mode="vertical" default-active="Main" router>
+          <el-menu mode="vertical" default-active="StudentFrame" router>
             <el-menu-item index="Main">
               <i class="el-icon-s-home"></i
               ><!--to do添加route属性-->
               主页
             </el-menu-item>
-            <el-menu-item index="2">
+            <el-menu-item index="ShowMap">
               <i class="el-icon-map-location"></i>
               查看地图
             </el-menu-item>
-            <el-menu-item index="3">
+            <el-menu-item index="ShowPlaceDetail">
               <i class="el-icon-location"></i>
               查找地点
             </el-menu-item>
-            <el-menu-item index="4">
+            <el-menu-item index="ShowSchedule">
               <i class="el-icon-s-claim"></i>
               查找活动
             </el-menu-item>
-            <el-menu-item index="5">
+            <el-menu-item index="2">
               <i class="el-icon-s-custom"></i>
               查找组织
             </el-menu-item>
