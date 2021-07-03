@@ -23,6 +23,12 @@ const routes = [{
     },
     //学生页面
     {
+        path: '/ForgetPassword',
+        name: 'ForgetPassword',
+        component: () =>
+            import ('../page/ForgetPassword.vue')
+    },
+    {
         path: "/StudentFrame",
         component: () =>
             import ('../page/StudentFrame.vue'),
