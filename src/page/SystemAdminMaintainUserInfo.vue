@@ -4,7 +4,7 @@
       <h2>用户信息维护</h2>
     </div>
     <div class="search">
-      <el-select v-model="value" filterable placeholder="请选择">
+      <el-select v-model="value1" filterable placeholder="请选择">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -16,16 +16,14 @@
 
       <el-select
         class="keysearch"
-        v-model="value"
+        v-model="value2"
         multiple
         filterable
         remote
         reserve-keyword
         placeholder="请输入关键词"
-        :remote-method="remoteMethod"
-        :loading="loading"
       >
-      </el-select>
+      </el-select>  
       <router-link
         to="/accountmodifylist"
         tag="el-button"
@@ -57,6 +55,10 @@
 export default {
   data() {
     return {
+    
+      value1:"",
+      value2:"",
+
       tableData: [
         {
           name: "公关部",
@@ -83,7 +85,21 @@ export default {
           name: "钢琴协会",
         },
       ],
+
+        options: [{
+          value: '选项1',
+          label: '公关部'
+        }, {
+          value: '选项2',
+          label: '钢琴协会'
+        }, {
+          value: '选项3',
+          label: '定向越野协会'
+        }],
+
+
     };
   },
+
 };
 </script>

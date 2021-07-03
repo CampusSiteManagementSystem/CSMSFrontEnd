@@ -35,7 +35,7 @@
     </el-row>
 
     <div class="submit">
-      <el-button type="primary">提交</el-button>
+      <el-button type="primary" @click="success">提交</el-button>
     </div>
   </div>
 </template>
@@ -52,8 +52,8 @@
 }
 
 .info {
-  background-color: rgb(7, 7, 7);
-  background: rgba(7, 7, 7, 0.116);
+  /* background-color: rgb(7, 7, 7);
+  background: rgba(7, 7, 7, 0.116); */
   text-align: left;
 }
 
@@ -81,5 +81,21 @@ export default {
       textarea: "",
     };
   },
+
+methods: {
+
+  success() {
+        this.$alert('审核成功！', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              message: `action: ${ action }`
+            });
+          }
+        });
+      }
+}
+
 };
 </script>

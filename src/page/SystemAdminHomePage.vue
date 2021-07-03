@@ -7,8 +7,8 @@
                 <h4>Campus Site Management</h4>
             </div>
             <div class="select">
-                <router-link to="/SystemAdminFrame" tag='el-button' class="el-icon-user choose-button">维护用户信息</router-link>
-                <router-link to="/testl" tag='el-button' class="el-icon-coordinate choose-button">审批组织注册</router-link>
+                <router-link to="/SystemAdminFrame/SystemAdminMaintainUserInfo" tag='el-button' class="el-icon-user choose-button">维护用户信息</router-link>
+                <router-link to="/SystemAdminFrame/SystemAdminGroupVerifyList" tag='el-button' class="el-icon-coordinate choose-button">审批组织注册</router-link>
                 <router-link to="/test" tag='el-button' class="el-icon-message choose-button">发布系统公告</router-link>
             </div>
         </div>

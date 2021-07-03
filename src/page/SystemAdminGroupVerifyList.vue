@@ -24,9 +24,6 @@
             </el-table-column>
             <el-table-column label="操作" width="150">
               <template>
-                <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-            >审核
-          </el-button> -->
                 <router-link to="/SystemAdminFrame/SystemAdminGroupVerify" tag="el-button" type="primary"
                   >审核</router-link
                 >

@@ -9,8 +9,7 @@
         <el-menu
           :default-active="$route.path"
           class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
+          
           style="height=100%"
           router
         >
@@ -34,14 +33,15 @@
       </el-aside>
 
       <el-container>
-        <el-header style="text-align: right; font-size: 12px">
-          <el-dropdown>
-            <i class="el-icon-setting" style="margin-right: 15px"></i>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>个人信息</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+        <el-header style="text-align: right; font-size: 15px; display: inline-block;">
           <span>系统管理员</span>
+          <!-- <img src="../assets/TongJiLogo.jpg" class="adminImage" /> -->
+          
+           <router-link to="/SystemAdminFrame/SystemAdminAccountModify" tag="el-link" underline="false" class="personalButton"
+            >编辑信息</router-link
+          >
+
+
         </el-header>
 
         <el-main>
@@ -59,15 +59,25 @@
   background-color: #b3c0d1;
   color: #333;
   line-height: 60px;
+
 }
 
 .el-aside {
   color: #333;
 }
 
+
 .logoImage {
   height: 25%;
   width: 25%;
+}
+
+.adminImage{
+  height:50px;
+  width:50px;
+  border-radius: 50%;
+  position:relative;
+  margin-top:0.5%;
 }
 
 .search {
@@ -94,5 +104,23 @@ export default {
       value: "",
     };
   },
+
+  methods: {
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
+    },
+
+    handleEdit(index, row) {
+      console.log(index, row);
+    },
+    handleDelete(index, row) {
+      console.log(index, row);
+    },
+  },
+
+
 };
 </script>

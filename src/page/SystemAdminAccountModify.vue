@@ -4,7 +4,7 @@
       <h2>用户信息</h2>
     </div>
 
-    <el-row gutter="10">
+    <el-row>
       <el-col :span="6"
         ><div class="pic">
           <img src="../assets/logo.png" class="pic" /></div
@@ -35,7 +35,7 @@
       ></el-col>
     </el-row>
     <div class="modify">
-      <el-button type="primary">编辑</el-button>
+      <el-button type="primary" @click="success">编辑</el-button>
     </div>
   </div>
 </template>
@@ -89,5 +89,22 @@ export default {
       textarea: "",
     };
   },
+
+methods: {
+
+  success() {
+        this.$alert('编辑成功！', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              message: `action: ${ action }`
+            });
+          }
+        });
+      }
+}
+
+
 };
 </script>
