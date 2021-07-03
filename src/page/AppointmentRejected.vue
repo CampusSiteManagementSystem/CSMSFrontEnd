@@ -2,7 +2,7 @@
     <div class="page">
         <div class="background">
             <div style="height: 300px;" class="progress">
-  <el-steps direction="vertical" :active="3" finish-status="success">
+  <el-steps direction="vertical" :model="formInline" :active="2" finish-status="success" process-status="error">
     <el-step title="申请预约">
         <template slot="description">
                   <p>活动名称：{{formInline.area}}</p>
@@ -10,11 +10,16 @@
         </template>
     </el-step>
     <el-step title="待审核" description="审核已经结束"></el-step>
-    <el-step title="已完成" description="审核已经完成"></el-step>
+    <el-step title="被驳回">
+        <template slot="description">
+                  <p>审核结果：不通过</p>
+                  <p>驳回原因：该睡觉了</p>
+        </template>
+    </el-step>
   </el-steps>
 </div>
-            <i class="el-icon-success"></i>
-            <span id="applytitle">审核通过</span>
+            <i class="el-icon-error"></i>
+            <span id="applytitle">审核失败</span>
             <div id="content">
                 <p><b>预约信息</b></p>
                 <el-form ref="form" :model="formInline" label-width="150px" label-position="left">
@@ -74,12 +79,12 @@ export default {
     methods:{
         reviewopinion(idea){
             if(idea){
-                this.checked1=false;
-                this.checked2=true;
-            }
-            else{
                 this.checked1=true;
                 this.checked2=false;
+            }
+            else{
+                this.checked1=false;
+                this.checked2=true;
             }
         }
     }
@@ -107,10 +112,10 @@ export default {
     position:relative;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 }
-.el-icon-success{
+.el-icon-error{
     margin:0;
     position: relative;
-    color:rgb(15, 201, 25);
+    color:rgb(216, 52, 24);
     font-size:180px;
     left:100px;
     top:-110px;

@@ -2,19 +2,19 @@
     <div class="page">
         <div class="background">
             <div style="height: 300px;" class="progress">
-  <el-steps direction="vertical" :active="3" finish-status="success">
+  <el-steps direction="vertical" :model="formInline" :active="1" finish-status="success">
     <el-step title="申请预约">
         <template slot="description">
                   <p>活动名称：{{formInline.area}}</p>
                   <p>活动时间：{{formInline.time}}</p>
         </template>
     </el-step>
-    <el-step title="待审核" description="审核已经结束"></el-step>
-    <el-step title="已完成" description="审核已经完成"></el-step>
+    <el-step title="待审核" description="请等待审核"></el-step>
+    <el-step title="审核状态" description="请等待审核结果"></el-step>
   </el-steps>
 </div>
-            <i class="el-icon-success"></i>
-            <span id="applytitle">审核通过</span>
+            <i class="el-icon-time"></i>
+            <span id="applytitle">等待审核</span>
             <div id="content">
                 <p><b>预约信息</b></p>
                 <el-form ref="form" :model="formInline" label-width="150px" label-position="left">
@@ -38,10 +38,6 @@
                     </el-form-item>
                     <el-form-item label="活动描述">
                         <span>{{formInline.details}}</span>
-                    </el-form-item>
-                    <el-form-item label="审核意见">
-                        <el-checkbox v-model="checked1" v-on="reviewopinion(formInline.idea)" disabled>通过</el-checkbox>
-                        <el-checkbox v-model="checked2" disabled>不通过</el-checkbox>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -74,12 +70,12 @@ export default {
     methods:{
         reviewopinion(idea){
             if(idea){
-                this.checked1=false;
-                this.checked2=true;
-            }
-            else{
                 this.checked1=true;
                 this.checked2=false;
+            }
+            else{
+                this.checked1=false;
+                this.checked2=true;
             }
         }
     }
@@ -107,10 +103,10 @@ export default {
     position:relative;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 }
-.el-icon-success{
+.el-icon-time{
     margin:0;
     position: relative;
-    color:rgb(15, 201, 25);
+    color:rgb(102, 190, 241);
     font-size:180px;
     left:100px;
     top:-110px;

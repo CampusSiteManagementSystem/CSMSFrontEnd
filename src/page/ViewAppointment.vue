@@ -468,11 +468,11 @@ export default {
       },
       handleCurrentChange1(val) {
         this.currentRow = val;
-        this.$router.push('/RecordDetails')
+        //this.$router.push('/RecordDetails')
       },
             handleCurrentChange2(val) {
         this.currentRow = val;
-        this.$router.push('/RecordDetails')
+        this.$router.push('/Pending')
       },
             handleCurrentChange3(val) {
         this.currentRow = val;
@@ -480,7 +480,7 @@ export default {
       },
             handleCurrentChange4(val) {
         this.currentRow = val;
-        this.$router.push('/RecordDetails')
+        this.$router.push('/Rejected')
       }
     }
 }
