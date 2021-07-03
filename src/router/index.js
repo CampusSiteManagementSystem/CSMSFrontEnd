@@ -21,6 +21,7 @@ const routes = [{
         component: () =>
             import ('../page/Register.vue')
     },
+    //学生页面
     {
         path: '/ForgetPassword',
         name: 'ForgetPassword',
