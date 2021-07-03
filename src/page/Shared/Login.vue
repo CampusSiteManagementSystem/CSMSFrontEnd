@@ -1,7 +1,7 @@
 <template>
   <div class="IdentitySelectionPage">
     <img
-      src="../assets/IdentitySelection.jpg"
+      src="../../assets/IdentitySelection.jpg"
       class="IdentitySelectionBackImage"
     />
     <div class="IdentitySelectionContainer">
@@ -85,8 +85,8 @@ export default {
 </script>
 
 <style scoped>
-@import "../css/IdentitySelection.css";
-@import "../css/Login.css";
+@import "../../css/IdentitySelection.css";
+@import "../../css/Login.css";
 
 h1,
 h4 {

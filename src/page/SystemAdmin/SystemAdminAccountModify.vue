@@ -7,7 +7,7 @@
     <el-row>
       <el-col :span="6"
         ><div class="pic">
-          <img src="../assets/logo.png" class="pic" /></div
+          <img src="../../assets/logo.png" class="pic" /></div
       ></el-col>
 
       <el-col :span="6"

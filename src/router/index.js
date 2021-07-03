@@ -7,56 +7,56 @@ const routes = [{
         path: '/',
         name: 'Home',
         component: () =>
-            import ('../page/IdentitySelection.vue')
+            import ('../page/Shared/IdentitySelection.vue')
     },
     {
         path: '/Login',
         name: 'Login',
         component: () =>
-            import ('../page/Login.vue')
+            import ('../page/Shared/Login.vue')
     },
     {
         path: '/Register',
         name: 'Register',
         component: () =>
-            import ('../page/Register.vue')
+            import ('../page/Shared/Register.vue')
     },
     //学生页面
     {
         path: '/ForgetPassword',
         name: 'ForgetPassword',
         component: () =>
-            import ('../page/ForgetPassword.vue')
+            import ('../page/Shared/ForgetPassword.vue')
     },
     {
         path: "/StudentFrame",
         component: () =>
-            import ('../page/StudentFrame.vue'),
+            import ('../page/Student/StudentFrame.vue'),
         children: [{
             path: "Main",
             name: "StudentFrameMain",
             component: () =>
-                import ('../page/StudentMain.vue')
+                import ('../page/Student/StudentMain.vue')
         }, {
             path: "Favorite",
             name: "StudentFrameFavorite",
             component: () =>
-                import ('../page/StudentFavorite.vue')
+                import ('../page/Student/StudentFavorite.vue')
         }, {
             path: "ShowMap",
             name: "ShowMap",
             component: () =>
-                import ('../page/ShowMap.vue')
+                import ('../page/Shared/ShowMap.vue')
         }, {
             path: "ShowPlaceDetail",
             name: "ShowPlaceDetail",
             component: () =>
-                import ('../page/ShowPlaceDetail.vue')
+                import ('../page/Shared/ShowPlaceDetail.vue')
         }, {
             path: "ShowSchedule",
             name: "ShowSchedule",
             component: () =>
-                import ('../page/ShowSchedule.vue')
+                import ('../page/Shared/ShowSchedule.vue')
         }]
     },
     //系统管理员
@@ -64,36 +64,36 @@ const routes = [{
         path: "/SystemAdminHomePage",
         name: "SystemAdminHomePage",
         component: () =>
-            import ('../page/SystemAdminHomePage.vue'),
+            import ('../page/SystemAdmin/SystemAdminHomePage.vue'),
     },
     {
         path: "/SystemAdminFrame",
         name: "SystemAdminFrame",
         component: () =>
-            import ('../page/SystemAdminFrame.vue'),
+            import ('../page/SystemAdmin/SystemAdminFrame.vue'),
         children: [{
                 path: "SystemAdminGroupVerifyList",
                 name: "SystemAdminGroupVerifyList",
                 component: () =>
-                    import ('../page/SystemAdminGroupVerifyList.vue')
+                    import ('../page/SystemAdmin/SystemAdminGroupVerifyList.vue')
             },
             {
                 path: "SystemAdminMaintainUserInfo",
                 name: "SystemAdminMaintainUserInfo",
                 component: () =>
-                    import ('../page/SystemAdminMaintainUserInfo.vue')
+                    import ('../page/SystemAdmin/SystemAdminMaintainUserInfo.vue')
             },
             {
                 path: "SystemAdminAccountModify",
                 name: "SystemAdminAccountModify",
                 component: () =>
-                    import ('../page/SystemAdminAccountModify.vue')
+                    import ('../page/SystemAdmin/SystemAdminAccountModify.vue')
             },
             {
                 path: "SystemAdminGroupVerify",
                 name: "SystemAdminGroupVerify",
                 component: () =>
-                    import ('../page/SystemAdminGroupVerify.vue')
+                    import ('../page/SystemAdmin/SystemAdminGroupVerify.vue')
             }
         ]
     },
@@ -104,73 +104,73 @@ const routes = [{
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-            import ('../page/OrganizationFrame.vue'),
+            import ('../page/Organization/OrganizationFrame.vue'),
         children: [{
             path: '/CheckSite',
             name: 'CreditSiteWindow',
             component: () =>
-                import ('../page/check_site.vue')
+                import ('../page/Shared/check_site.vue')
         }, {
             path: '/CheckActivity',
             name: 'CreditActivityWindow',
             component: () =>
-                import ('../page/check_activity.vue')
+                import ('../page/Shared/check_activity.vue')
         }, {
             path: '/CheckOrgan',
             name: 'CreditOrganWindow',
             component: () =>
-                import ('../page/check_organ.vue')
+                import ('../page/Shared/check_organ.vue')
         }, {
             path: '/CreditScore',
             name: 'CreditScoreWindow',
             component: () =>
-                import ('../page/ViewCreditScore.vue')
+                import ('../page/Organization/ViewCreditScore.vue')
         }, {
             path: '/Appointment',
             name: 'AppointmentWindow',
             component: () =>
-                import ('../page/ViewAppointment.vue')
+                import ('../page/Organization/ViewAppointment.vue')
         }, {
             path: '/RecordDetails',
             name: 'RecordWindow',
             component: () =>
-                import ('../page/RecordDetails.vue')
+                import ('../page/Organization/RecordDetails.vue')
         }, {
             path: '/FeedBack',
             name: 'FeedBackWindow',
             component: () =>
-                import ('../page/SiteFeedback.vue')
+                import ('../page/Organization/SiteFeedback.vue')
         }, {
             path: '/ApplySite',
             name: 'ApplySiteWindow',
             component: () =>
-                import ('../page/ApplyForSite.vue')
+                import ('../page/Organization/ApplyForSite.vue')
         }, {
             path: '/ShowMap',
             name: 'ShowMap',
             component: () =>
-                import ('../page/ShowMap.vue')
+                import ('../page/Shared/ShowMap.vue')
         }, {
             path: '/ShowPlaceDetail',
             name: 'conttestent',
             component: () =>
-                import ('../page/ShowPlaceDetail.vue')
+                import ('../page/Shared/ShowPlaceDetail.vue')
         }, {
             path: '/ShowMap',
             name: 'ShowMap',
             component: () =>
-                import ('../page/ShowMap.vue')
+                import ('../page/Shared/ShowMap.vue')
         }, {
             path: '/ShowSchedule',
             name: 'ShowSchedule',
             component: () =>
-                import ('../page/ShowSchedule.vue')
+                import ('../page/Shared/ShowSchedule.vue')
         }]
     }, {
         path: '/wywt',
         name: 'wywtWindow',
         component: () =>
-            import ('../page/SearchPlace.vue')
+            import ('../page/Shared/SearchPlace.vue')
     }
 ]
 

@@ -1,7 +1,7 @@
 <template>
   <div class="IdentitySelectionPage">
     <img
-      src="../assets/IdentitySelection.jpg"
+      src="../../assets/IdentitySelection.jpg"
       class="IdentitySelectionBackImage"
     />
     <div class="IdentitySelectionContainer">
@@ -24,7 +24,7 @@
               clearable
             ></el-input>
           </el-form-item>
-          <el-form-item label="密码" class="label-color" prop="password">
+          <!-- <el-form-item label="密码" class="label-color" prop="password">
             <el-input
               v-model="form.password"
               showPassword
@@ -44,7 +44,7 @@
               placeholder="请再次输入密码"
               clearable
             ></el-input>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="邮箱" class="label-color" prop="email">
             <el-row type="flex">
               <el-input
@@ -93,28 +93,28 @@ export default {
             trigger: "change",
           },
         ],
-        password: [
-          { required: true, message: "请输入密码", trigger: "change" },
-          {
-            pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,10}$/,
-            message:
-              "密码必须包含大小写字母和数字的组合，长度8-10，不能使用特殊字符",
-            trigger: "change",
-          },
-        ],
-        checkPassword: [
-          { required: true, message: "请再次输入密码", trigger: "change" },
-          {
-            validator: (rule, value, callback) => {
-              if (value !== this.form.password) {
-                callback(new Error("两次输入密码不一致"));
-              } else {
-                callback();
-              }
-            },
-            trigger: "change",
-          },
-        ],
+        // password: [
+        //   { required: true, message: "请输入密码", trigger: "change" },
+        //   {
+        //     pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,10}$/,
+        //     message:
+        //       "密码必须包含大小写字母和数字的组合，长度8-10，不能使用特殊字符",
+        //     trigger: "change",
+        //   },
+        // ],
+        // checkPassword: [
+        //   { required: true, message: "请再次输入密码", trigger: "change" },
+        //   {
+        //     validator: (rule, value, callback) => {
+        //       if (value !== this.form.password) {
+        //         callback(new Error("两次输入密码不一致"));
+        //       } else {
+        //         callback();
+        //       }
+        //     },
+        //     trigger: "change",
+        //   },
+        // ],
         email: [
           { required: true, message: "请填写邮箱", trigger: "change" },
           { type: "email", message: "请填写正确的邮箱", trigger: "change" },
@@ -156,7 +156,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../css/IdentitySelection.css";
+@import "../../css/IdentitySelection.css";
 
 .IdentitySelectionChooseButton {
   width: auto;

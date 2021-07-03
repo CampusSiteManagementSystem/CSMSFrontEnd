@@ -1,7 +1,7 @@
 <template>
   <div class="IdentitySelectionPage">
     <img
-      src="../assets/IdentitySelection.jpg"
+      src="../../assets/IdentitySelection.jpg"
       class="IdentitySelectionBackImage"
     />
     <div class="IdentitySelectionContainer">
@@ -47,7 +47,7 @@ export default {};
 </script>
 
 <style scoped>
-@import "../css/IdentitySelection.css";
+@import "../../css/IdentitySelection.css";
 
 .IdentitySelectionChooseButton {
   width: auto;

@@ -3,7 +3,7 @@
     <el-container style="height: 500px; border: 1px solid #eee">
       <el-aside width="200px" style="background-color: rgb(255, 255, 255)">
         <el-row type="flex">
-          <img src="../assets/logo.png" class="logoImage" />
+          <img src="../../assets/logo.png" class="logoImage" />
           <p>校园场地管理系统</p>
         </el-row>
         <el-menu
@@ -35,7 +35,7 @@
       <el-container>
         <el-header style="text-align: right; font-size: 15px; display: inline-block;">
           <span>系统管理员</span>
-          <!-- <img src="../assets/TongJiLogo.jpg" class="adminImage" /> -->
+          <!-- <img src="../../assets/TongJiLogo.jpg" class="adminImage" /> -->
           
            <router-link to="/SystemAdminFrame/SystemAdminAccountModify" tag="el-link" underline="false" class="personalButton"
             >编辑信息</router-link

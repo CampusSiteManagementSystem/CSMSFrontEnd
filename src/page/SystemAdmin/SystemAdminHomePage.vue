@@ -1,6 +1,6 @@
 <template>
     <div class="page"> 
-         <img src="../assets/SystemHp.png" class="image">
+         <img src="../../assets/SystemHp.png" class="image">
         <div class="container">
             <div>
                 <h1>校园场地管理系统</h1>
