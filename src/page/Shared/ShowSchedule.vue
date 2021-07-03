@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import CourseTable from "../components/CourseTable.vue";
-import PicCard from "../components/PicCard.vue";
+import CourseTable from "../../components/CourseTable.vue";
+import PicCard from "../../components/PicCard.vue";
 export default {
   name: "ScheduleAndPic",
   components: {

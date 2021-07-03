@@ -4,7 +4,7 @@
       <el-aside style="width: 15%">
         <div>
           <el-row type="flex">
-            <img src="../assets/TongJiLogo.jpg" class="logoImage" />
+            <img src="../../assets/TongJiLogo.jpg" class="logoImage" />
             <p>校园场地管理系统</p>
           </el-row>
           <el-menu mode="vertical" default-active="Main" router>
