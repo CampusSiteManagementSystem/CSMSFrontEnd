@@ -34,7 +34,8 @@
           </el-form-item>
           <el-row type="flex" justify="center" class="bottom-margin">
             <router-link to="/Register" tag="el-button">注册</router-link>
-            <el-button>忘记密码</el-button>
+            <router-link to="/ForgetPassword" tag="el-button">忘记密码</router-link>
+            <!-- <el-button>忘记密码</el-button> -->
             <el-button @click="submitForm('LoginForm')">登录</el-button>
           </el-row>
         </el-form>
