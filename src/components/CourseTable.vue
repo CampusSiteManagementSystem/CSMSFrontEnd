@@ -1,12 +1,11 @@
 <template>
   <div class="courese" style="padding: 3%">
-    <div class="block">
-      <div style="text-align: center; padding: 3%">场地占用时间表</div>
-      <span class="demonstration"></span>
+    <div slot="header" class="clearfix" style="text-align: center; padding:2%"> 
       <el-date-picker v-model="value1" type="date" placeholder="选择日期">
       </el-date-picker>
-    </div>
-    <el-table :data="tableData" border style="width: 100%,margin:13%" >
+  </div>
+    
+    <el-table :data="tableData" border style="width: 100%" >
       <el-table-column prop="date" label="时间"> </el-table-column>
       <el-table-column prop="mon" label="周一" > </el-table-column>
       <el-table-column prop="tue" label="周二"> </el-table-column>
@@ -14,7 +13,7 @@
       <el-table-column prop="thu" label="周四"> </el-table-column>
       <el-table-column prop="fri" label="周五"> </el-table-column>
       <el-table-column prop="sat" label="周六"> </el-table-column>
-      <!-- <el-table-column prop="sun" label="周日"> </el-table-column> -->
+      <el-table-column prop="sun" label="周日"> </el-table-column>
     </el-table>
   </div>
 </template>
@@ -47,5 +46,20 @@ export default {
 <style scoped>
 .block {
   text-align: center;
-}
+}.text {
+    font-size: 14px;
+  }
+
+  .item {
+    margin-bottom: 10px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
 </style>>
