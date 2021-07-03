@@ -136,6 +136,16 @@ const routes = [{
             component: () =>
                 import ('../page/Organization/RecordDetails.vue')
         }, {
+            path: '/Pending',
+            name: 'PendingWindow',
+            component: () =>
+                import ('../page/Organization/PendingReview.vue')
+        }, {
+            path: '/Rejected',
+            name: 'RejectedWindow',
+            component: () =>
+                import ('../page/Organization/AppointmentRejected.vue')
+        }, {
             path: '/FeedBack',
             name: 'FeedBackWindow',
             component: () =>
