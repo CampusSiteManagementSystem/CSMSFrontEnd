@@ -11,11 +11,7 @@
     "core-js": "^3.6.5",
     "echarts": "^5.1.1",
     "element-ui": "^2.15.2",
-<<<<<<< HEAD
     "mapbox-gl": "^2.3.1",
-=======
-    "mapbox-gl": "^2.3.0",
->>>>>>> origin/FrontEnd
     "vue": "^2.6.11",
     "vue-router": "^3.2.0"
   },

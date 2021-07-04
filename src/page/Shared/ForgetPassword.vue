@@ -24,27 +24,7 @@
               clearable
             ></el-input>
           </el-form-item>
-          <!-- <el-form-item label="密码" class="label-color" prop="password">
-            <el-input
-              v-model="form.password"
-              showPassword
-              placeholder="请输入密码"
-              clearable
-            ></el-input>
-          </el-form-item>
-          <el-form-item
-            label="确认密码"
-            class="label-color"
-            prop="checkPassword"
-            clearable
-          >
-            <el-input
-              v-model="form.checkPassword"
-              showPassword
-              placeholder="请再次输入密码"
-              clearable
-            ></el-input>
-          </el-form-item> -->
+          
           <el-form-item label="邮箱" class="label-color" prop="email">
             <el-row type="flex">
               <el-input
@@ -62,8 +42,29 @@
               clearable
             ></el-input>
           </el-form-item>
+          <el-form-item label="新密码" class="label-color" prop="password">
+            <el-input
+              v-model="form.password"
+              showPassword
+              placeholder="请输入新密码"
+              clearable
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="确认密码"
+            class="label-color"
+            prop="checkPassword"
+            clearable
+          >
+            <el-input
+              v-model="form.checkPassword"
+              showPassword
+              placeholder="请再次输入密码"
+              clearable
+            ></el-input>
+          </el-form-item>
           <el-row type="flex" justify="center" class="bottom-margin">
-            <el-button @click="submitForm('RegisterForm')">注册</el-button>
+            <el-button @click="submitForm('RegisterForm')">找回</el-button>
           </el-row>
         </el-form>
       </div>
@@ -144,7 +145,7 @@ export default {
           //校验邮箱验证码，然后发送请求
           //to do
           //向后端请求创建账户
-          alert("用户创建成功"); //just test
+          alert("用户密码修改成功"); //just test
         } else {
           this.$refs[formName].resetFields();
           alert("填写数据有误，请重新填写!");
