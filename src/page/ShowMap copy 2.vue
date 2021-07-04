@@ -11,7 +11,10 @@
       <!-- See a list of Mapbox-hosted public styles at -->
       <!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles -->
       <label for="satellite-v9">satellite</label>
-      <PopMeg v-show=False building="b" all=1 freeRoom=13 description="a" />
+      <PopMeg  building= "b"
+              all= "1"
+              freeRoom= "13"
+              description= "a"/>
     </div>
     <div id="menu"></div>
   </div>
@@ -264,33 +267,33 @@ export default {
           //填充弹出窗口，并根据找到的特性设置其坐标。
           console.log(description);
 
-          const p = Vue.extend(PopMeg);
-          let vm = new p({
+          // const p = Vue.extend(Popup);
+          // let vm = new p({
+          //   propsData: {
+          //     obj: that.videoObj,
+          //     isShowName: true,
+          //   }, //传参
+          // });
+          // vm.$mount(); //挂载
+          // this.popupHTML = vm.$el;
+          var popupHTML = '<div id="base-detail"></div>'
+
+          var Comp = Vue.extend(PopMeg);
+          //只用于 new 创建的实例时传递 props.
+          var vm = new Comp({// eslint-disable-line no-unused-vars
+
             propsData: {
               building: "a",
               all: 13,
               freeRoom: 13,
               description: "1212",
-            }, //传参
-          }).$mount();
-          // vm.$mount(); //挂载
-          // this.popupHTML = vm.$el;
-          // var popupHTML = '<div id="base-detail"></div>'
+            },
+          }).$mount('#base-detail');
 
-          // var Comp = Vue.extend(PopMeg);
-          // //只用于 new 创建的实例时传递 props.
-          // var vm = new Comp({// eslint-disable-line no-unused-vars
+          
 
-          //   propsData: {
-          //     building: "a",
-          //     all: 13,
-          //     freeRoom: 13,
-          //     description: "1212",
-          //   },
-          // }).$mount('#base-detail');
-          console.log(vm.$el);
 
-          popup.setLngLat(coordinates).setHTML(vm.$el.innerHTML).addTo(map);
+          popup.setLngLat(coordinates).setHTML(popupHTML).addTo(map);
         });
 
         map.on("mouseleave", "places", function () {
