@@ -21,7 +21,7 @@
         <el-table-column prop="state" label="状态" width="100">
         </el-table-column>
         <el-table-column width="80">
-            <router-link to="/GroundsmanFrame/ActivityInfo"><el-button type="primary">查看</el-button></router-link>
+            <router-link to="/ActivityInfo"><el-button type="primary">查看</el-button></router-link>
         </el-table-column>
         <el-table-column>
 

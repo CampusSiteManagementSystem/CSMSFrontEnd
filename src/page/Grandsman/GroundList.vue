@@ -26,7 +26,11 @@
             <el-table-column prop="description" label="描述" width="300">
             </el-table-column>
             <el-table-column width="180">
-              <router-link to="/groundinfo"><el-button type="primary">编辑信息</el-button></router-link>
+              <template slot-scope="scope">
+              <router-link
+              :to="{ name: 'GroundInfo', params: { ID: scope.row.id } }"
+            ><el-button type="primary">编辑信息</el-button></router-link>
+              </template>
             </el-table-column>
         </el-table>
     </el-card>

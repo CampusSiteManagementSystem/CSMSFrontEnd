@@ -175,58 +175,82 @@ const routes = [{
 
     //场地管理员
     {
-        path: '/GroundsmanFrame',
+        path: '/Groundsman',
         component: () =>
             // import ('../components/personinfocard')
             import ('../page/Grandsman/GroundsmanFrame'),
         children: [{
-                path: "Home",
-                name: "Home",
-                component: () =>
-                    import ('../page/Grandsman/GroundsmanHome.vue')
-            },
-            {
-                path: "ScoringActivityList",
-                name: "ScoringActivityList",
-                component: () =>
-                    import ('../page/Grandsman/ScoringActivityList.vue'),
-            },
-            {
-                path: "ScoringActivity/:ID",
-                name: "ScoringActivity",
-                component: () =>
-                    import ('../page/Grandsman/ScoringActivity'),
-            },
-            {
-                path: "ReleaseGroundAnnouncement",
-                name: "ReleaseGroundAnnouncement",
-                component: () =>
-                    import ('../page/Grandsman/ReleaseGroundAnnouncement'),
-            },
-            {
-                path: "ReviewActivityList",
-                name: "ReviewActivityList",
-                component: () =>
-                    import ('../page/Grandsman/ReviewActivityList'),
-            },
-            {
-                path: "GroundList",
-                name: "GroundList",
-                component: () =>
-                    import ('../page/Grandsman/GroundList'),
-            },
-            {
-                path: "ActivityInfo",
-                name: "ActivityInfo",
-                component: () =>
-                    import ('../page/Grandsman/ActivityInfo'),
-            },
-            // {
-            //   path: "test",
-            //   name: "test",
-            //   component: () =>
-            //     import('../page/Grandsman/待议29groundsman-creditdetail'),
-            // }
+          path: "/Home",
+          name: "Home",
+          component: () =>
+            import('../page/Grandsman/GroundsmanHome.vue')
+        },
+        {
+          path: "/ScoringActivityList",
+          name: "ScoringActivityList",
+          component: () =>
+            import('../page/Grandsman/ScoringActivityList.vue'),
+        },
+        {
+          path: "/ScoringActivity/:ID",
+          name: "ScoringActivity",
+          component: () =>
+            import('../page/Grandsman/ScoringActivity'),
+        },
+        {
+          path: "/ReleaseGroundAnnouncement",
+          name: "ReleaseGroundAnnouncement",
+          component: () =>
+            import('../page/Grandsman/ReleaseGroundAnnouncement'),
+        },
+        {
+            path: "/ReviewActivityList",
+            name: "ReviewActivityList",
+            component: () =>
+              import('../page/Grandsman/ReviewActivityList'),
+          },
+          {
+            path: "/GroundList",
+            name: "GroundList",
+            component: () =>
+              import('../page/Grandsman/GroundList'),
+          },
+          {
+            path: "/ActivityInfo",
+            name: "ActivityInfo",
+            component: () =>
+              import('../page/Grandsman/ActivityInfo'),
+          },
+          {
+            path: "/FeedbackActivityList",
+            name: "FeedbackActivityList",
+            component: () =>
+              import('../page/Grandsman/FeedbackActivityList'),
+          },
+          {
+            path: "/FeedbackInfo/:ID",
+            name: "FeedbackInfo",
+            component: () =>
+              import('../page/Grandsman/FeedbackInfo'),
+          },
+        //   {
+        //     path: "/AddCourse/:ID",
+        //     name: "AddCourse",
+        //     component: () =>
+        //       import('../page/Grandsman/AddCourse'),
+        //   },
+          {
+            path: "/GroundInfo/:ID",
+            name: "GroundInfo",
+            component: () =>
+              import('../page/Grandsman/GroundInfo'),
+          },
+          {
+            path: "/AddCourseGroundList",
+            name: "AddCourseGroundList",
+            component: () =>
+              import('../page/Grandsman/AddCourseGroundList'),
+          },
         ]
     },
 
