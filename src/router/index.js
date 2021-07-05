@@ -177,58 +177,58 @@ const routes = [{
     {
         path: '/GroundsmanFrame',
         component: () =>
-            // import ('../components/personinfocard')
-            import ('../page/Grandsman/GroundsmanFrame'),
+          // import ('../components/personinfocard')
+          import('../page/Grandsman/GroundsmanFrame'),
         children: [{
-                path: "Home",
-                name: "Home",
-                component: () =>
-                    import ('../page/Grandsman/GroundsmanHome.vue')
-            },
-            {
-                path: "ScoringActivityList",
-                name: "ScoringActivityList",
-                component: () =>
-                    import ('../page/Grandsman/ScoringActivityList.vue'),
-            },
-            {
-                path: "ScoringActivity/:ID",
-                name: "ScoringActivity",
-                component: () =>
-                    import ('../page/Grandsman/ScoringActivity'),
-            },
-            {
-                path: "ReleaseGroundAnnouncement",
-                name: "ReleaseGroundAnnouncement",
-                component: () =>
-                    import ('../page/Grandsman/ReleaseGroundAnnouncement'),
-            },
-            {
-                path: "ReviewActivityList",
-                name: "ReviewActivityList",
-                component: () =>
-                    import ('../page/Grandsman/ReviewActivityList'),
-            },
-            {
-                path: "GroundList",
-                name: "GroundList",
-                component: () =>
-                    import ('../page/Grandsman/GroundList'),
-            },
-            {
-                path: "ActivityInfo",
-                name: "ActivityInfo",
-                component: () =>
-                    import ('../page/Grandsman/ActivityInfo'),
-            },
-            // {
-            //   path: "test",
-            //   name: "test",
-            //   component: () =>
-            //     import('../page/Grandsman/待议29groundsman-creditdetail'),
-            // }
+          path: "Home",
+          name: "Home",
+          component: () =>
+            import('../page/Grandsman/GroundsmanHome.vue')
+        },
+        {
+          path: "ScoringActivityList",
+          name: "ScoringActivityList",
+          component: () =>
+            import('../page/Grandsman/ScoringActivityList.vue'),
+        },
+        {
+          path: "ScoringActivity/:ID",
+          name: "ScoringActivity",
+          component: () =>
+            import('../page/Grandsman/ScoringActivity'),
+        },
+        {
+          path: "ReleaseGroundAnnouncement",
+          name: "ReleaseGroundAnnouncement",
+          component: () =>
+            import('../page/Grandsman/ReleaseGroundAnnouncement'),
+        },
+        {
+            path: "ReviewActivityList",
+            name: "ReviewActivityList",
+            component: () =>
+              import('../page/Grandsman/ReviewActivityList'),
+          },
+          {
+            path: "GroundList",
+            name: "GroundList",
+            component: () =>
+              import('../page/Grandsman/GroundList'),
+          },
+          {
+            path: "ActivityInfo",
+            name: "ActivityInfo",
+            component: () =>
+              import('../page/Grandsman/ActivityInfo'),
+          },
+        // {
+        //   path: "test",
+        //   name: "test",
+        //   component: () =>
+        //     import('../page/Grandsman/待议29groundsman-creditdetail'),
+        // }
         ]
-    },
+      },
 
 
 ]
