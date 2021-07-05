@@ -131,6 +131,11 @@ const routes = [{
             component: () =>
                 import ('../page/Organization/ViewAppointment.vue')
         }, {
+            path: '/FinishActivity',
+            name: 'FinishWindow',
+            component: () =>
+                import ('../page/Organization/ViewFinishActivity.vue')
+        }, {
             path: '/RecordDetails',
             name: 'RecordWindow',
             component: () =>
