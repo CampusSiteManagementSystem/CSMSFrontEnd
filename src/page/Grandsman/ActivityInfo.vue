@@ -1,7 +1,7 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-      <h1>审批预约记录</h1>
+      <h1 class="maintitle">审批预约记录</h1>
       <el-card class="box-card">
       <el-row>
         <el-col :span="12"><b>组织名称：</b>{{organization}}</el-col>
@@ -34,7 +34,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="说明：">
-          <el-input type="textarea" v-model="form.comment" rows="8"></el-input>
+          <el-input type="textarea" v-model="form.comment" rows="3"></el-input>
         </el-form-item>
       </el-form>
       <el-button type="primary" @click="onSubmit">确认</el-button>
@@ -105,7 +105,10 @@ export default {
   h1{
     font-size: 25px;
   }
-
+  .maintitle {
+    text-align: center;
+    font-size: 27px;
+  }
   .bg-purple {
   background: #deedff;
   }

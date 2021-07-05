@@ -216,7 +216,7 @@ const routes = [{
               import('../page/Grandsman/GroundList'),
           },
           {
-            path: "/ActivityInfo",
+            path: "/ActivityInfo/:ID",
             name: "ActivityInfo",
             component: () =>
               import('../page/Grandsman/ActivityInfo'),

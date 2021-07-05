@@ -1,14 +1,13 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-<h1>维护场地信息</h1>
-    
-        <el-table :data="groundTable">
-            <el-table-column prop="name" label="场地名称" width="240">
+    <h1 class="maintitle">维护场地信息</h1>
+        <el-table :data="groundTable" height="520">
+            <el-table-column prop="name" label="场地名称" width="300">
             </el-table-column>
-            <el-table-column prop="id" label="场地ID" width="120">
+            <el-table-column prop="id" label="场地ID" width="150">
             </el-table-column>
-            <el-table-column prop="area" label="区域" width="160">
+            <el-table-column prop="area" label="区域" width="180">
             </el-table-column>
             <el-table-column
               prop="class"
@@ -23,13 +22,13 @@
                   disable-transitions>{{scope.row.class}}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column prop="description" label="描述" width="300">
+            <el-table-column prop="description" label="描述" width="330">
             </el-table-column>
-            <el-table-column width="180">
+            <el-table-column width="140">
               <template slot-scope="scope">
               <router-link
               :to="{ name: 'GroundInfo', params: { ID: scope.row.id } }"
-            ><el-button type="primary">编辑信息</el-button></router-link>
+            ><el-button type="text">编辑信息</el-button></router-link>
               </template>
             </el-table-column>
         </el-table>
@@ -64,6 +63,10 @@ export default {
     line-height: 50px;
     margin-left: 100px;
     margin-right: 100px;
+  }
+  .maintitle {
+    text-align: center;
+    font-size: 27px;
   }
   h1{
     font-size: 25px;
