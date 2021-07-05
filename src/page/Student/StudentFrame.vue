@@ -7,21 +7,21 @@
             <img src="../../assets/TongJiLogo.jpg" class="logoImage" />
             <p>校园场地管理系统</p>
           </el-row>
-          <el-menu mode="vertical" default-active="StudentFrame" router>
-            <el-menu-item index="Main">
+          <el-menu mode="vertical" default-active="/StudentFrame" router>
+            <el-menu-item index="/StudentFrame/Main">
               <i class="el-icon-s-home"></i
               ><!--to do添加route属性-->
               主页
             </el-menu-item>
-            <el-menu-item index="ShowMap">
+            <el-menu-item index="/StudentFrame/ShowMap">
               <i class="el-icon-map-location"></i>
               查看地图
             </el-menu-item>
-            <el-menu-item index="ShowPlaceDetail">
+            <el-menu-item index="/StudentFrame/ShowPlaceDetail">
               <i class="el-icon-location"></i>
               查找地点
             </el-menu-item>
-            <el-menu-item index="ShowSchedule">
+            <el-menu-item index="/StudentFrame/ShowSchedule">
               <i class="el-icon-s-claim"></i>
               查找活动
             </el-menu-item>
@@ -29,7 +29,7 @@
               <i class="el-icon-s-custom"></i>
               查找组织
             </el-menu-item>
-            <el-menu-item index="Favorite">
+            <el-menu-item index="/StudentFrame/Favorite">
               <i class="el-icon-s-flag"></i>
               查看收藏
             </el-menu-item>
