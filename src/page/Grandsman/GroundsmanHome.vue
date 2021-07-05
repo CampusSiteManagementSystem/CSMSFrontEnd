@@ -66,9 +66,11 @@
         <el-card class="appointment-card">
           <div slot="header" class="clearfix">
             <span>待审核预约</span>
+            <router-link to="/ReviewActivityList">
             <el-button style="float: right; padding: 3px 0" type="text"
               >查看更多</el-button
             >
+            </router-link>
           </div>
           <el-table
             :data="appointment"
@@ -95,11 +97,11 @@
         <el-card class="grand-card">
           <div slot="header" class="clearfix">
             <span>占用中的场地</span>
-            <router-link to="/groundinfo"
+            <!-- <router-link to="/groundinfo"
               ><el-button style="float: right; padding: 3px 0" type="text"
                 >操作按钮</el-button
               ></router-link
-            >
+            > -->
           </div>
           <el-table
             :data="busyground"

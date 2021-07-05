@@ -84,7 +84,7 @@ export default {
         })
       },
       back() {
-        this.$router.push({path:'/Groundsman/ActivityList'});
+        this.$router.push({path:'/ReviewActivityList'});
       }
     }
   }
