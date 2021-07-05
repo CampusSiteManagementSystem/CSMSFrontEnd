@@ -192,6 +192,18 @@ const routes = [{
             import('../page/Grandsman/ScoringActivityList.vue'),
         },
         {
+            path: "/Announcement",
+            name: "Announcement",
+            component: () =>
+              import('../page/Shared/AnnouncementList.vue'),
+        },
+        {
+            path: "/Announcement/:ID",
+            name: "AnnouncementInfo",
+            component: () =>
+              import('../page/Shared/AnnouncementInfo.vue'),
+        },
+        {
           path: "/ScoringActivity/:ID",
           name: "ScoringActivity",
           component: () =>

@@ -1,0 +1,117 @@
+<template>
+  <div class="maindiv">
+    <el-card class="maincard">
+    <h1 class="maintitle">公告</h1>
+    <el-tabs v-model="activeTab" @tab-click="handleClick" :stretch="true" type="border-card" class="maintabs">
+        <el-tab-pane label="场地公告" name="pane1">
+        <el-table :data="groundTableData" :default-sort = "{prop: 'time', order: 'descending'}" height="450">
+        <el-table-column prop="title" label="公告" width="1000">
+            <template slot-scope="scope">
+            <router-link
+              :to="{ name: 'AnnouncementInfo', params: { ID: scope.row.ground } }"
+            >
+              <el-button @click="handleClick(scope.row)" type="text"
+                >{{scope.row.title}}</el-button
+              >
+            </router-link>
+            </template>
+        </el-table-column>
+        <el-table-column prop="time" sortable label="时间" width="180">
+        </el-table-column>
+      </el-table>
+        </el-tab-pane>
+        <el-tab-pane label="系统公告" name="pane2">
+        <el-table :data="systemTableData" :default-sort = "{prop: 'time', order: 'descending'}" height="450">
+        <el-table-column prop="title" label="公告" width="1000">
+            <template slot-scope="scope">
+            <router-link
+              :to="{ name: 'AnnouncementInfo', params: { ID: scope.row.accountNum } }"
+            >
+              <el-button @click="handleClick(scope.row)" type="text"
+                >{{scope.row.title}}</el-button
+              >
+            </router-link>
+            </template>
+        </el-table-column>
+        <el-table-column prop="time" sortable label="时间" width="180">
+        </el-table-column>
+      </el-table>
+        </el-tab-pane>
+      </el-tabs>
+    </el-card>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'AnnouncementList',
+      components: {
+    },
+    data() {
+      const groundItem = {
+        title: '关于图书馆暂停开放的通知',
+        time: '2021-6-25 15:30',
+        ground: '15335',
+        content: '因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。'
+      };
+      const systemItem = {
+        title: '关于系统停机维护的通知',
+        time: '2021-7-5 15:30',
+        accountNum: '14335',
+        content: '本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。'
+      };
+      return {
+        activeTab: 'pane1',
+        groundTableData: Array(20).fill(groundItem),
+        systemTableData: Array(20).fill(systemItem)
+      }
+    }
+  };
+</script>
+
+<style>
+html,
+body,
+#app,
+.el-container {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+}
+
+.el-header {
+  background-color: white;
+}
+.el-aside {
+  background-color: white;
+}
+.el-main {
+  background-color: rgb(237, 241, 245);
+  height: 100%;
+}
+.maintitle {
+  text-align: center;
+  font-size: 27px;
+}
+.maintabs {
+  border-radius: 8px;
+}
+.el-card {
+  height: 100%;
+}
+.el-input {
+  height: 50%;
+}
+.detailinfo {
+  padding: 15px;
+}
+.el-col {
+  padding: 5px;
+  /* height: */
+  height: 100%;
+}
+.header-row {
+  background-color: rgb(158, 29, 29);
+}
+</style>
