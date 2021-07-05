@@ -57,7 +57,7 @@
               <i class="el-icon-chat-line-round"></i>
               活动反馈
             </el-menu-item>
-            <el-menu-item index="/RecordDetails">
+            <el-menu-item index="/Announcement">
               <i class="el-icon-postcard"></i>
               查看公告
             </el-menu-item>
