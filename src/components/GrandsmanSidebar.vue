@@ -1,10 +1,9 @@
 <template>
   <div>
     <el-row type="flex" justify="center" align="middle">
-      <el-avatar
-        src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
-      ></el-avatar>
-      <p>校园场地管理系统</p>
+      <el-row type="flex">
+        <img src="../assets/tjlogo.png" class="logoImage" />
+      </el-row>
     </el-row>
     <el-menu
       :default-active="$route.path"
@@ -57,3 +56,11 @@ export default {
   },
 };
 </script>
+
+<style>
+  .logoImage {
+    height: 90%;
+    width: 90%;
+    padding: 5%;
+  }
+</style>
