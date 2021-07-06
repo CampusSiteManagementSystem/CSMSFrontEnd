@@ -130,7 +130,7 @@ const routes = [{
             component: () =>
                 import ('../page/Organization/OrganizationFavorite.vue')
         }, {
-            path: "/Announcement",
+            path: "/OrgAnnouncement",
             name: "Announcement",
             component: () =>
                 import ('../page/Shared/AnnouncementList.vue')

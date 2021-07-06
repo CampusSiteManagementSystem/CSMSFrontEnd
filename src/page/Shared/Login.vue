@@ -114,7 +114,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //提交表单到后台验证身份，并路由到指定页面
-          this.$router.push("/OrganizationFrame");
+          this.$router.push("/StudentFrame/Main");
           alert("submit!");
         } else {
           alert("Recomplete!");
