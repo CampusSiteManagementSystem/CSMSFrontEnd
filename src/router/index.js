@@ -98,7 +98,7 @@ const routes = [{
         ]
     },
     {
-        path: '/Organization',
+        path: '/OrganizationFrame',
         name: 'Main',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
@@ -131,11 +131,16 @@ const routes = [{
             component: () =>
                 import ('../page/Organization/ViewAppointment.vue')
         }, {
+            path: "/OrganizationFavorite",
+            name: "FavoriteWindow",
+            component: () =>
+              import('../page/Organization/OrganizationFavorite.vue')
+        },{
             path: "/Announcement",
             name: "Announcement",
             component: () =>
               import('../page/Shared/AnnouncementList.vue')
-              },{
+        }, {
             path: '/FinishActivity',
             name: 'FinishWindow',
             component: () =>
