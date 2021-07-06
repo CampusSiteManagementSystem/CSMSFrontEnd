@@ -11,17 +11,20 @@
       <!-- See a list of Mapbox-hosted public styles at -->
       <!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles -->
       <label for="satellite-v9">satellite</label>
+      <PopMeg v-show=False building="b" all=1 freeRoom=13 description="a" />
     </div>
     <div id="menu"></div>
   </div>
 </template>
  
 <script>
+import PopMeg from "../components/PopMeg.vue";
+import Vue from "vue";
 export default {
   data() {
     return {};
   },
-  components: {},
+  components: { PopMeg },
   created() {},
   mounted() {
     this.initmap();
@@ -55,7 +58,8 @@ export default {
         console.log(e.lngLat);
       });
 
-      map.on("load", function () { //on设置监听，以及触发时的回调，这是加载时的触发的生成3d地图的例子
+      map.on("load", function () {
+        //on设置监听，以及触发时的回调，这是加载时的触发的生成3d地图的例子
         map.flyTo({
           center: [121.21, 31.288],
           zoom: 16,
@@ -75,7 +79,7 @@ export default {
                 },
                 geometry: {
                   type: "Point",
-                  coordinates: [ 121.20930082610175,  31.28776901297887],
+                  coordinates: [121.20930082610175, 31.28776901297887],
                 },
               },
               {
@@ -85,7 +89,7 @@ export default {
                 },
                 geometry: {
                   type: "Point",
-                  coordinates: [ 121.20971183397609,  31.288292855533584],
+                  coordinates: [121.20971183397609, 31.288292855533584],
                 },
               },
               {
@@ -105,7 +109,7 @@ export default {
                 },
                 geometry: {
                   type: "Point",
-                  coordinates: [ 121.210884396462, 31.286795530585977],
+                  coordinates: [121.210884396462, 31.286795530585977],
                 },
               },
               {
@@ -115,7 +119,7 @@ export default {
                 },
                 geometry: {
                   type: "Point",
-                  coordinates: [ 121.21180057090044, 31.286258932693897],
+                  coordinates: [121.21180057090044, 31.286258932693897],
                 },
               },
               {
@@ -125,7 +129,7 @@ export default {
                 },
                 geometry: {
                   type: "Point",
-                  coordinates: [ 121.21153992286924,31.287643967187805 ],
+                  coordinates: [121.21153992286924, 31.287643967187805],
                 },
               },
               {
@@ -135,7 +139,7 @@ export default {
                 },
                 geometry: {
                   type: "Point",
-                  coordinates: [121.21217036943085,31.286829176173484 ],
+                  coordinates: [121.21217036943085, 31.286829176173484],
                 },
               },
               {
@@ -145,7 +149,7 @@ export default {
                 },
                 geometry: {
                   type: "Point",
-                  coordinates: [ 121.21241653841332,31.287270436244754],
+                  coordinates: [121.21241653841332, 31.287270436244754],
                 },
               },
               {
@@ -155,7 +159,7 @@ export default {
                 },
                 geometry: {
                   type: "Point",
-                  coordinates: [ 121.21034516337954, 31.28949089126165],
+                  coordinates: [121.21034516337954, 31.28949089126165],
                 },
               },
               // {
@@ -192,8 +196,8 @@ export default {
         let popup = new temp.Popup({
           closeButton: false,
           closeOnClick: false,
-        } );
-         // Insert the layer beneath any symbol layer.
+        });
+        // Insert the layer beneath any symbol layer.
         var layers = map.getStyle().layers;
 
         var labelLayerId;
@@ -238,7 +242,6 @@ export default {
           },
           labelLayerId
         );
-     
 
         map.on("mouseenter", "places", function (e) {
           console.log(e);
@@ -259,35 +262,85 @@ export default {
           // Populate the popup and set its coordinates
           // based on the feature found.
           //填充弹出窗口，并根据找到的特性设置其坐标。
-          popup.setLngLat(coordinates).setHTML(description).addTo(map);
+          console.log(description);
+
+          const p = Vue.extend(PopMeg);
+          let vm = new p({
+            propsData: {
+              building: "a",
+              all: 13,
+              freeRoom: 13,
+              description: "1212",
+            }, //传参
+          }).$mount();
+          // vm.$mount(); //挂载
+          // this.popupHTML = vm.$el;
+          // var popupHTML = '<div id="base-detail"></div>'
+
+          // var Comp = Vue.extend(PopMeg);
+          // //只用于 new 创建的实例时传递 props.
+          // var vm = new Comp({// eslint-disable-line no-unused-vars
+
+          //   propsData: {
+          //     building: "a",
+          //     all: 13,
+          //     freeRoom: 13,
+          //     description: "1212",
+          //   },
+          // }).$mount('#base-detail');
+          console.log(vm.$el);
+
+          // popup.setLngLat(coordinates).setHTML(vm.$el.innerHTML).addTo(map);
+            popup.setLngLat(coordinates). setDOMContent(vm.$el).addTo(map);
+
+
+          //这个方法更好用，但不知道为什么出现bug了，救命救命救命sososososo
+          // var popupHTML = '<div id="base-detail"></div>'
+          // popup.setLngLat(coordinates).setHTML(popupHTML).addTo(map);
+
+          // const p = Vue.extend(PopMeg);
+          // let vm = new p({
+          //   propsData: {
+          //     building: "a",
+          //     all: 13,
+          //     freeRoom: 13,
+          //     description: "1212",
+          //     map:this,
+          //   }, //传参
+          // }).$mount('#base-detail');
+
+
+
+
+
+
         });
 
-        map.on("mouseleave", "places", function () {
+        map.on("click", "places", function () {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
       });
 
-      map.on("mousemove", function (e) {
-        let features = map.queryRenderedFeatures(e.point, {
-          layers: ["3d-buildings"],
-        });
-        console.log(features)
-        if (features.length > 0) {
-          map.setPaintProperty(
-            "3d-buildings",
-            "fill-extrusion-color",
-            "#faafee"
-          );
-        } else {
-          map.setPaintProperty(
-            "3d-buildings",
-            "fill-extrusion-color",
-            "#FFA54F"
-          );
-        }
-      });
-      
+      // map.on("mousemove", function (e) {
+      //   let features = map.queryRenderedFeatures(e.point, {
+      //     layers: ["3d-buildings"],
+      //   });
+      //   // console.log(features)
+      //   if (features.length > 0) {
+      //     map.setPaintProperty(
+      //       "3d-buildings",
+      //       "fill-extrusion-color",
+      //       "#faafee"
+      //     );
+      //   } else {
+      //     map.setPaintProperty(
+      //       "3d-buildings",
+      //       "fill-extrusion-color",
+      //       "#FFA54F"
+      //     );
+      //   }
+      // });
     },
   },
 };
