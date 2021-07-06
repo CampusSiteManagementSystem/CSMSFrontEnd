@@ -3,26 +3,14 @@
     <el-card class="maincard">
     <h1 class="maintitle">公告</h1>
     <el-tabs v-model="activeTab" @tab-click="handleClick" :stretch="true" type="border-card" class="maintabs">
-        <el-tab-pane label="场地公告" name="pane1">
-        <el-table :data="groundTableData" :default-sort = "{prop: 'time', order: 'descending'}" height="450">
-        <el-table-column prop="title" label="公告" width="1000">
-            <template slot-scope="scope">
-            <router-link
-              :to="{ name: 'AnnouncementInfo', params: { ID: scope.row.ground } }"
-            >
-              <el-button @click="handleClick(scope.row)" type="text"
-                >{{scope.row.title}}</el-button
-              >
-            </router-link>
-            </template>
-        </el-table-column>
-        <el-table-column prop="time" sortable label="时间" width="180">
-        </el-table-column>
-      </el-table>
-        </el-tab-pane>
-        <el-tab-pane label="系统公告" name="pane2">
-        <el-table :data="systemTableData" :default-sort = "{prop: 'time', order: 'descending'}" height="450">
-        <el-table-column prop="title" label="公告" width="1000">
+        <el-tab-pane label="系统公告" name="pane1">
+        <el-table
+          :data="systemTableData" 
+          :default-sort = "{prop: 'time', order: 'descending'}"
+          style="width: 100%"
+          max-height="480"
+        >
+        <el-table-column prop="title" label="公告" min-width="75%">
             <template slot-scope="scope">
             <router-link
               :to="{ name: 'AnnouncementInfo', params: { ID: scope.row.accountNum } }"
@@ -33,7 +21,29 @@
             </router-link>
             </template>
         </el-table-column>
-        <el-table-column prop="time" sortable label="时间" width="180">
+        <el-table-column prop="time" sortable label="时间" min-width="25%">
+        </el-table-column>
+      </el-table>
+        </el-tab-pane>
+        <el-tab-pane label="场地公告" name="pane2">
+        <el-table
+          :data="groundTableData"
+          :default-sort = "{prop: 'time', order: 'descending'}"
+          style="width: 100%"
+          max-height="480"
+        >
+        <el-table-column prop="title" label="公告" min-width="75%">
+            <template slot-scope="scope">
+            <router-link
+              :to="{ name: 'AnnouncementInfo', params: { ID: scope.row.ground } }"
+            >
+              <el-button @click="handleClick(scope.row)" type="text"
+                >{{scope.row.title}}</el-button
+              >
+            </router-link>
+            </template>
+        </el-table-column>
+        <el-table-column prop="time" sortable label="时间" min-width="25%">
         </el-table-column>
       </el-table>
         </el-tab-pane>
@@ -41,7 +51,6 @@
     </el-card>
   </div>
 </template>
-
 <script>
 
 export default {
@@ -80,12 +89,6 @@ body,
   height: 100%;
 }
 
-.el-header {
-  background-color: white;
-}
-.el-aside {
-  background-color: white;
-}
 .el-main {
   background-color: rgb(237, 241, 245);
   height: 100%;

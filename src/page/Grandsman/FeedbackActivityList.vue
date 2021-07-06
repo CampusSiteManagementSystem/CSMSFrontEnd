@@ -4,7 +4,7 @@
       <h1 class="maintitle">活动反馈</h1>
       <!-- <p class="groundinfo">{{ num }}个活动</p> -->
       <el-table
-        height="475"
+        height="520"
         ref="filterTable"
         :data="tableData"
         style="width: 100%"

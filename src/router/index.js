@@ -131,6 +131,11 @@ const routes = [{
             component: () =>
                 import ('../page/Organization/ViewAppointment.vue')
         }, {
+            path: "/Announcement",
+            name: "Announcement",
+            component: () =>
+              import('../page/Shared/AnnouncementList.vue'),
+        }, {
             path: '/RecordDetails',
             name: 'RecordWindow',
             component: () =>
