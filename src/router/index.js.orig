@@ -131,15 +131,17 @@ const routes = [{
             component: () =>
                 import ('../page/Organization/ViewAppointment.vue')
         }, {
+<<<<<<< HEAD
             path: "/Announcement",
             name: "Announcement",
             component: () =>
-              import('../page/Shared/AnnouncementList.vue')
-              },{
+              import('../page/Shared/AnnouncementList.vue'),
+=======
             path: '/FinishActivity',
             name: 'FinishWindow',
             component: () =>
                 import ('../page/Organization/ViewFinishActivity.vue')
+>>>>>>> frontend-zch
         }, {
             path: '/RecordDetails',
             name: 'RecordWindow',

@@ -52,7 +52,7 @@
               <i class="el-icon-star-on"></i>
               查看收藏
             </el-menu-item>
-            <el-menu-item index="/FeedBack">
+            <el-menu-item index="/FinishActivity">
               <i class="el-icon-chat-line-round"></i>
               活动反馈
             </el-menu-item>
@@ -64,7 +64,7 @@
         </div>
       </el-aside>
       <el-container>
-        <el-header style="height:5%">
+        <el-header style="height:10%">
           <el-row type="flex" justify="end">
             <el-col :span="1">
               <p><i class="el-icon-bell"></i></p>
