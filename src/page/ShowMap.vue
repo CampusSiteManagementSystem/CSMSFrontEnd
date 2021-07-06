@@ -290,34 +290,57 @@ export default {
           // }).$mount('#base-detail');
           console.log(vm.$el);
 
-          popup.setLngLat(coordinates).setHTML(vm.$el.innerHTML).addTo(map);
+          // popup.setLngLat(coordinates).setHTML(vm.$el.innerHTML).addTo(map);
+            popup.setLngLat(coordinates). setDOMContent(vm.$el).addTo(map);
+
+
+          //这个方法更好用，但不知道为什么出现bug了，救命救命救命sososososo
+          // var popupHTML = '<div id="base-detail"></div>'
+          // popup.setLngLat(coordinates).setHTML(popupHTML).addTo(map);
+
+          // const p = Vue.extend(PopMeg);
+          // let vm = new p({
+          //   propsData: {
+          //     building: "a",
+          //     all: 13,
+          //     freeRoom: 13,
+          //     description: "1212",
+          //     map:this,
+          //   }, //传参
+          // }).$mount('#base-detail');
+
+
+
+
+
+
         });
 
-        map.on("mouseleave", "places", function () {
+        map.on("click", "places", function () {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
       });
 
-      map.on("mousemove", function (e) {
-        let features = map.queryRenderedFeatures(e.point, {
-          layers: ["3d-buildings"],
-        });
-        // console.log(features)
-        if (features.length > 0) {
-          map.setPaintProperty(
-            "3d-buildings",
-            "fill-extrusion-color",
-            "#faafee"
-          );
-        } else {
-          map.setPaintProperty(
-            "3d-buildings",
-            "fill-extrusion-color",
-            "#FFA54F"
-          );
-        }
-      });
+      // map.on("mousemove", function (e) {
+      //   let features = map.queryRenderedFeatures(e.point, {
+      //     layers: ["3d-buildings"],
+      //   });
+      //   // console.log(features)
+      //   if (features.length > 0) {
+      //     map.setPaintProperty(
+      //       "3d-buildings",
+      //       "fill-extrusion-color",
+      //       "#faafee"
+      //     );
+      //   } else {
+      //     map.setPaintProperty(
+      //       "3d-buildings",
+      //       "fill-extrusion-color",
+      //       "#FFA54F"
+      //     );
+      //   }
+      // });
     },
   },
 };
