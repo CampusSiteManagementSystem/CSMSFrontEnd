@@ -8,8 +8,10 @@
           <p class="">主办组织：{{ groupName }}</p>
           <p class="">活动日期：{{ date }}</p>
           <p class="">活动时间：{{ startTime }}</p>
-          <p class="">参与人数：{{ participantNum }}{{ roomno }}</p>
-          <p class="">场地名称：{{ indoorOrOutdoor? building+roomNo:groundName }}</p>
+          <p class="">参与人数：{{ participantNum }}</p>
+          <p class="">
+            场地名称：{{ indoorOrOutdoor ? building + roomNo : groundName }}
+          </p>
           <p class="">活动描述：{{ description }}</p>
         </div>
         <!-- <el-divider content-position="center">详细信息</el-divider> -->
@@ -18,50 +20,45 @@
 
     <el-col :span="12">
       <el-card class="maincard">
-        <h1 class="maintitle">信用评分</h1>
-        <div class="scoringForm"  v-if="!isReviewed">
-        <div class="detailinfo">
-          评分：
-          <el-input-number
-            size="small"
-            v-model="score"
-            :step="1"
-            :max="5"
-            :min="-5"
-          ></el-input-number>
-        </div>
-        <el-divider content-position="center">详细信息</el-divider>
+        <h1 class="maintitle">场地反馈</h1>
+        <!-- <div class="detailinfo">
+          <p>评分:</p>
+          
+          
+        </div> -->
 
         <el-form ref="form" label-width="80px">
-          <el-form-item label="评分理由">
-            <el-input
+          <el-form-item label="评分：">
+            <el-rate
+              class="block"
+              v-model="score"
+              :colors="colors"
+              disabled="yes"
+              show-text
+            >
+            </el-rate>
+          </el-form-item>
+          <el-form-item label="反馈：">
+            <!-- <el-input
               type="textarea"
               :autosize="{ minRows: 5, maxRows: 10 }"
-              v-model="reason"
-              placeholder="请输入评分理由"
+              v-model="feedBack"
+              placeholder=""
               maxlength="50"
+              :disabled="true"
               show-word-limit
-            ></el-input>
+            ></el-input> -->
+            {{ feedBack }}
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="publish">发布</el-button>
-            <!-- <router-link to="/GroundsmanFrame/ScoringActivityList"> -->
-              <el-button @click="cancle">取消</el-button>
-            <!-- </router-link> -->
+            <router-link
+              to="/FeedbackActivityList"
+              tag="el-button"
+              class="primary"
+              >返回</router-link
+            >
           </el-form-item>
         </el-form>
-        </div>
-        <div class="detailinfo" v-else>
-          <p class="">信用评分：{{ score }}</p>
-          <p class="">评分日期：{{ creditDate }}</p>
-          <p class="">评分时间：{{ creditTime }}</p>
-          <p class="">评分理由：{{ reason }}</p>
-          <div style="float:right">
-          <router-link to="/ScoringActivityList">
-              <el-button type="primary">返回</el-button>
-            </router-link>
-            </div>
-        </div>
       </el-card>
     </el-col>
   </div>
@@ -83,16 +80,6 @@ body,
   height: 100%;
 }
 
-.el-header {
-  background-color: white;
-}
-.el-aside {
-  background-color: white;
-}
-.el-main {
-  background-color: rgb(237, 241, 245);
-  height: 100%;
-}
 .maintitle {
   text-align: center;
   font-size: 27px;
@@ -101,9 +88,7 @@ body,
 .el-card {
   height: 100%;
 }
-.el-input {
-  height: 50%;
-}
+
 .detailinfo {
   padding: 15px;
 }
@@ -115,6 +100,14 @@ body,
 .header-row {
   background-color: rgb(158, 29, 29);
 }
+.block {
+  /* margin: 0;
+  height: 30%;
+  width: 60%; */
+  position: relative;
+  left: 0px;
+  top: 10px;
+}
 </style>
 
 
@@ -124,6 +117,10 @@ export default {
   name: "creditscoring",
   data() {
     return {
+      score: 4.5,
+      textarea: "",
+      feedBack:
+        "场地很不错呦场地很不错呦场地很不错呦场地很不错呦场地很不错呦场地很不错呦场地很不错呦",
       activityName: "数据库会议",
       date: "2021-6-1",
       startTime: 13154112315,
@@ -133,11 +130,7 @@ export default {
       duration: 60,
       groundID: 666,
       groupID: 777,
-      isReviewed: 0,
-      creditDate: "2021-6-1",
-      creditTime: 15645321,
-      reason: "乱扔垃圾",
-      score: -2,
+
       groupName: "数据库小组",
       indoorOrOutdoor: false,
       building: null,
@@ -146,10 +139,10 @@ export default {
     };
   },
   methods: {
-    cancle(){
-       this.$router.push({
-          path: "/ScoringActivityList",
-    })
+    cancle() {
+      this.$router.push({
+        path: "/ScoringActivityList",
+      });
     },
     publish() {
       this.isReviewed = 1;

@@ -77,11 +77,11 @@
       <template slot-scope="scope">
         <el-button
           size="mini"
-          @click="handleEdit(scope.$index, scope.row)">更改预约</el-button>
+          @click="handleEdit1(scope.$index, scope.row)">更改预约</el-button>
         <el-button
           size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除预约</el-button>
+          @click="handleDelete1(scope.$index, scope.row)">删除预约</el-button>
       </template>
     </el-table-column>
   </el-table>    
@@ -161,11 +161,11 @@
       <template slot-scope="scope">
         <el-button
           size="mini"
-          @click="handleEdit(scope.$index, scope.row)">更改预约</el-button>
+          @click.stop="handleEdit2(scope.$index, scope.row)">更改预约</el-button>
         <el-button
           size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除预约</el-button>
+          @click.stop="handleDelete2(scope.$index, scope.row)">删除预约</el-button>
       </template>
     </el-table-column>
   </el-table>    
@@ -246,7 +246,7 @@
         <router-link to="/FeedBack"><el-button
           size="mini"
           type="primary"
-          @click="handleFeedback(scope.$index, scope.row)">反馈</el-button></router-link>
+          @click.stop="handleFeedback(scope.$index, scope.row)">反馈</el-button></router-link>
       </template>
     </el-table-column>
   </el-table>    
@@ -327,7 +327,7 @@
          <router-link to="/ApplySite"><el-button
           size="mini"
           type="success"
-          @click="handleRenew(scope.$index, scope.row)">重新申请</el-button></router-link>
+          @click.stop="handleRenew(scope.$index, scope.row)">重新申请</el-button></router-link>
       </template>
     </el-table-column>
   </el-table>    
@@ -339,150 +339,188 @@
 
 <script>
 export default {
-        data() {
-      return {
-           tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄',
-          ID: '1111111111111',
-          people:40,
-          require:'无',
-          details:'听数据库开会',
-          tag:'室内'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄',
-          ID: '11111111111111',
-          people:40,
-          require:'无',
-          details:'听数据库开会',
-          tag:'室内'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          ID: '11111111111111',
-          people:40,
-          require:'无',
-          details:'听数据库开会',
-          tag:'室内'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          ID: '11111121111111111111111',
-          people:40,
-          require:'无',
-          details:'听数据库开会',
-          tag:'室内'
-        },{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          ID: '11111121111111111111111',
-          people:4,
-          require:'无',
-          details:'听数据库开会',
-          tag:'室内'
-        },{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          ID: '11111121111111111111111',
-          people:40,
-          require:'无',
-          details:'听数据库开会',
-          tag:'室外'
-        },{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          ID: '11111121111111111111111',
-          people:40,
-          require:'无',
-          details:'听数据库开会',
-          tag:'室外'
-        },{
-          date: '2016-05-15',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          ID: '11111121111111111111111',
-          people:40,
-          require:'无',
-          details:'听数据库开会',
-          tag:'室内'
-        },{
-          date: '2016-06-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          ID: '11111121111111111111111',
-          people:40,
-          require:'无',
-          details:'听数据库开会',
-          tag:'室内'
-        },{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          ID: '11111121111111111111111',
-          people:40,
-          require:'无',
-          details:'听数据库开会',
-          tag:'室外'
-        },{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          ID: '11111121111111111111111',
-          people:40,
-          require:'无',
-          details:'听数据库开会',
-          tag:'室外'
-        }],
-        activeName: 'second'
-      };
+  data() {
+    return {
+      tableData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄',
+        ID: '1111111111111',
+        people: 40,
+        require: '无',
+        details: '听数据库开会',
+        tag: '室内'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄',
+        ID: '11111111111111',
+        people: 40,
+        require: '无',
+        details: '听数据库开会',
+        tag: '室内'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄',
+        ID: '11111111111111',
+        people: 40,
+        require: '无',
+        details: '听数据库开会',
+        tag: '室内'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄',
+        ID: '11111121111111111111111',
+        people: 40,
+        require: '无',
+        details: '听数据库开会',
+        tag: '室内'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄',
+        ID: '11111121111111111111111',
+        people: 4,
+        require: '无',
+        details: '听数据库开会',
+        tag: '室内'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄',
+        ID: '11111121111111111111111',
+        people: 40,
+        require: '无',
+        details: '听数据库开会',
+        tag: '室外'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄',
+        ID: '11111121111111111111111',
+        people: 40,
+        require: '无',
+        details: '听数据库开会',
+        tag: '室外'
+      }, {
+        date: '2016-05-15',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄',
+        ID: '11111121111111111111111',
+        people: 40,
+        require: '无',
+        details: '听数据库开会',
+        tag: '室内'
+      }, {
+        date: '2016-06-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄',
+        ID: '11111121111111111111111',
+        people: 40,
+        require: '无',
+        details: '听数据库开会',
+        tag: '室内'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄',
+        ID: '11111121111111111111111',
+        people: 40,
+        require: '无',
+        details: '听数据库开会',
+        tag: '室外'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄',
+        ID: '11111121111111111111111',
+        people: 40,
+        require: '无',
+        details: '听数据库开会',
+        tag: '室外'
+      }],
+      activeName: 'second',
+    };
+  },
+  methods: {
+    handleClick(tab, event) {
+      console.log(tab, event);
     },
-    methods: {
-      handleClick(tab, event) {
-        console.log(tab, event);
-      },
-      filterTag(value, row) {
-        return row.tag === value;
-      },
-      formatter(row) {
-        return row.address;
-      },
-      handleEdit(index, row) {
-        console.log(index, row);
-      },
-      handleDelete(index, row) {
-        console.log(index, row);
-      },
-      handleFeedback(index, row) {
-        console.log(index, row);
-      },
-      handleRenew(index, row) {
-        console.log(index, row);
-      },
-      handleCurrentChange1(val) {
-        this.currentRow = val;
-        this.$router.push('/RecordDetails')
-      },
-            handleCurrentChange2(val) {
-        this.currentRow = val;
-        this.$router.push('/RecordDetails')
-      },
-            handleCurrentChange3(val) {
-        this.currentRow = val;
-        this.$router.push('/RecordDetails')
-      },
-            handleCurrentChange4(val) {
-        this.currentRow = val;
-        this.$router.push('/RecordDetails')
-      }
+    filterTag(value, row) {
+      return row.tag === value;
+    },
+    formatter(row) {
+      return row.address;
+    },
+    handleEdit1(index, row) {
+      console.log(index, row);
+      this.$router.push("/ApplySite");
+    },
+    handleDelete1(index, row) {
+      console.log(index, row);
+      this.$confirm('此操作将永久删除该活动信息, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+    },
+    handleEdit2(index, row) {
+      console.log(index, row);
+      this.$router.push("/ApplySite");
+    },
+    handleDelete2(index, row) {
+      console.log(index, row);
+            this.$confirm('此操作将永久删除该活动信息, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+    },
+    handleFeedback(index, row) {
+      console.log(index, row);
+    },
+    handleRenew(index, row) {
+      console.log(index, row);
+    },
+    handleCurrentChange1(val) {
+      this.currentRow = val;
+      //this.$router.push('/RecordDetails')
+    },
+    handleCurrentChange2(val) {
+      this.currentRow = val;
+      this.$router.push('/Pending')
+    },
+    handleCurrentChange3(val) {
+      this.currentRow = val;
+      this.$router.push('/RecordDetails')
+    },
+    handleCurrentChange4(val) {
+      this.currentRow = val;
+      this.$router.push('/Rejected')
     }
+  }
 }
 </script>
 

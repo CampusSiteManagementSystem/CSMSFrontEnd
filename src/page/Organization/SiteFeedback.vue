@@ -13,8 +13,8 @@
             </el-rate>
             <el-input class="input" type="textarea" :rows="8" placeholder="请输入内容" v-model="textarea">
             </el-input>
-            <router-link to="/"><el-button type="primary" class="submit">提交</el-button></router-link>                  
-            <router-link to="/" tag='el-button' class="cancel">取消</router-link>  
+            <el-button type="primary" class="submit" @click="open">提交</el-button>                 
+            <router-link to="/FinishActivity" tag='el-button' class="cancel">取消</router-link>  
         </div>
     </div>
 </template>
@@ -34,6 +34,38 @@
         textarea: ''
       }
     },
+    methods:{
+              open() {
+                  if((this.score==null)||(this.textarea==''))
+                  {
+            this.$alert('未输入所有备选项', '反馈失败', {
+          confirmButtonText: '确定',
+          callback: action => {
+          if (action === 'confirm') {
+            this.$message({
+              type: 'error',
+              message: '反馈失败'
+            });
+          }
+          }
+        });
+        }
+        else{
+        this.$alert('感谢您的反馈', '反馈成功', {
+          confirmButtonText: '确定',
+          callback: action => {
+          if (action === 'confirm') {
+            this.$message({
+              type: 'success',
+              message: '反馈成功'
+            });
+          }
+          this.$router.push("/FinishActivity");
+          }
+        });
+        }
+      }
+    }
   }
 </script>
 
