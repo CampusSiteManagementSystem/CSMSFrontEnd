@@ -4,77 +4,92 @@
       src="../../assets/IdentitySelection.jpg"
       class="IdentitySelectionBackImage"
     />
-    <div class="IdentitySelectionContainer">
-      <div>
-        <h1>校园场地管理系统</h1>
-        <h4>Campus Site Management</h4>
+    <!--"IdentitySelectionContainer"-->
+    <el-card class="IdentitySelectionContainer" style="border-radius:30px">
+      <div slot="header" class="clearfix">
+        <el-row>
+          <el-col :span="24">
+            <img src="../../assets/tjlogo.png" class="logoImage" />
+          </el-col>
+        </el-row>
       </div>
-      <el-form
-        ref="LoginForm"
-        :model="form"
-        :rules="rules"
-        label-width="40px"
-        :hide-required-asterisk="true"
-      >
-        <el-form-item label="账号" class="label-color" prop="accountNumber">
-          <el-input
-            v-model.number="form.accountNumber"
-            placeholder="请输入账号"
-            clearable
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="密码" class="label-color" prop="password">
-          <el-input
-            v-model="form.password"
-            showPassword
-            placeholder="请输入密码"
-            clearable
-          ></el-input>
-        </el-form-item>
-      </el-form>
 
-      <el-radio-group v-model="identity" style="margin: 0px 0 5px 0px">
-        <el-row :gutter="35">
-          <el-col :span="14">
-            <el-radio :label="1">学生</el-radio>
-          </el-col>
-          <el-col :span="10">
-            <el-radio :label="2">场地管理员</el-radio>
-          </el-col>
-        </el-row>
-        <el-row :gutter="35">
-          <el-col :span="14">
-            <el-radio :label="3">组织</el-radio>
-          </el-col>
-          <el-col :span="10">
-            <el-radio :label="4">系统管理员</el-radio>
-          </el-col>
-        </el-row>
-      </el-radio-group>
-
-      <el-row :gutter="50" style="margin: 0px 0 5px 0px">
-        <el-col :span="10" :offset="2">
+      <el-row>
+        <el-col>
+          <el-form
+            ref="LoginForm"
+            :model="form"
+            :rules="rules"
+            label-width="40px"
+            :hide-required-asterisk="true"
+          >
+            <el-form-item label="账号" prop="accountNumber">
+              <el-input
+                v-model.number="form.accountNumber"
+                placeholder="请输入账号"
+                clearable
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="password">
+              <el-input
+                v-model="form.password"
+                showPassword
+                placeholder="请输入密码"
+                clearable
+              ></el-input>
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-radio-group v-model="identity" style="margin: 0px 0 15px 0px">
+            <el-row :gutter="35" style="margin: 0px 0 5px 0px">
+              <el-col :span="14">
+                <el-radio :label="1">学生</el-radio>
+              </el-col>
+              <el-col :span="10">
+                <el-radio :label="2">场地管理员</el-radio>
+              </el-col>
+            </el-row>
+            <el-row :gutter="35" style="margin: 0px 0 5px 0px">
+              <el-col :span="14">
+                <el-radio :label="3">组织</el-radio>
+              </el-col>
+              <el-col :span="10">
+                <el-radio :label="4">系统管理员</el-radio>
+              </el-col>
+            </el-row>
+          </el-radio-group>
+        </el-col>
+      </el-row>
+      <el-row :gutter="50" style="margin: 0px 0 10px 0px">
+        <el-col :span="24" :offset="1">
           <el-button
             @click="submitForm('LoginForm')"
-            type="primary"
             plain
             size="medium"
+            round
+            style="width: 110%"
+            type="primary"
             >登录</el-button
-          >
-        </el-col>
-        <el-col :span="12">
-          <el-button @click="forgetPassword" type="primary" plain size="medium"
-            >忘记密码</el-button
           >
         </el-col>
       </el-row>
 
       <el-row>
-        <el-col :offset="24" :span="24">
-          <el-button plain @click="register" size="mini">注册</el-button>
+        <el-col :span="13" :offset="5">
+          <el-button plain @click="register" type="text" size="mini"
+            >注册</el-button
+          >
+        </el-col>
+        <el-col :span="5">
+          <el-button @click="forgetPassword" type="text" plain size="mini"
+            >忘记密码</el-button
+          >
         </el-col>
       </el-row>
-    </div>
+    </el-card>
   </div>
 </template>
 
@@ -114,8 +129,16 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //提交表单到后台验证身份，并路由到指定页面
-          this.$router.push("/OrganizationFrame");
           alert("submit!");
+          if (this.identity === 1) {
+            this.$router.push("/StudentFrame");
+          } else if (this.identity === 2) {
+            this.$router.push("/Groundsman");
+          } else if (this.identity === 3) {
+            this.$router.push("/OrganizationFrame");
+          } else if (this.identity === 4) {
+            this.$router.push("/SystemAdminHomePage");
+          }
         } else {
           alert("Recomplete!");
           this.$refs[formName].resetFields();
@@ -133,5 +156,10 @@ export default {
 h1,
 h4 {
   color: white;
+}
+
+.logoImage {
+  height: 100%;
+  width: 100%;
 }
 </style>

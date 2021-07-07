@@ -4,8 +4,7 @@
       <el-aside style="width: 15%">
         <div>
           <el-row type="flex">
-            <img src="../../assets/TongJiLogo.jpg" class="logoImage" />
-            <p>校园场地管理系统</p>
+            <img src="../../assets/tjlogo.png" class="logoImage">
           </el-row>
           <el-menu mode="vertical" default-active="/StudentFrame" router>
             <el-menu-item index="/StudentFrame/Main">
@@ -72,7 +71,7 @@ export default {};
 
 <style scoped>
 .logoImage {
-  height: 25%;
-  width: 25%;
+  height: 30%;
+  width: 100%;
 }
 </style>

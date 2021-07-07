@@ -4,7 +4,6 @@
       src="../../assets/IdentitySelection.jpg"
       class="IdentitySelectionBackImage"
     />
-    <div class="IdentitySelectionContainer">
       <div>
         <h1>校园场地管理系统</h1>
         <h4>Campus Site Management</h4>
@@ -68,7 +67,6 @@
         </el-form>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
