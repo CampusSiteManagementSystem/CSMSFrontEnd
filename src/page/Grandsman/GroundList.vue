@@ -92,4 +92,7 @@ export default {
     margin-left: 100px;
     margin-right: 100px;
   }
+  .maindiv {
+    height: 100%;
+  }
 </style>

@@ -91,6 +91,7 @@ const routes = [{
             }
         ]
     },
+    // 组织页面
     {
         path: '/OrganizationFrame',
         name: 'OrganizationFrame',
@@ -206,7 +207,7 @@ const routes = [{
                     import ('../page/Grandsman/ScoringActivityList.vue'),
             },
             {
-                path: "/Announcement",
+                path: "/Groundsman/Announcement",
                 name: "AnnouncementforGround",
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue'),

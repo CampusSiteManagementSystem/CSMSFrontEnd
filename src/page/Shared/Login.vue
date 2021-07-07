@@ -5,7 +5,7 @@
       class="IdentitySelectionBackImage"
     />
     <!--"IdentitySelectionContainer"-->
-    <el-card class="IdentitySelectionContainer" style="border-radius:30px">
+    <el-card class="IdentitySelectionContainer" style="border-radius:12px">
       <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="24">
@@ -161,5 +161,9 @@ h4 {
 .logoImage {
   height: 100%;
   width: 100%;
+}
+
+.blur{
+  filter: blur(10px);
 }
 </style>
