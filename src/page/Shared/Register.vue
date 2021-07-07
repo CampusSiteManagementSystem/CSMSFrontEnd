@@ -4,26 +4,30 @@
       src="../../assets/IdentitySelection.jpg"
       class="IdentitySelectionBackImage"
     />
-      <div>
-        <h1>校园场地管理系统</h1>
-        <h4>Campus Site Management</h4>
+    <!--"IdentitySelectionContainer"-->
+    <el-card class="IdentitySelectionContainer" style="border-radius:12px">
+      <div slot="header" class="clearfix">
+        <el-row>
+          <el-col :span="24">
+            <img src="../../assets/tjlogo.png" class="logoImage" />
+          </el-col>
+        </el-row>
       </div>
-      <div>
-        <el-form
+<el-form
           ref="RegisterForm"
           :model="form"
           :rules="rules"
           label-width="70px"
           :hide-required-asterisk="true"
         >
-          <el-form-item label="用户名" class="label-color" prop="username">
+          <el-form-item label="用户名" prop="username">
             <el-input
               v-model.number="form.username"
               placeholder="请输入用户名"
               clearable
             ></el-input>
           </el-form-item>
-          <el-form-item label="密码" class="label-color" prop="password">
+          <el-form-item label="密码" prop="password">
             <el-input
               v-model="form.password"
               showPassword
@@ -33,7 +37,6 @@
           </el-form-item>
           <el-form-item
             label="确认密码"
-            class="label-color"
             prop="checkPassword"
             clearable
           >
@@ -44,17 +47,17 @@
               clearable
             ></el-input>
           </el-form-item>
-          <el-form-item label="邮箱" class="label-color" prop="email">
+          <el-form-item label="邮箱" prop="email">
             <el-row type="flex">
               <el-input
                 v-model="form.email"
                 placeholder="请输入邮箱"
                 clearable
               ></el-input>
-              <el-button @click="sendEmail('RegisterForm')">验证</el-button>
+              <el-button type="primary" plain @click="sendEmail('RegisterForm')">验证</el-button>
             </el-row>
           </el-form-item>
-          <el-form-item label="验证码" class="label-color" prop="verifyEmail">
+          <el-form-item label="验证码" prop="verifyEmail">
             <el-input
               v-model="form.verifyEmail"
               placeholder="请输入验证码"
@@ -62,11 +65,11 @@
             ></el-input>
           </el-form-item>
           <el-row type="flex" justify="center" class="bottom-margin">
-            <el-button @click="submitForm('RegisterForm')">注册</el-button>
+            <el-button type="primary" @click="submitForm('RegisterForm')">注册</el-button>
           </el-row>
         </el-form>
-      </div>
-    </div>
+    </el-card>
+  </div>
 </template>
 
 <script>
@@ -160,4 +163,10 @@ export default {
   width: auto;
   height: 10%;
 }
+
+.logoImage {
+  height: 100%;
+  width: 100%;
+}
+
 </style>

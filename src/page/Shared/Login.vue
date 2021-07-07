@@ -64,13 +64,12 @@
         </el-col>
       </el-row>
       <el-row :gutter="50" style="margin: 0px 0 10px 0px">
-        <el-col :span="24" :offset="1">
+        <el-col :span="24">
           <el-button
             @click="submitForm('LoginForm')"
-            plain
             size="medium"
             round
-            style="width: 110%"
+            style="width: 100%"
             type="primary"
             >登录</el-button
           >
@@ -78,15 +77,15 @@
       </el-row>
 
       <el-row>
-        <el-col :span="13" :offset="5">
-          <el-button plain @click="register" type="text" size="mini"
-            >注册</el-button
-          >
+        <el-col :span="8" :offset="6">
+          <router-link to="/Register">
+            <el-link :underline="false">注册</el-link>
+          </router-link>
         </el-col>
-        <el-col :span="5">
-          <el-button @click="forgetPassword" type="text" plain size="mini"
-            >忘记密码</el-button
-          >
+        <el-col :span="8">
+          <router-link to="/ForgetPassword">
+            <el-link :underline="false">忘记密码</el-link>
+          </router-link>
         </el-col>
       </el-row>
     </el-card>
