@@ -63,17 +63,15 @@
           </el-radio-group>
         </el-col>
       </el-row>
-      <el-row :gutter="50" style="margin: 0px 0 10px 0px">
-        <el-col :span="24">
+      <el-row type="flex" justify="center" style="margin: 0px 0 10px 0px">
           <el-button
             @click="submitForm('LoginForm')"
             size="medium"
             round
-            style="width: 100%"
+            style="width: 70%"
             type="primary"
             >登录</el-button
           >
-        </el-col>
       </el-row>
 
       <el-row>

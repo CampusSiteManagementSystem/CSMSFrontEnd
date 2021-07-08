@@ -64,10 +64,22 @@
               clearable
             ></el-input>
           </el-form-item>
-          <el-row type="flex" justify="center" class="bottom-margin">
-            <el-button type="primary" @click="submitForm('RegisterForm')">注册</el-button>
+          <el-row type="flex" justify="center" style="margin: 0px 0 10px 0px">
+            <el-button
+              @click="submitForm('RegisterForm')"
+              size="medium"
+              round
+              style="width: 70%"
+              type="primary"
+              >找回</el-button
+            >
           </el-row>
         </el-form>
+        <el-row type="flex" justify="center">
+          <router-link to="/">
+            <el-link :underline="false">返回</el-link>
+          </router-link>
+        </el-row>
     </el-card>
   </div>
 </template>

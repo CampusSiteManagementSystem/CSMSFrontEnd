@@ -34,10 +34,10 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="说明：">
-          <el-input type="textarea" v-model="form.comment" rows="3"></el-input>
+          <el-input type="textarea" v-model="form.comment" rows="3" :disabled="state!=0"></el-input>
         </el-form-item>
       </el-form>
-      <el-button type="primary" @click="onSubmit">确认</el-button>
+      <el-button type="primary" @click="onSubmit" :disabled="state!=0">确认</el-button>
       <el-button @click="back">返回</el-button>
     </el-card>
   </div>
@@ -62,7 +62,7 @@ export default {
         participantnum: 40,
         description: '进行专业方向介绍，开展防范电信诈骗教育',
         additionalrequest: '无',
-        state: '待审批',
+        state: 0,
         form: {
           state: '',
           comment: ''
@@ -110,7 +110,7 @@ export default {
     font-size: 27px;
   }
   .bg-purple {
-  background: #deedff;
+  background: #f5f5f5;
   }
   .grid-content {
     border-radius: 6px;
@@ -118,6 +118,6 @@ export default {
   }
   .box-card {
     border-radius: 12px;
-    background: #deedff;
+    background: #f5f5f5;
   }
 </style>
