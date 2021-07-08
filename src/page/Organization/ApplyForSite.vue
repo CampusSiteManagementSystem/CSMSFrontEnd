@@ -1,12 +1,16 @@
 ﻿<template>
   <div class="page">
     <div class="background">
-      <span id="applytitle">场地使用申请</span>
+      <h1 class="maintitle">场地使用申请</h1>
       <div id="content">
         <el-form ref="ruleform" :rules="rules" :model="ruleform" label-width="100px">
           <el-form-item label="活动名称：" prop="name">
             <el-input class="name" type="text" placeholder="请输入内容" v-model="ruleform.name" maxlength="20" show-word-limit>
             </el-input>
+          </el-form-item>
+          <el-form-item label="场地：" prop="site">
+            <el-cascader placeholder="搜索" :options="options" :show-all-levels="false" v-model="ruleform.site" @change="getSite"
+              clearable filterable></el-cascader>
           </el-form-item>
           <el-form-item label="选择日期：" prop="date">
             <el-date-picker v-model="ruleform.date" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions"
@@ -19,10 +23,6 @@
           <el-form-item label="活动描述：" prop="description">
             <el-input class="input" type="textarea" :rows="4" placeholder="请输入内容" v-model="ruleform.description">
             </el-input>
-          </el-form-item>
-          <el-form-item label="场地：" prop="site">
-            <el-cascader placeholder="搜索" :options="options" :show-all-levels="false" v-model="ruleform.site" @change="getSite"
-              clearable filterable></el-cascader>
           </el-form-item>
           <el-form-item label="人数：" prop="people">
             <el-input-number v-model="ruleform.people" @change="handleChange" :min="1" :max="200" label="描述文字">
@@ -343,6 +343,10 @@
 .logoImage {
   height: 25%;
   width: 25%;
+}
+.maintitle {
+  text-align: center;
+  font-size: 27px;
 }
 .page{
     height: 100%;

@@ -2,7 +2,7 @@
   <div class="page">
     <el-row :gutter="20" type="flex">
       <el-col :span="6">
-        <div class="grid-content1 bg-purple">
+        <div class="grid-content1">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <div class="groupname">{{group.name}}</div>
@@ -20,7 +20,7 @@
         </div>
       </el-col>
       <el-col :span="18">
-        <div class="grid-content2 bg-purple">
+        <div class="grid-content2">
           <el-card class="box-card1">
             <div id="chartColumn" style="width: 100%; height: 350px;">
             </div>
@@ -30,7 +30,7 @@
     </el-row>
     <el-row :gutter="20" type="flex">
       <el-col :span="24">
-        <div class="grid-content3 bg-purple">
+        <div class="grid-content3">
           <el-card class="box-card2">
             <div slot="header" class="clearfix">
               <span class="groupname">信用分记录</span>
@@ -310,15 +310,18 @@ export default {
     position:absolute;
     height:100%;
     width: 24%;
+    border-radius: 12px;
   }
-    .box-card1 {
+  .box-card1 {
     position:absolute;
     height:100%;
     width: 73%;
+    border-radius: 12px;
   }
-        .box-card2 {
+  .box-card2 {
     position:absolute;
     height:100%;
     width: 98%;
+    border-radius: 12px;
   }
 </style>

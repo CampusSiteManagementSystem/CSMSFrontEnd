@@ -42,11 +42,11 @@
             </el-menu-item>
             <el-menu-item index="/Appointment">
               <i class="el-icon-s-claim"></i>
-              查看预约记录
+              预约记录
             </el-menu-item>
             <el-menu-item index="/CreditScore">
               <i class="el-icon-s-custom"></i>
-              查看信用分
+              信用分
             </el-menu-item>
             <el-menu-item index="/OrganizationFavorite">
               <i class="el-icon-star-on"></i>
