@@ -1,6 +1,6 @@
 <template>
-  <div class="page">
-    <el-container style="border: 1px solid #eee">
+  <div style="height: 100%">
+    <el-container style="border: 1px solid #eee; height: 100%">
       <!-- 侧边栏 -->
       <el-aside width="15%">
         <el-row type="flex" justify="center" align="middle">
@@ -32,8 +32,8 @@
       </el-aside>
 
       <!-- header -->
-      <el-container>
-        <el-header>
+      <el-container style="height: 100%">
+        <el-header class="myheader" style="height: 10%">
           <el-row
             class="headerrow"
             type="flex"
@@ -50,7 +50,7 @@
           </el-row>
         </el-header>
 
-        <el-main>
+        <el-main style="height: 90%; overflow: auto">
           <keep-alive>
             <router-view></router-view>
           </keep-alive>
@@ -61,10 +61,9 @@
 </template>
 
 <style scoped>
-.el-header {
+.myheader {
   background-color: #d7e4f7;
   color: #333;
-  height: 50px;
   line-height: 55px;
   text-align: right;
   font-size: 15px;

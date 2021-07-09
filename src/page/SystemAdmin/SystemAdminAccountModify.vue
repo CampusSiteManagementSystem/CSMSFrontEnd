@@ -1,6 +1,6 @@
 <template>
-  <div class="maindiv">
-    <el-card class="mycard">
+  <div class="maindiv" >
+    <el-card class="mycard" style="height=400">
       <!-- <div> -->
         <h2>用户信息</h2>
       <!-- </div> -->
@@ -41,9 +41,11 @@
 </template>
 
 <style scoped>
-.el-card {
-  height: 100%;
-}
+
+
+/* .el-card {
+  height: 400;
+} */
 
 .info {
   text-align: left;

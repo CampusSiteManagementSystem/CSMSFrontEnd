@@ -1,5 +1,4 @@
 <template>
-  
         <el-card class="maincard">
           <h1 class="maintitle">发布场地公告</h1>
           <h1 class="groundinfo">场地：{{ building }}{{ roomno }}</h1>

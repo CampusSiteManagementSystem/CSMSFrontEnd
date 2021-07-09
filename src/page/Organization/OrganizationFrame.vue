@@ -1,9 +1,9 @@
 <template>
   <div style="height:100%">
-    <el-container style="height:100%">
+    <el-container style="border: 1px solid #eee; height: 100%">
       <el-aside style="width: 15%">
         <div>
-          <el-row type="flex">
+          <el-row type="flex" justify="center" align="middle">
             <img src="../../assets/tjlogo.png" class="logoImage" />
           </el-row>
           <el-menu mode="vertical" default-active="Main" router>
@@ -63,8 +63,8 @@
           </el-menu>
         </div>
       </el-aside>
-      <el-container>
-        <el-header style="height:10%">
+      <el-container style="height: 100%">
+        <el-header class="myheader" style="height:10%">
           <el-row class="headerrow" type="flex" justify="end" align="middle" @click="handleClick">
             <el-button type="text">
               <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
@@ -72,7 +72,7 @@
             <el-button type="text" @click="handleClick">王二狗</el-button>
           </el-row>
         </el-header>
-        <el-main>
+        <el-main style="height: 90%; overflow: auto">
           <keep-alive>
             <router-view style="height:100%"></router-view>
           </keep-alive>
@@ -87,6 +87,16 @@ export default {};
 </script>
 
 <style scoped>
+
+.myheader {
+  background-color: #d7e4f7;
+  color: #333;
+  line-height: 55px;
+  text-align: right;
+  font-size: 15px;
+  display: inline-block;
+}
+
 .logoImage {
   height: 90%;
   width: 90%;

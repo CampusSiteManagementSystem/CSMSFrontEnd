@@ -4,7 +4,9 @@
       <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="20">
-            <p>我的收藏</p>
+            <div>
+              <h2>我的收藏</h2>
+            </div>
           </el-col>
           <el-col :span="4">
             <el-input

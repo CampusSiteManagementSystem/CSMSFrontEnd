@@ -57,6 +57,8 @@
 </template>
 
 <style scoped>
+html,
+body,
 .el-card {
   height: 100%;
 }

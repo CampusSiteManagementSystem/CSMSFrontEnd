@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%">
-    <el-container style="border: 1px solid #eee">
+    <el-container style="border: 1px solid #eee;height: 100%">
       <el-aside style="width: 15%">
         <div>
           <el-row type="flex" justify="center" align="middle">
@@ -40,8 +40,8 @@
         </div>
       </el-aside>
 
-      <el-container>
-        <el-header>
+      <el-container style="height:100%">
+        <el-header style="height:10%">
           <el-row
             class="headerrow"
             type="flex"
@@ -58,7 +58,7 @@
           </el-row>
         </el-header>
 
-        <el-main>
+        <el-main style="height:90%; overflow:auto">
           <keep-alive>
             <router-view></router-view>
           </keep-alive>
@@ -77,7 +77,6 @@ export default {};
 .el-header {
   background-color: #d7e4f7;
   color: #333;
-  height: 60px;
   line-height: 55px;
   text-align: right;
   font-size: 15px;

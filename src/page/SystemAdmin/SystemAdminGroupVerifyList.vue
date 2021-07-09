@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card :height="40">
+    <el-card>
       <div>
         <h2>审核组织注册</h2>
       </div>
@@ -40,6 +40,9 @@
 
 <style scoped>
 
+.el-card {
+  height: 100%;
+}
 </style>
 
 
