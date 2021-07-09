@@ -1,80 +1,83 @@
 ﻿<template>
-    <div class="page">
-        <div class="background">
-            <span id="applytitle">场地使用申请</span>
-            <div id="content">
-                <table>
-                    <colgroup>
-                        <col span="2">
-                    </colgroup>
-                    <tr>
-                        <td>活动名称：</td>
-                        <td>
-                            <el-input class="name" type="text" placeholder="请输入内容" v-model="name" maxlength="20"
-                                show-word-limit></el-input>
-                        </td>
-                    </tr>
-                    <br>
-                    <tr>
-                        <td>选择日期：</td>
-                        <td>
-                            <el-date-picker v-model="date" align="right" type="date" placeholder="选择日期"
-                                :picker-options="pickerOptions" value-format="yyyy-MM-dd"></el-date-picker>
-                        </td>
-                    </tr>
-                    <br>
-                    <tr>
-                        <td>选择时间：</td>
-                        <td>
-                            <el-time-picker is-range v-model="time" range-separator="至" start-placeholder="开始时间"
-                                end-placeholder="结束时间" placeholder="选择时间范围" @change="getTime" value-format="HH:mm"></el-time-picker>
-                        </td>
-                    </tr>
-                    <br>
-                    <tr>
-                        <td valign="top">活动描述：</td>
-                        <td>
-                            <el-input class="input" type="textarea" :rows="4" placeholder="请输入内容" v-model="textarea">
-                            </el-input>
-                        </td>
-                    </tr>
-                    <br>
-                    <tr>
-                        <td align="right">场地：</td>
-                        <td>
-                            <el-cascader placeholder="搜索" :options="options" :show-all-levels="false" v-model="site"  @change="getSite" clearable
-                                filterable></el-cascader>
-                        </td>
-                    </tr>
-                    <br>
-                    <tr>
-                        <td align="right">人数：</td>
-                        <td>
-                            <el-input-number v-model="num" @change="handleChange" :min="1" :max="200" label="描述文字">
-                            </el-input-number>
-                        </td>
-                    </tr>
-                    <br>
-                    <tr>
-                        <td>特殊需求：</td>
-                        <td>
-                            <el-input class="input" type="textarea" :rows="2" placeholder="请输入内容" v-model="specialtext">
-                            </el-input>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div style="margin: 20px 0;"></div>
-                <el-button type="primary" class="submit"  @click="open">提交</el-button>
-            <router-link to="/" tag='el-button' class="cancel">取消</router-link>
-        </div>
+  <div class="page">
+    <div class="background">
+      <h1 class="maintitle">场地使用申请</h1>
+      <div id="content">
+        <el-form ref="ruleform" :rules="rules" :model="ruleform" label-width="100px">
+          <el-form-item label="活动名称：" prop="name">
+            <el-input class="name" type="text" placeholder="请输入内容" v-model="ruleform.name" maxlength="20" show-word-limit>
+            </el-input>
+          </el-form-item>
+          <el-form-item label="场地：" prop="site">
+            <el-cascader placeholder="搜索" :options="options" :show-all-levels="false" v-model="ruleform.site" @change="getSite"
+              clearable filterable></el-cascader>
+          </el-form-item>
+          <el-form-item label="选择日期：" prop="date">
+            <el-date-picker v-model="ruleform.date" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions"
+              value-format="yyyy-MM-dd"></el-date-picker>
+          </el-form-item>
+          <el-form-item label="选择时间：" prop="time">
+            <el-time-picker is-range v-model="ruleform.time" range-separator="至" start-placeholder="开始时间" end-placeholder="结束时间"
+              placeholder="选择时间范围" @change="getTime" value-format="HH:mm"></el-time-picker>
+          </el-form-item>
+          <el-form-item label="活动描述：" prop="description">
+            <el-input class="input" type="textarea" :rows="4" placeholder="请输入内容" v-model="ruleform.description">
+            </el-input>
+          </el-form-item>
+          <el-form-item label="人数：" prop="people">
+            <el-input-number v-model="ruleform.people" @change="handleChange" :min="1" :max="200" label="描述文字">
+            </el-input-number>
+          </el-form-item>
+          <el-form-item label="特殊需求：" prop="special">
+            <el-input class="input" type="textarea" :rows="2" placeholder="请输入内容" v-model="ruleform.special">
+            </el-input>
+          </el-form-item>
+            <el-form-item>
+      <el-button type="primary"  @click="submitForm('ruleform')">提交</el-button>
+      <router-link to="/" tag='el-button'>取消</router-link>
+  </el-form-item>
+        </el-form>
+      </div>
     </div>
+  </div>
 </template>
 
 <script scoped>
   export default {
     data() {
       return {
+        rules: {
+          name: [
+            { required: true, message: '请输入活动名称', trigger: 'blur' },
+            { min: 0, max: 20, message: '长度在 0 到 20 个字符', trigger: 'blur' }
+          ],
+          date: [
+            { required: true, message: '请选择活动日期', trigger: 'blur' }
+          ],
+          time: [
+            { required: true, message: '请选择日期时间段', trigger: 'blur' }
+          ],
+          description: [
+            {required: true, message: '请输入活动描述', trigger: 'blur' }
+          ],
+          site: [
+            { required: true, message: '请选择一个活动地点', trigger: 'blur' }
+          ],
+          people: [
+            { required: true, message: '请选择活动人数', trigger: 'blur' }
+          ],
+        },
+        ruleform:{
+        id:'222222',
+        site: [],
+        date: '',
+        time: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
+        name: '',
+        description: '',
+        special: '',
+        doration:0,
+        people: 1
+        },
         pickerOptions: {
           disabledDate(time) {
             return time.getTime() > Date.now();
@@ -295,14 +298,6 @@
             label: '组件交互文档'
           }]
         }],
-        id:'222222',
-        site: [],
-        date: '',
-        time: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
-        name: '',
-        textarea: '',
-        specialtext: '',
-        num: 1
       };
     },
     methods: {
@@ -311,14 +306,19 @@
       },
       getSite(value){
         JSON.parse(JSON.stringify(value));
-        console.log(this.site);
+        console.log(this.ruleform.site);
       },
       getTime(value){
         JSON.parse(JSON.stringify(value));
-        console.log(this.time);
+        this.ruleform.doration = (this.ruleform.time[1][0]-this.ruleform.time[0][0])*600+(this.ruleform.time[1][1]-this.ruleform.time[0][1])*60
+        +(this.ruleform.time[1][3]-this.ruleform.time[0][3])*10+(this.ruleform.time[1][4]-this.ruleform.time[0][4])*1;
+        console.log(this.ruleform.time);
+        console.log(this.ruleform.doration);
       },
-      open() {
-        this.$alert('您的活动ID为'+this.id, '活动ID分配', {
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+        this.$alert('您的活动ID为'+this.ruleform.id, '活动ID分配', {
           confirmButtonText: '确定',
           callback: action => {
           if (action === 'confirm') {
@@ -329,7 +329,12 @@
           }
           }
         });
-      }
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
     }
   };
 </script>
@@ -338,6 +343,10 @@
 .logoImage {
   height: 25%;
   width: 25%;
+}
+.maintitle {
+  text-align: center;
+  font-size: 27px;
 }
 .page{
     height: 100%;
@@ -375,19 +384,4 @@
 .name{
 width:120%;
 }
-.submit{
-    margin:0;
-    width:10%;
-    position: relative;
-    left:250px;
-    top:580px
-}
-.cancel{
-    margin:0;
-    width:10%;
-    position: relative;
-    left:300px;
-    top:580px
-}
-
 </style>

@@ -5,12 +5,6 @@ Vue.use(VueRouter)
 
 const routes = [{
         path: '/',
-        name: 'Home',
-        component: () =>
-            import ('../page/Shared/IdentitySelection.vue')
-    },
-    {
-        path: '/Login',
         name: 'Login',
         component: () =>
             import ('../page/Shared/Login.vue')
@@ -44,7 +38,7 @@ const routes = [{
                 import ('../page/Student/StudentFavorite.vue')
         }, {
             path: "ShowMap",
-            name: "ShowMap",
+            name: "ShowMapforStu",
             component: () =>
                 import ('../page/Shared/ShowMap.vue')
         }, {
@@ -54,7 +48,7 @@ const routes = [{
                 import ('../page/Shared/ShowPlaceDetail.vue')
         }, {
             path: "ShowSchedule",
-            name: "ShowSchedule",
+            name: "ShowScheduleforStu",
             component: () =>
                 import ('../page/Shared/ShowSchedule.vue')
         }]
@@ -97,81 +91,97 @@ const routes = [{
             }
         ]
     },
+    // 组织页面
     {
-        path: '/Organization',
-        name: 'Main',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
+        path: '/OrganizationFrame',
+        name: 'OrganizationFrame',
         component: () =>
             import ('../page/Organization/OrganizationFrame.vue'),
         children: [{
-            path: '/CheckSite',
-            name: 'CreditSiteWindow',
-            component: () =>
-                import ('../page/Shared/check_site.vue')
-        }, {
-            path: '/CheckActivity',
-            name: 'CreditActivityWindow',
-            component: () =>
-                import ('../page/Shared/check_activity.vue')
-        }, {
-            path: '/CheckOrgan',
-            name: 'CreditOrganWindow',
-            component: () =>
-                import ('../page/Shared/check_organ.vue')
-        }, {
-            path: '/CreditScore',
-            name: 'CreditScoreWindow',
-            component: () =>
-                import ('../page/Organization/ViewCreditScore.vue')
-        }, {
-            path: '/Appointment',
-            name: 'AppointmentWindow',
-            component: () =>
-                import ('../page/Organization/ViewAppointment.vue')
-        }, {
-            path: "/Announcement",
-            name: "Announcement",
-            component: () =>
-              import('../page/Shared/AnnouncementList.vue'),
-        }, {
-            path: '/RecordDetails',
-            name: 'RecordWindow',
-            component: () =>
-                import ('../page/Organization/RecordDetails.vue')
-        }, {
-            path: '/FeedBack',
-            name: 'FeedBackWindow',
-            component: () =>
-                import ('../page/Organization/SiteFeedback.vue')
-        }, {
-            path: '/ApplySite',
-            name: 'ApplySiteWindow',
-            component: () =>
-                import ('../page/Organization/ApplyForSite.vue')
-        }, {
-            path: '/ShowMap',
-            name: 'ShowMap',
-            component: () =>
-                import ('../page/Shared/ShowMap.vue')
-        }, {
-            path: '/ShowPlaceDetail',
-            name: 'conttestent',
-            component: () =>
-                import ('../page/Shared/ShowPlaceDetail.vue')
-        }, {
-            path: '/ShowMap',
-            name: 'ShowMap',
-            component: () =>
-                import ('../page/Shared/ShowMap.vue')
-        }, {
-            path: '/ShowSchedule',
-            name: 'ShowSchedule',
-            component: () =>
-                import ('../page/Shared/ShowSchedule.vue')
-        }]
-    }, {
+                path: '/CheckSite',
+                name: 'CreditSiteWindow',
+                component: () =>
+                    import ('../page/Shared/check_site.vue')
+            }, {
+                path: '/CheckActivity',
+                name: 'CreditActivityWindow',
+                component: () =>
+                    import ('../page/Shared/check_activity.vue')
+            }, {
+                path: '/CheckOrgan',
+                name: 'CreditOrganWindow',
+                component: () =>
+                    import ('../page/Shared/check_organ.vue')
+            }, {
+                path: '/CreditScore',
+                name: 'CreditScoreWindow',
+                component: () =>
+                    import ('../page/Organization/ViewCreditScore.vue')
+            }, {
+                path: '/Appointment',
+                name: 'AppointmentWindow',
+                component: () =>
+                    import ('../page/Organization/ViewAppointment.vue')
+            }, {
+                path: "/OrganizationFavorite",
+                name: "FavoriteWindow",
+                component: () =>
+                    import ('../page/Organization/OrganizationFavorite.vue')
+            }, {
+                path: "/Announcement",
+                name: "AnnouncementforOrg",
+                component: () =>
+                    import ('../page/Shared/AnnouncementList.vue')
+            }, {
+                path: '/FinishActivity',
+                name: 'FinishWindow',
+                component: () =>
+                    import ('../page/Organization/ViewFinishActivity.vue')
+            }, {
+                path: '/RecordDetails',
+                name: 'RecordWindow',
+                component: () =>
+                    import ('../page/Organization/RecordDetails.vue')
+            }, {
+                path: '/Pending',
+                name: 'PendingWindow',
+                component: () =>
+                    import ('../page/Organization/PendingReview.vue')
+            }, {
+                path: '/Rejected',
+                name: 'RejectedWindow',
+                component: () =>
+                    import ('../page/Organization/AppointmentRejected.vue')
+            }, {
+                path: '/FeedBack',
+                name: 'FeedBackWindow',
+                component: () =>
+                    import ('../page/Organization/SiteFeedback.vue')
+            }, {
+                path: '/ApplySite',
+                name: 'ApplySiteWindow',
+                component: () =>
+                    import ('../page/Organization/ApplyForSite.vue')
+            },
+            {
+                path: '/ShowPlaceDetail',
+                name: 'conttestent',
+                component: () =>
+                    import ('../page/Shared/ShowPlaceDetail.vue')
+            }, {
+                path: '/ShowMap',
+                name: 'ShowMapforOrg',
+                component: () =>
+                    import ('../page/Shared/ShowMap.vue')
+            }, {
+                path: '/ShowSchedule',
+                name: 'ShowScheduleforOrg',
+                component: () =>
+                    import ('../page/Shared/ShowSchedule.vue')
+            }
+        ]
+    },
+    {
         path: '/wywt',
         name: 'wywtWindow',
         component: () =>
@@ -185,89 +195,89 @@ const routes = [{
             // import ('../components/personinfocard')
             import ('../page/Grandsman/GroundsmanFrame'),
         children: [{
-          path: "/Home",
-          name: "Home",
-          component: () =>
-            import('../page/Grandsman/GroundsmanHome.vue')
-        },
-        {
-          path: "/ScoringActivityList",
-          name: "ScoringActivityList",
-          component: () =>
-            import('../page/Grandsman/ScoringActivityList.vue'),
-        },
-        {
-            path: "/Announcement",
-            name: "Announcement",
-            component: () =>
-              import('../page/Shared/AnnouncementList.vue'),
-        },
-        {
-            path: "/Announcement/:ID",
-            name: "AnnouncementInfo",
-            component: () =>
-              import('../page/Shared/AnnouncementInfo.vue'),
-        },
-        {
-          path: "/ScoringActivity/:ID",
-          name: "ScoringActivity",
-          component: () =>
-            import('../page/Grandsman/ScoringActivity'),
-        },
-        {
-          path: "/ReleaseGroundAnnouncement",
-          name: "ReleaseGroundAnnouncement",
-          component: () =>
-            import('../page/Grandsman/ReleaseGroundAnnouncement'),
-        },
-        {
-            path: "/ReviewActivityList",
-            name: "ReviewActivityList",
-            component: () =>
-              import('../page/Grandsman/ReviewActivityList'),
-          },
-          {
-            path: "/GroundList",
-            name: "GroundList",
-            component: () =>
-              import('../page/Grandsman/GroundList'),
-          },
-          {
-            path: "/ActivityInfo/:ID",
-            name: "ActivityInfo",
-            component: () =>
-              import('../page/Grandsman/ActivityInfo'),
-          },
-          {
-            path: "/FeedbackActivityList",
-            name: "FeedbackActivityList",
-            component: () =>
-              import('../page/Grandsman/FeedbackActivityList'),
-          },
-          {
-            path: "/FeedbackInfo/:ID",
-            name: "FeedbackInfo",
-            component: () =>
-              import('../page/Grandsman/FeedbackInfo'),
-          },
-        //   {
-        //     path: "/AddCourse/:ID",
-        //     name: "AddCourse",
-        //     component: () =>
-        //       import('../page/Grandsman/AddCourse'),
-        //   },
-          {
-            path: "/GroundInfo/:ID",
-            name: "GroundInfo",
-            component: () =>
-              import('../page/Grandsman/GroundInfo'),
-          },
-          {
-            path: "/AddCourseGroundList",
-            name: "AddCourseGroundList",
-            component: () =>
-              import('../page/Grandsman/AddCourseGroundList'),
-          },
+                path: "/Home",
+                name: "Main",
+                component: () =>
+                    import ('../page/Grandsman/GroundsmanHome.vue')
+            },
+            {
+                path: "/ScoringActivityList",
+                name: "ScoringActivityList",
+                component: () =>
+                    import ('../page/Grandsman/ScoringActivityList.vue'),
+            },
+            {
+                path: "/Groundsman/Announcement",
+                name: "AnnouncementforGround",
+                component: () =>
+                    import ('../page/Shared/AnnouncementList.vue'),
+            },
+            {
+                path: "/Announcement/:ID",
+                name: "AnnouncementInfo",
+                component: () =>
+                    import ('../page/Shared/AnnouncementInfo.vue'),
+            },
+            {
+                path: "/ScoringActivity/:ID",
+                name: "ScoringActivity",
+                component: () =>
+                    import ('../page/Grandsman/ScoringActivity'),
+            },
+            {
+                path: "/ReleaseGroundAnnouncement",
+                name: "ReleaseGroundAnnouncement",
+                component: () =>
+                    import ('../page/Grandsman/ReleaseGroundAnnouncement'),
+            },
+            {
+                path: "/ReviewActivityList",
+                name: "ReviewActivityList",
+                component: () =>
+                    import ('../page/Grandsman/ReviewActivityList'),
+            },
+            {
+                path: "/GroundList",
+                name: "GroundList",
+                component: () =>
+                    import ('../page/Grandsman/GroundList'),
+            },
+            {
+                path: "/ActivityInfo/:ID",
+                name: "ActivityInfo",
+                component: () =>
+                    import ('../page/Grandsman/ActivityInfo'),
+            },
+            {
+                path: "/FeedbackActivityList",
+                name: "FeedbackActivityList",
+                component: () =>
+                    import ('../page/Grandsman/FeedbackActivityList'),
+            },
+            {
+                path: "/FeedbackInfo/:ID",
+                name: "FeedbackInfo",
+                component: () =>
+                    import ('../page/Grandsman/FeedbackInfo'),
+            },
+            //   {
+            //     path: "/AddCourse/:ID",
+            //     name: "AddCourse",
+            //     component: () =>
+            //       import('../page/Grandsman/AddCourse'),
+            //   },
+            {
+                path: "/GroundInfo/:ID",
+                name: "GroundInfo",
+                component: () =>
+                    import ('../page/Grandsman/GroundInfo'),
+            },
+            {
+                path: "/AddCourseGroundList",
+                name: "AddCourseGroundList",
+                component: () =>
+                    import ('../page/Grandsman/AddCourseGroundList'),
+            },
         ]
     },
 

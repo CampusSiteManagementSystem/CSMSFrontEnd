@@ -34,11 +34,8 @@ export default {
     margin:0;
     height:50%;
     width:45%;
-    /* background-color: rgb(7, 7, 7);
-    background: rgba(7, 7, 7, 0.315); */
     text-align: center;
 }
-
 
 h1,h4{
     color:white;

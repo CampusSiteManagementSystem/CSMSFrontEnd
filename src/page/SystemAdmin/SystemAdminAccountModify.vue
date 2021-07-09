@@ -3,7 +3,7 @@
     <div>
       <h2>用户信息</h2>
     </div>
-
+<el-card>
     <el-row>
       <el-col :span="6"
         ><div class="pic">
@@ -20,7 +20,7 @@
           <p>年龄:</p>
           <br />
           <p>性别:</p>
-          <br /></div
+          </div
       ></el-col>
 
       <el-col :span="6"
@@ -31,24 +31,19 @@
           <p>班级:</p>
           <br />
           <p>邮箱:</p>
-          <br /></div
+          </div
       ></el-col>
     </el-row>
     <div class="modify">
       <el-button type="primary" @click="success">编辑</el-button>
     </div>
+</el-card>
   </div>
 </template>
 
 <style scoped>
-.el-header {
-  background-color: #b3c0d1;
-  color: #333;
-  line-height: 60px;
-}
-
-.el-aside {
-  color: #333;
+.el-card {
+  height: 100%;
 }
 
 .info {
@@ -58,17 +53,11 @@
 p {
   color: rgb(0, 0, 0);
   position: relative;
-  /* left: 20px; */
 }
 
 .modify {
-  margin-top: 5cm;
+  margin-top: 4cm;
   margin-left: 15cm;
-}
-
-.logoImage {
-  height: 25%;
-  width: 25%;
 }
 
 .pic {
