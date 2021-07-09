@@ -115,6 +115,11 @@ const routes = [{
                 component: () =>
                     import ('../page/Shared/check_activity.vue')
             }, {
+                path: "/OrganizationAccountModify",
+                name: "OrganizationAccountModify",
+                component: () =>
+                    import ('../page/Organization/OrganizationAccountModify.vue')
+            }, {
                 path: '/CheckOrgan',
                 name: 'CreditOrganWindow',
                 component: () =>
