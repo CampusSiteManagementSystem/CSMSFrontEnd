@@ -108,7 +108,11 @@ const routes = [{
                 },
                 component: () =>
                     import ('../page/Shared/ShowPlaceDetail.vue')
-                    // 这个用wy的
+            }, { 
+                path: "/OrganizationMain",
+                name: "/OrganizationFrameMain",
+                component: () =>
+                    import ('../page/Organization/OrganizationMain.vue')
             }, {
                 path: '/CheckActivity',
                 name: 'CreditActivityWindow',

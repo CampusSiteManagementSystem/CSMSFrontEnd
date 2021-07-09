@@ -3,7 +3,7 @@
     <div>
       <h2>组织用户信息</h2>
     </div>
-<el-card>
+<el-card class="infoMain">
     <el-row>
       <el-col :span="6"
         ><div class="pic">
@@ -42,8 +42,8 @@
 </template>
 
 <style scoped>
-.el-card {
-  height: 100%;
+.infoMain {
+  height: 90%;
 }
 
 .info {

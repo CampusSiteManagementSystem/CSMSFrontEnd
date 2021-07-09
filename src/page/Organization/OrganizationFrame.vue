@@ -7,7 +7,7 @@
             <img src="../../assets/tjlogo.png" class="logoImage" />
           </el-row>
           <el-menu mode="vertical" default-active="Main" router>
-            <el-menu-item index="/ShowPlaceDetail">
+            <el-menu-item index="/OrganizationMain">
               <i class="el-icon-s-home"></i>
               <!--to do添加route属性-->
               主页
