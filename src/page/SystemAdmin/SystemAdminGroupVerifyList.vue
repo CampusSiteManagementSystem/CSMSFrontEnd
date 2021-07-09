@@ -1,10 +1,10 @@
 <template>
-  <div class="page">
-    <div>
-      <h2>审核组织注册</h2>
-    </div>
-    <div>
-      <el-card>
+  <div>
+    <el-card :height="40">
+      <div>
+        <h2>审核组织注册</h2>
+      </div>
+      <div>
         <el-table :data="tableData">
           <el-table-column label="日期" width="250">
             <template slot-scope="scope">
@@ -33,15 +33,13 @@
             </template>
           </el-table-column>
         </el-table>
-      </el-card>
-    </div>
+      </div>
+    </el-card>
   </div>
 </template>
 
 <style scoped>
-.el-card{
-  height:100%;
-}
+
 </style>
 
 

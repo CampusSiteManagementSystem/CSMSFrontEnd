@@ -1,17 +1,19 @@
 <template>
-  <div class="page">
-    <div>
-      <h2>审批组织注册</h2>
-    </div>
-    <el-card>
+  <div class="maindiv">
+    <el-card class="mycard">
+      <div>
+        <h2>组织注册</h2>
+      </div>
+
       <el-row>
         <el-col :span="20"
-          ><div class="info"> 
-            <p>组织信息:</p>         
-            <p>组织名称:</p>          
+          ><div class="info">
+            <p>组织信息:</p>
+            <p>组织名称:</p>
             <p>详细信息:</p>
-            </div></el-col
-      ></el-row>
+          </div></el-col
+        ></el-row
+      >
 
       <el-row>
         <el-col :span="20"
