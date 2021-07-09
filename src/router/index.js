@@ -99,9 +99,10 @@ const routes = [{
             import ('../page/Organization/OrganizationFrame.vue'),
         children: [{
                 path: '/CheckSite',
-                name: 'CreditSiteWindow',
+                name: 'CheckSite',
                 component: () =>
-                    import ('../page/Shared/check_site.vue')
+                    import ('../page/Shared/ShowPlaceDetail.vue')
+                    // 这个用wy的
             }, {
                 path: '/CheckActivity',
                 name: 'CreditActivityWindow',

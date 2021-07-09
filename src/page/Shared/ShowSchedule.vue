@@ -27,16 +27,45 @@ export default {
     CourseTable,
     StuPicCard,OrgPicCard
   },
+  mounted(){
+    this.desideType();
+    console.log(this.membertype);
+    console.log(this.othertype)
+
+  },
   data() {
     return{
-      othertype:!this.membertype
+      othertype:!this.membertype,
+
     }
   },
+  methods:{
+    // desideType(){
+    //   console.log(this.$route.params.user);
+
+    //   console.log(this.$route.params.user);
+    //   console.log(this.$route.params.user);
+    //   console.log(this.$route.params.user);
+    //   console.log(this.$route.params.user);
+    //   console.log(this.$route.params.user);
+    //   console.log(this.$route.params.user);
+    //   console.log(this.$route.params.user);
+    //   console.log(this.$route.params.user);console.log(this.$route.params.user);
+    //   if(this.$route.params.user=="Org"){
+    //     this.membertype=false;
+
+    //   }
+
+
+    // }
+
+  },
   props: {
-    membertype: {
+    membertype: {//true代表学生，false代表组织
       type: Boolean,
       default: true,
-    },
+    }
+    ,
   },
 };
 </script>
