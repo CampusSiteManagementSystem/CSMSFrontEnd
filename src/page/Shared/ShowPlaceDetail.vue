@@ -32,7 +32,7 @@
                 >查看</router-link
               >
               <router-link
-                v-show="membertype"
+                v-show="othertype"
                 to="/ShowSchedule"
                 size="mini"
                 type="primary"
@@ -131,6 +131,7 @@ export default {
     return {
       tableData: Array(20).fill(item),
       options: places,
+      othertype:!this.membertype,
 
       // baseUrl,
       // baseImgPath,
@@ -147,6 +148,12 @@ export default {
       // address: {},
     };
   },
+  mounted(){
+    console.log("membertype student");
+     console.log(this.membertype);
+    console.log(this.othertype);
+
+  },
   methods: {
     // handleEdit() {},
     // handleEdit(index, row) {
@@ -162,11 +169,12 @@ export default {
     //   this.$router.push({ path: "addGoods", query: { restaurant_id: row.id } });
     // },
   },
-  props: {
-    membertype: {
+   props: {
+    membertype: {//true代表学生，false代表组织
       type: Boolean,
-      default: false,
-    },
+      // default: true,
+    }
+    ,
   },
 };
 </script>

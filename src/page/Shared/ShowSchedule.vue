@@ -29,8 +29,7 @@ export default {
   },
   mounted(){
     this.desideType();
-    console.log(this.membertype);
-    console.log(this.othertype)
+    
 
   },
   data() {
@@ -40,24 +39,38 @@ export default {
     }
   },
   methods:{
-    // desideType(){
-    //   console.log(this.$route.params.user);
+    desideType(){
+      console.log(this.membertype);
+    console.log(this.othertype);
+    console.log(this.membertype);
+    console.log(this.othertype)
+    console.log(this.membertype);
+    console.log(this.membertype);
+    console.log(this.othertype)
+    console.log(this.membertype);
+    console.log(this.othertype);
+    console.log(this.membertype);
+    console.log(this.othertype)
+    console.log(this.membertype);
+    console.log(this.membertype);
+    console.log(this.othertype)
+      // console.log(this.$route.params.user);
 
-    //   console.log(this.$route.params.user);
-    //   console.log(this.$route.params.user);
-    //   console.log(this.$route.params.user);
-    //   console.log(this.$route.params.user);
-    //   console.log(this.$route.params.user);
-    //   console.log(this.$route.params.user);
-    //   console.log(this.$route.params.user);
-    //   console.log(this.$route.params.user);console.log(this.$route.params.user);
-    //   if(this.$route.params.user=="Org"){
-    //     this.membertype=false;
+      // console.log(this.$route.params.user);
+      // console.log(this.$route.params.user);
+      // console.log(this.$route.params.user);
+      // console.log(this.$route.params.user);
+      // console.log(this.$route.params.user);
+      // console.log(this.$route.params.user);
+      // console.log(this.$route.params.user);
+      // console.log(this.$route.params.user);console.log(this.$route.params.user);
+      // if(this.$route.params.user=="Org"){
+      //   this.membertype=false;
 
-    //   }
+      // }
 
 
-    // }
+    }
 
   },
   props: {

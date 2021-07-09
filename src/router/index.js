@@ -49,6 +49,9 @@ const routes = [{
         }, {
             path: "ShowSchedule",
             name: "ShowScheduleforStu",
+            props: {
+                membertype: true,
+            },
             component: () =>
                 import ('../page/Shared/ShowSchedule.vue')
         }]
@@ -100,6 +103,9 @@ const routes = [{
         children: [{
                 path: '/CheckSite',
                 name: 'CheckSite',
+                props: {
+                    membertype: false
+                },
                 component: () =>
                     import ('../page/Shared/ShowPlaceDetail.vue')
                     // 这个用wy的
