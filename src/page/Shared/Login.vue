@@ -5,7 +5,7 @@
       class="IdentitySelectionBackImage"
     />
     <!--"IdentitySelectionContainer"-->
-    <el-card class="IdentitySelectionContainer" style="border-radius:12px">
+    <el-card class="IdentitySelectionContainer" style="border-radius: 12px">
       <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="24">
@@ -22,6 +22,7 @@
             :rules="rules"
             label-width="40px"
             :hide-required-asterisk="true"
+            size="medium"
           >
             <el-form-item label="账号" prop="accountNumber">
               <el-input
@@ -64,14 +65,14 @@
         </el-col>
       </el-row>
       <el-row type="flex" justify="center" style="margin: 0px 0 10px 0px">
-          <el-button
-            @click="submitForm('LoginForm')"
-            size="medium"
-            round
-            style="width: 70%"
-            type="primary"
-            >登录</el-button
-          >
+        <el-button
+          @click="submitForm('LoginForm')"
+          size="medium"
+          round
+          style="width: 70%"
+          type="primary"
+          >登录</el-button
+        >
       </el-row>
 
       <el-row>
@@ -107,7 +108,7 @@ export default {
           { required: true, message: "请输入密码", trigger: "blur" },
           {
             pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,10}$/,
-            message: "密码格式有误",
+            message: "必须包含大小写字母和数字的组合，可以使用特殊字符，长度在8-10之间",
             trigger: "blur",
           },
         ],
@@ -116,12 +117,6 @@ export default {
     };
   },
   methods: {
-    forgetPassword: function () {
-      this.$router.push("/ForgetPassword");
-    },
-    register: function () {
-      this.$router.push("/Register");
-    },
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -138,7 +133,7 @@ export default {
           }
         } else {
           alert("Recomplete!");
-          this.$refs[formName].resetFields();
+          this.$refs[formName].clearValidate();
         }
       });
     },
@@ -160,7 +155,7 @@ h4 {
   width: 100%;
 }
 
-.blur{
+.blur {
   filter: blur(10px);
 }
 </style>
