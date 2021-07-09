@@ -32,6 +32,7 @@
                 >查看</router-link
               >
               <router-link
+                v-show="membertype"
                 to="/ShowSchedule"
                 size="mini"
                 type="primary"
@@ -43,12 +44,7 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-pagination
-          :page-size="20"
-          layout="prev, pager, next"
-          :total="1000"
-          
-        >
+        <el-pagination :page-size="20" layout="prev, pager, next" :total="1000">
         </el-pagination>
       </div>
     </el-card>
@@ -166,6 +162,12 @@ export default {
     //   this.$router.push({ path: "addGoods", query: { restaurant_id: row.id } });
     // },
   },
+  props: {
+    membertype: {
+      type: Boolean,
+      default: false,
+    },
+  },
 };
 </script>
 
@@ -186,6 +188,4 @@ export default {
 .clearfix:after {
   clear: both;
 }
-
-
 </style>

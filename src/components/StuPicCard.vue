@@ -13,9 +13,9 @@
       <div class="bottom clearfix">
         <time class="time">{{ currentDate }}</time>
         <el-button icon="el-icon-star-off" class="button" circle=""></el-button>
-        <router-link to="/ApplySite"><el-button type="primary" icon="el-icon-star-off" class="button"
+        <!-- <router-link to="/ApplySite"><el-button type="primary" icon="el-icon-star-off" class="button"
           >预约</el-button
-        ></router-link>
+        ></router-link> -->
         <!-- <router-link to="/预约界面"  
             type="primary"
             tag='el-button' 
@@ -60,7 +60,7 @@
 
 <script>
 export default {
-  name: "PicCard",
+  name: "StuPicCard",
   data() {
     const utils = {
       电脑数量: 100,
@@ -75,5 +75,11 @@ export default {
       placeType: "室内场地",
     };
   },
+   props: {
+    buttonShow: {
+      type: Boolean,
+      default: false,
+    },
+  }
 };
 </script>

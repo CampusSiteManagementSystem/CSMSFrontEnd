@@ -18,7 +18,7 @@
 </template>
  
 <script>
-import PopMeg from "../components/PopMeg.vue";
+import PopMeg from "../../components/PopMeg.vue";
 import Vue from "vue";
 export default {
   data() {

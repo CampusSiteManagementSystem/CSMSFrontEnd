@@ -4,7 +4,8 @@
       <el-col :xs="24" :sm="24" :md="10" :lg="10"
         ><div class="grid-content">
           <el-card class="box-card" >
-            <PicCard />
+            <StuPicCard v-show="membertype" />
+            <OrgPicCard v-show="othertype" />
           </el-card></div
       ></el-col>
       <el-col :xs="24" :sm="24" :md="14" :lg="14">
@@ -18,14 +19,25 @@
 
 <script>
 import CourseTable from "../../components/CourseTable.vue";
-import PicCard from "../../components/PicCard.vue";
+import StuPicCard from "../../components/StuPicCard.vue";
+import OrgPicCard from "../../components/OrgPicCard.vue";
 export default {
   name: "ScheduleAndPic",
   components: {
     CourseTable,
-    PicCard,
+    StuPicCard,OrgPicCard
   },
-  data() {},
+  data() {
+    return{
+      othertype:!this.membertype
+    }
+  },
+  props: {
+    membertype: {
+      type: Boolean,
+      default: true,
+    },
+  },
 };
 </script>
 
