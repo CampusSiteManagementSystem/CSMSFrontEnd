@@ -70,8 +70,16 @@ const routes = [
             component: () =>
                 import ('../page/Shared/AnnouncementList.vue')
         }, {
-            path: "ShowSchedule",
+            path: "ShowSchedule/:groundID",
             name: "ShowScheduleforStu",
+            <<
+            << << < HEAD ===
+            === =
+            props: {
+                membertype: true,
+            },
+            >>>
+            >>> > ca888dbe521cb271239c0360b32c7610629551ef
             component: () =>
                 import ('../page/Shared/ShowSchedule.vue')
         }]
@@ -215,8 +223,11 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/ShowMap.vue')
             }, {
-                path: 'ShowSchedule',
+                path: 'ShowSchedule/:groundID',
                 name: 'ShowScheduleforOrg',
+                props: {
+                    membertype: false,
+                },
                 component: () =>
                     import ('../page/Shared/ShowSchedule.vue')
             }

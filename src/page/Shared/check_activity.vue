@@ -1,10 +1,13 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-    <h1 class="maintitle">查看活动</h1>
-    <el-tabs v-model="activeTab" @tab-click="handleClick" :stretch="true" type="border-card" class="maintabs">
+      <div>
+        <h2>查看活动</h2>
+      </div>
+    <el-tabs v-model="activeTab" class="maintabs">
         <el-tab-pane label="未举办" name="pane1">
         <el-table
+          :header-row-style="{height:'10px'}" :cell-style="{padding:'5px'}"
           :data="tableData"
           :default-sort = "{prop: 'time', order: 'ascending'}"
           height="450"
@@ -43,6 +46,7 @@
         </el-tab-pane>
         <el-tab-pane label="已举办" name="pane2">
         <el-table
+          header-row-style="{height:'10px'}" :cell-style="{padding:'5px'}"
           :data="tableData"
           :default-sort = "{prop: 'time', order: 'ascending'}"
           height="450"
@@ -103,10 +107,6 @@ body,
 .el-main {
   background-color: rgb(237, 241, 245);
   height: 100%;
-}
-.maintitle {
-  text-align: center;
-  font-size: 27px;
 }
 .maintabs {
   border-radius: 8px;
