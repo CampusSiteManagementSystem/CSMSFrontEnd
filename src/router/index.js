@@ -37,11 +37,6 @@ const routes = [{
             component: () =>
                 import ('../page/Student/StudentFavorite.vue')
         }, {
-            path: "/ShowMap",
-            name: "ShowMapforStu",
-            component: () =>
-                import ('../page/Shared/ShowMap.vue')
-        }, {
             path: "/ShowPlaceDetail",
             name: "ShowPlaceDetail",
             component: () =>
@@ -164,7 +159,7 @@ const routes = [{
                 component: () =>
                     import ('../page/Organization/OrganizationFavorite.vue')
             }, {
-                path: "/Announcement",
+                path: "/Organization/Announcement",
                 name: "AnnouncementforOrg",
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue')
@@ -205,7 +200,7 @@ const routes = [{
                 component: () =>
                     import ('../page/Shared/ShowPlaceDetail.vue')
             }, {
-                path: '/ShowMap',
+                path: '/Organization/ShowMap',
                 name: 'ShowMapforOrg',
                 component: () =>
                     import ('../page/Shared/ShowMap.vue')

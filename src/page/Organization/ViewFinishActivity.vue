@@ -304,7 +304,7 @@ export default {
       },
             handleCurrentChange2(val) {
         this.currentRow = val;
-        this.$router.push('/Rejected')
+        this.$router.push('/FeedBack')
       },
     }
 }

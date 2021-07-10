@@ -2,7 +2,7 @@
   <div class="maindiv">
     <el-card class="maincard">
     <h1 class="maintitle">公告</h1>
-    <el-tabs v-model="activeTab" @tab-click="handleClick" :stretch="true" type="border-card" class="maintabs">
+    <el-tabs v-model="activeTab" :stretch="true" type="border-card" class="maintabs">
         <el-tab-pane label="系统公告" name="pane1">
         <el-table
           :data="systemTableData" 
