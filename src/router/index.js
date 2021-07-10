@@ -44,6 +44,9 @@ const routes = [{
         }, {
             path: "ShowPlaceDetail",
             name: "ShowPlaceDetail",
+            props: {
+                membertype: true,
+            },
             component: () =>
                 import ('../page/Shared/ShowPlaceDetail.vue')
         }, {
@@ -67,13 +70,11 @@ const routes = [{
             component: () =>
                 import ('../page/Shared/AnnouncementList.vue')
         }, {
-            path: "ShowSchedule",
+            path: "/Student/ViewActivity",
             name: "ShowScheduleforStu",
-            props: {
-                membertype: true,
-            },
+            
             component: () =>
-                import ('../page/Shared/ShowSchedule.vue')
+                import ('../page/Shared/check_activity.vue')
         }]
     },
     //系统管理员
