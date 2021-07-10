@@ -1,8 +1,10 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-    <h1 class="maintitle">公告</h1>
-    <el-tabs v-model="activeTab" @tab-click="handleClick" :stretch="true" type="border-card" class="maintabs">
+      <div>
+        <h2>公告</h2>
+      </div>
+    <el-tabs v-model="activeTab" class="maintabs">
         <el-tab-pane label="系统公告" name="pane1">
         <el-table
           :data="systemTableData" 
@@ -92,10 +94,6 @@ body,
 .el-main {
   background-color: rgb(237, 241, 245);
   height: 100%;
-}
-.maintitle {
-  text-align: center;
-  font-size: 27px;
 }
 .maintabs {
   border-radius: 8px;

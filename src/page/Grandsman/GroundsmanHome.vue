@@ -244,7 +244,7 @@ export default {
         id: 1956666,
         grounds: ["复楼", "诚楼"],
         type: ["", "success", "info", "warning", "danger"],
-        date: "2020-2021学年度第2学期第13周",
+        date: "2020-2021学年第2学期第13周",
       },
       systemannouncement: [
         { text: "明天维护", date: "2021-6-1" },

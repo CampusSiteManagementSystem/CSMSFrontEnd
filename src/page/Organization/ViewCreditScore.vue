@@ -5,7 +5,7 @@
         <div class="grid-content1">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <div class="groupname">{{group.name}}</div>
+              <div class="groupname1">{{group.name}}</div>
             </div>
             <div>
               <el-progress class="dashboard" type="dashboard" :width='200' :stroke-width='10' :percentage="group.score"
@@ -33,10 +33,10 @@
         <div class="grid-content3">
           <el-card class="box-card2">
             <div slot="header" class="clearfix">
-              <span class="groupname">信用分记录</span>
+              <span class="groupname2">信用分记录</span>
             </div>
             <div class="text item">
-              <el-table :data="tableData" style="width: 100%" height="200" stripe
+              <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" :data="tableData" style="width: 100%" height="200" stripe
                 :default-sort="{prop: 'score', order: 'descending'}">
                 <el-table-column prop="name" label="名称" width="180">
                 </el-table-column>
@@ -291,10 +291,17 @@ export default {
     left:220px;
     top:-122px;
 }
-  .groupname{
+  .groupname1{
     font-family:Helvetica;
     font-weight:bold;
     font-size:200%;
+    position:relative;
+    text-align: center;
+}
+  .groupname2{
+    font-family:Helvetica;
+    font-weight:bold;
+    font-size:100%;
     position:relative;
     text-align: center;
 }
@@ -320,7 +327,7 @@ export default {
   }
   .box-card2 {
     position:absolute;
-    height:100%;
+    height:95%;
     width: 98%;
     border-radius: 12px;
   }

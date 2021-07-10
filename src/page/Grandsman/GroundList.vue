@@ -1,7 +1,7 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-    <h1 class="maintitle">维护场地信息</h1>
+    <div class="maintitle">维护场地信息</div>
         <el-table :data="groundTable" height="520">
             <el-table-column prop="name" label="场地名称" min-width="25%">
             </el-table-column>
@@ -77,8 +77,10 @@ export default {
     height: 100%;
   }
   .maintitle {
-    text-align: center;
-    font-size: 27px;
+    font-size: 22px;
+    text-align: left;
+    font-weight: bold;
+    padding: 5px;
   }
   .groundinfo {
     text-align: right;

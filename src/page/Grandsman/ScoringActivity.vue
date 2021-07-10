@@ -148,7 +148,7 @@ export default {
   methods: {
     cancle(){
        this.$router.push({
-          path: "/ScoringActivityList",
+          path: "/GroundsAdmin/ScoringActivityList",
     })
     },
     publish() {

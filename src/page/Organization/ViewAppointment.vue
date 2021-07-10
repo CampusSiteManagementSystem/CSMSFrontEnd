@@ -1,347 +1,254 @@
 ﻿<template>
   <div class="page">
     <div class="background">
-      <el-tabs
-        v-model="activeName"
-        @tab-click="handleClick"
-        :stretch="true"
-        type="border-card"
-      >
-        <el-tab-pane label="待举办" name="first">
-          <el-table
-            ref="filterTable1"
-            :data="tableData"
-            height="592"
-            stripe
-            highlight-current-row
-            @current-change="handleCurrentChange1"
-            style="width: 100%"
-            :default-sort="{ prop: 'date', order: 'descending' }"
-          >
-            <el-table-column type="expand">
-              <template slot-scope="props">
-                <el-form label-position="left" class="demo-table-expand">
-                  <el-form-item label="活动ID">
-                    <span>{{ props.row.ID }}</span>
-                  </el-form-item>
-                  <el-form-item label="活动名称">
-                    <span>{{ props.row.name }}</span>
-                  </el-form-item>
-                  <el-form-item label="时间">
-                    <span>{{ props.row.date }}</span>
-                  </el-form-item>
-                  <el-form-item label="申请地点">
-                    <span>{{ props.row.address }}</span>
-                  </el-form-item>
-                  <el-form-item label="参加人数">
-                    <span>{{ props.row.people }}</span>
-                  </el-form-item>
-                  <el-form-item label="特殊要求">
-                    <span>{{ props.row.require }}</span>
-                  </el-form-item>
-                  <el-form-item label="活动描述">
-                    <span>{{ props.row.details }}</span>
-                  </el-form-item>
-                </el-form>
-              </template>
-            </el-table-column>
-            <el-table-column prop="date" label="日期" width="180" sortable>
-              <template slot-scope="scope">
-                <i class="el-icon-time"></i>
-                <span style="margin-left: 10px">{{ scope.row.date }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="name" label="名称" width="180">
-            </el-table-column>
-            <el-table-column prop="address" label="地址" :formatter="formatter">
-            </el-table-column>
+      <el-card class="card">
+        <div>
+          <h2>预约记录</h2>
+        </div>
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+          <el-tab-pane label="待举办" name="first">
+            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable1" :data="tableData" height="465" stripe highlight-current-row
+              @current-change="handleCurrentChange1" style="width: 100%"
+              :default-sort="{ prop: 'date', order: 'descending' }">
+              <el-table-column type="expand">
+                <template slot-scope="props">
+                  <el-form label-position="left" class="demo-table-expand">
+                    <el-form-item label="活动ID">
+                      <span>{{ props.row.ID }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动名称">
+                      <span>{{ props.row.name }}</span>
+                    </el-form-item>
+                    <el-form-item label="时间">
+                      <span>{{ props.row.date }}</span>
+                    </el-form-item>
+                    <el-form-item label="申请地点">
+                      <span>{{ props.row.address }}</span>
+                    </el-form-item>
+                    <el-form-item label="参加人数">
+                      <span>{{ props.row.people }}</span>
+                    </el-form-item>
+                    <el-form-item label="特殊要求">
+                      <span>{{ props.row.require }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动描述">
+                      <span>{{ props.row.details }}</span>
+                    </el-form-item>
+                  </el-form>
+                </template>
+              </el-table-column>
+              <el-table-column prop="date" label="日期" width="180" sortable>
+                <template slot-scope="scope">
+                  <i class="el-icon-time"></i>
+                  <span style="margin-left: 10px">{{ scope.row.date }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="name" label="名称" width="180">
+              </el-table-column>
+              <el-table-column prop="address" label="地址" :formatter="formatter">
+              </el-table-column>
 
-            <el-table-column
-              prop="tag"
-              label="标签"
-              width="100"
-              :filters="[
+              <el-table-column prop="tag" label="标签" width="100" :filters="[
                 { text: '室内', value: '室内' },
                 { text: '室外', value: '室外' },
-              ]"
-              :filter-method="filterTag"
-              filter-placement="bottom-end"
-            >
-              <template slot-scope="scope">
-                <el-tag
-                  :type="scope.row.tag === '室内' ? 'primary' : 'success'"
-                  disable-transitions
-                  >{{ scope.row.tag }}</el-tag
-                >
-              </template>
-            </el-table-column>
-            <el-table-column label="操作">
-              <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  @click="handleEdit1(scope.$index, scope.row)"
-                  >更改预约</el-button
-                >
-                <el-button
-                  size="mini"
-                  type="danger"
-                  @click="handleDelete1(scope.$index, scope.row)"
-                  >删除预约</el-button
-                >
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-tab-pane>
-        <el-tab-pane label="审核中" name="second">
-          <el-table
-            ref="filterTable2"
-            :data="tableData"
-            height="592"
-            stripe
-            highlight-current-row
-            @current-change="handleCurrentChange2"
-            style="width: 100%"
-            :default-sort="{ prop: 'date', order: 'descending' }"
-          >
-            <el-table-column type="expand">
-              <template slot-scope="props">
-                <el-form label-position="left" class="demo-table-expand">
-                  <el-form-item label="活动ID">
-                    <span>{{ props.row.ID }}</span>
-                  </el-form-item>
-                  <el-form-item label="活动名称">
-                    <span>{{ props.row.name }}</span>
-                  </el-form-item>
-                  <el-form-item label="时间">
-                    <span>{{ props.row.date }}</span>
-                  </el-form-item>
-                  <el-form-item label="申请地点">
-                    <span>{{ props.row.address }}</span>
-                  </el-form-item>
-                  <el-form-item label="参加人数">
-                    <span>{{ props.row.people }}</span>
-                  </el-form-item>
-                  <el-form-item label="特殊要求">
-                    <span>{{ props.row.require }}</span>
-                  </el-form-item>
-                  <el-form-item label="活动描述">
-                    <span>{{ props.row.details }}</span>
-                  </el-form-item>
-                </el-form>
-              </template>
-            </el-table-column>
-            <el-table-column prop="date" label="日期" width="180" sortable>
-              <template slot-scope="scope">
-                <i class="el-icon-time"></i>
-                <span style="margin-left: 10px">{{ scope.row.date }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="name" label="名称" width="180">
-            </el-table-column>
-            <el-table-column prop="address" label="地址" :formatter="formatter">
-            </el-table-column>
+              ]" :filter-method="filterTag" filter-placement="bottom-end">
+                <template slot-scope="scope">
+                  <el-tag :type="scope.row.tag === '室内' ? 'primary' : 'success'" disable-transitions>{{ scope.row.tag }}
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column label="操作">
+                <template slot-scope="scope">
+                  <el-button size="mini" @click="handleEdit1(scope.$index, scope.row)">更改预约</el-button>
+                  <el-button size="mini" type="danger" @click="handleDelete1(scope.$index, scope.row)">删除预约</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+          <el-tab-pane label="审核中" name="second">
+            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable2" :data="tableData" height="465" stripe highlight-current-row
+              @current-change="handleCurrentChange2" style="width: 100%"
+              :default-sort="{ prop: 'date', order: 'descending' }">
+              <el-table-column type="expand">
+                <template slot-scope="props">
+                  <el-form label-position="left" class="demo-table-expand">
+                    <el-form-item label="活动ID">
+                      <span>{{ props.row.ID }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动名称">
+                      <span>{{ props.row.name }}</span>
+                    </el-form-item>
+                    <el-form-item label="时间">
+                      <span>{{ props.row.date }}</span>
+                    </el-form-item>
+                    <el-form-item label="申请地点">
+                      <span>{{ props.row.address }}</span>
+                    </el-form-item>
+                    <el-form-item label="参加人数">
+                      <span>{{ props.row.people }}</span>
+                    </el-form-item>
+                    <el-form-item label="特殊要求">
+                      <span>{{ props.row.require }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动描述">
+                      <span>{{ props.row.details }}</span>
+                    </el-form-item>
+                  </el-form>
+                </template>
+              </el-table-column>
+              <el-table-column prop="date" label="日期" width="180" sortable>
+                <template slot-scope="scope">
+                  <i class="el-icon-time"></i>
+                  <span style="margin-left: 10px">{{ scope.row.date }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="name" label="名称" width="180">
+              </el-table-column>
+              <el-table-column prop="address" label="地址" :formatter="formatter">
+              </el-table-column>
 
-            <el-table-column
-              prop="tag"
-              label="标签"
-              width="100"
-              :filters="[
+              <el-table-column prop="tag" label="标签" width="100" :filters="[
                 { text: '室内', value: '室内' },
                 { text: '室外', value: '室外' },
-              ]"
-              :filter-method="filterTag"
-              filter-placement="bottom-end"
-            >
-              <template slot-scope="scope">
-                <el-tag
-                  :type="scope.row.tag === '室内' ? 'primary' : 'success'"
-                  disable-transitions
-                  >{{ scope.row.tag }}</el-tag
-                >
-              </template>
-            </el-table-column>
-            <el-table-column label="操作">
-              <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  @click.stop="handleEdit2(scope.$index, scope.row)"
-                  >更改预约</el-button
-                >
-                <el-button
-                  size="mini"
-                  type="danger"
-                  @click.stop="handleDelete2(scope.$index, scope.row)"
-                  >删除预约</el-button
-                >
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-tab-pane>
-        <el-tab-pane label="已完成" name="third">
-          <el-table
-            ref="filterTable"
-            :data="tableData"
-            height="592"
-            stripe
-            highlight-current-row
-            @current-change="handleCurrentChange3"
-            style="width: 100%"
-            :default-sort="{ prop: 'date', order: 'descending' }"
-          >
-            <el-table-column type="expand">
-              <template slot-scope="props">
-                <el-form label-position="left" class="demo-table-expand">
-                  <el-form-item label="活动ID">
-                    <span>{{ props.row.ID }}</span>
-                  </el-form-item>
-                  <el-form-item label="活动名称">
-                    <span>{{ props.row.name }}</span>
-                  </el-form-item>
-                  <el-form-item label="时间">
-                    <span>{{ props.row.date }}</span>
-                  </el-form-item>
-                  <el-form-item label="申请地点">
-                    <span>{{ props.row.address }}</span>
-                  </el-form-item>
-                  <el-form-item label="参加人数">
-                    <span>{{ props.row.people }}</span>
-                  </el-form-item>
-                  <el-form-item label="特殊要求">
-                    <span>{{ props.row.require }}</span>
-                  </el-form-item>
-                  <el-form-item label="活动描述">
-                    <span>{{ props.row.details }}</span>
-                  </el-form-item>
-                </el-form>
-              </template>
-            </el-table-column>
-            <el-table-column prop="date" label="日期" width="180" sortable>
-              <template slot-scope="scope">
-                <i class="el-icon-time"></i>
-                <span style="margin-left: 10px">{{ scope.row.date }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="name" label="名称" width="180">
-            </el-table-column>
-            <el-table-column prop="address" label="地址" :formatter="formatter">
-            </el-table-column>
+              ]" :filter-method="filterTag" filter-placement="bottom-end">
+                <template slot-scope="scope">
+                  <el-tag :type="scope.row.tag === '室内' ? 'primary' : 'success'" disable-transitions>{{ scope.row.tag }}
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column label="操作">
+                <template slot-scope="scope">
+                  <el-button size="mini" @click.stop="handleEdit2(scope.$index, scope.row)">更改预约</el-button>
+                  <el-button size="mini" type="danger" @click.stop="handleDelete2(scope.$index, scope.row)">删除预约
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+          <el-tab-pane label="已完成" name="third">
+            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable" :data="tableData" height="465" stripe highlight-current-row
+              @current-change="handleCurrentChange3" style="width: 100%"
+              :default-sort="{ prop: 'date', order: 'descending' }">
+              <el-table-column type="expand">
+                <template slot-scope="props">
+                  <el-form label-position="left" class="demo-table-expand">
+                    <el-form-item label="活动ID">
+                      <span>{{ props.row.ID }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动名称">
+                      <span>{{ props.row.name }}</span>
+                    </el-form-item>
+                    <el-form-item label="时间">
+                      <span>{{ props.row.date }}</span>
+                    </el-form-item>
+                    <el-form-item label="申请地点">
+                      <span>{{ props.row.address }}</span>
+                    </el-form-item>
+                    <el-form-item label="参加人数">
+                      <span>{{ props.row.people }}</span>
+                    </el-form-item>
+                    <el-form-item label="特殊要求">
+                      <span>{{ props.row.require }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动描述">
+                      <span>{{ props.row.details }}</span>
+                    </el-form-item>
+                  </el-form>
+                </template>
+              </el-table-column>
+              <el-table-column prop="date" label="日期" width="180" sortable>
+                <template slot-scope="scope">
+                  <i class="el-icon-time"></i>
+                  <span style="margin-left: 10px">{{ scope.row.date }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="name" label="名称" width="180">
+              </el-table-column>
+              <el-table-column prop="address" label="地址" :formatter="formatter">
+              </el-table-column>
 
-            <el-table-column
-              prop="tag"
-              label="标签"
-              width="100"
-              :filters="[
+              <el-table-column prop="tag" label="标签" width="100" :filters="[
                 { text: '室内', value: '室内' },
                 { text: '室外', value: '室外' },
-              ]"
-              :filter-method="filterTag"
-              filter-placement="bottom-end"
-            >
-              <template slot-scope="scope">
-                <el-tag
-                  :type="scope.row.tag === '室内' ? 'primary' : 'success'"
-                  disable-transitions
-                  >{{ scope.row.tag }}</el-tag
-                >
-              </template>
-            </el-table-column>
-            <el-table-column label="操作">
-              <template slot-scope="scope">
-                <router-link to="/FeedBack"
-                  ><el-button
-                    size="mini"
-                    type="primary"
-                    @click.stop="handleFeedback(scope.$index, scope.row)"
-                    >反馈</el-button
-                  ></router-link
-                >
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-tab-pane>
-        <el-tab-pane label="被驳回" name="fourth">
-          <el-table
-            ref="filterTable"
-            :data="tableData"
-            height="592"
-            stripe
-            highlight-current-row
-            @current-change="handleCurrentChange4"
-            style="width: 100%"
-            :default-sort="{ prop: 'date', order: 'descending' }"
-          >
-            <el-table-column type="expand">
-              <template slot-scope="props">
-                <el-form label-position="left" class="demo-table-expand">
-                  <el-form-item label="活动ID">
-                    <span>{{ props.row.ID }}</span>
-                  </el-form-item>
-                  <el-form-item label="活动名称">
-                    <span>{{ props.row.name }}</span>
-                  </el-form-item>
-                  <el-form-item label="时间">
-                    <span>{{ props.row.date }}</span>
-                  </el-form-item>
-                  <el-form-item label="申请地点">
-                    <span>{{ props.row.address }}</span>
-                  </el-form-item>
-                  <el-form-item label="参加人数">
-                    <span>{{ props.row.people }}</span>
-                  </el-form-item>
-                  <el-form-item label="特殊要求">
-                    <span>{{ props.row.require }}</span>
-                  </el-form-item>
-                  <el-form-item label="活动描述">
-                    <span>{{ props.row.details }}</span>
-                  </el-form-item>
-                </el-form>
-              </template>
-            </el-table-column>
-            <el-table-column prop="date" label="日期" width="180" sortable>
-              <template slot-scope="scope">
-                <i class="el-icon-time"></i>
-                <span style="margin-left: 10px">{{ scope.row.date }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="name" label="名称" width="180">
-            </el-table-column>
-            <el-table-column prop="address" label="地址" :formatter="formatter">
-            </el-table-column>
+              ]" :filter-method="filterTag" filter-placement="bottom-end">
+                <template slot-scope="scope">
+                  <el-tag :type="scope.row.tag === '室内' ? 'primary' : 'success'" disable-transitions>{{ scope.row.tag }}
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column label="操作">
+                <template slot-scope="scope">
+                  <router-link to="/FeedBack">
+                    <el-button size="mini" type="primary" @click.stop="handleFeedback(scope.$index, scope.row)">反馈
+                    </el-button>
+                  </router-link>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+          <el-tab-pane label="被驳回" name="fourth">
+            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable" :data="tableData" height="465" stripe highlight-current-row
+              @current-change="handleCurrentChange4" style="width: 100%"
+              :default-sort="{ prop: 'date', order: 'descending' }">
+              <el-table-column type="expand">
+                <template slot-scope="props">
+                  <el-form label-position="left" class="demo-table-expand">
+                    <el-form-item label="活动ID">
+                      <span>{{ props.row.ID }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动名称">
+                      <span>{{ props.row.name }}</span>
+                    </el-form-item>
+                    <el-form-item label="时间">
+                      <span>{{ props.row.date }}</span>
+                    </el-form-item>
+                    <el-form-item label="申请地点">
+                      <span>{{ props.row.address }}</span>
+                    </el-form-item>
+                    <el-form-item label="参加人数">
+                      <span>{{ props.row.people }}</span>
+                    </el-form-item>
+                    <el-form-item label="特殊要求">
+                      <span>{{ props.row.require }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动描述">
+                      <span>{{ props.row.details }}</span>
+                    </el-form-item>
+                  </el-form>
+                </template>
+              </el-table-column>
+              <el-table-column prop="date" label="日期" width="180" sortable>
+                <template slot-scope="scope">
+                  <i class="el-icon-time"></i>
+                  <span style="margin-left: 10px">{{ scope.row.date }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="name" label="名称" width="180">
+              </el-table-column>
+              <el-table-column prop="address" label="地址" :formatter="formatter">
+              </el-table-column>
 
-            <el-table-column
-              prop="tag"
-              label="标签"
-              width="100"
-              :filters="[
+              <el-table-column prop="tag" label="标签" width="100" :filters="[
                 { text: '室内', value: '室内' },
                 { text: '室外', value: '室外' },
-              ]"
-              :filter-method="filterTag"
-              filter-placement="bottom-end"
-            >
-              <template slot-scope="scope">
-                <el-tag
-                  :type="scope.row.tag === '室内' ? 'primary' : 'success'"
-                  disable-transitions
-                  >{{ scope.row.tag }}</el-tag
-                >
-              </template>
-            </el-table-column>
-            <el-table-column label="操作">
-              <template slot-scope="scope">
-                <router-link to="/ApplySite"
-                  ><el-button
-                    size="mini"
-                    type="success"
-                    @click.stop="handleRenew(scope.$index, scope.row)"
-                    >重新申请</el-button
-                  ></router-link
-                >
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-tab-pane>
-      </el-tabs>
+              ]" :filter-method="filterTag" filter-placement="bottom-end">
+                <template slot-scope="scope">
+                  <el-tag :type="scope.row.tag === '室内' ? 'primary' : 'success'" disable-transitions>{{ scope.row.tag }}
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column label="操作">
+                <template slot-scope="scope">
+                  <router-link to="/ApplySite">
+                    <el-button size="mini" type="success" @click.stop="handleRenew(scope.$index, scope.row)">重新申请
+                    </el-button>
+                  </router-link>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+        </el-tabs>
+      </el-card>
     </div>
   </div>
 </template>
@@ -501,7 +408,7 @@ export default {
     },
     handleEdit2(index, row) {
       console.log(index, row);
-      this.$router.push("/ApplySite");
+      this.$router.push("/OrgFrame/ApplySite");
     },
     handleDelete2(index, row) {
       console.log(index, row);
@@ -535,15 +442,15 @@ export default {
     },
     handleCurrentChange2(val) {
       this.currentRow = val;
-      this.$router.push("/Pending");
+      this.$router.push("/OrgFrame/Pending");
     },
     handleCurrentChange3(val) {
       this.currentRow = val;
-      this.$router.push("/RecordDetails");
+      this.$router.push("/OrgFrame/RecordDetails");
     },
     handleCurrentChange4(val) {
       this.currentRow = val;
-      this.$router.push("/Rejected");
+      this.$router.push("/OrgFrame/Rejected");
     },
   },
 };

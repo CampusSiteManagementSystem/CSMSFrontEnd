@@ -60,7 +60,7 @@
               message: '反馈成功'
             });
           }
-          this.$router.push("/FinishActivity");
+          this.$router.push("/OrgFrame/FinishActivity");
           }
         });
         }

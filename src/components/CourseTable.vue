@@ -5,8 +5,8 @@
       </el-date-picker>
   </div>
     
-    <el-table :data="tableData" border style="width: 100%" >
-      <el-table-column prop="date" label="时间"> </el-table-column>
+    <el-table :data="tableData" border >
+      <el-table-column prop="timeslot" label="时间"> </el-table-column>
       <el-table-column prop="mon" label="周一" > </el-table-column>
       <el-table-column prop="tue" label="周二"> </el-table-column>
       <el-table-column prop="wed" label="周三"> </el-table-column>
@@ -22,22 +22,46 @@
 export default {
   name: "CourseTable",
   data() {
-    let occupyed={
+    // let occupyed={
         
-          date: "1",
-          mon: "-",
+    //       timeslot: "1",
+    //       mon: "数据库",
+    //       tue: "编译原理",
+    //       wed: "编译原理",
+    //       thu: "编译原理",
+    //       fri: "编译原理",
+    //       sat: "编译原理",
+    //       sun: "编译原理",
+        
+
+    // };
+    let tableData=[{
+            timeslot: "1",
+          mon: "数据库",
+          tue: "编译原理",
+          wed: "编译原理",
+          thu: "编译原理",
+          fri: "-",
+          sat: "编译原理",
+          sun: "编译原理",
+
+    },{
+            timeslot: "2",
+          mon: "数据库",
           tue: "编译原理",
           wed: "编译原理",
           thu: "编译原理",
           fri: "编译原理",
           sat: "编译原理",
-          sun: "编译原理",
-        
+          sun: "-",
 
-    };
+    }]
+      
+    
     return {
       value1: "",
-      tableData:Array(11).fill(occupyed),
+      tableData:tableData,
+      // tableData:Array(11).fill(occupyed),
     };
   },
 };

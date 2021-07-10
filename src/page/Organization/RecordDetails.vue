@@ -43,10 +43,6 @@
                         <el-checkbox v-model="checked1" v-on="reviewopinion(formInline.idea)" disabled>通过</el-checkbox>
                         <el-checkbox v-model="checked2" disabled>不通过</el-checkbox>
                     </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                        <el-button>取消</el-button>
-                    </el-form-item>
                 </el-form>
             </div>
         </div>
