@@ -29,61 +29,57 @@ const routes = [
         component: () =>
             import ('../page/Student/StudentFrame.vue'),
         children: [{
-            path: "Main",
-            name: "StudentFrameMain",
-            component: () =>
-                import ('../page/Student/StudentMain.vue')
-        }, 
-        {
-            path: "testMain",
-            name: "testStudentFrameMain",
-            component: () =>
-                import ('../page/Grandsman/GroundsmanHome.vue')
-        },{
-            path: "Favorite",
-            name: "StudentFrameFavorite",
-            component: () =>
-                import ('../page/Student/StudentFavorite.vue')
-        }, {
-            path: "ShowPlaceDetail",
-            name: "StuShowPlaceDetail",
-            props: {
-                membertype: true,
+                path: "Main",
+                name: "StudentFrameMain",
+                component: () =>
+                    import ('../page/Student/StudentMain.vue')
             },
-            component: () =>
-                import ('../page/Shared/ShowPlaceDetail.vue')
-        }, {
-            path: "ViewOrgs",
-            name: "ViewOrgs",
-            component: () =>
-                import ('../page/Shared/check_organ.vue')
-        }, {
-            path: "ViewSites",
-            name: "ViewSites",
-            component: () =>
-                import ('../page/Shared/check_site.vue')
-        }, {
-            path: "Map",
-            name: "StudentMap",
-            props: {
-                membertype: true,
-            },
-            component: () =>
-                import ('../page/Shared/ShowMap.vue')
-        }, {
-            path: "Announcement",
-            name: "StudentAnnouncement",
-            component: () =>
-                import ('../page/Shared/AnnouncementList.vue')
-        }, {
-            path: "ShowSchedule/:groundID",
-            name: "ShowScheduleforStu",
-            props: {
-                membertype: true,
-            },
-            component: () =>
-                import ('../page/Shared/ShowSchedule.vue')
-        }]
+            {
+                path: "Favorite",
+                name: "StudentFrameFavorite",
+                component: () =>
+                    import ('../page/Student/StudentFavorite.vue')
+            }, {
+                path: "ShowPlaceDetail",
+                name: "StuShowPlaceDetail",
+                props: {
+                    membertype: true,
+                },
+                component: () =>
+                    import ('../page/Shared/ShowPlaceDetail.vue')
+            }, {
+                path: "ViewOrgs",
+                name: "ViewOrgs",
+                component: () =>
+                    import ('../page/Shared/check_organ.vue')
+            }, {
+                path: "ViewSites",
+                name: "ViewSites",
+                component: () =>
+                    import ('../page/Shared/check_site.vue')
+            }, {
+                path: "Map",
+                name: "StudentMap",
+                props: {
+                    membertype: true,
+                },
+                component: () =>
+                    import ('../page/Shared/ShowMap.vue')
+            }, {
+                path: "Announcement",
+                name: "StudentAnnouncement",
+                component: () =>
+                    import ('../page/Shared/AnnouncementList.vue')
+            }, {
+                path: "ShowSchedule/:groundID",
+                name: "ShowScheduleforStu",
+                props: {
+                    membertype: true,
+                },
+                component: () =>
+                    import ('../page/Shared/ShowSchedule.vue')
+            }
+        ]
     },
     //系统管理员！！！！！！！！
     //这个界面估计要删了
