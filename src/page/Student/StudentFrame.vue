@@ -1,5 +1,4 @@
 <template>
-  <div style="height: 100%">
     <el-container style="border: 1px solid #eee; height: 100%">
       <el-aside style="width: 15%">
         <el-row>
@@ -66,7 +65,6 @@
         </el-main>
       </el-container>
     </el-container>
-  </div>
 </template>
 
 <script>
@@ -89,6 +87,8 @@ export default {};
   padding: 5%;
   margin: 0 1px 0 0;
 }
+
+
 </style>
 
 <script>
