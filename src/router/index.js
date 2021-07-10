@@ -27,25 +27,45 @@ const routes = [{
         component: () =>
             import ('../page/Student/StudentFrame.vue'),
         children: [{
-            path: "Main",
+            path: "/Student/Main",
             name: "StudentFrameMain",
             component: () =>
                 import ('../page/Student/StudentMain.vue')
         }, {
-            path: "Favorite",
+            path: "/Student/Favorite",
             name: "StudentFrameFavorite",
             component: () =>
                 import ('../page/Student/StudentFavorite.vue')
         }, {
-            path: "ShowMap",
+            path: "/ShowMap",
             name: "ShowMapforStu",
             component: () =>
                 import ('../page/Shared/ShowMap.vue')
         }, {
-            path: "ShowPlaceDetail",
+            path: "/ShowPlaceDetail",
             name: "ShowPlaceDetail",
             component: () =>
                 import ('../page/Shared/ShowPlaceDetail.vue')
+        }, {
+            path: "/ViewOrganizations",
+            name: "ViewOrganizations",
+            component: () =>
+                import ('../page/Shared/check_organ.vue')
+        }, {
+            path: "/ViewSites",
+            name: "ViewSites",
+            component: () =>
+                import ('../page/Shared/check_site.vue')
+        }, {
+            path: "/Student/Map",
+            name: "StudentMap",
+            component: () =>
+                import ('../page/Shared/ShowMap.vue')
+        }, {
+            path: "/Student/Announcement",
+            name: "StudentAnnouncement",
+            component: () =>
+                import ('../page/Shared/AnnouncementList.vue')
         }, {
             path: "ShowSchedule",
             name: "ShowScheduleforStu",
