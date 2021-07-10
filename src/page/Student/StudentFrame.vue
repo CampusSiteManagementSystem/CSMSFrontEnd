@@ -1,5 +1,4 @@
 <template>
-  <div style="height: 100%">
     <el-container style="border: 1px solid #eee; height: 100%">
       <el-aside style="width: 15%">
         <el-row>
@@ -7,31 +6,31 @@
         </el-row>
         <el-row>
           <el-menu mode="vertical" router active-text-color="#409EFF">
-            <el-menu-item index="/StudentFrame/Main">
+            <el-menu-item index="/StuFrame/Main">
               <i class="el-icon-s-home"></i>
               <span style="font-size: 14px">主页</span>
             </el-menu-item>
-            <el-menu-item index="/StudentFrame/Student/Map">
+            <el-menu-item index="/StuFrame/Map">
               <i class="el-icon-map-location"></i>
               <span style="font-size: 14px">查看地图</span>
             </el-menu-item>
-            <el-menu-item index="/StudentFrame/ShowPlaceDetail">
+            <el-menu-item index="/StuFrame/ViewSites">
               <i class="el-icon-location"></i>
               <span style="font-size: 14px">查找地点</span>
             </el-menu-item>
-            <el-menu-item index="/StudentFrame/ShowSchedule">
+            <el-menu-item index="/StuFrame/ViewActivities">
               <i class="el-icon-s-claim"></i>
               <span style="font-size: 14px">查找活动</span>
             </el-menu-item>
-            <el-menu-item index="/StudentFrame/ViewOrganizations">
+            <el-menu-item index="/StuFrame/ViewOrgs">
               <i class="el-icon-s-custom"></i>
               <span style="font-size: 14px">查找组织</span>
             </el-menu-item>
-            <el-menu-item index="/StudentFrame/Favorite">
+            <el-menu-item index="/StuFrame/Favorite">
               <i class="el-icon-s-flag"></i>
               <span style="font-size: 14px">查看收藏</span>
             </el-menu-item>
-            <el-menu-item index="/StudentFrame/Student/Announcement">
+            <el-menu-item index="/StuFrame/Announcement">
               <i class="el-icon-s-release"></i>
               <span style="font-size: 14px">查看公告</span>
             </el-menu-item>
@@ -66,7 +65,6 @@
         </el-main>
       </el-container>
     </el-container>
-  </div>
 </template>
 
 <script>
@@ -89,13 +87,15 @@ export default {};
   padding: 5%;
   margin: 0 1px 0 0;
 }
+
+
 </style>
 
 <script>
 export default {
   methods: {
     handleClick() {
-      this.$router.push({ path: "SystemAdminAccountModify" });
+      this.$router.push({ path: "SysAdminAccountModify" });
     },
   },
 };

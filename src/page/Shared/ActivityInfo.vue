@@ -1,7 +1,7 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-      <div class="maintitle">审批预约记录</div>
+      <div class="maintitle">活动详情</div>
       <el-card class="box-card">
       <el-row>
         <el-col :span="12"><b>组织名称：</b>{{organization}}</el-col>
@@ -15,29 +15,16 @@
       <p></p>
       <el-card class="box-card">
       <el-row>
+        <el-col :span="12"><b>举办组织：</b>{{organization}}</el-col>
         <el-col :span="12"><b>活动名称：</b>{{name}}</el-col>
-        <el-col :span="12"><b>参与人数：</b>{{participantnum}}</el-col>
       </el-row>
       <el-row>
         <el-col :span="12"><b>活动时间：</b>{{date + ' ' + time}}</el-col>
+        <el-col :span="12"><b>参与人数：</b>{{participantnum}}</el-col>
       </el-row>
       <p><b>活动描述：</b>{{description}}</p>
-      <p><b>特殊需求：</b>{{additionalrequest}}</p>
       </el-card>
       <p></p>
-
-      <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="意见：">
-          <el-radio-group v-model="form.state">
-            <el-radio label="批准"></el-radio>
-            <el-radio label="不批准"></el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="说明：">
-          <el-input type="textarea" v-model="form.comment" rows="3" :disabled="state!=0"></el-input>
-        </el-form-item>
-      </el-form>
-      <el-button type="primary" @click="onSubmit" :disabled="state!=0">确认</el-button>
       <el-button @click="back">返回</el-button>
     </el-card>
   </div>
@@ -70,21 +57,8 @@ export default {
       };
     },
     methods: {
-      onSubmit() {
-        console.log('submit!');
-        this.$alert('您已批准该活动。', '审核完成', {
-          confirmButtonText: '返回列表',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            });
-            this.back();
-          }
-        })
-      },
       back() {
-        this.$router.push({path:'/GroundsAdmin/ReviewActivityList'});
+        this.$router.push({path:'../ViewActivities'});
       }
     }
   }

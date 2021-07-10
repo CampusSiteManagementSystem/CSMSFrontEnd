@@ -126,9 +126,9 @@ export default {
           } else if (this.identity === 2) {
             this.$router.push("/Groundsman");
           } else if (this.identity === 3) {
-            this.$router.push("/OrganizationFrame");
+            this.$router.push("/OrgFrame");
           } else if (this.identity === 4) {
-            this.$router.push("/SystemAdminHomePage");
+            this.$router.push("/SysAdminFrame");
           }
         } else {
           this.$refs[formName].clearValidate();

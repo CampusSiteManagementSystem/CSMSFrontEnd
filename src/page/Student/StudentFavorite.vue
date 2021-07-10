@@ -5,7 +5,7 @@
         <el-row>
           <el-col :span="20">
             <div>
-              <h2>我的收藏</h2>
+              <h3>我的收藏</h3>
             </div>
           </el-col>
           <el-col :span="4">
@@ -18,7 +18,7 @@
         </el-row>
       </div>
 
-      <el-table :data="matchList" style="width: 100%">
+      <el-table :data="matchList" style="width: 100%" stripe>
         <el-table-column
           label="场地编号"
           prop="groundID"

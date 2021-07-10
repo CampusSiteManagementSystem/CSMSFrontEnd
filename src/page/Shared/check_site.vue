@@ -1,7 +1,9 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-    <h1 class="maintitle">查看场地</h1>
+      <div>
+        <h2>查看场地</h2>
+      </div>
       <el-table
         :data="tableData"
         height="450"
@@ -33,7 +35,8 @@
             label="面积/平方米">
         </el-table-column>
         <el-table-column
-            width="100">
+            width="100"
+            label="操作">
             <template slot-scope="scope">
                 <el-button @click="handleClick(scope.row)" type="text" size="small">查看详情</el-button>
             </template>

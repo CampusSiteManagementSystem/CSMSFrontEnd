@@ -15,7 +15,7 @@
         </el-table-column>
         <el-table-column prop="type" label="组织类型" align="center">
         </el-table-column>
-        <el-table-column width="100">
+        <el-table-column width="100" label="操作">
           <template slot-scope="scope">
             <el-button @click="handleClick(scope.row)" type="text" size="small">查看详情</el-button>
           </template>

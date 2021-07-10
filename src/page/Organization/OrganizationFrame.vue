@@ -6,8 +6,8 @@
           <el-row type="flex" justify="center" align="middle">
             <img src="../../assets/tjlogo.png" class="logoImage" />
           </el-row>
-          <el-menu mode="vertical" default-active="Main" router>
-            <el-menu-item index="/OrganizationMain">
+          <el-menu mode="vertical" default-active="/OrgFrame/Main" router>
+            <el-menu-item index="/OrgFrame/Main">
               <i class="el-icon-s-home"></i>
               <!--to do添加route属性-->
               主页
@@ -18,45 +18,45 @@
                 <span>查看</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="/CheckActivity">
+                <el-menu-item index="/OrgFrame/CheckActivity">
                   <i class="el-icon-date"></i>
                   查看活动
                 </el-menu-item>
-                <el-menu-item index="/CheckOrgan">
+                <el-menu-item index="/OrgFrame/CheckOrgan">
                   <i class="el-icon-s-flag"></i>
                   查看组织
                 </el-menu-item>
-                <el-menu-item index="/CheckSite">
+                <el-menu-item index="/OrgFrame/CheckSite">
                   <i class="el-icon-s-home"></i>
                   查看地点
                 </el-menu-item>
               </el-menu-item-group>
             </el-submenu>
-            <el-menu-item index="/Organization/ShowMap">
+            <el-menu-item index="/OrgFrame/ShowMap">
               <i class="el-icon-map-location"></i>
               查看地图
             </el-menu-item>
-            <el-menu-item index="/ApplySite">
+            <el-menu-item index="/OrgFrame/ApplySite">
               <i class="el-icon-location"></i>
               预约场地
             </el-menu-item>
-            <el-menu-item index="/Appointment">
+            <el-menu-item index="/OrgFrame/Appointment">
               <i class="el-icon-s-claim"></i>
               查看预约记录
             </el-menu-item>
-            <el-menu-item index="/CreditScore">
+            <el-menu-item index="/OrgFrame/CreditScore">
               <i class="el-icon-s-custom"></i>
               查看信用分
             </el-menu-item>
-            <el-menu-item index="/OrganizationFavorite">
+            <el-menu-item index="/OrgFrame/OrgFavorite">
               <i class="el-icon-star-on"></i>
               查看收藏
             </el-menu-item>
-            <el-menu-item index="/FinishActivity">
+            <el-menu-item index="/OrgFrame/FinishActivity">
               <i class="el-icon-chat-line-round"></i>
               活动反馈
             </el-menu-item>
-            <el-menu-item index="/Organization/Announcement">
+            <el-menu-item index="/OrgFrame/Announcement">
               <i class="el-icon-postcard"></i>
               查看公告
             </el-menu-item>
@@ -93,7 +93,7 @@ export default {
   },
     methods: {
     handleClick() {
-      this.$router.push('/OrganizationAccountModify');
+      this.$router.push('/OrgFrame/OrgAccountModify');
     }
   },
 };

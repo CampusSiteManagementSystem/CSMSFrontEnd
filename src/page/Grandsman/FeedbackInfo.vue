@@ -52,7 +52,7 @@
           </el-form-item>
           <el-form-item>
             <router-link
-              to="/FeedbackActivityList"
+              to="/GroundsAdmin/FeedbackActivityList"
               tag="el-button"
               class="primary"
               >返回</router-link
@@ -143,7 +143,7 @@ export default {
   methods: {
     cancle() {
       this.$router.push({
-        path: "/ScoringActivityList",
+        path: "/GroundsAdmin/ScoringActivityList",
       });
     },
     publish() {
