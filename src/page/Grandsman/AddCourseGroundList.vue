@@ -1,7 +1,7 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-      <h1 class="maintitle">选择一个场地</h1>
+      <div class="maintitle">选择一个场地以导入课表</div>
 
       <el-table
         height="475"
@@ -78,11 +78,10 @@ export default {
   margin-left: 100px;
   margin-right: 100px;
 }
-h1 {
-  font-size: 25px;
-}
 .maintitle {
-  text-align: center;
-  font-size: 27px;
+  font-size: 22px;
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
 }
 </style>

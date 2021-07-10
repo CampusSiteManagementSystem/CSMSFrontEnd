@@ -1,7 +1,7 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-    <h1 class="maintitle">审核预约记录</h1>
+    <div class="maintitle">审核预约记录</div>
     <el-tabs v-model="activeTab" :stretch="true" type="border-card" class="maintabs">
         <el-tab-pane label="待审批" name="panel1">
         <el-table
@@ -162,8 +162,11 @@ body,
   height: 100%;
 }
 .maintitle {
-  text-align: center;
-  font-size: 27px;
+  font-size: 22px;
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
+  margin-bottom: 8px;
 }
 .maintabs {
   border-radius: 8px;

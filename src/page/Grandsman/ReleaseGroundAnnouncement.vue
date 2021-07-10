@@ -1,6 +1,6 @@
 <template>
   <el-card class="maincard">
-    <h1 class="maintitle">发布场地公告</h1>
+    <div class="maintitle">发布场地公告</div>
     <el-row :gutter="20">
       <el-col :span="12">
         <el-row>
@@ -8,7 +8,7 @@
         </el-row>
         <el-table
           :data="groundTable"
-          height="460"
+          height="450"
           highlight-current-row
           @row-click="onRowClick"
         >
@@ -49,7 +49,7 @@
           <el-form-item label="公告内容">
             <el-input
               type="textarea"
-              :autosize="{ minRows: 7, maxRows: 10 }"
+              :autosize="{ minRows: 8, maxRows: 10 }"
               v-model="form.content"
               placeholder="请输入公告内容"
               maxlength="100"
@@ -92,8 +92,10 @@ body,
   height: 100%;
 }
 .maintitle {
-  text-align: center;
-  font-size: 27px;
+  font-size: 22px;
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
 }
 .groundinfo {
   text-align: center;
