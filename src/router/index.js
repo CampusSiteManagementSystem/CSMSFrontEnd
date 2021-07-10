@@ -39,6 +39,9 @@ const routes = [{
         }, {
             path: "ShowMap",
             name: "ShowMapforStu",
+            props: {
+                membertype: true,
+            },
             component: () =>
                 import ('../page/Shared/ShowMap.vue')
         }, {
@@ -62,6 +65,9 @@ const routes = [{
         }, {
             path: "Student/Map",
             name: "StudentMap",
+            props: {
+                membertype: true,
+            },
             component: () =>
                 import ('../page/Shared/ShowMap.vue')
         }, {
@@ -208,6 +214,9 @@ const routes = [{
             }, {
                 path: '/ShowMap',
                 name: 'ShowMapforOrg',
+                props: {
+                    membertype: false,
+                },
                 component: () =>
                     import ('../page/Shared/ShowMap.vue')
             }, {
