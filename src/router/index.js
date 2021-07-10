@@ -296,12 +296,12 @@ const routes = [{
                 component: () =>
                     import ('../page/Grandsman/FeedbackInfo'),
             },
-            //   {
-            //     path: "/AddCourse/:ID",
-            //     name: "AddCourse",
-            //     component: () =>
-            //       import('../page/Grandsman/AddCourse'),
-            //   },
+              {
+                path: "/AddCourse/:ID",
+                name: "AddCourse",
+                component: () =>
+                  import('../page/Grandsman/AddCourse'),
+              },
             {
                 path: "/GroundInfo/:ID",
                 name: "GroundInfo",
