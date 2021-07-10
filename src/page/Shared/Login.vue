@@ -121,7 +121,6 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //提交表单到后台验证身份，并路由到指定页面
-          alert("submit!");
           if (this.identity === 1) {
             this.$router.push("/StudentFrame");
           } else if (this.identity === 2) {
@@ -132,7 +131,6 @@ export default {
             this.$router.push("/SystemAdminHomePage");
           }
         } else {
-          alert("Recomplete!");
           this.$refs[formName].clearValidate();
         }
       });
