@@ -39,6 +39,9 @@ const routes = [{
         }, {
             path: "ShowMap",
             name: "ShowMapforStu",
+            props: {
+                membertype: true,
+            },
             component: () =>
                 import ('../page/Shared/ShowMap.vue')
         }, {
@@ -62,6 +65,9 @@ const routes = [{
         }, {
             path: "Student/Map",
             name: "StudentMap",
+            props: {
+                membertype: true,
+            },
             component: () =>
                 import ('../page/Shared/ShowMap.vue')
         }, {
@@ -70,11 +76,11 @@ const routes = [{
             component: () =>
                 import ('../page/Shared/AnnouncementList.vue')
         }, {
-            path: "/Student/ViewActivity",
+            path: "ShowSchedule",
             name: "ShowScheduleforStu",
             
             component: () =>
-                import ('../page/Shared/check_activity.vue')
+                import ('../page/Shared/ShowSchedule.vue')
         }]
     },
     //系统管理员
@@ -208,6 +214,9 @@ const routes = [{
             }, {
                 path: '/ShowMap',
                 name: 'ShowMapforOrg',
+                props: {
+                    membertype: false,
+                },
                 component: () =>
                     import ('../page/Shared/ShowMap.vue')
             }, {
