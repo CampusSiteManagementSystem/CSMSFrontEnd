@@ -1,15 +1,14 @@
 <template>
   <div style="height: 100%">
-    <el-container style="border: 1px solid #eee;height: 100%">
+    <el-container style="border: 1px solid #eee; height: 100%">
       <el-aside style="width: 15%">
-        <div>
-          <el-row type="flex" justify="center" align="middle">
-            <img src="../../assets/tjlogo.png" class="logoImage" />
-          </el-row>
-          <el-menu mode="vertical" default-active="/StudentFrame" router>
-            <el-menu-item index="/Student/Main">
-              <i class="el-icon-s-home"></i
-              ><!--to do添加route属性-->
+        <el-row>
+          <img src="../../assets/tjlogo.png" class="logoImage" />
+        </el-row>
+        <el-row>
+          <el-menu mode="vertical" router active-text-color="#409EFF">
+            <el-menu-item index="/StudentFrame/Main">
+              <i class="el-icon-s-home"></i>
               <span style="font-size: 14px">主页</span>
             </el-menu-item>
             <el-menu-item index="/Student/Map">
@@ -37,11 +36,11 @@
               <span style="font-size: 14px">查看公告</span>
             </el-menu-item>
           </el-menu>
-        </div>
+        </el-row>
       </el-aside>
 
-      <el-container style="height:100%">
-        <el-header style="height:10%">
+      <el-container style="height: 100%">
+        <el-header style="height: 10%">
           <el-row
             class="headerrow"
             type="flex"
@@ -58,7 +57,9 @@
           </el-row>
         </el-header>
 
-        <el-main style="height:90%; overflow:auto">
+        <el-main
+          style="height: 90%; overflow: auto; background: rgb(237, 241, 245)"
+        >
           <keep-alive>
             <router-view></router-view>
           </keep-alive>
@@ -73,7 +74,6 @@ export default {};
 </script>
 
 <style scoped>
-
 .el-header {
   background-color: #d7e4f7;
   color: #333;
@@ -84,11 +84,11 @@ export default {};
 }
 
 .logoImage {
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 85%;
   padding: 5%;
+  margin: 0 1px 0 0;
 }
-
 </style>
 
 <script>
