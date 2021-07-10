@@ -28,6 +28,9 @@ export default {
     StuPicCard,
     OrgPicCard,
   },
+  created(){
+
+  },
   mounted() {
     this.desideType();
   },

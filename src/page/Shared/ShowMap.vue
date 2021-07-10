@@ -33,12 +33,21 @@ export default {
     this.initmap();
     // console.log(this.$router);
   },
+   props: {
+    membertype: {//true代表学生，false代表组织
+      type: Boolean,
+      // default: true,
+    }
+    ,
+  },
   computed: {},
   methods: {
     initmap() {
       // console.log("data router",this.$data.router);
       // console.log("this.$router",this.$router);
       const tempTest=this.$router;
+      const membertype=this.$props.membertype;
+      console.log("membertype",membertype);
       console.log("tempTest",tempTest);
       const bounds = [
         // Southwest coordinates
@@ -287,6 +296,7 @@ export default {
               freeRoom: 13,
               description: "1212",
               router:tempTest,
+              membertype:membertype,
             }, //传参
           }).$mount();
           // vm.$mount(); //挂载

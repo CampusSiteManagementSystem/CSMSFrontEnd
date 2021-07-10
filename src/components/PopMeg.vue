@@ -23,6 +23,7 @@ export default {
     freeRoom:Number,
     description:String,
     router:null,
+    membertype:Boolean,
 
 
 
@@ -43,9 +44,10 @@ export default {
       console.log(this.$props.router);
       
       console.log("111111");
-      
-       this.$props.router.push({  
-            path: 'ShowPlaceDetail',   
+      if(this.$props.membertype)//stu
+      {
+        this.$props.router.push({  
+            path: '/ShowPlaceDetail',   
             name: 'ShowPlaceDetail',  
             params: {   
                 key: 'key',   
@@ -56,6 +58,21 @@ export default {
                 msgKey: this.msg  
             }*/  
         })
+      }else{
+        this.$props.router.push({  
+            path: '/CheckSite',   
+            // name: '/CheckSite',  
+            params: {   
+                key: 'key',   
+                msgKey: this.msg  
+            }  
+            /*query: {  
+                key: 'key',   
+                msgKey: this.msg  
+            }*/  
+        })
+      }
+       
     },
   }
 };
