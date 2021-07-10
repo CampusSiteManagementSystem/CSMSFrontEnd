@@ -7,6 +7,7 @@
           <el-table
             :data="systemTableData"
             :default-sort="{ prop: 'time', order: 'descending' }"
+            :show-header="false"
             style="width: 100%"
             max-height="480"
           >
@@ -32,6 +33,7 @@
           <el-table
             :data="groundTableData"
             :default-sort="{ prop: 'time', order: 'descending' }"
+            :show-header="false"
             style="width: 100%"
             max-height="480"
           >
