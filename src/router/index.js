@@ -50,6 +50,26 @@ const routes = [{
             component: () =>
                 import ('../page/Shared/ShowPlaceDetail.vue')
         }, {
+            path: "ViewOrganizations",
+            name: "ViewOrganizations",
+            component: () =>
+                import ('../page/Shared/check_organ.vue')
+        }, {
+            path: "ViewSites",
+            name: "ViewSites",
+            component: () =>
+                import ('../page/Shared/check_site.vue')
+        }, {
+            path: "Student/Map",
+            name: "StudentMap",
+            component: () =>
+                import ('../page/Shared/ShowMap.vue')
+        }, {
+            path: "Student/Announcement",
+            name: "StudentAnnouncement",
+            component: () =>
+                import ('../page/Shared/AnnouncementList.vue')
+        }, {
             path: "ShowSchedule",
             name: "ShowScheduleforStu",
             
@@ -109,12 +129,21 @@ const routes = [{
                 },
                 component: () =>
                     import ('../page/Shared/ShowPlaceDetail.vue')
-                    // 这个用wy的
+            }, {
+                path: "/OrganizationMain",
+                name: "/OrganizationFrameMain",
+                component: () =>
+                    import ('../page/Organization/OrganizationMain.vue')
             }, {
                 path: '/CheckActivity',
                 name: 'CreditActivityWindow',
                 component: () =>
                     import ('../page/Shared/check_activity.vue')
+            }, {
+                path: "/OrganizationAccountModify",
+                name: "OrganizationAccountModify",
+                component: () =>
+                    import ('../page/Organization/OrganizationAccountModify.vue')
             }, {
                 path: '/CheckOrgan',
                 name: 'CreditOrganWindow',
@@ -268,12 +297,12 @@ const routes = [{
                 component: () =>
                     import ('../page/Grandsman/FeedbackInfo'),
             },
-            //   {
-            //     path: "/AddCourse/:ID",
-            //     name: "AddCourse",
-            //     component: () =>
-            //       import('../page/Grandsman/AddCourse'),
-            //   },
+            {
+                path: "/AddCourse/:ID",
+                name: "AddCourse",
+                component: () =>
+                    import ('../page/Grandsman/AddCourse'),
+            },
             {
                 path: "/GroundInfo/:ID",
                 name: "GroundInfo",

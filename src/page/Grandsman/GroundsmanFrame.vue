@@ -2,10 +2,10 @@
   <el-container class="666" style="height=100%">
     <el-aside width="15%"><sidebar></sidebar></el-aside>
     <el-container>
-      <el-header height="60px">
+      <el-header style="height: 10%;background-color: #d7e4f7">
         <myheader></myheader>
       </el-header>
-      <el-main>
+      <el-main style="height: 90%; overflow: auto">
         <keep-alive>
           <router-view style="height: 100%"></router-view>
         </keep-alive>
@@ -16,7 +16,7 @@
 
 
 
-<style>
+<style scpoed>
 html,
 body,
 #app,
@@ -28,6 +28,7 @@ body,
   /*统一设置高度为100%*/
   height: 100%;
 }
+
 </style>
 
 

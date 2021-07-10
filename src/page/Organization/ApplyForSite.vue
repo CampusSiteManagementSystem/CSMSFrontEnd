@@ -1,7 +1,9 @@
 ﻿<template>
   <div class="page">
     <div class="background">
-      <h1 class="maintitle">场地使用申请</h1>
+      <div>
+        <h2>场地使用申请</h2>
+      </div>
       <div id="content">
         <el-form ref="ruleform" :rules="rules" :model="ruleform" label-width="100px">
           <el-form-item label="活动名称：" prop="name">

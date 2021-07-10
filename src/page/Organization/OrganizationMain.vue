@@ -1,17 +1,17 @@
-<template>
-  <div height="100%">
-    <el-row :gutter="10" style="height: 302px;">
-      <el-col :span="10" style="height: 95%"
+﻿<template>
+  <div>
+    <el-row :gutter="4" style="height: 45%">
+      <el-col :span="10" style="height: 100%"
         ><!--左上角的两块-->
-        <el-card style="height: 100%">
+        <el-card class="bottom" style="height: 44%">
           <el-row>
             <el-col :span="9">
               <img :src="studentInfo.image" alt="未找到文件" />
             </el-col>
-            <el-col :span="15">
-              <div class="personalInfo">昵称：{{ studentInfo.username }}</div>
-              <div class="calender">学号：{{ studentInfo.studentID }}</div>
-              <div class="calender">
+            <el-col :span="12">
+              <div>昵称：{{ studentInfo.username }}</div>
+              <div>学号：{{ studentInfo.studentID }}</div>
+              <div>
                 {{ semesterInfo.fromYear }}-{{ semesterInfo.toYear }}年度第{{
                   semesterInfo.semester
                 }}学期第{{ semesterInfo.week }}周祝您学习愉快!
@@ -19,10 +19,12 @@
             </el-col>
           </el-row>
         </el-card>
-        
+        <el-card class="bottom" style="height: 51%">
+          图上说没想好画什么。。。
+        </el-card>
       </el-col>
-      <el-col :span="14" style="height: 95%">
-        <el-card  style="height: 100%; overflow: auto">
+      <el-col :span="14" style="height: 100%">
+        <el-card class="bottom" style="height: 97%; overflow: auto">
           <el-tabs>
             <el-tab-pane label="系统公告">
               <el-row
@@ -50,9 +52,9 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row :gutter="10" style="height: 60%">
+    <el-row :gutter="4" style="height: 60%">
       <el-col :span="15" style="height: 100%">
-        <el-card style="height: 93%">
+        <el-card class="bottom" style="height: 93%">
           <div slot="header" class="clearfix">未来活动</div>
           <el-table
             :data="futureActivity"
@@ -74,7 +76,7 @@
         </el-card>
       </el-col>
       <el-col :span="9" style="height: 100%">
-        <el-card style="height: 93%">
+        <el-card class="bottom" style="height: 93%">
           <div slot="header" class="clearfix">占用中的场地</div>
           <el-table :data="occupation" stripe style="width: 100%" height="270">
             <el-table-column prop="position" label="地点" width="auto">
@@ -233,15 +235,7 @@ export default {
 .clearfix:after {
   clear: both;
 }
-
-
-.calender {
-  font-size: 14px;
-  color: #2b3b4e;
-  font-weight: 700;
-}
-.personalInfo {
-  font-size: 18px;
-  font-weight: 600;
+.bottom {
+  margin-bottom: 1%;
 }
 </style>

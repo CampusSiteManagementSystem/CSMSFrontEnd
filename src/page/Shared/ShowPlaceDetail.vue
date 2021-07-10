@@ -1,7 +1,9 @@
 <template>
   <div>
     <el-card class="box-card">
-      <div slot="header" class="clearfix">
+       <div>
+        <h2>查看地点</h2>
+      </div>
         <div class="search">
           <el-cascader
             :options="options"
@@ -10,9 +12,8 @@
           ></el-cascader>
           <el-button type="primary" icon="el-icon-search">搜索</el-button>
         </div>
-      </div>
       <div class="text item">
-        <el-table :data="tableData">
+        <el-table :data="tableData" height="450">
           <el-table-column prop="type" label="是否室内"> </el-table-column>
           <el-table-column prop="building" label="楼号"> </el-table-column>
           <el-table-column prop="floor" label="层号"> </el-table-column>

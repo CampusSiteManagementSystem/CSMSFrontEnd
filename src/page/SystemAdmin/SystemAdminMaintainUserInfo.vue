@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div>
-      <h2>用户信息维护</h2>
-    </div>
-    <el-card>
+    <el-card class="mycard">
+      <div>
+        <h2>用户信息维护</h2>
+      </div>
+
       <div class="search">
         <el-select v-model="value1" filterable placeholder="请选择">
           <el-option
@@ -56,6 +57,8 @@
 </template>
 
 <style scoped>
+html,
+body,
 .el-card {
   height: 100%;
 }

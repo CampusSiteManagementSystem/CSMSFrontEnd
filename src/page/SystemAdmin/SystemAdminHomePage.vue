@@ -22,6 +22,9 @@ export default {
 </script>
 
 <style scoped>
+
+html,
+body,
 .page{
     height: 100%;
     width: 100%;
