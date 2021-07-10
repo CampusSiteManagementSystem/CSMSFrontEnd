@@ -43,7 +43,7 @@
               <!-- class="el-icon-edit choose-button" -->
                <router-link
                v-show="membertype"
-               :to="{ name: 'ShowScheduleforStu', params: { groundID: scope.row.groundID } }"
+               :to="{ name: 'ShowScheduleforStu', params: { groundID: scope.row.groundID ,membertype:true} }"
                 size="mini"
                 type="success"
                 tag="el-button"
@@ -54,7 +54,7 @@
               <!-- 这个是组织的 -->
               <router-link
               v-show="othertype"
-               :to="{ name: 'ShowScheduleforOrg', params: { groundID: scope.row.groundID } }"
+               :to="{ name: 'ShowScheduleforOrg', params: { groundID: scope.row.groundID ,membertype:false} }"
                 size="mini"
                 type="success"
                 tag="el-button"
