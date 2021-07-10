@@ -5,7 +5,7 @@
         <el-row>
           <el-col :span="18">
             <div>
-              <h3>查看场地</h3>
+              <h2>查看场地</h2>
             </div>
           </el-col>
           <el-col :span="6">
@@ -19,7 +19,7 @@
       </div>
         
       <div class="text item">
-        <el-table :data="matchList" height="450">
+        <el-table :header-row-style="{height:'10px'}" :cell-style="{padding:'1px'}" :data="matchList" height="450">
           <el-table-column prop="groundID" label="场地编号"> </el-table-column>
           <el-table-column prop="type" label="是否室内"> </el-table-column>
           <el-table-column prop="building" label="楼号"> </el-table-column>
