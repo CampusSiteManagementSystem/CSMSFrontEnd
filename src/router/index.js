@@ -45,11 +45,6 @@ const routes = [
                 component: () =>
                     import ('../page/Student/StudentFavorite.vue')
             }, {
-                path: "ShowPlaceDetail",
-                name: "ShowPlaceDetail",
-                component: () =>
-                    import ('../page/Shared/ShowPlaceDetail.vue')
-            }, {
                 path: "ViewOrgs",
                 name: "ViewOrgs",
                 component: () =>
@@ -255,12 +250,8 @@ const routes = [
                 component: () =>
                     import ('../page/Organization/ApplyForSite.vue')
             },
+           
             {
-                path: 'ShowPlaceDetail',
-                name: 'OrgShowPlaceDetail',
-                component: () =>
-                    import ('../page/Shared/ShowPlaceDetail.vue')
-            }, {
                 path: 'ShowMap',
                 name: 'ShowMapforOrg',
                 props: {
