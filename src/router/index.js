@@ -40,7 +40,7 @@ const routes = [
                 import ('../page/Student/StudentFavorite.vue')
         }, {
             path: "ShowPlaceDetail",
-            name: "ShowPlaceDetail",
+            name: "StuShowPlaceDetail",
             props: {
                 membertype: true,
             },
