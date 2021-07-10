@@ -1,25 +1,27 @@
 <template>
   <div class="main">
-    <el-row>
-      <p style="text-align: center; font-size: x-large">{{ room }}</p>
-      <p style="text-align: center; font-size: small">{{ building }}</p>
-      <img src="../assets/Indoor.jpg" class="image" />
-    </el-row>
-    <el-row style="padding: 14px">
-      <span>{{ placeType }}</span>
-      <p v-for="(value, key) in utils" :key="value">{{ key }}:{{ value }}</p>
-    </el-row>
-    <el-row>
-      <div class="bottom clearfix">
-        <time class="time">{{ currentDate }}</time>
-        <el-button icon="el-icon-star-off" class="button" circle=""></el-button>
-        <router-link to="/ApplySite" v-show="buttonshow"
-          ><el-button type="primary" icon="el-icon-star-off" class="button"
-            >预约</el-button
-          ></router-link
-        >
-       
-      </div>
+    <el-row :gutter="20">
+      <el-col :span="8"
+        ><div>
+          <img src="../assets/Indoor.jpg" class="image" /></div
+      ></el-col>
+      <el-col :span="16">
+        <p style="text-align: center; font-size: x-large">{{ room }}</p>
+        <p style="text-align: center; font-size: small">{{ building }}</p>
+        <span>{{ placeType }}</span>
+        <p v-for="(value, key) in utils" :key="value">{{ key }}:{{ value }}</p>
+        <time class="time"
+          >{{ currentDate }}
+          <router-link to="/ApplySite" v-show="buttonshow"
+            ><el-button type="text">预约</el-button></router-link
+          ></time
+        ><el-button
+          icon="el-icon-star-off"
+          class="button"
+          circle=""
+          size="mini"
+        ></el-button>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -35,10 +37,10 @@
   line-height: 12px;
 }
 
-.button {
+/* .button {
   margin: 10px, 10px, 10px, 10px;
   float: right;
-}
+} */
 
 .image {
   width: 100%;
@@ -73,9 +75,8 @@ export default {
       placeType: "室内场地",
     };
   },
-  mounted(){
-    console.log("PICCARD buttonshow",this.$props.buttonshow);
-
+  mounted() {
+    console.log("PICCARD buttonshow", this.$props.buttonshow);
   },
   props: {
     buttonshow: {

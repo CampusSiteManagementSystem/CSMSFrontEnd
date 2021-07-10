@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <el-row :gutter="10" type="flex">
+    <!-- <el-row :gutter="10" type="flex">
       <el-col :xs="24" :sm="24" :md="10" :lg="10">
         <div class="grid-content">
           <el-card class="box-card">
@@ -12,6 +12,19 @@
           <CourseTable />
         </el-card>
       </el-col>
+    </el-row> -->
+    <el-row :gutter="10" type="flex">
+     
+        <div class="grid-content">
+          <el-card class="box-card">
+            <PicCard :buttonshow="othertype" />
+          </el-card></div>
+     </el-row>
+       <el-row :gutter="10" type="flex">
+        <el-card class="box-card">
+          <CourseTable />
+        </el-card>
+     
     </el-row>
   </div>
 </template>
@@ -69,6 +82,12 @@ export default {
 </script>
 
 <style scoped>
+ .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 .grid-content {
   border-radius: 4px;
   height: 100%;
