@@ -47,8 +47,7 @@ export default {
       if(this.$props.membertype)//stu
       {
         this.$props.router.push({  
-            path: '/ShowPlaceDetail',   
-            name: 'ShowPlaceDetail',  
+            name: 'StuShowPlaceDetail',  
             params: {   
                 key: 'key',   
                 msgKey: this.msg  
@@ -60,7 +59,7 @@ export default {
         })
       }else{
         this.$props.router.push({  
-            path: '/CheckSite',   
+            name: 'OrgCheckSite',   
             // name: '/CheckSite',  
             params: {   
                 key: 'key',   
