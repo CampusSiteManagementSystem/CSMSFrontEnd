@@ -20,6 +20,7 @@
         
       <div class="text item">
         <el-table :data="matchList" height="450">
+          <el-table-column prop="groundID" label="场地编号"> </el-table-column>
           <el-table-column prop="type" label="是否室内"> </el-table-column>
           <el-table-column prop="building" label="楼号"> </el-table-column>
           <el-table-column prop="floor" label="层号"> </el-table-column>
@@ -29,8 +30,17 @@
           <el-table-column prop="description" label="详情"> </el-table-column>
           <el-table-column label="操作" width="200">
             <template slot-scope="scope">
-              <router-link
+              <!-- <router-link
                 to="/ShowSchedule"
+                size="mini"
+                type="primary"
+                tag="el-button"
+                @click="handleEdit(scope.$index, scope.row)"
+                class="el-icon-edit choose-button"
+                >查看</router-link
+              > -->
+               <router-link
+               :to="{ name: 'ShowScheduleforStu', params: { groundID: scope.row.groundID } }"
                 size="mini"
                 type="primary"
                 tag="el-button"
@@ -62,6 +72,7 @@
 export default {
   data() {
     const item = {
+      groundID:123123,
       type: "室内",
       building: "F",
       floor: "4",
@@ -183,6 +194,7 @@ export default {
     },
     // handleEdit() {},
     // handleEdit(index, row) {
+      
     //   this.selectTable = row;
     //   this.address.address = row.address;
     //   this.dialogFormVisible = true;

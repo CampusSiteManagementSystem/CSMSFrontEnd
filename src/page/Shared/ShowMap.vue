@@ -36,8 +36,8 @@ export default {
   computed: {},
   methods: {
     initmap() {
-      console.log("data router",this.$data.router);
-      console.log("this.$router",this.$router);
+      // console.log("data router",this.$data.router);
+      // console.log("this.$router",this.$router);
       const tempTest=this.$router;
       console.log("tempTest",tempTest);
       const bounds = [
@@ -273,9 +273,9 @@ export default {
           // based on the feature found.
           //填充弹出窗口，并根据找到的特性设置其坐标。
           console.log(description);
-          console.log("11111");
-          // console.log("map router",this.$router);
-          console.log("tempTest",tempTest)
+          // console.log("11111");
+        
+          // console.log("tempTest",tempTest)
       
           
 

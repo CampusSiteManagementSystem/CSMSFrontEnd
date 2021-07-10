@@ -1,21 +1,20 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-    <h1 class="maintitle">关于图书馆暂停开放的通知</h1>
-    <p>因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。</p>
+      <h1 class="maintitle">关于图书馆暂停开放的通知</h1>
+      <p>
+        因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。
+      </p>
     </el-card>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'AnnouncementInfo',
-      components: {
-    },
-    data() {
-    }
-  };
+  name: "AnnouncementInfo",
+  components: {},
+  data() {},
+};
 </script>
 
 <style>

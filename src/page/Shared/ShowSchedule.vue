@@ -3,7 +3,7 @@
     <el-row :gutter="10" type="flex">
       <el-col :xs="24" :sm="24" :md="10" :lg="10"
         ><div class="grid-content">
-          <el-card class="box-card" >
+          <el-card class="box-card">
             <StuPicCard v-show="membertype" />
             <OrgPicCard v-show="othertype" />
           </el-card></div
@@ -25,35 +25,22 @@ export default {
   name: "ScheduleAndPic",
   components: {
     CourseTable,
-    StuPicCard,OrgPicCard
+    StuPicCard,
+    OrgPicCard,
   },
-  mounted(){
+  mounted() {
     this.desideType();
-    
-
   },
   data() {
-    return{
-      othertype:!this.membertype,
-
-    }
+    return {
+      othertype: !this.membertype,
+    };
   },
-  methods:{
-    desideType(){
-      console.log(this.membertype);
-    console.log(this.othertype);
-    console.log(this.membertype);
-    console.log(this.othertype)
-    console.log(this.membertype);
-    console.log(this.membertype);
-    console.log(this.othertype)
-    console.log(this.membertype);
-    console.log(this.othertype);
-    console.log(this.membertype);
-    console.log(this.othertype)
-    console.log(this.membertype);
-    console.log(this.membertype);
-    console.log(this.othertype)
+  methods: {
+    desideType() {
+      console.log("membertype", this.membertype);
+      console.log("othertype", this.othertype);
+
       // console.log(this.$route.params.user);
 
       // console.log(this.$route.params.user);
@@ -68,17 +55,14 @@ export default {
       //   this.membertype=false;
 
       // }
-
-
-    }
-
+    },
   },
   props: {
-    membertype: {//true代表学生，false代表组织
+    membertype: {
+      //true代表学生，false代表组织
       type: Boolean,
       default: true,
-    }
-    ,
+    },
   },
 };
 </script>
@@ -88,15 +72,16 @@ export default {
   border-radius: 4px;
   height: 100%;
   width: 100%;
-}.text {
-    font-size: 14px;
-  }
+}
+.text {
+  font-size: 14px;
+}
 
-  .item {
-    padding: 18px 0;
-  }
+.item {
+  padding: 18px 0;
+}
 .box-card {
-    /* width: 480px; */
-    height: 100%;
-  }
+  /* width: 480px; */
+  height: 100%;
+}
 </style>
