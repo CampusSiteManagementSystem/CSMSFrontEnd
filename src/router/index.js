@@ -88,6 +88,8 @@ const routes = [
             props: {
                 membertype: true,
             },
+            component: () =>
+            import ('../page/Shared/ShowSchedule.vue')
         }, {
                 path: "Favorite",
                 name: "StudentFrameFavorite",

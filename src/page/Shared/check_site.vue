@@ -38,7 +38,11 @@
             width="100"
             label="操作">
             <template slot-scope="scope">
-                <el-button @click="handleClick(scope.row)" type="text" size="small">查看详情</el-button>
+              <router-link
+              :to="{ name: 'ShowScheduleforStu', params: { groundID: scope.row.id } }"
+              >
+                <el-button type="text" size="small">查看详情</el-button>
+              </router-link>
             </template>
           </el-table-column>
       </el-table>
