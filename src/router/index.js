@@ -70,11 +70,11 @@ const routes = [{
             component: () =>
                 import ('../page/Shared/AnnouncementList.vue')
         }, {
-            path: "ShowSchedule",
+            path: "/Student/ViewActivity",
             name: "ShowScheduleforStu",
             
             component: () =>
-                import ('../page/Shared/ShowSchedule.vue')
+                import ('../page/Shared/check_activity.vue')
         }]
     },
     //系统管理员
