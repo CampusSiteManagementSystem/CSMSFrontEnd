@@ -39,13 +39,27 @@
                 class="el-icon-edit choose-button"
                 >查看</router-link
               > -->
+              <!-- 这个是学生的 -->
+              <!-- class="el-icon-edit choose-button" -->
                <router-link
-               :to="{ name: 'ShowScheduleforStu', params: { groundID: scope.row.groundID } }"
+               v-show="membertype"
+               :to="{ name: 'ShowScheduleforStu', params: { groundID: scope.row.groundID ,membertype:true} }"
                 size="mini"
-                type="primary"
+                type="success"
                 tag="el-button"
                 @click="handleEdit(scope.$index, scope.row)"
-                class="el-icon-edit choose-button"
+               
+                >查看</router-link
+              >
+              <!-- 这个是组织的 -->
+              <router-link
+              v-show="othertype"
+               :to="{ name: 'ShowScheduleforOrg', params: { groundID: scope.row.groundID ,membertype:false} }"
+                size="mini"
+                type="success"
+                tag="el-button"
+                @click="handleEdit(scope.$index, scope.row)"
+                
                 >查看</router-link
               >
               <router-link
@@ -55,7 +69,7 @@
                 type="primary"
                 tag="el-button"
                 @click="addFood(scope.$index, scope.row)"
-                class="el-icon-check choose-button"
+            
                 >申请</router-link
               >
             </template>

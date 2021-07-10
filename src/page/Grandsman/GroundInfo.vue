@@ -36,7 +36,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">提交</el-button>
-          <router-link to="/GroundList">
+          <router-link to="/GroundsAdmin/GroundList">
             <el-button>取消</el-button></router-link
           >
         </el-form-item>

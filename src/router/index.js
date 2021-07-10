@@ -3,7 +3,9 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+    //注册、登录、忘记密码
+    {
         path: '/',
         name: 'Login',
         component: () =>
@@ -15,15 +17,15 @@ const routes = [{
         component: () =>
             import ('../page/Shared/Register.vue')
     },
-    //学生页面
     {
         path: '/ForgetPassword',
         name: 'ForgetPassword',
         component: () =>
             import ('../page/Shared/ForgetPassword.vue')
     },
+    //学生页面
     {
-        path: "/StudentFrame",
+        path: "/StuFrame",
         component: () =>
             import ('../page/Student/StudentFrame.vue'),
         children: [{
@@ -31,7 +33,13 @@ const routes = [{
             name: "StudentFrameMain",
             component: () =>
                 import ('../page/Student/StudentMain.vue')
-        }, {
+        }, 
+        {
+            path: "testMain",
+            name: "testStudentFrameMain",
+            component: () =>
+                import ('../page/Grandsman/GroundsmanHome.vue')
+        },{
             path: "Favorite",
             name: "StudentFrameFavorite",
             component: () =>
@@ -42,8 +50,8 @@ const routes = [{
             component: () =>
                 import ('../page/Shared/ShowPlaceDetail.vue')
         }, {
-            path: "ViewOrganizations",
-            name: "ViewOrganizations",
+            path: "ViewOrgs",
+            name: "ViewOrgs",
             component: () =>
                 import ('../page/Shared/check_organ.vue')
         }, {
@@ -70,50 +78,54 @@ const routes = [{
             component: () =>
                 import ('../page/Shared/ShowMap.vue')
         }, {
-            path: "Student/Announcement",
+            path: "Announcement",
             name: "StudentAnnouncement",
             component: () =>
                 import ('../page/Shared/AnnouncementList.vue')
         }, {
-            path: "ShowSchedule",
+            path: "ShowSchedule/:groundID",
             name: "ShowScheduleforStu",
-            
+            props: {
+                membertype: true,
+            },
             component: () =>
                 import ('../page/Shared/ShowSchedule.vue')
         }]
     },
-    //系统管理员
+    //系统管理员！！！！！！！！
+    //这个界面估计要删了
     {
         path: "/SystemAdminHomePage",
         name: "SystemAdminHomePage",
         component: () =>
-            import ('../page/SystemAdmin/SystemAdminHomePage.vue'),
+            import ('../page/SystemAdmin/SystemAdminHomePage.vue')
     },
+    //这两个中间要删了
     {
-        path: "/SystemAdminFrame",
+        path: "/SysAdminFrame",
         name: "SystemAdminFrame",
         component: () =>
             import ('../page/SystemAdmin/SystemAdminFrame.vue'),
         children: [{
-                path: "SystemAdminGroupVerifyList",
+                path: "GroupVerifyList",
                 name: "SystemAdminGroupVerifyList",
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminGroupVerifyList.vue')
             },
             {
-                path: "SystemAdminMaintainUserInfo",
+                path: "MaintainUserInfo",
                 name: "SystemAdminMaintainUserInfo",
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminMaintainUserInfo.vue')
             },
             {
-                path: "SystemAdminAccountModify",
+                path: "AccountModify",
                 name: "SystemAdminAccountModify",
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminAccountModify.vue')
             },
             {
-                path: "SystemAdminGroupVerify",
+                path: "GroupVerify",
                 name: "SystemAdminGroupVerify",
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminGroupVerify.vue')
@@ -122,12 +134,12 @@ const routes = [{
     },
     // 组织页面
     {
-        path: '/OrganizationFrame',
-        name: 'OrganizationFrame',
+        path: '/OrgFrame',
+        name: 'OrgFrame',
         component: () =>
             import ('../page/Organization/OrganizationFrame.vue'),
         children: [{
-                path: '/CheckSite',
+                path: 'CheckSite',
                 name: 'CheckSite',
                 props: {
                     membertype: false
@@ -135,83 +147,83 @@ const routes = [{
                 component: () =>
                     import ('../page/Shared/ShowPlaceDetail.vue')
             }, {
-                path: "/OrganizationMain",
-                name: "/OrganizationFrameMain",
+                path: "Main",
+                name: "OrganizationFrameMain",
                 component: () =>
                     import ('../page/Organization/OrganizationMain.vue')
             }, {
-                path: '/CheckActivity',
+                path: 'CheckActivity',
                 name: 'CreditActivityWindow',
                 component: () =>
                     import ('../page/Shared/check_activity.vue')
             }, {
-                path: "/OrganizationAccountModify",
+                path: "OrgAccountModify",
                 name: "OrganizationAccountModify",
                 component: () =>
                     import ('../page/Organization/OrganizationAccountModify.vue')
             }, {
-                path: '/CheckOrgan',
+                path: 'CheckOrgan',
                 name: 'CreditOrganWindow',
                 component: () =>
                     import ('../page/Shared/check_organ.vue')
             }, {
-                path: '/CreditScore',
+                path: 'CreditScore',
                 name: 'CreditScoreWindow',
                 component: () =>
                     import ('../page/Organization/ViewCreditScore.vue')
             }, {
-                path: '/Appointment',
+                path: 'Appointment',
                 name: 'AppointmentWindow',
                 component: () =>
                     import ('../page/Organization/ViewAppointment.vue')
             }, {
-                path: "/OrganizationFavorite",
+                path: "OrgFavorite",
                 name: "FavoriteWindow",
                 component: () =>
                     import ('../page/Organization/OrganizationFavorite.vue')
             }, {
-                path: "/Organization/Announcement",
+                path: "Announcement",
                 name: "AnnouncementforOrg",
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue')
             }, {
-                path: '/FinishActivity',
+                path: 'FinishActivity',
                 name: 'FinishWindow',
                 component: () =>
                     import ('../page/Organization/ViewFinishActivity.vue')
             }, {
-                path: '/RecordDetails',
+                path: 'RecordDetails',
                 name: 'RecordWindow',
                 component: () =>
                     import ('../page/Organization/RecordDetails.vue')
             }, {
-                path: '/Pending',
+                path: 'Pending',
                 name: 'PendingWindow',
                 component: () =>
                     import ('../page/Organization/PendingReview.vue')
             }, {
-                path: '/Rejected',
+                path: 'Rejected',
                 name: 'RejectedWindow',
                 component: () =>
                     import ('../page/Organization/AppointmentRejected.vue')
             }, {
-                path: '/FeedBack',
+                path: 'FeedBack',
                 name: 'FeedBackWindow',
                 component: () =>
                     import ('../page/Organization/SiteFeedback.vue')
             }, {
-                path: '/ApplySite',
+                path: 'ApplySite',
                 name: 'ApplySiteWindow',
                 component: () =>
                     import ('../page/Organization/ApplyForSite.vue')
             },
             {
-                path: '/ShowPlaceDetail',
-                name: 'conttestent',
+                path: 'ShowPlaceDetail',
+                name: 'OrgShowPlaceDetail',
                 component: () =>
                     import ('../page/Shared/ShowPlaceDetail.vue')
             }, {
-                path: '/Organization/ShowMap',
+                path: 'ShowMap',
                 name: 'ShowMapforOrg',
                 props: {
                     membertype: false,
@@ -219,108 +231,101 @@ const routes = [{
                 component: () =>
                     import ('../page/Shared/ShowMap.vue')
             }, {
-                path: '/ShowSchedule',
+                path: 'ShowSchedule/:groundID',
                 name: 'ShowScheduleforOrg',
+                props: {
+                    membertype: false,
+                },
                 component: () =>
                     import ('../page/Shared/ShowSchedule.vue')
             }
         ]
     },
-    {
-        path: '/wywt',
-        name: 'wywtWindow',
-        component: () =>
-            import ('../page/Shared/SearchPlace.vue')
-    },
-
     //场地管理员
     {
-        path: '/Groundsman',
+        path: '/GroundsAdmin',
         component: () =>
-            // import ('../components/personinfocard')
             import ('../page/Grandsman/GroundsmanFrame'),
         children: [{
-                path: "/Home",
-                name: "Main",
+                path: "Main",
+                name: "GroundAdminMain",
                 component: () =>
                     import ('../page/Grandsman/GroundsmanHome.vue')
             },
             {
-                path: "/ScoringActivityList",
+                path: "ScoringActivityList",
                 name: "ScoringActivityList",
                 component: () =>
                     import ('../page/Grandsman/ScoringActivityList.vue'),
             },
             {
-                path: "/Groundsman/Announcement",
+                path: "Announcement",
                 name: "AnnouncementforGround",
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue'),
             },
             {
-                path: "/Announcement/:ID",
+                path: "Announcement/:ID",
                 name: "AnnouncementInfo",
                 component: () =>
                     import ('../page/Shared/AnnouncementInfo.vue'),
             },
             {
-                path: "/ScoringActivity/:ID",
+                path: "ScoringActivity/:ID",
                 name: "ScoringActivity",
                 component: () =>
                     import ('../page/Grandsman/ScoringActivity'),
             },
             {
-                path: "/ReleaseGroundAnnouncement",
+                path: "ReleaseGroundAnnouncement",
                 name: "ReleaseGroundAnnouncement",
                 component: () =>
                     import ('../page/Grandsman/ReleaseGroundAnnouncement'),
             },
             {
-                path: "/ReviewActivityList",
+                path: "ReviewActivityList",
                 name: "ReviewActivityList",
                 component: () =>
                     import ('../page/Grandsman/ReviewActivityList'),
             },
             {
-                path: "/GroundList",
+                path: "GroundList",
                 name: "GroundList",
                 component: () =>
                     import ('../page/Grandsman/GroundList'),
             },
             {
-                path: "/ActivityInfo/:ID",
+                path: "ActivityInfo/:ID",
                 name: "ActivityInfo",
                 component: () =>
                     import ('../page/Grandsman/ActivityInfo'),
             },
             {
-                path: "/FeedbackActivityList",
+                path: "FeedbackActivityList",
                 name: "FeedbackActivityList",
                 component: () =>
                     import ('../page/Grandsman/FeedbackActivityList'),
             },
             {
-                path: "/FeedbackInfo/:ID",
+                path: "FeedbackInfo/:ID",
                 name: "FeedbackInfo",
                 component: () =>
                     import ('../page/Grandsman/FeedbackInfo'),
             },
             {
-                path: "/AddCourse/",
+                path: "AddCourse",
                 name: "AddCourse",
                 component: () =>
                     import ('../page/Grandsman/AddCourse'),
             },
             {
-                path: "/GroundInfo/:ID",
+                path: "GroundInfo/:ID",
                 name: "GroundInfo",
                 component: () =>
                     import ('../page/Grandsman/GroundInfo'),
             },
         ]
     },
-
-
 ]
 
 

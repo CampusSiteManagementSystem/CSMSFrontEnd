@@ -84,7 +84,7 @@ export default {
         })
       },
       back() {
-        this.$router.push({path:'/ReviewActivityList'});
+        this.$router.push({path:'/GroundsAdmin/ReviewActivityList'});
       }
     }
   }

@@ -262,11 +262,11 @@ export default {
       },
       handleCurrentChange1(val) {
         this.currentRow = val;
-        this.$router.push('/FeedBack')
+        this.$router.push('/OrgFrame/FeedBack')
       },
             handleCurrentChange2(val) {
         this.currentRow = val;
-        this.$router.push('/FeedBack')
+        this.$router.push('/OrgFrame/FeedBack')
       },
     }
 }
