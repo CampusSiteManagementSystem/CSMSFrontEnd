@@ -6,7 +6,7 @@
           <el-row type="flex" justify="center" align="middle">
             <img src="../../assets/tjlogo.png" class="logoImage" />
           </el-row>
-          <el-menu mode="vertical" default-active="/OrgFrame/Main" router>
+          <el-menu mode="vertical" default-active="/OrgFrame/Main" router active-text-color="#409EFF">
             <el-menu-item index="/OrgFrame/Main">
               <i class="el-icon-s-home"></i>
               <!--to do添加route属性-->
