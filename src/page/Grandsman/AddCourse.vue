@@ -14,7 +14,7 @@
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
            
-            <el-form-item label="活动时间" required>
+            <el-form-item label="课程时间" required>
               <el-col :span="11">
                 <el-form-item prop="date1">
                   <el-date-picker
@@ -41,7 +41,7 @@
             </el-form-item>
             <el-form-item> 
           <el-button type="primary" @click="(onSubmit('ruleForm'))">提交</el-button>
-            <el-button>取消</el-button>
+            <el-button @click="back">返回</el-button>
         </el-form-item>
           </el-form>
         </el-card>
@@ -49,51 +49,30 @@
       <el-col :span="24" class="lowerCol">
         <div class="maindiv">
           <el-card class="lowerCard">
-            <h1 class="maintitle">待评分活动</h1>
+            <h2 class="maintitle">场地课程表</h2>
             <!-- <p class="groundinfo">{{ num }}个活动</p> -->
             <el-table
               height="475"
               ref="filterTable"
               :data="tableData"
               style="width: 100%"
-              :default-sort="{ prop: 'time', order: 'descending' }"
+              :default-sort="{ prop: 'courseDate', order: 'descending' }"
             >
               <el-table-column
-                prop="time"
-                label="开始时间"
-                sortable
-                width="180"
+                prop="courseName"
+                label="课程名称"
+                width="300"
               >
               </el-table-column>
-              <el-table-column prop="activityname" label="活动" width="180">
+              <el-table-column prop="courseDate" label="日期" width="300" sortable>
               </el-table-column>
-              <el-table-column prop="groupname" label="组织" width="180">
+              <el-table-column prop="courseTime" label="开始时间" width="300" sortable>
               </el-table-column>
-              <el-table-column prop="ground" label="场地" width="180">
+              <el-table-column prop="courseDuring" label="持续时间" >
               </el-table-column>
-              <el-table-column
-                prop="scoreingtag"
-                label="是否评分"
-                column-key="scoreingtag"
-                :filters="[
-                  { text: '已评分', value: true },
-                  { text: '未评分', value: false },
-                ]"
-                :filter-method="filterHandler"
-              >
-                <template slot-scope="scope">
-                  <el-tag
-                    :type="
-                      scope.row.scoreingtag == false ? 'primary' : 'success'
-                    "
-                    disable-transitions
-                    >{{
-                      scope.row.scoreingtag == false ? "未评分" : "已评分"
-                    }}</el-tag
-                  >
-                </template>
-              </el-table-column>
-              <el-table-column label="操作" width="100">
+             
+               
+              <!-- <el-table-column label="操作" width="100">
                 <template slot-scope="scope">
                   <router-link
                     :to="{
@@ -106,7 +85,7 @@
                     >
                   </router-link>
                 </template>
-              </el-table-column>
+              </el-table-column> -->
             </el-table>
           </el-card>
         </div>
@@ -121,23 +100,21 @@ export default {
   name: "ActivityList",
   components: {},
   data() {
-    const item = {
-      id: "16472",
-      organization: "软件学院",
-      activity: "年级大会",
-      ground: "济事楼434",
-      time: "2021-6-25 15:30",
-      state: "待审批",
+    const course = {
+      courseName:"数据库课程设计",
+      courseDate: "2021-7-10",
+      courseTime:"15:00",
+     courseDuring:"95",
     };
     return {
-      tableData: Array(20).fill(item),
+      tableData: Array(20).fill(course),
 
       ruleForm: {
         name: "",
         // region: "",
         date1: "",
         date2: "",
-        during: 0,
+        during: "",
       },
       rules: {
         name: [
@@ -184,7 +161,11 @@ export default {
           return false;
         }
       });
+      
     },
+    back(){
+         this.$router.push({path: '/AddCourseGroundList'});
+      },
 onSubmit(formName){
   this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -225,8 +206,8 @@ body,
   height: 100%;
 }
 .maintitle {
-  text-align: center;
-  font-size: 27px;
+  text-align: left;
+  font-size: 17px;
 }
 
 .el-input {
@@ -241,7 +222,7 @@ body,
   height: 100%;
 }
 .upperCol {
-  height: 50%;
+  height: 48%;
 }
 .lowerCol {
   height: 50%;
@@ -253,6 +234,6 @@ body,
   height: 300px;
 }
 .upperCard {
-  height: 300px;
+  height: 280px;
 }
 </style>

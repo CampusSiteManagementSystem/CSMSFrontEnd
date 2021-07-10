@@ -1,6 +1,6 @@
 <template>
   <div height="100%">
-    <el-row :gutter="10" style="height: 302px;">
+    <el-row :gutter="10"  class="upper-row">
       <el-col :span="10" style="height: 95%"
         ><!--左上角的两块-->
         <el-card style="height: 100%">
@@ -225,6 +225,12 @@ export default {
 </script>
 
 <style scoped>
+.upperrow {
+  padding: 5px;
+  height: 40%;
+}
+
+
 .clearfix:before,
 .clearfix:after {
   display: table;
