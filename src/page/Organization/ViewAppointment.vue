@@ -501,7 +501,7 @@ export default {
     },
     handleEdit2(index, row) {
       console.log(index, row);
-      this.$router.push("/ApplySite");
+      this.$router.push("/OrgFrame/ApplySite");
     },
     handleDelete2(index, row) {
       console.log(index, row);
@@ -535,15 +535,15 @@ export default {
     },
     handleCurrentChange2(val) {
       this.currentRow = val;
-      this.$router.push("/Pending");
+      this.$router.push("/OrgFrame/Pending");
     },
     handleCurrentChange3(val) {
       this.currentRow = val;
-      this.$router.push("/RecordDetails");
+      this.$router.push("/OrgFrame/RecordDetails");
     },
     handleCurrentChange4(val) {
       this.currentRow = val;
-      this.$router.push("/Rejected");
+      this.$router.push("/OrgFrame/Rejected");
     },
   },
 };

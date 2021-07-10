@@ -343,7 +343,7 @@ export default {
       });
     },
     back() {
-      this.$router.push({ path: "/AddCourseGroundList" });
+      this.$router.push({ path: "/GroundsAdmin/AddCourseGroundList" });
     },
     onSubmit(formName) {
       this.$refs[formName].validate((valid) => {

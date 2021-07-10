@@ -25,7 +25,7 @@
           <el-table-column label="操作" width="200">
             <template>
               <router-link
-                to="/SystemAdminFrame/SystemAdminGroupVerify"
+                to="/SysAdminFrame/GroupVerify"
                 tag="el-button"
                 type="primary"
                 >审核</router-link

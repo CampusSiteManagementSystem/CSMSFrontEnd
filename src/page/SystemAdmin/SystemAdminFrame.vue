@@ -12,19 +12,19 @@
           style="height=100%"
           router
         >
-          <el-menu-item index="/SystemAdminHomePage">
+          <el-menu-item index="/SysAdminHomePage">
             <i class="el-icon-house"></i>
             <span style="font-size: 14px">主页</span>
           </el-menu-item>
-          <el-menu-item index="/SystemAdminFrame/SystemAdminGroupVerifyList">
+          <el-menu-item index="/SysAdminFrame/GroupVerifyList">
             <i class="el-icon-finished"></i>
             <span style="font-size: 14px">审核组织注册</span>
           </el-menu-item>
-          <el-menu-item index="/SystemAdminFrame/SystemAdminMaintainUserInfo">
+          <el-menu-item index="/SysAdminFrame/MaintainUserInfo">
             <i class="el-icon-edit"></i>
             <span style="font-size: 14px">维护用户信息</span>
           </el-menu-item>
-          <el-menu-item index="/SystemAdminHomePage">
+          <el-menu-item index="/SysAdminHomePage">
             <i class="el-icon-document"></i>
             <span style="font-size: 14px">发布系统公告</span>
           </el-menu-item>

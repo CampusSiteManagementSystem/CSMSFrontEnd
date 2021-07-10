@@ -187,10 +187,10 @@ export default {
         message: "公告发布成功",
         type: "success",
       });
-      this.$router.push({path:'/Home'});
+      this.$router.push({path:'/GroundsAdmin/Main'});
     },
     back() {
-      this.$router.push({path:'/Home'});
+      this.$router.push({path:'/GroundsAdmin/Main'});
     },
     filterTag(value, row, column) {
       const property = column["property"];
