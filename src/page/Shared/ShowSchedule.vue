@@ -14,7 +14,6 @@
       </el-col>
     </el-row> -->
     <el-row :gutter="10" type="flex">
-     
         <div class="grid-content">
           <el-card class="box-card">
             <PicCard :buttonshow="othertype" />
@@ -84,9 +83,7 @@ export default {
 <style scoped>
  .el-row {
     margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
+    
   }
 .grid-content {
   border-radius: 4px;
@@ -101,7 +98,7 @@ export default {
   padding: 18px 0;
 }
 .box-card {
-  /* width: 480px; */
+  width: 100%;
   height: 100%;
 }
 </style>
