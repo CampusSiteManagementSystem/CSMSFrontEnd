@@ -2,12 +2,12 @@
   <div class="maindiv">
     <el-card class="maincard">
     <div class="maintitle">审核预约记录</div>
-    <el-tabs v-model="activeTab" :stretch="true" type="border-card" class="maintabs">
+    <el-tabs v-model="activeTab">
         <el-tab-pane label="待审批" name="panel1">
         <el-table
           :data="tableData.filter((item, index, arr)=>{return item.state === 0})"
           :default-sort = "{prop: 'time', order: 'ascending'}"
-          height="450"
+          height="480"
         >
         <el-table-column prop="organization" sortable label="组织" width="220">
         </el-table-column>
@@ -167,9 +167,6 @@ body,
   font-weight: bold;
   padding: 5px;
   margin-bottom: 8px;
-}
-.maintabs {
-  border-radius: 8px;
 }
 .el-card {
   height: 100%;

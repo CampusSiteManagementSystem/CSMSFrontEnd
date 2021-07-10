@@ -11,15 +11,15 @@
               <i class="el-icon-s-home"></i>
               <span style="font-size: 14px">主页</span>
             </el-menu-item>
-            <el-menu-item index="/StudentFrame/Student/Map">
+            <el-menu-item index="/StudentFrame/Map">
               <i class="el-icon-map-location"></i>
               <span style="font-size: 14px">查看地图</span>
             </el-menu-item>
-            <el-menu-item index="/StudentFrame/ShowPlaceDetail">
+            <el-menu-item index="/StudentFrame/ViewSites">
               <i class="el-icon-location"></i>
               <span style="font-size: 14px">查找地点</span>
             </el-menu-item>
-            <el-menu-item index="/StudentFrame/ShowSchedule">
+            <el-menu-item index="/StudentFrame/ViewActivities">
               <i class="el-icon-s-claim"></i>
               <span style="font-size: 14px">查找活动</span>
             </el-menu-item>

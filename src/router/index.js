@@ -37,11 +37,8 @@ const routes = [{
             component: () =>
                 import ('../page/Student/StudentFavorite.vue')
         }, {
-            path: "/ShowPlaceDetail",
+            path: "ShowPlaceDetail",
             name: "ShowPlaceDetail",
-            props: {
-                membertype: true,
-            },
             component: () =>
                 import ('../page/Shared/ShowPlaceDetail.vue')
         }, {
@@ -55,7 +52,17 @@ const routes = [{
             component: () =>
                 import ('../page/Shared/check_site.vue')
         }, {
-            path: "Student/Map",
+            path: "ActivityInfo/:id",
+            name: "ActivityInfo",
+            component: () =>
+                import ('../page/Shared/ActivityInfo.vue')
+        }, {
+            path: "ViewActivities",
+            name: "ViewActivities",
+            component: () =>
+                import ('../page/Shared/check_activity.vue')
+        }, {
+            path: "Map",
             name: "StudentMap",
             props: {
                 membertype: true,
