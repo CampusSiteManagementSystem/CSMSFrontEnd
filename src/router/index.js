@@ -27,51 +27,52 @@ const routes = [{
         component: () =>
             import ('../page/Student/StudentFrame.vue'),
         children: [{
-            path: "/Student/Main",
+            path: "Main",
             name: "StudentFrameMain",
             component: () =>
                 import ('../page/Student/StudentMain.vue')
         }, {
-            path: "/Student/Favorite",
+            path: "Favorite",
             name: "StudentFrameFavorite",
             component: () =>
                 import ('../page/Student/StudentFavorite.vue')
         }, {
-            path: "/ShowMap",
+            path: "ShowMap",
             name: "ShowMapforStu",
             component: () =>
                 import ('../page/Shared/ShowMap.vue')
         }, {
-            path: "/ShowPlaceDetail",
+            path: "ShowPlaceDetail",
             name: "ShowPlaceDetail",
+            props: {
+                membertype: true,
+            },
             component: () =>
                 import ('../page/Shared/ShowPlaceDetail.vue')
         }, {
-            path: "/ViewOrganizations",
+            path: "ViewOrganizations",
             name: "ViewOrganizations",
             component: () =>
                 import ('../page/Shared/check_organ.vue')
         }, {
-            path: "/ViewSites",
+            path: "ViewSites",
             name: "ViewSites",
             component: () =>
                 import ('../page/Shared/check_site.vue')
         }, {
-            path: "/Student/Map",
+            path: "Student/Map",
             name: "StudentMap",
             component: () =>
                 import ('../page/Shared/ShowMap.vue')
         }, {
-            path: "/Student/Announcement",
+            path: "Student/Announcement",
             name: "StudentAnnouncement",
             component: () =>
                 import ('../page/Shared/AnnouncementList.vue')
         }, {
             path: "/Student/ViewActivity",
             name: "ShowScheduleforStu",
-            props: {
-                membertype: true,
-            },
+            
             component: () =>
                 import ('../page/Shared/check_activity.vue')
         }]
@@ -128,7 +129,7 @@ const routes = [{
                 },
                 component: () =>
                     import ('../page/Shared/ShowPlaceDetail.vue')
-            }, { 
+            }, {
                 path: "/OrganizationMain",
                 name: "/OrganizationFrameMain",
                 component: () =>
@@ -296,12 +297,12 @@ const routes = [{
                 component: () =>
                     import ('../page/Grandsman/FeedbackInfo'),
             },
-              {
+            {
                 path: "/AddCourse/:ID",
                 name: "AddCourse",
                 component: () =>
-                  import('../page/Grandsman/AddCourse'),
-              },
+                    import ('../page/Grandsman/AddCourse'),
+            },
             {
                 path: "/GroundInfo/:ID",
                 name: "GroundInfo",
