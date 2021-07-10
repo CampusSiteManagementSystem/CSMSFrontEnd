@@ -27,7 +27,7 @@ const routes = [{
         component: () =>
             import ('../page/Student/StudentFrame.vue'),
         children: [{
-            path: "/Student/Main",
+            path: "Main",
             name: "StudentFrameMain",
             component: () =>
                 import ('../page/Student/StudentMain.vue')
