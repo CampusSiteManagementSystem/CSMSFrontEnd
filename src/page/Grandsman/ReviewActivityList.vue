@@ -2,7 +2,7 @@
   <div class="maindiv">
     <el-card class="maincard">
     <h1 class="maintitle">审核预约记录</h1>
-    <el-tabs v-model="activeTab" @tab-click="handleClick" :stretch="true" type="border-card" class="maintabs">
+    <el-tabs v-model="activeTab" :stretch="true" type="border-card" class="maintabs">
         <el-tab-pane label="待审批" name="panel1">
         <el-table
           :data="tableData.filter((item, index, arr)=>{return item.state === 0})"
@@ -17,7 +17,11 @@
         </el-table-column>
         <el-table-column prop="time" sortable label="时间" width="180">
         </el-table-column>
-        <el-table-column prop="state" label="状态" width="120">
+        <el-table-column
+          prop="state"
+          label="状态"
+          width="120"
+        >
           <template slot-scope="scope1">
             <el-tag
               :type="scope1.row.state === 0 ? 'primary' : (scope1.row.state === 1 ? 'success' : 'danger')"
@@ -55,7 +59,15 @@
         </el-table-column>
         <el-table-column prop="time" sortable label="时间" width="180">
         </el-table-column>
-        <el-table-column prop="state" label="状态" width="120">
+        <el-table-column
+          prop="state"
+          label="状态"
+          width="120"
+          column-key="state"
+          :filters="[{ text: '已批准', value: 1 }, { text: '已驳回', value: 2 }]"
+          :filter-method="filterTag"
+          filter-placement="bottom-end"
+        >
           <template slot-scope="scope1">
             <el-tag
               :type="scope1.row.state === 1 ? 'success' : 'danger'"
@@ -119,6 +131,12 @@ export default {
         activeTab: 'panel1',
         tableData: Array(20).fill(item1).concat(Array(10).fill(item2)).concat(Array(10).fill(item3))
       }
+    },
+    methods: {
+      filterTag(value, row, column) {
+        const property = column["property"];
+        return row[property] === value;
+    },
     }
   };
 </script>

@@ -11,7 +11,7 @@
       <!-- See a list of Mapbox-hosted public styles at -->
       <!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles -->
       <label for="satellite-v9">satellite</label>
-      <PopMeg v-show=False building="b" all=1 freeRoom=13 description="a" />
+      <PopMeg v-show=false building="b" description="a" />
     </div>
     <div id="menu"></div>
   </div>
@@ -22,16 +22,33 @@ import PopMeg from "../../components/PopMeg.vue";
 import Vue from "vue";
 export default {
   data() {
-    return {};
+    return {
+      router:this.$router,
+      testValue:1,
+    };
   },
   components: { PopMeg },
   created() {},
   mounted() {
     this.initmap();
+    // console.log(this.$router);
+  },
+   props: {
+    membertype: {//true代表学生，false代表组织
+      type: Boolean,
+      // default: true,
+    }
+    ,
   },
   computed: {},
   methods: {
     initmap() {
+      // console.log("data router",this.$data.router);
+      // console.log("this.$router",this.$router);
+      const tempTest=this.$router;
+      const membertype=this.$props.membertype;
+      console.log("membertype",membertype);
+      console.log("tempTest",tempTest);
       const bounds = [
         // Southwest coordinates
         [121.2, 31.28], // Northeast coordinates
@@ -242,9 +259,11 @@ export default {
           },
           labelLayerId
         );
+        
 
         map.on("mouseenter", "places", function (e) {
           console.log(e);
+          
           //将光标样式更改为UI指示符。
           map.getCanvas().style.cursor = "pointer";
 
@@ -263,6 +282,11 @@ export default {
           // based on the feature found.
           //填充弹出窗口，并根据找到的特性设置其坐标。
           console.log(description);
+          // console.log("11111");
+        
+          // console.log("tempTest",tempTest)
+      
+          
 
           const p = Vue.extend(PopMeg);
           let vm = new p({
@@ -271,6 +295,8 @@ export default {
               all: 13,
               freeRoom: 13,
               description: "1212",
+              router:tempTest,
+              membertype:membertype,
             }, //传参
           }).$mount();
           // vm.$mount(); //挂载
