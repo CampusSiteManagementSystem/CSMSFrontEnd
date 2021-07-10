@@ -60,7 +60,7 @@ const routes = [
             component: () =>
                 import ('../page/Shared/check_site.vue')
         }, {
-            path: "ActivityInfo/:id",
+            path: "ActivityInfo/:ID",
             name: "ActivityInfo",
             component: () =>
                 import ('../page/Shared/ActivityInfo.vue')
@@ -88,7 +88,7 @@ const routes = [
             props: {
                 membertype: true,
             },
-           },   {
+        }, {
                 path: "Favorite",
                 name: "StudentFrameFavorite",
                 component: () =>
