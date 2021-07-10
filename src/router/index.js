@@ -76,7 +76,7 @@ const routes = [{
             component: () =>
                 import ('../page/Shared/AnnouncementList.vue')
         }, {
-            path: "ShowSchedule",
+            path: "ShowSchedule/:groundID",
             name: "ShowScheduleforStu",
             
             component: () =>
@@ -220,7 +220,7 @@ const routes = [{
                 component: () =>
                     import ('../page/Shared/ShowMap.vue')
             }, {
-                path: '/ShowSchedule',
+                path: '/ShowSchedule/:groundID',
                 name: 'ShowScheduleforOrg',
                 component: () =>
                     import ('../page/Shared/ShowSchedule.vue')

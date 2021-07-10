@@ -19,7 +19,7 @@
       </div>
         
       <div class="text item">
-        <el-table :data="matchList" height="450">
+        <el-table :data="matchList" height="450" size="medium">
           <el-table-column prop="groundID" label="场地编号"> </el-table-column>
           <el-table-column prop="type" label="是否室内"> </el-table-column>
           <el-table-column prop="building" label="楼号"> </el-table-column>
@@ -39,13 +39,27 @@
                 class="el-icon-edit choose-button"
                 >查看</router-link
               > -->
+              <!-- 这个是学生的 -->
+              <!-- class="el-icon-edit choose-button" -->
                <router-link
+               v-show="membertype"
                :to="{ name: 'ShowScheduleforStu', params: { groundID: scope.row.groundID } }"
                 size="mini"
-                type="primary"
+                type="success"
                 tag="el-button"
                 @click="handleEdit(scope.$index, scope.row)"
-                class="el-icon-edit choose-button"
+               
+                >查看</router-link
+              >
+              <!-- 这个是组织的 -->
+              <router-link
+              v-show="othertype"
+               :to="{ name: 'ShowScheduleforOrg', params: { groundID: scope.row.groundID } }"
+                size="mini"
+                type="success"
+                tag="el-button"
+                @click="handleEdit(scope.$index, scope.row)"
+                
                 >查看</router-link
               >
               <router-link
@@ -55,7 +69,7 @@
                 type="primary"
                 tag="el-button"
                 @click="addFood(scope.$index, scope.row)"
-                class="el-icon-check choose-button"
+            
                 >申请</router-link
               >
             </template>
