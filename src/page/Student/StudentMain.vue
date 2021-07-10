@@ -1,64 +1,83 @@
 <template>
-  <div height="100%">
-    <el-row :gutter="10"  class="upper-row">
-      <el-col :span="10" style="height: 95%"
+  <div>
+    <el-row class="upper-row">
+      <el-col :span="10" class="upper-row-col1"
         ><!--左上角的两块-->
-        <el-card style="height: 100%">
+        <el-card class="upper-card">
           <el-row>
             <el-col :span="9">
-              <img :src="studentInfo.image" alt="未找到文件" />
+              <div>
+                <el-avatar :size="130" :src="studentInfo.image"></el-avatar>
+              </div>
             </el-col>
             <el-col :span="15">
-              <div class="personalInfo">昵称：{{ studentInfo.username }}</div>
-              <div class="calender">学号：{{ studentInfo.studentID }}</div>
-              <div class="calender">
+              <div class="name">{{ studentInfo.username }}</div>
+              <div class="other-info">
+                <br />学号：{{ studentInfo.studentID }}<br />学院专业：<el-tag
+                  type="success"
+                >
+                  {{ studentInfo.academy }}
+                </el-tag>
+                <el-tag
+                  type="warning"
+                >
+                  {{ studentInfo.major }}
+                </el-tag>
+              </div>
+              <div class="date">
                 {{ semesterInfo.fromYear }}-{{ semesterInfo.toYear }}年度第{{
                   semesterInfo.semester
-                }}学期第{{ semesterInfo.week }}周祝您学习愉快!
+                }}学期第{{ semesterInfo.week }}周
               </div>
+              <div class="other-info">祝您工作愉快！</div>
             </el-col>
           </el-row>
         </el-card>
-        
       </el-col>
-      <el-col :span="14" style="height: 95%">
-        <el-card  style="height: 100%; overflow: auto">
+      <el-col :span="14" class="upper-row-col2">
+        <el-card class="upper-card">
           <el-tabs>
             <el-tab-pane label="系统公告">
-              <el-row
-                v-for="announcement in systemAnnouncement"
-                :key="announcement.title"
+              <el-table
+                :data="systemAnnouncement"
+                stripe
+                style="width: 100%"
+                height="150"
+                :show-header="false"
               >
-                <el-col :span="19">{{ announcement.title }}</el-col>
-                <el-col :span="5"
-                  >{{ announcement.date }} {{ announcement.time }}</el-col
-                >
-              </el-row>
+                <el-table-column prop="title" label="活动名" width="auto">
+                </el-table-column>
+                <el-table-column prop="date" label="发起人" width="auto">
+                </el-table-column>
+              </el-table>
             </el-tab-pane>
             <el-tab-pane label="活动公告">
-              <el-row
-                v-for="announcement in activityAnnouncement"
-                :key="announcement.title"
+              <el-table
+                :data="activityAnnouncement"
+                stripe
+                style="width: 100%"
+                height="150"
+                :show-header="false"
               >
-                <el-col :span="19">{{ announcement.title }}</el-col>
-                <el-col :span="5"
-                  >{{ announcement.date }} {{ announcement.time }}</el-col
-                >
-              </el-row>
+                <el-table-column prop="title" label="活动名" width="auto">
+                </el-table-column>
+                <el-table-column prop="date" label="发起人" width="auto">
+                </el-table-column>
+              </el-table>
             </el-tab-pane>
           </el-tabs>
         </el-card>
       </el-col>
     </el-row>
-    <el-row :gutter="10" style="height: 60%">
-      <el-col :span="15" style="height: 100%">
-        <el-card style="height: 93%">
+    <el-row class="lowerrow">
+      <el-col :span="15" class="lower-row-col1">
+        <el-card class="lower-card">
           <div slot="header" class="clearfix">未来活动</div>
           <el-table
             :data="futureActivity"
             stripe
             style="width: 100%"
-            height="270"
+            height="260"
           >
             <el-table-column prop="activityName" label="活动名" width="auto">
             </el-table-column>
@@ -73,10 +92,10 @@
           </el-table>
         </el-card>
       </el-col>
-      <el-col :span="9" style="height: 100%">
-        <el-card style="height: 93%">
+      <el-col :span="9" class="lower-row-col2">
+        <el-card class="lower-card">
           <div slot="header" class="clearfix">占用中的场地</div>
-          <el-table :data="occupation" stripe style="width: 100%" height="270">
+          <el-table :data="occupation" stripe style="width: 100%" height="260">
             <el-table-column prop="position" label="地点" width="auto">
             </el-table-column>
             <el-table-column prop="activityName" label="活动名" width="auto">
@@ -94,9 +113,12 @@ export default {
     return {
       //第一块卡片信息
       studentInfo: {
-        image: "",
+        image:
+          "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
         username: "hhh",
         studentID: "1850668",
+        academy: "软件学院",
+        major: "UI工程",
       },
       semesterInfo: {
         //get semester from backend
@@ -225,11 +247,25 @@ export default {
 </script>
 
 <style scoped>
+.el-card {
+  border-radius: 15px;
+  height: 100%;
+}
 .upperrow {
   padding: 5px;
   height: 40%;
 }
-
+.lowerrow {
+  padding: 5px;
+  height: 60%;
+}
+.lower-row-col1,
+.lower-row-col2,
+.upper-row-col1,
+.upper-row-col2 {
+  height: 100%;
+  padding: 5px;
+}
 
 .clearfix:before,
 .clearfix:after {
@@ -240,14 +276,26 @@ export default {
   clear: both;
 }
 
-
-.calender {
-  font-size: 14px;
-  color: #2b3b4e;
-  font-weight: 700;
+.upper-card {
+  height: 230px;
 }
-.personalInfo {
-  font-size: 18px;
-  font-weight: 600;
+.lower-card {
+  height: 340px;
+}
+
+.name {
+  font-size: 30px;
+  font-weight: 550;
+  line-height: 20px;
+}
+.other-info {
+  font-size: 15px;
+  line-height: 25px;
+  font-weight: 500;
+}
+.date {
+  font-size: 20px;
+  line-height: 40px;
+  font-weight: 700;
 }
 </style>

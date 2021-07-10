@@ -31,7 +31,13 @@ const routes = [{
             name: "StudentFrameMain",
             component: () =>
                 import ('../page/Student/StudentMain.vue')
-        }, {
+        }, 
+        {
+            path: "testMain",
+            name: "testStudentFrameMain",
+            component: () =>
+                import ('../page/Grandsman/GroundsmanHome.vue')
+        },{
             path: "Favorite",
             name: "StudentFrameFavorite",
             component: () =>
