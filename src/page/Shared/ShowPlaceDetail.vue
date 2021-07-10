@@ -64,7 +64,7 @@
               >
               <router-link
                 v-show="othertype"
-                to="/ApplySite"
+                to="/OrgFrame/ApplySite"
                 size="mini"
                 type="primary"
                 tag="el-button"

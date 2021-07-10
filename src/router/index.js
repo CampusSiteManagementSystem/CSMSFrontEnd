@@ -82,12 +82,7 @@ const routes = [
                 name: "StudentAnnouncement",
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue')
-            }, {
-                path: "ShowSchedule/:groundID",
-                name: "ShowScheduleforStu",
-                props: {
-                    membertype: true,
-                },
+
             }, {
                 path: "Favorite",
                 name: "StudentFrameFavorite",
