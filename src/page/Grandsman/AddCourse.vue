@@ -14,7 +14,7 @@
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
            
-            <el-form-item label="活动时间" required>
+            <el-form-item label="课程时间" required>
               <el-col :span="11">
                 <el-form-item prop="date1">
                   <el-date-picker
@@ -137,7 +137,7 @@ export default {
         // region: "",
         date1: "",
         date2: "",
-        during: 0,
+        during: "",
       },
       rules: {
         name: [
