@@ -299,7 +299,7 @@ const routes = [{
                     import ('../page/Grandsman/FeedbackInfo'),
             },
             {
-                path: "/AddCourse/:ID",
+                path: "/AddCourse/",
                 name: "AddCourse",
                 component: () =>
                     import ('../page/Grandsman/AddCourse'),
@@ -309,12 +309,6 @@ const routes = [{
                 name: "GroundInfo",
                 component: () =>
                     import ('../page/Grandsman/GroundInfo'),
-            },
-            {
-                path: "/AddCourseGroundList",
-                name: "AddCourseGroundList",
-                component: () =>
-                    import ('../page/Grandsman/AddCourseGroundList'),
             },
         ]
     },

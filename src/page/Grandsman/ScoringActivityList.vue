@@ -83,7 +83,6 @@ body,
   text-align: left;
   font-weight: bold;
   padding: 5px;
-  margin: 10px;
 }
 .groundinfo {
   text-align: right;
