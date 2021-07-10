@@ -1,6 +1,7 @@
 ﻿<template>
   <div class="page">
     <div class="background">
+       <el-card>
       <div>
         <h2>场地使用申请</h2>
       </div>
@@ -40,6 +41,7 @@
   </el-form-item>
         </el-form>
       </div>
+    </el-card> 
     </div>
   </div>
 </template>
@@ -362,8 +364,8 @@
 }
 .background{
     margin:0;
-    height:98%;
-    width:99%;
+    height:100%;
+    width:100%;
     background-color: rgb(255, 255, 255);
     background: rgba(255, 255, 255, 0.5);
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
@@ -381,7 +383,7 @@
     font-family:Helvetica;
     position:absolute;
     left:150px;
-    top:70px;
+    top:90px;
 }
 .name{
 width:120%;
