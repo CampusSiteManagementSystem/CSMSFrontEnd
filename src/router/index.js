@@ -44,14 +44,15 @@ const routes = [{
         }, {
             path: "ShowPlaceDetail",
             name: "ShowPlaceDetail",
+            props: {
+                membertype: true,
+            },
             component: () =>
                 import ('../page/Shared/ShowPlaceDetail.vue')
         }, {
             path: "ShowSchedule",
             name: "ShowScheduleforStu",
-            props: {
-                membertype: true,
-            },
+            
             component: () =>
                 import ('../page/Shared/ShowSchedule.vue')
         }]

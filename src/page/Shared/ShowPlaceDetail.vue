@@ -33,7 +33,7 @@
               >
               <router-link
                 v-show="othertype"
-                to="/ShowSchedule"
+                to="/ApplySite"
                 size="mini"
                 type="primary"
                 tag="el-button"
