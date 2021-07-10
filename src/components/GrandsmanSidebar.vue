@@ -28,7 +28,7 @@
         <i class="el-icon-document"></i>
         <span slot="title">发布场地公告</span>
       </el-menu-item>
-      <el-menu-item index="/AddCourseGroundList">
+      <el-menu-item index="/AddCourse">
         <i class="el-icon-date"></i>
         <span slot="title">导入课表</span>
       </el-menu-item>

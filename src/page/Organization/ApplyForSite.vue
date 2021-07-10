@@ -1,6 +1,7 @@
 ﻿<template>
   <div class="page">
     <div class="background">
+       <el-card class="card">
       <div>
         <h2>场地使用申请</h2>
       </div>
@@ -34,12 +35,13 @@
             <el-input class="input" type="textarea" :rows="2" placeholder="请输入内容" v-model="ruleform.special">
             </el-input>
           </el-form-item>
-            <el-form-item>
+            <el-form-item align="center">
       <el-button type="primary"  @click="submitForm('ruleform')">提交</el-button>
       <router-link to="/" tag='el-button'>取消</router-link>
   </el-form-item>
         </el-form>
       </div>
+    </el-card> 
     </div>
   </div>
 </template>
@@ -362,12 +364,18 @@
 }
 .background{
     margin:0;
-    height:98%;
-    width:99%;
+    height:100%;
+    width:100%;
     background-color: rgb(255, 255, 255);
     background: rgba(255, 255, 255, 0.5);
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     position:relative;
+}
+.card{
+      margin:0;
+    height:100%;
+    width:100%;
+       position:relative;
 }
 #applytitle{
     font-family:Helvetica;
@@ -380,8 +388,8 @@
 #content{
     font-family:Helvetica;
     position:absolute;
-    left:150px;
-    top:70px;
+    left:350px;
+    top:90px;
 }
 .name{
 width:120%;

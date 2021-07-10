@@ -12,7 +12,7 @@
               <!--to do添加route属性-->
               主页
             </el-menu-item>
-            <el-submenu>
+            <el-submenu index="">
               <template slot="title">
                 <i class="el-icon-search"></i>
                 <span>查看</span>
@@ -32,7 +32,7 @@
                 </el-menu-item>
               </el-menu-item-group>
             </el-submenu>
-            <el-menu-item index="/ShowMap">
+            <el-menu-item index="/Organization/ShowMap">
               <i class="el-icon-map-location"></i>
               查看地图
             </el-menu-item>
@@ -56,7 +56,7 @@
               <i class="el-icon-chat-line-round"></i>
               活动反馈
             </el-menu-item>
-            <el-menu-item index="/Announcement">
+            <el-menu-item index="/Organization/Announcement">
               <i class="el-icon-postcard"></i>
               查看公告
             </el-menu-item>
@@ -72,7 +72,9 @@
             <el-button type="text" @click="handleClick">软件学院</el-button>
           </el-row>
         </el-header>
-        <el-main style="height: 90%; overflow: auto">
+        <el-main
+          style="height: 90%; overflow: auto; background: rgb(237, 241, 245)"
+        >
           <keep-alive>
             <router-view style="height:100%"></router-view>
           </keep-alive>

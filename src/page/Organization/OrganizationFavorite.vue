@@ -18,7 +18,7 @@
         </el-row>
       </div>
 
-      <el-table :data="matchList" style="width: 100%">
+      <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" :data="matchList" style="width: 100%">
         <el-table-column
           label="场地编号"
           prop="groundID"

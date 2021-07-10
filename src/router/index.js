@@ -37,15 +37,7 @@ const routes = [{
             component: () =>
                 import ('../page/Student/StudentFavorite.vue')
         }, {
-            path: "ShowMap",
-            name: "ShowMapforStu",
-            props: {
-                membertype: true,
-            },
-            component: () =>
-                import ('../page/Shared/ShowMap.vue')
-        }, {
-            path: "ShowPlaceDetail",
+            path: "/ShowPlaceDetail",
             name: "ShowPlaceDetail",
             props: {
                 membertype: true,
@@ -173,7 +165,7 @@ const routes = [{
                 component: () =>
                     import ('../page/Organization/OrganizationFavorite.vue')
             }, {
-                path: "/Announcement",
+                path: "/Organization/Announcement",
                 name: "AnnouncementforOrg",
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue')
@@ -214,7 +206,7 @@ const routes = [{
                 component: () =>
                     import ('../page/Shared/ShowPlaceDetail.vue')
             }, {
-                path: '/ShowMap',
+                path: '/Organization/ShowMap',
                 name: 'ShowMapforOrg',
                 props: {
                     membertype: false,
@@ -312,7 +304,7 @@ const routes = [{
                     import ('../page/Grandsman/FeedbackInfo'),
             },
             {
-                path: "/AddCourse/:ID",
+                path: "/AddCourse/",
                 name: "AddCourse",
                 component: () =>
                     import ('../page/Grandsman/AddCourse'),
@@ -322,12 +314,6 @@ const routes = [{
                 name: "GroundInfo",
                 component: () =>
                     import ('../page/Grandsman/GroundInfo'),
-            },
-            {
-                path: "/AddCourseGroundList",
-                name: "AddCourseGroundList",
-                component: () =>
-                    import ('../page/Grandsman/AddCourseGroundList'),
             },
         ]
     },

@@ -57,6 +57,7 @@
         <el-card class="bottom" style="height: 93%">
           <div slot="header" class="clearfix">未来活动</div>
           <el-table
+            header-row-style="{height:'10px'}" :cell-style="{padding:'8px'}"
             :data="futureActivity"
             stripe
             style="width: 100%"
@@ -78,7 +79,7 @@
       <el-col :span="9" style="height: 100%">
         <el-card class="bottom" style="height: 93%">
           <div slot="header" class="clearfix">占用中的场地</div>
-          <el-table :data="occupation" stripe style="width: 100%" height="270">
+          <el-table header-row-style="{height:'10px'}" :cell-style="{padding:'8px'}" :data="occupation" stripe style="width: 100%" height="270">
             <el-table-column prop="position" label="地点" width="auto">
             </el-table-column>
             <el-table-column prop="activityName" label="活动名" width="auto">
@@ -227,13 +228,9 @@ export default {
 </script>
 
 <style scoped>
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-.clearfix:after {
+.clearfix {
   clear: both;
+  font-weight:bold;
 }
 .bottom {
   margin-bottom: 1%;
