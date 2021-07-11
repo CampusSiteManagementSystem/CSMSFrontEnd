@@ -1,6 +1,6 @@
 <template>
   <div class="maindiv">
-    <el-card class="mycard" style="height=400">
+    <el-card class="mycard" style="height=400;border-radius: 12px">
       <!-- <div> -->
       <h2>用户信息</h2>
       <!-- </div> -->
@@ -12,7 +12,19 @@
         <el-col :span="6"
           ><div class="info">
             <br />
-            <p>姓名:</p>
+            <!-- <el-form-item label="姓名：" prop="name">
+              <el-input
+                class="name"
+                type="text"
+                placeholder="王某"
+                v-model="ruleform.name"
+                maxlength="20"
+                show-word-limit
+              >
+              </el-input>
+            </el-form-item> -->
+            <!-- <el-input class="name" type="text" placeholder="请输入内容" v-model="ruleform.name" maxlength="20" show-word-limit>
+            </el-input> -->
             <br />
             <p>学号:</p>
             <br />
