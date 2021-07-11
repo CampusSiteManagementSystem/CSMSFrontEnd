@@ -88,9 +88,7 @@ body,
   height: 100%;
 }
 
-.el-header {
-  background-color: white;
-}
+
 .content{
   height: 320px;
 }
@@ -103,27 +101,12 @@ body,
 .el-aside {
   background-color: white;
 }
-.el-main {
-  background-color: rgb(237, 241, 245);
-  height: 100%;
-}
-.el-card {
-  height: 100%;
-}
-.el-input {
-  height: 50%;
-}
+
 .detailinfo {
   padding: 15px;
 }
-.el-col {
-  padding: 5px;
-  /* height: */
-  height: 100%;
-}
-.header-row {
-  background-color: rgb(158, 29, 29);
-}
+
+
 </style>
 
 <script>

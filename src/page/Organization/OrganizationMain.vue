@@ -38,26 +38,24 @@
                 stripe
                 style="width: 100%"
                 height="150"
+                @row-click="onRowClick"
                 :show-header="false"
               >
-                <el-table-column prop="title" label="活动名" width="auto">
-                </el-table-column>
-                <el-table-column prop="date" label="发起人" width="auto">
-                </el-table-column>
+                <el-table-column prop="title" width="auto"> </el-table-column>
+                <el-table-column prop="time" width="auto"> </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane label="活动公告">
+            <el-tab-pane label="场地公告">
               <el-table
-                :data="activityAnnouncement"
+                :data="groundAnnouncement"
                 stripe
                 style="width: 100%"
                 height="150"
+                @row-click="onRowClick"
                 :show-header="false"
               >
-                <el-table-column prop="title" label="活动名" width="auto">
-                </el-table-column>
-                <el-table-column prop="date" label="发起人" width="auto">
-                </el-table-column>
+                <el-table-column prop="title" width="auto"> </el-table-column>
+                <el-table-column prop="time" width="auto"> </el-table-column>
               </el-table>
             </el-tab-pane>
           </el-tabs>
@@ -69,28 +67,26 @@
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
             <span>未来活动</span>
-            <router-link to="/OrgFrame/CheckActivity">
+            <router-link to="/StuFrame/ViewActivities">
               <el-button style="float: right; padding: 3px 0" type="text"
                 >查看更多</el-button
               >
             </router-link>
           </div>
-
           <el-table
             :data="futureActivity"
             stripe
             style="width: 100%"
             height="260"
+            @row-click="onActivityRowClick"
           >
-            <el-table-column prop="activityName" label="活动名" width="auto">
+            <el-table-column prop="name" label="活动名称" width="auto">
             </el-table-column>
-            <el-table-column prop="initiator" label="发起人" width="auto">
+            <el-table-column prop="host" label="发起组织" width="auto">
             </el-table-column>
-            <el-table-column prop="startDate" label="开始日期" width="auto">
+            <el-table-column prop="time" label="时间" width="auto">
             </el-table-column>
-            <el-table-column prop="startTime" label="开始时间" width="auto">
-            </el-table-column>
-            <el-table-column prop="position" label="地点" width="auto">
+            <el-table-column prop="location" label="地点" width="auto">
             </el-table-column>
           </el-table>
         </el-card>
@@ -106,7 +102,7 @@
             </router-link>
           </div>
 
-          <el-table :data="occupation" stripe style="width: 100%" height="260">
+          <el-table :data="occupation" stripe style="width: 100%"  @row-click="onOccupyRowClick" height="260">
             <el-table-column prop="position" label="地点" width="auto">
             </el-table-column>
             <el-table-column prop="activityName" label="活动名" width="auto">
@@ -115,12 +111,60 @@
         </el-card>
       </el-col>
     </el-row>
+    <el-dialog :visible.sync="dialogVisible" width="50%" class="dialog">
+      <span slot="title">
+        <h3>{{ dialogTitle }}</h3>
+      </span>
+      <div class="content">
+        <span>{{ dialogContent }}</span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false"
+          >确定</el-button
+        >
+      </span>
+    </el-dialog>
+    <el-dialog
+      :visible.sync="activityVisible"
+      width="50%"
+      title="活动详情"
+      class="dialog"
+    >
+      <div class="content">
+        <p><b>活动名称：</b>{{ activitySelected.name }}</p>
+        <p><b>举办组织：</b>{{ activitySelected.host }}</p>
+        <p><b>活动时间：</b>{{ activitySelected.time }}</p>
+        <p><b>活动地点：</b>{{ activitySelected.location }}</p>
+        <p><b>参与人数：</b>{{ activitySelected.participantnum }}</p>
+        <p><b>活动描述：</b>{{ activitySelected.description }}</p>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="activityVisible = false"
+          >确定</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 export default {
+  
   data() {
+    const groundItem = {
+      title: "关于图书馆暂停开放的通知",
+      time: "2021-6-25 15:30",
+      ground: "15335",
+      content:
+        "因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。",
+    };
+    const systemItem = {
+      title: "关于系统停机维护的通知",
+      time: "2021-7-5 15:30",
+      accountNum: "14335",
+      content:
+        "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
+    };
     return {
       //第一块卡片信息
       orgnizationInfo: {
@@ -140,114 +184,116 @@ export default {
         week: "14",
       },
       //第二块卡片信息
-      systemAnnouncement: [
-        //从服务器获取
-        {
-          title: "5月29日10:00-18:00停机维护",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "翟晨浩爬",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "5月29日10:00-18:00停机维护1",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "翟晨浩爬2",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "5月29日10:00-18:00停机维护3",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "翟晨浩爬4",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "5月29日10:00-18:00停机维护5",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "翟晨浩爬6",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "5月29日10:00-18:00停机维护8",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "翟晨浩爬7",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-      ],
-      activityAnnouncement: [
-        {
-          title: "emmmmmm",
-          date: "2021-9-10",
-          time: "13:00",
-        },
-      ],
+
+      //弹出式公告
+      dialogTitle: "",
+      dialogContent: "",
+      dialogVisible: false,
+      activityVisible: false,
+      activitySelected: {
+        id: 65535,
+        name: "批评大会",
+        description: "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
+        host: "德育办公室",
+        time: "2021-5-28 14:30",
+        location: "129礼堂",
+        participantnum: 0,
+      },
+      groundAnnouncement: Array(20).fill(groundItem),
+      systemAnnouncement: Array(20).fill(systemItem),
+
       //第三块卡片信息
       futureActivity: [
         {
-          activityName: "百团大战",
-          initiator: "社团联",
-          startDate: "2021-9-10",
-          startTime: "12:00",
-          position: "F201",
+          id: 65535,
+          name: "批评大会",
+          description:
+            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
+          host: "德育办公室",
+          time: "2021-5-28 14:30",
+          location: "129礼堂",
+          participantnum: 10,
         },
         {
-          activityName: "赵子昱演讲",
-          initiator: "软件学院教务",
-          startDate: "2021-12-31",
-          startTime: "12:00",
-          position: "G404",
+          id: 65536,
+          name: "批评大会",
+          description:
+            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
+          host: "德育办公室",
+          time: "2021-5-28 14:31",
+          location: "129礼堂",
+          participantnum: 20,
+        },
+        {
+          id: 65537,
+          name: "新闻发布会",
+          description:
+            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
+          host: "德育办公室",
+          time: "2021-5-28 14:32",
+          location: "129礼堂",
+          participantnum: 30,
+        },
+        {
+          id: 65538,
+          name: "批评大会",
+          description:
+            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
+          host: "德育办公室",
+          time: "2021-5-28 14:33",
+          location: "129礼堂",
+          participantnum: 40,
+        },
+        {
+          id: 65539,
+          name: "批评大会",
+          description:
+            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
+          host: "德育办公室",
+          time: "2021-5-28 14:34",
+          location: "129礼堂",
+          participantnum: 50,
         },
       ],
       //第四片卡片信息
       occupation: [
         {
+          groundID: "12201",
           position: "F201",
           activityName: "数据结构",
         },
         {
+          groundID: "21404",
           position: "G404",
           activityName: "数据库",
         },
         {
+          groundID: "35130",
           position: "F201",
           activityName: "数据结构1",
         },
         {
+          groundID: "35404",
           position: "G404",
           activityName: "数据库2",
         },
         {
+          groundID: "21404",
           position: "F201",
           activityName: "数据结构3",
         },
         {
+          groundID: "21404",
           position: "G404",
           activityName: "数据库4",
         },
         {
+          groundID: "21404",
           position: "F201",
           activityName: "数据结构5",
         },
         {
+          groundID: "21404",
           position: "G404",
           activityName: "数据库6",
         },
@@ -258,11 +304,23 @@ export default {
     showAnnouncement() {
       this.$router.push("/OrgFrame/Announcement");
     },
+    onRowClick(row) {
+      this.dialogTitle = row.title;
+      this.dialogContent = row.content;
+      this.dialogVisible = true;
+    },
+    onActivityRowClick(row) {
+      this.activitySelected = row;
+      this.activityVisible = true;
+    },
+    onOccupyRowClick(row) {
+      this.$router.push("/OrgFrame/ShowSchedule/" + row.groundID);
+    }
   },
 };
 </script>
 
-<style scoped>
+<style>
 .el-card {
   border-radius: 15px;
   height: 100%;
@@ -274,6 +332,15 @@ export default {
 .lowerrow {
   padding: 5px;
   height: 60%;
+}
+.el-dialog {
+  border-radius: 12px;
+}
+.dialog {
+  backdrop-filter: blur(10px);
+}
+.content{
+  height: 320px;
 }
 .lower-row-col1,
 .lower-row-col2,

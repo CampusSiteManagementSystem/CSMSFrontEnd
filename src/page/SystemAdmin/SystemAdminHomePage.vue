@@ -1,61 +1,304 @@
 <template>
-    <div class="page"> 
-         <img src="../../assets/SystemHp.png" class="image">
-        <div class="container">
-            <div>
-                <h1>校园场地管理系统</h1>
-                <h4>Campus Site Management</h4>
-            </div>
-            <div class="select">
-                <router-link to="/SysAdminFrame/MaintainUserInfo" tag='el-button' class="el-icon-user choose-button">维护用户信息</router-link>
-                <router-link to="/SysAdminFrame/GroupVerifyList" tag='el-button' class="el-icon-coordinate choose-button">审批组织注册</router-link>
-                <router-link to="/test" tag='el-button' class="el-icon-message choose-button">发布系统公告</router-link>
-            </div>
-        </div>
-    </div>
+  <div>
+    <el-row class="upper-row">
+      <el-col :span="10" class="upper-row-col1"
+        ><!--左上角的两块-->
+        <el-card class="upper-card">
+          <el-row>
+            <el-col :span="9">
+              <div>
+                <el-avatar :size="130" :src="studentInfo.image"></el-avatar>
+              </div>
+            </el-col>
+            <el-col :span="15">
+              <div class="name">{{ studentInfo.username }}</div>
+              <div class="other-info">
+                <br />账号：{{ studentInfo.adminID }}<br />
+              </div>
+              <div class="date">
+                {{ semesterInfo.fromYear }}-{{ semesterInfo.toYear }}年度第{{
+                  semesterInfo.semester
+                }}学期第{{ semesterInfo.week }}周
+              </div>
+              <div class="other-info">祝您工作愉快！</div>
+            </el-col>
+          </el-row>
+        </el-card>
+      </el-col>
+      <el-col :span="14" class="upper-row-col2">
+        <el-card class="upper-card">
+          <el-tabs>
+            <!-- addable="true" @tab-add="showAnnouncement" -->
+            <el-tab-pane label="系统公告">
+              <el-table
+                :data="systemAnnouncement"
+                stripe
+                style="width: 100%"
+                height="200"
+                :show-header="false"
+              >
+                <el-table-column prop="title" label="活动名" width="auto">
+                </el-table-column>
+                <el-table-column prop="date" label="发起人" width="auto">
+                </el-table-column>
+              </el-table>
+            </el-tab-pane>
+            <el-tab-pane label="活动公告">
+              <el-table
+                :data="activityAnnouncement"
+                stripe
+                style="width: 100%"
+                height="150"
+                :show-header="false"
+              >
+                <el-table-column prop="title" label="活动名" width="auto">
+                </el-table-column>
+                <el-table-column prop="date" label="发起人" width="auto">
+                </el-table-column>
+              </el-table>
+            </el-tab-pane>
+          </el-tabs>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row class="lowerrow">
+      <el-col :span="15" class="lower-row-col1">
+        <el-card class="lower-card">
+          <div slot="header" class="clearfix">
+            <span>组织注册信息</span>
+            <router-link to="/SysAdminFrame/GroupVerifyList">
+              <el-button style="float: right; padding: 3px 0" type="text"
+                >查看更多</el-button
+              >
+            </router-link>
+          </div>
+          <el-table
+            :data="groupInfo"
+            stripe
+            style="width: 100%"
+            height="260"
+          >
+            <el-table-column prop="applyTime" label="申请时间" width="auto">
+            </el-table-column>
+            <el-table-column prop="applyUser" label="申请人" width="auto">
+            </el-table-column>
+            <el-table-column prop="organization" label="组织" width="auto">
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </el-col>
+      <el-col :span="9" class="lower-row-col2">
+        <el-card class="lower-card">
+          <div slot="header" class="clearfix">
+            <span>用户信息</span>
+            <router-link to="/SysAdminFrame/MaintainUserInfo">
+              <el-button style="float: right; padding: 3px 0" type="text"
+                >查看更多</el-button
+              >
+            </router-link>
+          </div>
+          <el-table :data="userInfo" stripe style="width: 100%" height="260" :show-header="false">
+            <el-table-column prop="userid" label="ID" width="auto">
+            </el-table-column>
+            <el-table-column prop="account" label="账号" width="auto">
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
 export default {
-    
-}
+  data() {
+    return {
+      //第一块卡片信息
+      studentInfo: {
+        image:
+          "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+        username: "系统管理员",
+        adminID: "50003",
+      },
+      semesterInfo: {
+        //get semester from backend
+
+        fromYear: "2020",
+        toYear: "2021",
+        semester: "2",
+        week: "14",
+      },
+      //第二块卡片信息
+      systemAnnouncement: [
+        //从服务器获取
+        {
+          title: "5月29日10:00-18:00停机维护",
+          date: "2018-9-10",
+          time: "12:00",
+        },
+        {
+          title: "翟晨浩爬",
+          date: "2018-9-10",
+          time: "12:00",
+        },
+        {
+          title: "5月29日10:00-18:00停机维护1",
+          date: "2018-9-10",
+          time: "12:00",
+        },
+        {
+          title: "翟晨浩爬2",
+          date: "2018-9-10",
+          time: "12:00",
+        },
+        {
+          title: "5月29日10:00-18:00停机维护3",
+          date: "2018-9-10",
+          time: "12:00",
+        },
+        {
+          title: "翟晨浩爬4",
+          date: "2018-9-10",
+          time: "12:00",
+        },
+        {
+          title: "5月29日10:00-18:00停机维护5",
+          date: "2018-9-10",
+          time: "12:00",
+        },
+        {
+          title: "翟晨浩爬6",
+          date: "2018-9-10",
+          time: "12:00",
+        },
+        {
+          title: "5月29日10:00-18:00停机维护8",
+          date: "2018-9-10",
+          time: "12:00",
+        },
+        {
+          title: "翟晨浩爬7",
+          date: "2018-9-10",
+          time: "12:00",
+        },
+      ],
+      activityAnnouncement: [
+        {
+          title: "emmmmmm",
+          date: "2021-9-10",
+          time: "13:00",
+        },
+      ],
+      //第三块卡片信息
+      groupInfo: [
+        {
+          applyTime: "2021-9-10",
+          applyUser:"张某",
+          organization:"游泳协会",
+        },
+        {
+          applyTime: "2021-8-11",
+          applyUser:"贺某",
+          organization:"跑步协会",
+        },
+         {
+          applyTime: "2021-9-10",
+          applyUser:"张某",
+          organization:"羽毛球协会",
+        },
+         {
+          applyTime: "2021-9-10",
+          applyUser:"张某",
+          organization:"乒乓球协会",
+        },
+      ],
+      //第四片卡片信息
+      userInfo: [
+        {
+          userid:"123",
+          account:"你",
+        },
+        {
+          userid:"456",
+          account:"我",
+        },
+        {
+           userid:"789",
+          account:"他",
+        },
+        {
+           userid:"321",
+          account:"她",
+        },
+        {
+          userid:"654",
+          account:"它",
+        },
+        {
+           userid:"987",
+          account:"嗨",
+        }
+      ],
+    };
+  },
+  methods: {
+    showAnnouncement() {
+      this.$router.push("/StuFrame/Announcement");
+    },
+  },
+};
 </script>
 
 <style scoped>
-
-html,
-body,
-.page{
-    height: 100%;
-    width: 100%;
-    margin:0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.el-card {
+  border-radius: 15px;
+  height: 100%;
 }
-.container{
-    margin:0;
-    height:50%;
-    width:45%;
-    text-align: center;
+.upper-row {
+  padding: 5px;
+  height: 60%;
 }
-
-h1,h4{
-    color:white;
-    position: relative;
+.lower-row {
+  padding: 5px;
+  height: 40%;
+}
+.lower-row-col1,
+.lower-row-col2,
+.upper-row-col1,
+.upper-row-col2 {
+  height: 100%;
+  padding: 5px;
 }
 
-.choose-button{
-    margin:10px 20px;
-    width:40%;
-    height:50%;
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
 }
 
-.image{
-    position:absolute;
-    z-index: -1;
-    width:100%;
-    height:100%;
+.upper-card {
+  height: 290px;
+}
+.lower-card {
+  height: 280px;
 }
 
+.name {
+  font-size: 25px;
+  font-weight: 550;
+  line-height: 20px;
+}
+.other-info {
+  font-size: 15px;
+  line-height: 25px;
+  font-weight: 500;
+}
+.date {
+  font-size: 18px;
+  line-height: 40px;
+  font-weight: 600;
+}
 </style>
