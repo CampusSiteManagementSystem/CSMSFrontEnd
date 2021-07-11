@@ -37,7 +37,7 @@
                 :data="systemAnnouncement"
                 stripe
                 style="width: 100%"
-                height="150"
+                height="146"
                 @row-click="onRowClick"
                 :show-header="false"
               >
@@ -50,7 +50,7 @@
                 :data="groundAnnouncement"
                 stripe
                 style="width: 100%"
-                height="150"
+                height="146"
                 @row-click="onRowClick"
                 :show-header="false"
               >
@@ -77,8 +77,9 @@
             :data="futureActivity"
             stripe
             style="width: 100%"
-            height="260"
+            height="241"
             @row-click="onActivityRowClick"
+            :show-header="false"
           >
             <el-table-column prop="name" label="活动名称" width="auto">
             </el-table-column>
@@ -102,7 +103,7 @@
             </router-link>
           </div>
 
-          <el-table :data="occupation" stripe style="width: 100%"  @row-click="onOccupyRowClick" height="260">
+          <el-table :data="occupation" stripe style="width: 100%"  @row-click="onOccupyRowClick" height="241" :show-header="false">
             <el-table-column prop="position" label="地点" width="auto">
             </el-table-column>
             <el-table-column prop="activityName" label="活动名" width="auto">
@@ -322,8 +323,8 @@ export default {
 
 <style>
 .el-card {
+  overflow: auto;
   border-radius: 15px;
-  height: 100%;
 }
 .upperrow {
   padding: 5px;
@@ -360,7 +361,7 @@ export default {
 }
 
 .upper-card {
-  height: 230px;
+  height: 240px;
 }
 .lower-card {
   height: 340px;

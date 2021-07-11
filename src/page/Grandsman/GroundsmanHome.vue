@@ -1,10 +1,9 @@
-
 <template>
   <div>
     <!-- 第一行布局 -->
     <el-row class="upperrow">
       <el-col :span="10" class="upper-row-col1">
-        <el-card class="person-info-card">
+        <el-card class="upper-card">
           <el-col :span="8" class="person-info-card-photo-col">
             <div>
               <el-avatar :size="130" :src="personinfo.photosrc"></el-avatar>
@@ -27,7 +26,7 @@
         </el-card>
       </el-col>
       <el-col :span="14" class="upper-row-col2">
-        <el-card class="system-announcement-card">
+        <el-card class="upper-card">
           <div slot="header" class="clearfix">
             <span>系统公告</span>
             <router-link to="/GroundsAdmin/Announcement"><el-button style="float: right; padding: 3px 0" type="text"
@@ -37,7 +36,7 @@
           <el-table
             :data="systemAnnouncement"
             style="width: 100%"
-            height="140px"
+            height="131px"
             :show-header="false"
             @row-click="onRowClick"
           >
@@ -50,7 +49,7 @@
     <!-- 第二行布局 -->
     <el-row class="lowerrow">
       <el-col :span="14" class="appointment-col">
-        <el-card class="appointment-card">
+        <el-card class="lower-card">
           <div slot="header" class="clearfix">
             <span>待审核预约</span>
             <router-link to="/GroundsAdmin/ReviewActivityList">
@@ -62,7 +61,7 @@
           <el-table
             :data="appointment"
             style="width: 100%"
-            height="200px"
+            height="251px"
             :show-header="false"
             @row-click="onReviewRowClick"
           >
@@ -70,19 +69,11 @@
             <el-table-column prop="ground" label="日期"> </el-table-column>
             <el-table-column prop="datetime" label="日期"> </el-table-column>
           </el-table>
-          <!-- <div
-                v-for="(item, index) in appointment"
-                :key="index"
-                class="text item"
-              >
-                <div class="appointment-title">{{ item.title }}</div>
-                <div class="appointment-ground">{{ item.ground }}</div>
-                <div class="appointment-datetime">{{ item.datetime }}</div>
-              </div> -->
+         
         </el-card>
       </el-col>
       <el-col :span="10" class="ground-col">
-        <el-card class="grand-card">
+        <el-card class="lower-card">
           <div slot="header" class="clearfix">
             <span>占用中的场地</span>
             <!-- <router-link to="/groundinfo"
@@ -94,7 +85,7 @@
           <el-table
             :data="busyground"
             style="width: 100%"
-            height="200px"
+            height="252px"
             :show-header="false"
             @row-click="onOccupyRowClick"
           >
@@ -159,21 +150,9 @@ body,
   line-height: 40px;
   font-weight: 700;
 }
-/* .el-header {
-  background-color: white;
-}
-.el-aside {
-  background-color: white;
-}
-.el-main {
-  background-color: rgb(237, 241, 245);
-} */
 
-.person-info-col {
-  /* background-color: teal; */
-  height: 50%;
-  padding: 5px;
-}
+
+
 
 .appointment-col {
   /* background-color: thistle; */
@@ -204,9 +183,6 @@ body,
   clear: both;
 }
 
-.box-card {
-  width: 480px;
-}
 
 .upper-row-col1 {
   height: 100%;
@@ -216,9 +192,7 @@ body,
   height: 100%;
   padding: 5px;
 }
-.person-info-card {
-  height: 100%;
-}
+
 .upperrow {
   padding: 5px;
   height: 40%;
@@ -242,6 +216,13 @@ body,
 .content{
   height: 320px;
 }
+.upper-card {
+  height: 230px;
+}
+.lower-card {
+  height: 350px;
+}
+
 </style>
 
 

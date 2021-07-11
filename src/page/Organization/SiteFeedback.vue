@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="page">
     <div class="background">
-      <el-card class="maincard">
+      <el-card>
         <div>
           <h2>场地反馈</h2>
         </div>
@@ -133,6 +133,9 @@
     margin:10px 20px;
     width:35%;
     height:10%;
+}
+.el-card {
+  height: 100%;
 }
 .demo-table{
     font-family:Helvetica;

@@ -9,11 +9,11 @@
           :default-sort = "{prop: 'time', order: 'ascending'}"
           height="480"
         >
-        <el-table-column prop="organization" sortable label="组织" width="220">
+        <el-table-column prop="organization" label="组织" width="220">
         </el-table-column>
         <el-table-column prop="activity" label="活动名称" width="380">
         </el-table-column>
-        <el-table-column prop="ground" sortable label="场地" width="180">
+        <el-table-column prop="ground" label="场地" width="180">
         </el-table-column>
         <el-table-column prop="time" sortable label="时间" width="180">
         </el-table-column>

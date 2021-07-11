@@ -23,7 +23,7 @@
             <el-table-column prop="location" label="地点"> </el-table-column>
             <el-table-column fixed="right" width="100" label="操作">
               <template slot-scope="scope">
-                <el-button @click="viewInfo(scope.row)" type="text">
+                <el-button @click="viewInfo(scope.row)" type="text" size="small">
                   查看详情
                 </el-button>
               </template>
@@ -48,7 +48,7 @@
             <el-table-column prop="location" label="地点"> </el-table-column>
             <el-table-column fixed="right" width="100" label="操作">
               <template slot-scope="scope">
-                <el-button @click="viewInfo(scope.row)" type="text">
+                <el-button @click="viewInfo(scope.row)" type="text" size="small">
                   查看详情
                 </el-button>
               </template>

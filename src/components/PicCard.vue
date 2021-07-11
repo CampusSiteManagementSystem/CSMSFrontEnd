@@ -25,8 +25,12 @@
               <el-row style="float:right">
               <time class="time"
                 >{{ currentDate }}
-                <router-link to="/OrgFrame/ApplySite" v-show="buttonshow"
-                  ><el-button type="text">预约</el-button></router-link
+              <router-link :to="{
+                name: 'ApplySiteWindow',
+                params: { groundID: groundID },
+              }"
+              v-show="buttonshow">
+                <el-button type="text">预约</el-button></router-link
                 ></time
               ><el-button
                 icon="el-icon-star-off"
@@ -110,11 +114,16 @@ export default {
   },
   mounted() {
     console.log("PICCARD buttonshow", this.$props.buttonshow);
+    console.log("PICCARD groundID", this.$props.groundID);
   },
   props: {
     buttonshow: {
       type: Boolean,
       default: false,
+    },
+    groundID:{
+      type: String,
+      default: "",
     },
   },
 };
