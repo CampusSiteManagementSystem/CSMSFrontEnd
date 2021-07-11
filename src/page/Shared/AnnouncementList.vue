@@ -112,19 +112,11 @@ body,
 .content{
   height: 320px;
 }
-.el-main {
-  background-color: rgb(237, 241, 245);
-  height: 100%;
-}
+
 /* .maintabs {
   border-radius: 8px;
 } */
-.el-card {
-  height: 100%;
-}
-.el-input {
-  height: 50%;
-}
+
 .el-dialog {
   border-radius: 12px;
 }
@@ -141,12 +133,5 @@ body,
 .detailinfo {
   padding: 15px;
 }
-.el-col {
-  padding: 5px;
-  /* height: */
-  height: 100%;
-}
-.header-row {
-  background-color: rgb(158, 29, 29);
-}
+
 </style>
