@@ -4,7 +4,7 @@
       <div>
         <h2>查看组织</h2>
       </div>
-      <el-table header-row-style="{height:'10px'}" :cell-style="{padding:'5px'}" :data="tableData" :default-sort="{prop: 'time', order: 'ascending'}" height="450" stripe>
+      <el-table :header-row-style="{height:'10px'}" :cell-style="{padding:'5px'}" :data="tableData" :default-sort="{prop: 'time', order: 'ascending'}" height="450" stripe>
         <el-table-column prop="name" label="组织名称">
         </el-table-column>
         <el-table-column prop="description" label="组织描述" width="450">
@@ -14,14 +14,45 @@
         <el-table-column prop="telephone" label="联系方式" width="250" align="center">
         </el-table-column>
         <el-table-column prop="type" label="组织类型" align="center">
+          <template slot-scope="scope">
+            {{scope.row.type == 1 ? '班级' : '社团'}}
+          </template>
         </el-table-column>
         <el-table-column width="100" label="操作">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small">查看详情</el-button>
+            <el-button @click="viewInfo(scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-card>
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="50%"
+      class="dialog">
+        <span slot="title">
+          <h3>{{orgSelected.name}}</h3>
+        </span>
+        <div class="content">
+          <el-row>
+            <el-col :span="8">
+              <div class="image">
+                <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic" />
+              </div>
+            </el-col>
+            <el-col :span="16">
+              <p><b>组织账号：</b>{{ orgSelected.accountNum }}</p>
+              <p><b>组织类型：</b>{{ orgSelected.type == 1 ? '班级' : '社团' }}</p>
+              <p><b>邮箱：</b>{{ orgSelected.email }}</p>
+              <p><b>负责人：</b>{{ orgSelected.manager }}</p>
+              <p><b>联系电话：</b>{{ orgSelected.telephone }}</p>
+              <p><b>组织简介：</b>{{ orgSelected.description }}</p>
+            </el-col>
+          </el-row>
+        </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false">确定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -48,6 +79,15 @@
   .maintabs {
     border-radius: 8px;
   }
+  .content{
+    height: 320px;
+  }
+  .el-dialog {
+    border-radius: 12px;
+  }
+  .dialog {
+    backdrop-filter: blur(10px);
+  }
   .el-card {
     height: 100%;
   }
@@ -71,57 +111,65 @@
     export default {
       data() {
         return {
-          //选择器的返回值
-          options: [{
-          value: '选项1',
-          label: '类型1'
-        }, {
-          value: '选项2',
-          label: '类型2'
-        }, {
-          value: '选项3',
-          label: '类型3'
-        }, {
-          value: '选项4',
-          label: '类型4'
-        }, {
-          value: '选项5',
-          label: '类型5'
-        }],
-        
+          dialogVisible: false,
+          orgSelected: {
+            accountNum: '',
+            name: '',
+            type: 0,
+            description: '',
+            manager: '',
+            telephone: '',
+            email: ''
+          },
           //表格的返回值
           tableData: [{
-            name: '躺平什维克',
-            description: '打倒压在tj人民头上的三座大山——报告主义、ppt主义、ui主义',
-            manager: '躺平代表',
-            telephone: '120',
-            type: 1
+            accountNum: '1950668',
+            name: '数据库小组1',
+            type: 1,
+            description: '2021春数据库课程设计小组',
+            manager: '李俊杰',
+            telephone: '12322233333',
+            email: '1950668@tongji.edu.cn'
           }, {
-            name: '躺平什维克',
-            description: '打倒压在tj人民头上的三座大山——报告主义、ppt主义、ui主义',
-            manager: '躺平代表',
-            telephone: '120',
-            type: 1
+            accountNum: '1956545',
+            name: '数据库小组2',
+            type: 1,
+            description: '2021春数据库课程设计小组',
+            manager: '李俊杰',
+            telephone: '12322233333',
+            email: '1950668@tongji.edu.cn'
           }, {
-            name: '躺平什维克',
-            description: '打倒压在tj人民头上的三座大山——报告主义、ppt主义、ui主义',
-            manager: '躺平代表',
-            telephone: '120',
-            type: 1
+            accountNum: '2034534',
+            name: '数据库小组3',
+            type: 1,
+            description: '2021春数据库课程设计小组',
+            manager: '李俊杰',
+            telephone: '12322233333',
+            email: '1950668@tongji.edu.cn'
           }, {
-            name: '躺平什维克',
-            description: '打倒压在tj人民头上的三座大山——报告主义、ppt主义、ui主义',
-            manager: '躺平代表',
-            telephone: '120',
-            type: 1
+            accountNum: '2156666',
+            name: '数据库小组4',
+            type: 1,
+            description: '2021春数据库课程设计小组',
+            manager: '李俊杰',
+            telephone: '12322233333',
+            email: '1950668@tongji.edu.cn'
           }, {
-            name: '躺平什维克',
-            description: '打倒压在tj人民头上的三座大山——报告主义、ppt主义、ui主义',
-            manager: '躺平代表',
-            telephone: '120',
-            type: 1
+            accountNum: '1920001',
+            name: '数据库小组5',
+            type: 1,
+            description: '2021春数据库课程设计小组',
+            manager: '李俊杰',
+            telephone: '12322233333',
+            email: '1950668@tongji.edu.cn'
           }
           ]
+        }
+      },
+      methods: {
+        viewInfo(row) {
+          this.orgSelected = row;
+          this.dialogVisible = true;
         }
       }
     }

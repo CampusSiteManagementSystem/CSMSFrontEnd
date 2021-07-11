@@ -35,25 +35,32 @@
       </el-row>
 
       <div class="submit">
+         <router-link
+              to="/SysAdminFrame/GroupVerifyList"
+              tag="el-button"
+              type="primary"
+              >返回</router-link
+            >
         <el-button type="primary" @click="success">提交</el-button>
+       
       </div>
     </el-card>
   </div>
 </template>
 
 <style scoped>
-
 html,
 body,
-.el-card {
+.myard {
   height: 100%;
+  border-radius: 12px;
 }
 .info {
   text-align: left;
 }
 
 .submit {
-  margin: 1cm 1cm 1cm 19cm;
+  margin: 1cm 1cm 1cm 17cm;
 }
 
 p {
@@ -83,6 +90,10 @@ export default {
           });
         },
       });
+    },
+
+    returnback() {
+      this.$router.push({ path: "SystemAdminAccountModify" });
     },
   },
 };

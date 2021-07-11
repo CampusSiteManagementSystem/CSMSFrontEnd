@@ -1,6 +1,6 @@
 <template>
   <div class="maindiv">
-    <el-card class="maincard">
+    <el-card class="maincard" style="border-radius: 12px">
       <div class="main-title">公告</div>
       <el-tabs v-model="activeTab">
         <el-tab-pane label="系统公告" name="pane1">
@@ -14,17 +14,10 @@
             stripe
           >
             <el-table-column prop="title" label="标题" min-width="75%">
-              <template slot-scope="scope">
-                <router-link
-                  :to="{
-                    name: 'AnnouncementDetailShared',
-                    params: { ID: scope.row.accountNum },
-                  }"
-                >
-                  <el-button @click="handleClick(scope.row)" type="text">{{
+              <template slot-scope="scope"> 
+                <el-button @click="viewInfo(scope.row)" type="text">{{
                     scope.row.title
-                  }}</el-button>
-                </router-link>
+                }}</el-button>
               </template>
             </el-table-column>
             <el-table-column prop="time" sortable label="时间" min-width="25%">
@@ -41,18 +34,11 @@
             max-height="480"
             stripe
           >
-            <el-table-column prop="title" label="公告" min-width="75%">
-              <template slot-scope="scope">
-                <router-link
-                  :to="{
-                    name: 'AnnouncementInfo',
-                    params: { ID: scope.row.ground },
-                  }"
-                >
-                  <el-button @click="handleClick(scope.row)" type="text">{{
+            <el-table-column prop="title" label="标题" min-width="75%">
+              <template slot-scope="scope"> 
+                <el-button @click="viewInfo(scope.row)" type="text">{{
                     scope.row.title
-                  }}</el-button>
-                </router-link>
+                }}</el-button>
               </template>
             </el-table-column>
             <el-table-column prop="time" sortable label="时间" min-width="25%">
@@ -61,6 +47,20 @@
         </el-tab-pane>
       </el-tabs>
     </el-card>
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="50%"
+      class="dialog">
+      <span slot="title">
+        <h3>{{title}}</h3>
+      </span>
+        <div class="content">
+        <span>{{content}}</span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false">确定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -82,11 +82,21 @@ export default {
         "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
     };
     return {
+      title: "",
+      content: "",
+      dialogVisible: false,
       activeTab: "pane1",
       groundTableData: Array(20).fill(groundItem),
       systemTableData: Array(20).fill(systemItem),
     };
   },
+  methods: {
+    viewInfo(row) {
+      this.dialogVisible = true;
+      this.title = row.title;
+      this.content = row.content;
+    }
+  }
 };
 </script>
 
@@ -99,7 +109,9 @@ body,
   margin: 0px;
   height: 100%;
 }
-
+.content{
+  height: 320px;
+}
 .el-main {
   background-color: rgb(237, 241, 245);
   height: 100%;
@@ -112,6 +124,12 @@ body,
 }
 .el-input {
   height: 50%;
+}
+.el-dialog {
+  border-radius: 12px;
+}
+.dialog {
+  backdrop-filter: blur(10px);
 }
 .main-title {
   font-size: 22px;

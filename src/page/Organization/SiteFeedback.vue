@@ -1,68 +1,93 @@
 ﻿<template>
-    <div class="page">
-        <div class="background">
-            <span id="feedbacktitle">场地反馈</span>
-            <div id="content">
-                <p>活动ID：{{value1.ID}}</p>
-                <p>活动时间：{{value1.time}}</p>
-                <p>场地：{{value1.place}}</p>
-                <p>评分:</p>
-                <p>反馈：</p>
-            </div>
-            <el-rate class="block" v-model="score" :colors="colors" show-text>
-            </el-rate>
-            <el-input class="input" type="textarea" :rows="8" placeholder="请输入内容" v-model="textarea">
-            </el-input>
-            <el-button type="primary" class="submit" @click="open">提交</el-button>                 
-            <router-link to="/FinishActivity" tag='el-button' class="cancel">取消</router-link>  
+  <div class="page">
+    <div class="background">
+      <el-card class="maincard">
+        <div>
+          <h2>场地反馈</h2>
         </div>
+        <div id="content">
+          <el-form label-position="left" class="demo-table" label-width="150px">
+            <el-form-item label="活动ID">
+              <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
+              <span>{{value1.ID}}</span>
+            </el-form-item>
+            <el-form-item label="活动时间">
+              <label slot="label">活动时间</label>
+              <span>{{value1.time}}</span>
+            </el-form-item>
+            <el-form-item label="活动地点">
+              <label slot="label">活动地点</label>
+              <span>{{value1.place}}</span>
+            </el-form-item>
+            <el-form-item label="活动评分">
+              <label slot="label">活动评分</label>
+              <div>
+                <p>
+                  <el-rate class="block" v-model="score" :colors="colors" show-text></el-rate>
+                </p>
+              </div>
+            </el-form-item>
+            <el-form-item label="详细意见">
+              <label slot="label">详细意见</label>
+              <span>
+                <el-input :autosize="{ minRows: 2, maxRows: 6}" class="input" type="textarea" :rows="5"
+                  placeholder="请输入内容" v-model="textarea">
+                </el-input>
+              </span>
+            </el-form-item>
+            <el-form-item align="center" class="modify">
+                          <el-button type="primary"  @click="submit">提交</el-button>
+            <router-link to="/OrgFrame/FinishActivity" tag='el-button'>取消</router-link>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-card>
     </div>
+  </div>
 </template>
 
 <script>
   export default {
     data() {
-    let vm= {    
-      ID: "111111",
-      time: "2021-6-7 17：00-19：00",
-      place: "G403",
-};
+      let vm = {
+        ID: "111111",
+        time: "2021-6-7 17：00-19：00",
+        place: "G403",
+      };
       return {
         value1: vm,
         score: null,
-        colors: ['#99A9BF', '#F7BA2A', '#FF9900'],  // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
+        colors: ['#99A9BF', '#F7BA2A', '#FF9900'], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
         textarea: ''
       }
     },
-    methods:{
-              open() {
-                  if((this.score==null)||(this.textarea==''))
-                  {
-            this.$alert('未输入所有备选项', '反馈失败', {
-          confirmButtonText: '确定',
-          callback: action => {
-          if (action === 'confirm') {
-            this.$message({
-              type: 'error',
-              message: '反馈失败'
-            });
-          }
-          }
-        });
-        }
-        else{
-        this.$alert('感谢您的反馈', '反馈成功', {
-          confirmButtonText: '确定',
-          callback: action => {
-          if (action === 'confirm') {
-            this.$message({
-              type: 'success',
-              message: '反馈成功'
-            });
-          }
-          this.$router.push("/OrgFrame/FinishActivity");
-          }
-        });
+    methods: {
+      submit() {
+        if ((this.score == null) || (this.textarea == '')) {
+          this.$alert('未输入所有备选项', '反馈失败', {
+            confirmButtonText: '确定',
+            callback: action => {
+              if (action === 'confirm') {
+                this.$message({
+                  type: 'error',
+                  message: '反馈失败'
+                });
+              }
+            }
+          });
+        } else {
+          this.$alert('感谢您的反馈', '反馈成功', {
+            confirmButtonText: '确定',
+            callback: action => {
+              if (action === 'confirm') {
+                this.$message({
+                  type: 'success',
+                  message: '反馈成功'
+                });
+              }
+              this.$router.push("/OrgFrame/FinishActivity");
+            }
+          });
         }
       }
     }
@@ -89,54 +114,27 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     position:relative;
 }
-#feedbacktitle{
-    font-family:Helvetica;
-    font-weight:bold;
-    font-size:200%;
-    position:absolute;
-    left:100px;
-    top:80px;
-}
 #content{
-    font-family:Helvetica;
     position:absolute;
     left:150px;
     top:130px;
 }
-.block{
-    margin:0;
-    height:30%;
-    width:60%;
-    position: relative;
-    left:200px;
-    top:258px;
-}
 .input{
     margin:0;
     height:80%;
-    width:60%;
+    width:200%;
     position: relative;
-    left:200px;
-    top:120px
 }
-.submit{
-    margin:0;
-    width:10%;
-    position: relative;
-    left:-300px;
-    top:-100px
-}
-.cancel{
-    margin:0;
-    width:10%;
-    position: relative;
-    left:-250px;
-    top:-100px
+.modify {
+  margin-top: 2cm;
+  margin-left: 2cm;
 }
 .choose-button{
     margin:10px 20px;
     width:35%;
     height:10%;
 }
-
+.demo-table{
+    font-family:Helvetica;
+}
 </style>

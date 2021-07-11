@@ -1,8 +1,23 @@
 <template>
   <div class="courese" style="padding: 3%">
-    <div slot="header" class="clearfix" style="text-align: center; padding:2%"> 
-      <el-date-picker v-model="value1" type="date" placeholder="选择日期">
+    <!-- <div slot="header" class="clearfix" style="text-align: center; padding:2%">  -->
+      
+      <div slot="header" class="clearfix" >
+        <!-- <span>场地时间占用详情</span>
+      <el-date-picker style="float: right; padding: 3px 0" v-model="value1" type="date" placeholder="选择日期">
+      </el-date-picker> -->
+      <el-row>
+          <el-col :span="20">
+            <div>
+              <h3 style="margin-top:-4px ">场地时间占用详情</h3>
+            </div>
+          </el-col>
+          <el-col :span="4">
+            <!--    padding-top: 10px  padding-bottom: 0   -->
+            <el-date-picker style="float: right; margin-top:-6px" v-model="value1" type="date" placeholder="选择日期">
       </el-date-picker>
+          </el-col>
+        </el-row>
   </div>
     
     <el-table :data="tableData" border >
