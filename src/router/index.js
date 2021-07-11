@@ -27,99 +27,121 @@ const routes = [
     {
         path: "/StuFrame",
         component: () =>
-            import('../page/Student/StudentFrame.vue'),
+            import ('../page/Student/StudentFrame.vue'),
+        meta: {
+            title: '学生'
+        },
         children: [{
-            path: "Main",
-            name: "StudentFrameMain",
-            component: () =>
-                import('../page/Student/StudentMain.vue')
-        },
-        {
-            path: "testMain",
-            name: "testStudentFrameMain",
-            component: () =>
-                import('../page/Grandsman/GroundsmanHome.vue')
-        }, {
-            path: "Favorite",
-            name: "StudentFrameFavorite",
-            component: () =>
-                import('../page/Student/StudentFavorite.vue')
-        }, {
-            path: "ViewOrgs",
-            name: "ViewOrgs",
-            component: () =>
-                import('../page/Shared/check_organ.vue')
-        }, {
-            path: "ViewSites",
-            name: "ViewSites",
-            component: () =>
-                import('../page/Shared/check_site.vue')
-        }, {
-            path: "ActivityInfo/:ID",
-            name: "StuActivityInfo",
-            component: () =>
-                import('../page/Shared/ActivityInfo.vue')
-        }, {
-            path: "ViewActivities",
-            name: "ViewActivities",
-            component: () =>
-                import('../page/Shared/check_activity.vue')
-        }, {
-            path: "Map",
-            name: "StudentMap",
-            props: {
-                membertype: true,
+                path: "Main",
+                name: "StudentFrameMain",
+                component: () =>
+                    import ('../page/Student/StudentMain.vue'),
+                meta: {
+                    title: '主页'
+                }
             },
-            component: () =>
-                import('../page/Shared/ShowMap.vue')
-        },
-        {
-            path: "Announcement",
-            name: "StuAnnouncement",
-            component: () =>
-                import('../page/Shared/AnnouncementList.vue')
-        },
-        {
-            path: "Favorite",
-            name: "StudentFrameFavorite",
-            component: () =>
-                import('../page/Student/StudentFavorite.vue')
-        }, {
-            path: "ShowPlaceDetail",
-            name: "StuShowPlaceDetail",
-            props: {
-                membertype: true,
+            {
+                path: "Favorite",
+                name: "StudentFrameFavorite",
+                component: () =>
+                    import ('../page/Student/StudentFavorite.vue'),
+                meta: {
+                    title: '收藏'
+                }
+            }, {
+                path: "ViewSites",
+                name: "ViewSites",
+                component: () =>
+                    import ('../page/Shared/check_site.vue'),
+                meta: {
+                    title: '查看场地'
+                }
+            }, {
+                path: "ActivityInfo/:ID",
+                name: "StuActivityInfo",
+                component: () =>
+                    import ('../page/Shared/ActivityInfo.vue'),
+                meta: {
+                    title: '活动详情'
+                }
+            }, {
+                path: "ViewActivities",
+                name: "ViewActivities",
+                component: () =>
+                    import ('../page/Shared/check_activity.vue'),
+                meta: {
+                    title: '查看活动'
+                }
+            }, {
+                path: "Map",
+                name: "StudentMap",
+                props: {
+                    membertype: true,
+                },
+
+                component: () =>
+                    import ('../page/Shared/ShowMap.vue'),
+                meta: {
+                    title: '地图'
+                }
             },
-            component: () =>
-                import('../page/Shared/ShowPlaceDetail.vue')
-        }, {
-            path: "ViewOrgs",
-            name: "ViewOrgs",
-            component: () =>
-                import('../page/Shared/check_organ.vue')
-        }, {
-            path: "ViewSites",
-            name: "ViewSites",
-            component: () =>
-                import('../page/Shared/check_site.vue')
-        }, {
-            path: "Map",
-            name: "StudentMap",
-            props: {
-                membertype: true,
+            {
+                path: "Announcement",
+                name: "StuAnnouncement",
+                component: () =>
+                    import ('../page/Shared/AnnouncementList.vue'),
+                meta: {
+                    title: '公告'
+                }
             },
-            component: () =>
-                import('../page/Shared/ShowMap.vue')
-        },
-        {
-            path: "ShowSchedule/:groundID",
-            name: "ShowScheduleforStu",
-            props: {
-                membertype: true,
+            {
+                path: "Favorite",
+                name: "StudentFrameFavorite",
+                component: () =>
+                    import ('../page/Student/StudentFavorite.vue'),
+                meta: {
+                    title: '收藏'
+                }
+            }, {
+                path: "ShowPlaceDetail",
+                name: "StuShowPlaceDetail",
+                props: {
+                    membertype: true,
+                },
+                component: () =>
+                    import ('../page/Shared/ShowPlaceDetail.vue'),
+                meta: {
+                    title: '场地细节'
+                }
+            }, {
+                path: "ViewOrgs",
+                name: "ViewOrgs",
+                component: () =>
+                    import ('../page/Shared/check_organ.vue'),
+                meta: {
+                    title: '查看组织'
+                }
+            }, {
+                path: "ViewSites",
+                name: "ViewSites",
+                component: () =>
+                    import ('../page/Shared/check_site.vue'),
+                meta: {
+                    title: '查看场地'
+                }
             },
-            component: () =>
-                import('../page/Shared/ShowSchedule.vue')
-        }
+            {
+                path: "ShowSchedule/:groundID",
+                name: "ShowScheduleforStu",
+                props: {
+                    membertype: true,
+                },
+                component: () =>
+                    import ('../page/Shared/ShowSchedule.vue'),
+                meta: {
+                    title: '场地详情'
+                }
+            }
         ]
     },
     //系统管理员！！！！！！！！
@@ -140,50 +162,50 @@ const routes = [
         component: () =>
             import('../page/SystemAdmin/SystemAdminFrame.vue'),
         children: [{
-            path: "GroupVerifyList",
-            name: "SystemAdminGroupVerifyList",
-            meta: {
-                title: "审核注册",
+                path: "GroupVerifyList",
+                name: "SystemAdminGroupVerifyList",
+                meta: {
+                    title: "审核注册",
+                },
+                component: () =>
+                    import ('../page/SystemAdmin/SystemAdminGroupVerifyList.vue')
             },
-            component: () =>
-                import('../page/SystemAdmin/SystemAdminGroupVerifyList.vue')
-        },
-        {
-            path: "MaintainUserInfo",
-            name: "SystemAdminMaintainUserInfo",
-            meta: {
-                title: "维护信息",
+            {
+                path: "MaintainUserInfo",
+                name: "SystemAdminMaintainUserInfo",
+                meta: {
+                    title: "维护信息",
+                },
+                component: () =>
+                    import ('../page/SystemAdmin/SystemAdminMaintainUserInfo.vue')
             },
-            component: () =>
-                import('../page/SystemAdmin/SystemAdminMaintainUserInfo.vue')
-        },
-        {
-            path: "AccountModify",
-            name: "SystemAdminAccountModify",
-            meta: {
-                title: "查看信息",
+            {
+                path: "AccountModify",
+                name: "SystemAdminAccountModify",
+                meta: {
+                    title: "查看信息",
+                },
+                component: () =>
+                    import ('../page/SystemAdmin/SystemAdminAccountModify.vue')
             },
-            component: () =>
-                import('../page/SystemAdmin/SystemAdminAccountModify.vue')
-        },
-        {
-            path: "GroupVerify",
-            name: "SystemAdminGroupVerify",
-            meta: {
-                title: "审核组织",
+            {
+                path: "GroupVerify",
+                name: "SystemAdminGroupVerify",
+                meta: {
+                    title: "审核组织",
+                },
+                component: () =>
+                    import ('../page/SystemAdmin/SystemAdminGroupVerify.vue')
             },
-            component: () =>
-                import('../page/SystemAdmin/SystemAdminGroupVerify.vue')
-        },
-        {
-            path: "Announcement",
-            name: "AnnouncementforSystem",
-            meta: {
-                title: "发布公告",
-            },
-            component: () =>
-                import('../page/Shared/AnnouncementList.vue')
-        }
+            {
+                path: "Announcement",
+                name: "AnnouncementforSystem",
+                meta: {
+                    title: "发布公告",
+                },
+                component: () =>
+                    import ('../page/Shared/AnnouncementList.vue')
+            }
         ]
     },
     // 组织页面
