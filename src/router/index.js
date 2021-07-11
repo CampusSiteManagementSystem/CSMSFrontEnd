@@ -212,11 +212,17 @@ const routes = [
     {
         path: '/OrgFrame',
         name: 'OrgFrame',
+        meta: {
+            title: '组织'
+        },
         component: () =>
             import('../page/Organization/OrganizationFrame.vue'),
         children: [{
             path: 'CheckSite',
             name: 'OrgCheckSite',
+            meta: {
+                title: '所有场地'
+            },
             props: {
                 membertype: false
             },
@@ -225,73 +231,115 @@ const routes = [
         }, {
             path: "Main",
             name: "OrganizationFrameMain",
+            meta: {
+                title: '组织主页'
+            },
             component: () =>
                 import('../page/Organization/OrganizationMain.vue')
         }, {
             path: 'CheckActivity',
             name: 'CreditActivityWindow',
+            meta: {
+                title: '所有活动'
+            },
             component: () =>
                 import('../page/Shared/check_activity.vue')
         }, {
             path: "OrgAccountModify",
             name: "OrganizationAccountModify",
+            meta: {
+                title: '组织详细信息'
+            },
             component: () =>
                 import('../page/Organization/OrganizationAccountModify.vue')
         }, {
             path: 'CheckOrgan',
             name: 'CreditOrganWindow',
+            meta: {
+                title: '所有组织'
+            },
             component: () =>
                 import('../page/Shared/check_organ.vue')
         }, {
             path: 'CreditScore',
             name: 'CreditScoreWindow',
+            meta: {
+                title: '信用分记录'
+            },
             component: () =>
                 import('../page/Organization/ViewCreditScore.vue')
         }, {
             path: 'Appointment',
             name: 'AppointmentWindow',
+            meta: {
+                title: '预约记录'
+            },
             component: () =>
                 import('../page/Organization/ViewAppointment.vue')
         }, {
             path: "OrgFavorite",
             name: "FavoriteWindow",
+            meta: {
+                title: '收藏'
+            },
             component: () =>
                 import('../page/Organization/OrganizationFavorite.vue')
         },
         {
             path: "Announcement",
             name: "AnnouncementforOrg",
+            meta: {
+                title: '公告'
+            },
             component: () =>
                 import('../page/Shared/AnnouncementList.vue')
         },
         {
             path: 'FinishActivity',
             name: 'FinishWindow',
+            meta: {
+                title: '活动反馈'
+            },
             component: () =>
                 import('../page/Organization/ViewFinishActivity.vue')
         }, {
             path: 'RecordDetails',
             name: 'RecordWindow',
+            meta: {
+                title: '已通过'
+            },
             component: () =>
                 import('../page/Organization/RecordDetails.vue')
         }, {
             path: 'Pending',
             name: 'PendingWindow',
+            meta: {
+                title: '待审核'
+            },
             component: () =>
                 import('../page/Organization/PendingReview.vue')
         }, {
             path: 'Rejected',
             name: 'RejectedWindow',
+            meta: {
+                title: '被驳回'
+            },
             component: () =>
                 import('../page/Organization/AppointmentRejected.vue')
         }, {
             path: 'FeedBack',
             name: 'FeedBackWindow',
+            meta: {
+                title: '场地反馈'
+            },
             component: () =>
                 import('../page/Organization/SiteFeedback.vue')
         }, {
             path: 'ApplySite',
             name: 'ApplySiteWindow',
+            meta: {
+                title: '预约场地'
+            },
             component: () =>
                 import('../page/Organization/ApplyForSite.vue')
         },
@@ -299,6 +347,9 @@ const routes = [
         {
             path: 'ShowMap',
             name: 'ShowMapforOrg',
+            meta: {
+                title: '组织详细信息'
+            },
             props: {
                 membertype: false,
             },
@@ -307,6 +358,9 @@ const routes = [
         }, {
             path: 'ShowSchedule/:groundID',
             name: 'ShowScheduleforOrg',
+            meta: {
+                title: '场地使用详情'
+            },
             props: {
                 membertype: false,
             },
