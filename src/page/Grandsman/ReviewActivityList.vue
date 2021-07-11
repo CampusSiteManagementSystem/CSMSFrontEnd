@@ -49,7 +49,7 @@
         <el-table
           :data="tableData.filter((item, index, arr)=>{return item.state != 0})"
           :default-sort = "{prop: 'time', order: 'descending'}"
-          height="450"
+          height="480"
         >
         <el-table-column prop="organization" sortable label="组织" width="220">
         </el-table-column>
