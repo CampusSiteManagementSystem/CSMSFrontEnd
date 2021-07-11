@@ -98,7 +98,7 @@
 export default {
   data() {
     const item = {
-      groundID:123123,
+      groundID:"123123",
       type: "室外",
       building: "F",
       floor: "4",

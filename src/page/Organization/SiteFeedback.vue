@@ -134,6 +134,9 @@
     width:35%;
     height:10%;
 }
+.el-card {
+  height: 100%;
+}
 .demo-table{
     font-family:Helvetica;
 }

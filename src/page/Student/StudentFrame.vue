@@ -176,7 +176,7 @@ export default {
     },
 
     handleClick() {
-      this.$router.push("/OrgFrame/OrgAccountModify");
+      this.$router.push("/StuFrame/AccountModify");
     },
     /**
      * @description 获取路由数组

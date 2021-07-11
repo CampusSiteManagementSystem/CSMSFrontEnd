@@ -22,12 +22,21 @@
           </el-row></el-col
         ><el-col :span="6" class="header-row-col2">
           <el-row class="headerrow" type="flex" justify="end" align="middle">
-            <el-button type="text" @click="handleClick"
+            <el-button type="text" @click="clickAccountInfo"
               ><el-avatar
                 src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
               ></el-avatar
             ></el-button>
-            <el-button type="text" @click="handleClick">王二狗</el-button>
+            <el-dropdown trigger="click" @command="handleCommand">
+              <span class="el-dropdown-link" trigger="click">
+                管理员<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="accountInfo">账号信息</el-dropdown-item>
+                <el-dropdown-item command="modifyPassword">修改密码</el-dropdown-item>
+                <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </el-row></el-col
         >
       </el-row>
@@ -172,8 +181,22 @@ export default {
       this.isCollapse = !this.isCollapse;
     },
 
-    handleClick() {
-      this.$router.push({ path: "Home" });
+    handleCommand(command) {
+      switch(command) {
+        case 'accountInfo':
+          this.$router.push({ path: "/GroundsAdmin/AccountModify" });
+          break;
+        case 'modifyPassword':
+          this.$router.push({ path: "/GroundsAdmin/ModifyPassword" });
+          break;
+        default:
+          this.$router.push({ path: "/" });
+          this.$router.go(1);
+      }
+    },
+
+    clickAccountInfo() {
+      this.$router.push({ path: "/GroundsAdmin/AccountModify" });
     },
     /**
      * @description 获取路由数组
@@ -204,14 +227,3 @@ export default {
   },
 };
 </script>
-
-
-
-
-// <div v-if>
-
-// <div>
-
-// <keep-alive v-else>
-//           <router-view style="height: 100%"></router-view>
-// </keep-alive>
