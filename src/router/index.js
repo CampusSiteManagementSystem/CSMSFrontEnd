@@ -56,7 +56,7 @@ const routes = [
                     import ('../page/Shared/check_site.vue')
             }, {
                 path: "ActivityInfo/:ID",
-                name: "ActivityInfo",
+                name: "StuActivityInfo",
                 component: () =>
                     import ('../page/Shared/ActivityInfo.vue')
             }, {
@@ -72,13 +72,14 @@ const routes = [
                 },
                 component: () =>
                     import ('../page/Shared/ShowMap.vue')
-            }, {
+            },
+            {
                 path: "Announcement",
-                name: "StudentAnnouncement",
+                name: "StuAnnouncement",
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue')
-
-            }, {
+            },
+            {
                 path: "Favorite",
                 name: "StudentFrameFavorite",
                 component: () =>
@@ -109,12 +110,8 @@ const routes = [
                 },
                 component: () =>
                     import ('../page/Shared/ShowMap.vue')
-            }, {
-                path: "Announcement",
-                name: "StudentAnnouncement",
-                component: () =>
-                    import ('../page/Shared/AnnouncementList.vue')
-            }, {
+            },
+            {
                 path: "ShowSchedule/:groundID",
                 name: "ShowScheduleforStu",
                 props: {
@@ -162,6 +159,12 @@ const routes = [
                 name: "SystemAdminGroupVerify",
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminGroupVerify.vue')
+            },
+            {
+                path: "Announcement",
+                name: "AnnouncementforSystem",
+                component: () =>
+                    import ('../page/Shared/AnnouncementList.vue')
             }
         ]
     },
@@ -214,12 +217,14 @@ const routes = [
                 name: "FavoriteWindow",
                 component: () =>
                     import ('../page/Organization/OrganizationFavorite.vue')
-            }, {
+            },
+            {
                 path: "Announcement",
                 name: "AnnouncementforOrg",
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue')
-            }, {
+            },
+            {
                 path: 'FinishActivity',
                 name: 'FinishWindow',
                 component: () =>
@@ -250,7 +255,7 @@ const routes = [
                 component: () =>
                     import ('../page/Organization/ApplyForSite.vue')
             },
-           
+
             {
                 path: 'ShowMap',
                 name: 'ShowMapforOrg',
@@ -294,12 +299,6 @@ const routes = [
                     import ('../page/Shared/AnnouncementList.vue'),
             },
             {
-                path: "Announcement/:ID",
-                name: "AnnouncementInfo",
-                component: () =>
-                    import ('../page/Shared/AnnouncementInfo.vue'),
-            },
-            {
                 path: "ScoringActivity/:ID",
                 name: "ScoringActivity",
                 component: () =>
@@ -325,7 +324,7 @@ const routes = [
             },
             {
                 path: "ActivityInfo/:ID",
-                name: "ActivityInfo",
+                name: "OrgActivityInfo",
                 component: () =>
                     import ('../page/Grandsman/ActivityInfo'),
             },
@@ -355,16 +354,10 @@ const routes = [
             },
         ]
     },
-    
-    {
-        path: "/404",
-        name: "notFound",
-        component: () =>
-        import ('../page/Shared/404.vue')
-    }, 
     {
         path: "*",
-        redirect: "/404"
+        component: () =>
+            import ('../page/Shared/404.vue')
     }
 ]
 

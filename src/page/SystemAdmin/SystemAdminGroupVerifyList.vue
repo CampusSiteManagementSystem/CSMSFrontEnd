@@ -5,13 +5,13 @@
         <h2>审核组织注册</h2>
       </div>
       <div>
-        <el-table :data="tableData">
-          <el-table-column label="日期" width="250">
+        <el-table :data="tableData" max-height="480" style="width: 100%">
+          <el-table-column label="日期">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.date }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="组织" width="300">
+          <el-table-column label="组织">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
                 <p>组织: {{ scope.row.name }}</p>

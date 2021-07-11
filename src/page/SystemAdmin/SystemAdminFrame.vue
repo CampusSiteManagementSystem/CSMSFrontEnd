@@ -24,7 +24,7 @@
             <i class="el-icon-edit"></i>
             <span style="font-size: 14px">维护用户信息</span>
           </el-menu-item>
-          <el-menu-item index="/SysAdminHomePage">
+          <el-menu-item index="/SysAdminFrame/Announcement">
             <i class="el-icon-document"></i>
             <span style="font-size: 14px">发布系统公告</span>
           </el-menu-item>
