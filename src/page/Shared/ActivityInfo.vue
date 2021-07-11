@@ -12,7 +12,7 @@
         <p><b>活动描述：</b>{{ description }}</p>
       </el-card>
       <p></p>
-      <el-button @click="back">返回</el-button>
+      <el-button @click="back" type="primary">返回</el-button>
     </el-card>
   </div>
 </template>
