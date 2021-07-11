@@ -162,6 +162,12 @@ const routes = [
         component: () =>
             import('../page/SystemAdmin/SystemAdminFrame.vue'),
         children: [{
+                path: "SysAdminHomePage",
+                name: "SystemAdminHomePage",
+                component: () =>
+                    import('../page/SystemAdmin/SystemAdminHomePage.vue')
+            },
+            {
                 path: "GroupVerifyList",
                 name: "SystemAdminGroupVerifyList",
                 meta: {

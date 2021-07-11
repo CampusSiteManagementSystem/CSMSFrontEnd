@@ -66,8 +66,13 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <el-button size="mini" @click="handleEdit1(scope.$index, scope.row)">更改预约</el-button>
-                  <el-button size="mini" type="danger" @click="handleDelete1(scope.$index, scope.row)">删除预约</el-button>
+                <router-link :to="{
+                name: 'ApplySiteWindow',
+                params: { ID: scope.row.ID },
+              }">
+                  <el-button size="mini">更改预约</el-button>
+                </router-link>
+                  <el-button size="mini" type="danger" class="modify" @click="handleDelete1(scope.$index, scope.row)">删除预约</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -132,8 +137,13 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <el-button size="mini" @click.stop="handleEdit2(scope.$index, scope.row)">更改预约</el-button>
-                  <el-button size="mini" type="danger" @click.stop="handleDelete2(scope.$index, scope.row)">删除预约
+                <router-link :to="{
+                name: 'ApplySiteWindow',
+                params: { ID: scope.row.ID },
+              }">
+                  <el-button size="mini">更改预约</el-button>
+                </router-link>
+                  <el-button size="mini" type="danger" class="modify" @click.stop="handleDelete2(scope.$index, scope.row)">删除预约
                   </el-button>
                 </template>
               </el-table-column>
@@ -199,7 +209,10 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <router-link to="/OrgFrame/FeedBack">
+              <router-link :to="{
+                name: 'FeedBackWindow',
+                params: { ID: scope.row.ID },
+              }">
                     <el-button size="mini" type="primary" @click.stop="handleFeedback(scope.$index, scope.row)">反馈
                     </el-button>
                   </router-link>
@@ -410,10 +423,6 @@ export default {
     formatter(row) {
       return row.address;
     },
-    handleEdit1(index, row) {
-      console.log(index, row);
-      this.$router.push("/ApplySite");
-    },
     handleDelete1(index, row) {
       console.log(index, row);
       this.$confirm("此操作将永久删除该活动信息, 是否继续?", "提示", {
@@ -433,10 +442,6 @@ export default {
             message: "已取消删除",
           });
         });
-    },
-    handleEdit2(index, row) {
-      console.log(index, row);
-      this.$router.push("/OrgFrame/ApplySite");
     },
     handleDelete2(index, row) {
       console.log(index, row);
@@ -503,6 +508,9 @@ export default {
   background: rgba(255, 255, 255, 0.5);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
   position: relative;
+}
+.modify {
+  margin-left: 0.3cm;
 }
 .demo-table-expand {
   font-size: 0;

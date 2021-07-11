@@ -1,115 +1,135 @@
 <template>
-  <div style="height:100%">
-    <el-container style="border: 1px solid #eee; height: 100%">
-      <el-aside style="width: 15%">
-        <div>
-          <el-row type="flex" justify="center" align="middle">
+  <el-container style="border: 1px solid #eee; height: 100%">
+    <el-header style="height: 8%; background-color: white">
+      <el-row class="header-row">
+        <el-col :span="18" class="header-row-col1"
+          ><el-row class="headerrow" type="flex" justify="left" align="middle">
+            <el-button class="fold-button" @click="test" type="text">
+              <i v-if="isCollapse" class="el-icon-s-unfold"></i
+              ><i v-else class="el-icon-s-fold"></i
+            ></el-button>
+            <!-- <i class="el-icon-s-unfold" @click="test"></i> -->
             <img src="../../assets/tjlogo.png" class="logoImage" />
-          </el-row>
-          <el-menu mode="vertical" default-active="/OrgFrame/Main" router active-text-color="#409EFF">
-            <el-menu-item index="/OrgFrame/Main">
-              <i class="el-icon-s-home"></i>
-              <!--to do添加route属性-->
-              主页
-            </el-menu-item>
-            <el-submenu index="">
-              <template slot="title">
-                <i class="el-icon-search"></i>
-                <span>查看</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="/OrgFrame/CheckActivity">
-                  <i class="el-icon-date"></i>
-                  查看活动
-                </el-menu-item>
-                <el-menu-item index="/OrgFrame/CheckOrgan">
-                  <i class="el-icon-s-flag"></i>
-                  查看组织
-                </el-menu-item>
-                <el-menu-item index="/OrgFrame/CheckSite">
-                  <i class="el-icon-s-home"></i>
-                  查看地点
-                </el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-            <el-menu-item index="/OrgFrame/ShowMap">
-              <i class="el-icon-map-location"></i>
-              查看地图
-            </el-menu-item>
-            <el-menu-item index="/OrgFrame/ApplySite">
-              <i class="el-icon-location"></i>
-              预约场地
-            </el-menu-item>
-            <el-menu-item index="/OrgFrame/Appointment">
-              <i class="el-icon-s-claim"></i>
-              查看预约记录
-            </el-menu-item>
-            <el-menu-item index="/OrgFrame/CreditScore">
-              <i class="el-icon-s-custom"></i>
-              查看信用分
-            </el-menu-item>
-            <el-menu-item index="/OrgFrame/OrgFavorite">
-              <i class="el-icon-star-on"></i>
-              查看收藏
-            </el-menu-item>
-            <el-menu-item index="/OrgFrame/FinishActivity">
-              <i class="el-icon-chat-line-round"></i>
-              活动反馈
-            </el-menu-item>
-            <el-menu-item index="/OrgFrame/Announcement">
-              <i class="el-icon-postcard"></i>
-              查看公告
-            </el-menu-item>
-          </el-menu>
-        </div>
-      </el-aside>
-      <el-container style="height: 100%">
-        <el-header class="myheader" style="height:10%">
-          <el-row :gutter="20" type="flex" align="middle">
-            <el-col :span="6">
-              <el-breadcrumb separator-class="el-icon-arrow-right" >
-            
-            <el-breadcrumb-item
-              v-for="(item, index) in breadList"
-              :key="index"
-              >{{ item.meta.title }}</el-breadcrumb-item
-            >
-          </el-breadcrumb>
 
-            </el-col>
-            <el-col :span="6" :offset="13">
-          <el-row class="headerrow" type="flex" justify="end" align="middle" @click="handleClick">
-            <el-button type="text">
-              <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-            </el-button>
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+              <el-breadcrumb-item
+                v-for="(item, index) in breadList"
+                :key="index"
+                @click="this.$router.go(-1)"
+                >{{ item.meta.title }}</el-breadcrumb-item
+              >
+            </el-breadcrumb>
+          </el-row></el-col
+        ><el-col :span="6" class="header-row-col2">
+          <el-row class="headerrow" type="flex" justify="end" align="middle">
+            <el-button type="text" @click="handleClick"
+              ><el-avatar
+                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+              ></el-avatar
+            ></el-button>
             <el-button type="text" @click="handleClick">软件学院</el-button>
-          </el-row>
-          </el-col>
-          </el-row>
-        </el-header>
-        <el-main
-          style="height: 90%; overflow: auto; background: rgb(237, 241, 245)"
+          </el-row></el-col
         >
-          <keep-alive>
-            <router-view style="height:100%"></router-view>
-          </keep-alive>
-        </el-main>
-      </el-container>
+      </el-row>
+    </el-header>
+
+    <el-container style="height: 100%">
+      <el-aside style="width: auto">
+        <el-menu
+          class="el-menu-vertical-demo"
+          default-active="/OrgFrame/Main"
+          router
+          active-text-color="#409EFF"
+          :collapse="isCollapse"
+          style="height: 100%"
+        >
+          <el-menu-item index="/OrgFrame/Main">
+            <i class="el-icon-s-home"></i>
+            <span slot="title">主页</span>
+          </el-menu-item>
+          <el-submenu>
+            <template slot="title">
+              <i class="el-icon-search"></i>
+              <span slot="title">查看</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/OrgFrame/CheckActivity">
+                <i class="el-icon-date"></i>
+                查看活动
+              </el-menu-item>
+              <el-menu-item index="/OrgFrame/CheckOrgan">
+                <i class="el-icon-s-flag"></i>
+                查看组织
+              </el-menu-item>
+              <el-menu-item index="/OrgFrame/CheckSite">
+                <i class="el-icon-s-home"></i>
+                查看地点
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-menu-item index="/OrgFrame/ShowMap">
+            <i class="el-icon-map-location"></i>
+            <span slot="title">查看地图</span>
+          </el-menu-item>
+          <el-menu-item index="/OrgFrame/ApplySite">
+            <i class="el-icon-location"></i>
+            <span slot="title">预约场地</span>
+          </el-menu-item>
+          <el-menu-item index="/OrgFrame/Appointment">
+            <i class="el-icon-s-claim"></i>
+
+            <span slot="title">查看预约记录</span>
+          </el-menu-item>
+          <el-menu-item index="/OrgFrame/CreditScore">
+            <i class="el-icon-s-custom"></i>
+
+            <span slot="title">查看信用分</span>
+          </el-menu-item>
+          <el-menu-item index="/OrgFrame/OrgFavorite">
+            <i class="el-icon-star-on"></i>
+
+            <span slot="title">查看收藏</span>
+          </el-menu-item>
+          <el-menu-item index="/OrgFrame/FinishActivity">
+            <i class="el-icon-chat-line-round"></i>
+
+            <span slot="title">活动反馈</span>
+          </el-menu-item>
+          <el-menu-item index="/OrgFrame/Announcement">
+            <i class="el-icon-postcard"></i>
+
+            <span slot="title">查看公告</span>
+          </el-menu-item>
+        </el-menu>
+      </el-aside>
+
+      <el-main
+        style="height: 100%; overflow: auto; background: rgb(237, 241, 245)"
+      >
+        <keep-alive>
+          <router-view style="height: 100%"></router-view>
+        </keep-alive>
+      </el-main>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script>
 export default {
-    data() {
+  data() {
     return {
+      isCollapse: true,
       value: "",
       breadList: [],
     };
   },
-    methods: {
+  methods: {
+    test() {
+      this.isCollapse = !this.isCollapse;
+    },
+
     handleClick() {
-      this.$router.push('/OrgFrame/OrgAccountModify');
+      this.$router.push("/OrgFrame/OrgAccountModify");
     },
     /**
      * @description 获取路由数组
@@ -130,7 +150,7 @@ export default {
       console.log("this.breadList", this.breadList);
     },
   },
-   watch: {
+  watch: {
     // 监听路由
     $route(val) {
       // 调用获取路由数组方法
@@ -142,26 +162,70 @@ export default {
 </script>
 
 <style scoped>
+html,
+body,
+#app,
+.el-container {
+  /*设置内部填充为0，几个布局元素之间没有间距*/
+  padding: 0px;
+  /*外部间距也是如此设置*/
+  margin: 0px;
+  /*统一设置高度为100%*/
+  height: 100%;
+  overflow: hidden;
+}
+.el-main {
+  overflow: hidden;
+  /* background-color: wheat; */
+  background-color: rgb(237, 241, 245);
+}
+.header-row {
+  height: 100%;
+}
+.header-row-col1 {
+  height: 100%;
+}
+.header-row-col2 {
+  height: 100%;
+  /* background-color: azure; */
+}
+.logoImage {
+  height: 40px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  /* background-color: yellow; */
+  /* width: 40%; */
+  /* padding: 5%; */
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
+.fold-button {
+  font-size: 30px;
+
+  /* border-style: hidden;
+  border-color: white;
+  background-color: white; */
+}
+.headerrow {
+  font-size: 30px;
+  height: 100%;
+}
+/* .el-icon-s-unfold {
+  height: 40px;
+  width: 40px;
+} */
+.el-card {
+  border-radius: 15px;
+}
 /* 面包屑导航 */
 .el-breadcrumb {
+  /* background-color: thistle; */
   box-sizing: border-box;
-    height: 90%;
-  width: 90%;
+  /* height: 100%;
+  width: 90%; */
   padding: 5%;
   /* border-bottom: 1px solid #eee; */
-}
-.myheader {
-  background-color: #d7e4f7;
-  color: #333;
-  line-height: 55px;
-  text-align: right;
-  font-size: 15px;
-  display: inline-block;
-}
-
-.logoImage {
-  height: 90%;
-  width: 90%;
-  padding: 5%;
 }
 </style>

@@ -5,11 +5,11 @@
         <div>
           <h2>完成活动列表</h2>
         </div>
-        <el-tabs v-model="activeName" @tab-click="handleClick"  >
+        <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="待反馈" name="third">
-            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable" :data="tableData" height="465" stripe highlight-current-row
-              @current-change="handleCurrentChange1" style="width: 100%"
-              :default-sort="{prop: 'date', order: 'descending'}">
+            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable"
+              :data="tableData" height="465" stripe highlight-current-row @current-change="handleCurrentChange1"
+              style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
               <el-table-column type="expand">
                 <template slot-scope="props">
                   <el-form label-position="left" class="demo-table-expand" label-width="150px">
@@ -65,7 +65,10 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <router-link to="/OrgFrame/FeedBack">
+                  <router-link :to="{
+                name: 'FeedBackWindow',
+                params: { ID: scope.row.ID },
+              }">
                     <el-button size="mini" type="primary" @click="handleFeedback(scope.$index, scope.row)">反馈
                     </el-button>
                   </router-link>
@@ -74,9 +77,9 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane label="已反馈" name="fourth">
-            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable" :data="tableData" height="465" stripe highlight-current-row
-              @current-change="handleCurrentChange2" style="width: 100%"
-              :default-sort="{prop: 'date', order: 'descending'}">
+            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable"
+              :data="tableData" height="465" stripe highlight-current-row @current-change="handleCurrentChange2"
+              style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
               <el-table-column type="expand">
                 <template slot-scope="props">
                   <el-form label-position="left" class="demo-table-expand" label-width="150px">
@@ -136,7 +139,10 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <router-link to="/OrgFrame/FeedBack">
+                  <router-link :to="{
+                name: 'FeedBackWindow',
+                params: { ID: scope.row.ID },
+              }">
                     <el-button size="mini" type="success" @click="handleRenew(scope.$index, scope.row)">修改反馈</el-button>
                   </router-link>
                 </template>

@@ -1,6 +1,6 @@
 ﻿<template>
   <div class="page">
-    <el-card class="infoMain">
+    <el-card>
       <div>
         <h2>组织用户信息</h2>
       </div>
@@ -46,12 +46,9 @@
 </template>
 
 <style scoped>
-
-
 .info {
   text-align: left;
 }
-
 p {
   color: rgb(0, 0, 0);
   position: relative;
