@@ -18,7 +18,7 @@
     <el-row :gutter="10" type="flex">
       <div class="grid-content">
         <el-card class="box-card">
-          <PicCard :buttonshow="othertype" />
+          <PicCard :buttonshow="othertype" :groundID="this.$route.params.groundID" />
         </el-card>
       </div>
     </el-row>
