@@ -1,69 +1,93 @@
 <template>
   <div>
-    <el-col :span="12">
+    <!-- <el-col :span="12"> -->
+    <el-row class="upper-row">
       <el-card class="maincard">
-        <h1 class="maintitle">活动详情</h1>
+        <div slot="header" class="clearfix">
+          <span class="maintitle">活动详情 </span>
+        </div>
+        <!-- <h1 class="maintitle">活动详情</h1>
+          <el-divider></el-divider> -->
         <div class="detailinfo">
-          <p class="">活动名称：{{ activityName }}</p>
-          <p class="">主办组织：{{ groupName }}</p>
-          <p class="">活动日期：{{ date }}</p>
-          <p class="">活动时间：{{ startTime }}</p>
-          <p class="">参与人数：{{ participantNum }}{{ roomno }}</p>
-          <p class="">场地名称：{{ indoorOrOutdoor? building+roomNo:groundName }}</p>
-          <p class="">活动描述：{{ description }}</p>
+          <el-col :span="12">
+            <p class="">活动名称：{{ activityName }}</p>
+            <p class="">主办组织：{{ groupName }}</p>
+            <p class="">活动日期：{{ date }}</p>
+            <p class="">活动时间：{{ startTime }}</p>
+          </el-col>
+          <el-col :span="12">
+            <p class="">参与人数：{{ participantNum }}</p>
+            <p class="">
+              场地名称：{{ indoorOrOutdoor ? building + roomNo : groundName }}
+            </p>
+            <p class="">活动描述：{{ description }}</p>
+          </el-col>
         </div>
         <!-- <el-divider content-position="center">详细信息</el-divider> -->
       </el-card>
-    </el-col>
-
-    <el-col :span="12">
+      <!-- </el-col> -->
+    </el-row>
+    <el-row class="lower-row">
+      <!-- <el-col :span="12"> -->
       <el-card class="maincard">
-        <h1 class="maintitle">信用评分</h1>
-        <div class="scoringForm"  v-if="!isReviewed">
-        <div class="detailinfo">
-          评分：
-          <el-input-number
-            size="small"
-            v-model="score"
-            :step="1"
-            :max="5"
-            :min="-5"
-          ></el-input-number>
+        <div slot="header" class="clearfix">
+          <span class="maintitle">信用评分 </span>
         </div>
-        <el-divider content-position="center">详细信息</el-divider>
+        <div class="scoringForm" v-if="!isReviewed">
+          <!-- <div class="detailinfo">
+            评分：
+            <el-input-number
+              size="small"
+              v-model="score"
+              :step="1"
+              :max="5"
+              :min="-5"
+            ></el-input-number>
+          </div> -->
+          <!-- <el-divider content-position="center">详细信息</el-divider> -->
 
-        <el-form ref="form" label-width="80px">
-          <el-form-item label="评分理由">
-            <el-input
-              type="textarea"
-              :autosize="{ minRows: 5, maxRows: 10 }"
-              v-model="reason"
-              placeholder="请输入评分理由"
-              maxlength="50"
-              show-word-limit
-            ></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="publish">发布</el-button>
-            <!-- <router-link to="/GroundsmanFrame/ScoringActivityList"> -->
+          <el-form ref="form" label-width="80px">
+            <el-form-item label="评分">
+              <el-input-number
+              size="small"
+              v-model="score"
+              :step="1"
+              :max="5"
+              :min="-5"
+            ></el-input-number>
+            </el-form-item>
+            <el-form-item label="评分理由">
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 5, maxRows: 10 }"
+                v-model="reason"
+                placeholder="请输入评分理由"
+                maxlength="50"
+                show-word-limit
+              ></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="publish">发布</el-button>
+              <!-- <router-link to="/GroundsmanFrame/ScoringActivityList"> -->
               <el-button @click="cancle">取消</el-button>
-            <!-- </router-link> -->
-          </el-form-item>
-        </el-form>
+              <!-- </router-link> -->
+            </el-form-item>
+          </el-form>
         </div>
         <div class="detailinfo" v-else>
           <p class="">信用评分：{{ score }}</p>
           <p class="">评分日期：{{ creditDate }}</p>
           <p class="">评分时间：{{ creditTime }}</p>
           <p class="">评分理由：{{ reason }}</p>
-          <div style="float:right">
-          <!-- <router-link to="/ScoringActivityList"> -->
-              <el-button type="primary" @click="cancle">返回</el-button>
+          <div style="float: right">
+            <!-- <router-link to="/ScoringActivityList"> -->
+            <el-button type="primary" @click="cancle">返回</el-button>
             <!-- </router-link> -->
-            </div>
+          </div>
         </div>
       </el-card>
-    </el-col>
+      <!-- </el-col> -->
+    </el-row>
   </div>
 </template>
 
@@ -83,35 +107,30 @@ body,
   height: 100%;
 }
 
-.el-header {
-  background-color: white;
+.upper-row {
+  height: 45%;
+  padding-bottom: 15px;
 }
-.el-aside {
-  background-color: white;
-}
-.el-main {
-  background-color: rgb(237, 241, 245);
-  height: 100%;
+.lower-row {
+  height: 55%;
 }
 .maintitle {
-  text-align: center;
-  font-size: 27px;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .el-card {
   height: 100%;
+  border-radius: 15px;
 }
 .el-input {
   height: 50%;
 }
 .detailinfo {
-  padding: 15px;
+  padding-left: 15px;
 }
-.el-col {
-  padding: 5px;
-  /* height: */
-  height: 100%;
-}
+
 .header-row {
   background-color: rgb(158, 29, 29);
 }
@@ -146,10 +165,10 @@ export default {
     };
   },
   methods: {
-    cancle(){
-       this.$router.push({
-          path: "/GroundsAdmin/ScoringActivityList",
-    })
+    cancle() {
+      this.$router.push({
+        path: "/GroundsAdmin/ScoringActivityList",
+      });
     },
     publish() {
       this.isReviewed = 1;

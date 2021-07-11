@@ -13,7 +13,10 @@
         </el-card>
       </el-col>
     </el-row> -->
+          <el-page-header @back="goBack" content="详情页面">
+</el-page-header>
     <el-row :gutter="10" type="flex">
+
         <div class="grid-content">
           <el-card class="box-card">
             <PicCard :buttonshow="othertype" />

@@ -1,8 +1,8 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-      <div class="maintitle">待评分活动</div>
-      <!-- <p class="groundinfo">{{ num }}个活动</p> -->
+      <div class="maintitle" style="text-align:left;">待评分活动</div>
+      <el-divider></el-divider>
       <el-table
         height="475"
         ref="filterTable"

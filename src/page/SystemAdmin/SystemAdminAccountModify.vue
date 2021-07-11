@@ -1,8 +1,8 @@
 <template>
-  <div class="maindiv" >
+  <div class="maindiv">
     <el-card class="mycard" style="height=400">
       <!-- <div> -->
-        <h2>用户信息</h2>
+      <h2>用户信息</h2>
       <!-- </div> -->
       <el-row>
         <el-col :span="6"
@@ -33,7 +33,14 @@
           </div></el-col
         >
       </el-row>
+
       <div class="modify">
+        <router-link
+          to="/SysAdminFrame/MaintainUserInfo"
+          tag="el-button"
+          type="primary"
+          >返回</router-link
+        >
         <el-button type="primary" @click="success">编辑</el-button>
       </div>
     </el-card>
@@ -41,8 +48,6 @@
 </template>
 
 <style scoped>
-
-
 /* .el-card {
   height: 400;
 } */

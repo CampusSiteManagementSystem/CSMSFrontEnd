@@ -7,31 +7,38 @@
         </div>
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="待举办" name="first">
-            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable1" :data="tableData" height="465" stripe highlight-current-row
-              @current-change="handleCurrentChange1" style="width: 100%"
-              :default-sort="{ prop: 'date', order: 'descending' }">
+            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable1"
+              :data="tableData" height="465" stripe highlight-current-row @current-change="handleCurrentChange1"
+              style="width: 100%" :default-sort="{ prop: 'date', order: 'descending' }">
               <el-table-column type="expand">
                 <template slot-scope="props">
-                  <el-form label-position="left" class="demo-table-expand">
+                  <el-form label-position="left" class="demo-table-expand" label-width="150px">
                     <el-form-item label="活动ID">
+                      <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
                       <span>{{ props.row.ID }}</span>
                     </el-form-item>
                     <el-form-item label="活动名称">
+                      <label slot="label">活动名称</label>
                       <span>{{ props.row.name }}</span>
                     </el-form-item>
-                    <el-form-item label="时间">
+                    <el-form-item label="活动时间">
+                      <label slot="label">活动时间</label>
                       <span>{{ props.row.date }}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
+                      <label slot="label">申请地点</label>
                       <span>{{ props.row.address }}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
+                      <label slot="label">参加人数</label>
                       <span>{{ props.row.people }}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
+                      <label slot="label">特殊要求</label>
                       <span>{{ props.row.require }}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
+                      <label slot="label">活动描述</label>
                       <span>{{ props.row.details }}</span>
                     </el-form-item>
                   </el-form>
@@ -66,31 +73,38 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane label="审核中" name="second">
-            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable2" :data="tableData" height="465" stripe highlight-current-row
-              @current-change="handleCurrentChange2" style="width: 100%"
-              :default-sort="{ prop: 'date', order: 'descending' }">
+            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable2"
+              :data="tableData" height="465" stripe highlight-current-row @current-change="handleCurrentChange2"
+              style="width: 100%" :default-sort="{ prop: 'date', order: 'descending' }">
               <el-table-column type="expand">
                 <template slot-scope="props">
-                  <el-form label-position="left" class="demo-table-expand">
+                  <el-form label-position="left" class="demo-table-expand" label-width="150px">
                     <el-form-item label="活动ID">
+                      <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
                       <span>{{ props.row.ID }}</span>
                     </el-form-item>
                     <el-form-item label="活动名称">
+                      <label slot="label">活动名称</label>
                       <span>{{ props.row.name }}</span>
                     </el-form-item>
-                    <el-form-item label="时间">
+                    <el-form-item label="活动时间">
+                      <label slot="label">活动时间</label>
                       <span>{{ props.row.date }}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
+                      <label slot="label">申请地点</label>
                       <span>{{ props.row.address }}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
+                      <label slot="label">参加人数</label>
                       <span>{{ props.row.people }}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
+                      <label slot="label">特殊要求</label>
                       <span>{{ props.row.require }}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
+                      <label slot="label">活动描述</label>
                       <span>{{ props.row.details }}</span>
                     </el-form-item>
                   </el-form>
@@ -126,31 +140,38 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane label="已完成" name="third">
-            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable" :data="tableData" height="465" stripe highlight-current-row
-              @current-change="handleCurrentChange3" style="width: 100%"
-              :default-sort="{ prop: 'date', order: 'descending' }">
+            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable"
+              :data="tableData" height="465" stripe highlight-current-row @current-change="handleCurrentChange3"
+              style="width: 100%" :default-sort="{ prop: 'date', order: 'descending' }">
               <el-table-column type="expand">
                 <template slot-scope="props">
-                  <el-form label-position="left" class="demo-table-expand">
+                  <el-form label-position="left" class="demo-table-expand" label-width="150px">
                     <el-form-item label="活动ID">
+                      <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
                       <span>{{ props.row.ID }}</span>
                     </el-form-item>
                     <el-form-item label="活动名称">
+                      <label slot="label">活动名称</label>
                       <span>{{ props.row.name }}</span>
                     </el-form-item>
-                    <el-form-item label="时间">
+                    <el-form-item label="活动时间">
+                      <label slot="label">活动时间</label>
                       <span>{{ props.row.date }}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
+                      <label slot="label">申请地点</label>
                       <span>{{ props.row.address }}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
+                      <label slot="label">参加人数</label>
                       <span>{{ props.row.people }}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
+                      <label slot="label">特殊要求</label>
                       <span>{{ props.row.require }}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
+                      <label slot="label">活动描述</label>
                       <span>{{ props.row.details }}</span>
                     </el-form-item>
                   </el-form>
@@ -187,31 +208,38 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane label="被驳回" name="fourth">
-            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable" :data="tableData" height="465" stripe highlight-current-row
-              @current-change="handleCurrentChange4" style="width: 100%"
-              :default-sort="{ prop: 'date', order: 'descending' }">
+            <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" ref="filterTable"
+              :data="tableData" height="465" stripe highlight-current-row @current-change="handleCurrentChange4"
+              style="width: 100%" :default-sort="{ prop: 'date', order: 'descending' }">
               <el-table-column type="expand">
                 <template slot-scope="props">
-                  <el-form label-position="left" class="demo-table-expand">
+                  <el-form label-position="left" class="demo-table-expand" label-width="150px">
                     <el-form-item label="活动ID">
+                      <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
                       <span>{{ props.row.ID }}</span>
                     </el-form-item>
                     <el-form-item label="活动名称">
+                      <label slot="label">活动名称</label>
                       <span>{{ props.row.name }}</span>
                     </el-form-item>
-                    <el-form-item label="时间">
+                    <el-form-item label="活动时间">
+                      <label slot="label">活动时间</label>
                       <span>{{ props.row.date }}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
+                      <label slot="label">申请地点</label>
                       <span>{{ props.row.address }}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
+                      <label slot="label">参加人数</label>
                       <span>{{ props.row.people }}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
+                      <label slot="label">特殊要求</label>
                       <span>{{ props.row.require }}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
+                      <label slot="label">活动描述</label>
                       <span>{{ props.row.details }}</span>
                     </el-form-item>
                   </el-form>
@@ -481,7 +509,7 @@ export default {
 }
 .demo-table-expand label {
   width: 90px;
-  color: #f01010;
+  font-weight: 700;
 }
 
 .demo-table-expand .el-form-item {
