@@ -28,7 +28,7 @@
                 src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
               ></el-avatar
             ></el-button>
-            <el-button type="text" @click="handleClick">王二狗</el-button>
+            <el-button type="text" @click="handleClick">管理员</el-button>
           </el-row></el-col
         >
       </el-row>
@@ -182,7 +182,7 @@ export default {
     },
 
     handleClick() {
-      this.$router.push({ path: "Home" });
+      this.$router.push({ path: "/GroundsAdmin/AccountModify" });
     },
     /**
      * @description 获取路由数组
@@ -213,14 +213,3 @@ export default {
   },
 };
 </script>
-
-
-
-
-// <div v-if>
-
-// <div>
-
-// <keep-alive v-else>
-//           <router-view style="height: 100%"></router-view>
-// </keep-alive>

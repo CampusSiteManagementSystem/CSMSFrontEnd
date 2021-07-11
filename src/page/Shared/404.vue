@@ -48,7 +48,7 @@ body,
 
 <script>
 export default {
-  name: "404",
+  name: "NotFound",
   components: {},
   methods: {
     back() {
