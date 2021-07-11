@@ -10,10 +10,9 @@
           <div>
             <h3>场地详情 </h3>
           </div>
-        <el-row :gutter="20">
+        <el-row >
           
-          <div class="detailinfo">
-            <el-col :span="12">
+          
               <p >场地名称：{{ building }}{{ room }}</p>
               <p >场地类型：{{ placeType }}</p>
               <p v-for="(value, key) in utils" :key="value">
@@ -21,9 +20,9 @@
               </p>
               <!-- <p class="">活动日期：{{ date }}</p>
             <p class="">活动时间：{{ startTime }}</p> -->
-            </el-col>
-            <el-col :span="12" style="padding-bottom:0%">
-              
+            
+              </el-row>
+              <el-row style="float:right">
               <time class="time"
                 >{{ currentDate }}
                 <router-link to="/ApplySite" v-show="buttonshow"
@@ -36,8 +35,8 @@
                 size="mini"
               ></el-button>
               
-            </el-col>
-          </div>
+            
+          
         </el-row>
 
         <!-- <p style="text-align: center; font-size: x-large">{{ room }}</p>
