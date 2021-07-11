@@ -31,7 +31,17 @@ const routes = [
         meta: {
             title: '学生'
         },
-        children: [{
+        children: [
+            {
+                path: "AccountModify",
+                name: "StuAccountModify",
+                component: () =>
+                    import ('../page/Student/StuAccountModify.vue'),
+                meta: {
+                    title: '个人信息'
+                }
+            },
+            {
                 path: "Main",
                 name: "StudentFrameMain",
                 component: () =>
@@ -223,7 +233,8 @@ const routes = [
         },
         component: () =>
             import('../page/Organization/OrganizationFrame.vue'),
-        children: [{
+        children: [            
+        {
             path: 'CheckSite',
             name: 'OrgCheckSite',
             meta: {
@@ -380,7 +391,17 @@ const routes = [
         path: '/GroundsAdmin',
         component: () =>
             import('../page/Grandsman/GroundsmanFrame'),
-        children: [{
+        children: [
+        {
+            path: "AccountModify",
+            name: "GroundsmanAccountModify",
+            component: () =>
+                import ('../page/Grandsman/GroundsmanAccountModify.vue'),
+            meta: {
+                title: '个人信息'
+            }
+        },
+        {
             path: "Main",
             name: "GroundAdminMain",
             meta: {

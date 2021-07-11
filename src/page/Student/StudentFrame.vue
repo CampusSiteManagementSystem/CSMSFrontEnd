@@ -34,12 +34,14 @@
     </el-header>
     <el-container style="height: 100%">
       <el-aside style="width: auto">
-        <el-menu  class="el-menu-vertical-demo"
+        <el-menu
+          class="el-menu-vertical-demo"
           default-active="/StuFrame/Main"
           router
           active-text-color="#409EFF"
           :collapse="isCollapse"
-          style="height: 100%">
+          style="height: 100%"
+        >
           <el-menu-item index="/StuFrame/Main">
             <i class="el-icon-s-home"></i>
             <span style="font-size: 14px">主页</span>
@@ -71,7 +73,6 @@
         </el-menu>
       </el-aside>
 
-
       <el-main
         style="height: 100%; overflow: auto; background: rgb(237, 241, 245)"
       >
@@ -100,8 +101,12 @@ body,
   height: 100%;
   overflow: hidden;
 }
+.el-card {
+  overflow: auto;
+  border-radius: 15px;
+}
 .el-main {
-  overflow: hidden;
+  overflow: auto;
   /* background-color: wheat; */
   background-color: rgb(237, 241, 245);
 }
@@ -171,7 +176,7 @@ export default {
     },
 
     handleClick() {
-      this.$router.push("/OrgFrame/OrgAccountModify");
+      this.$router.push("/StuFrame/AccountModify");
     },
     /**
      * @description 获取路由数组

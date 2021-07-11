@@ -1,6 +1,6 @@
 <template>
-    <el-container style="border: 1px solid #eee; height: 100%">
-      <el-header style="height: 8%; background-color: white">
+  <el-container style="border: 1px solid #eee; height: 100%">
+    <el-header style="height: 8%; background-color: white">
       <el-row class="header-row">
         <el-col :span="18" class="header-row-col1"
           ><el-row class="headerrow" type="flex" justify="left" align="middle">
@@ -32,12 +32,9 @@
         >
       </el-row>
     </el-header>
-            <el-container style="height: 100%">
-
-      
+    <el-container style="height: 100%">
       <!-- 侧边栏 -->
       <el-aside style="width: auto">
-        
         <el-menu
           class="el-menu-vertical-demo"
           default-active="/SysAdminFrame/SysAdminHomePage"
@@ -65,49 +62,13 @@
         </el-menu>
       </el-aside>
 
-      <!-- header -->
-        <!-- <el-header class="myheader" style="height: 10%">
-          <el-row :gutter="20" type="flex" align="middle">
-            <el-col :span="6"  
-              >
-              <el-breadcrumb separator-class="el-icon-arrow-right" >
-            <el-breadcrumb-item
-              v-for="(item, index) in breadList"
-              :key="index"
-              @click="this.$router.go(-1)"
-              >{{ item.meta.title }}</el-breadcrumb-item
-            >
-          </el-breadcrumb>
-
-            </el-col>
-            <el-col :span="6" :offset="10"
-              >
-               <el-row
-            class="headerrow"
-            type="flex"
-            justify="end"
-            align="middle"
-            @click="handleClick"
-          >
-            <el-button type="text"
-              ><el-avatar
-                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-              ></el-avatar
-            ></el-button>
-            <el-button type="text" @click="handleClick">系统管理员</el-button>
-          </el-row>
-              
-              </el-col>
-          </el-row>
-        </el-header> -->
-
-        <el-main style="height: 100%; overflow: auto">
-          <keep-alive>
-            <router-view></router-view>
-          </keep-alive>
-        </el-main>
-      </el-container>
+      <el-main style="height: 100%; overflow: auto">
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </el-main>
     </el-container>
+  </el-container>
 </template>
 
 <style scoped>
@@ -123,8 +84,9 @@ body,
   height: 100%;
   overflow: hidden;
 }
+
 .el-main {
-  overflow: hidden;
+  overflow: auto;
   /* background-color: wheat; */
   background-color: rgb(237, 241, 245);
 }
@@ -223,5 +185,5 @@ export default {
       console.log("调用获取路由数组方法", this.getBreadList(val));
     },
   },
-  };
+};
 </script>

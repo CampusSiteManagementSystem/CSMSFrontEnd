@@ -174,8 +174,9 @@ body,
   height: 100%;
   overflow: hidden;
 }
+
 .el-main {
-  overflow: hidden;
+  overflow: auto;
   /* background-color: wheat; */
   background-color: rgb(237, 241, 245);
 }
