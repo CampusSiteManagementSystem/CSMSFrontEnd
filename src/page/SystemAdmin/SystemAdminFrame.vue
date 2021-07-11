@@ -1,16 +1,50 @@
 <template>
-  <div style="height: 100%">
     <el-container style="border: 1px solid #eee; height: 100%">
+      <el-header style="height: 8%; background-color: white">
+      <el-row class="header-row">
+        <el-col :span="18" class="header-row-col1"
+          ><el-row class="headerrow" type="flex" justify="left" align="middle">
+            <el-button class="fold-button" @click="test" type="text">
+              <i v-if="isCollapse" class="el-icon-s-unfold"></i
+              ><i v-else class="el-icon-s-fold"></i
+            ></el-button>
+            <!-- <i class="el-icon-s-unfold" @click="test"></i> -->
+            <img src="../../assets/tjlogo.png" class="logoImage" />
+
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+              <el-breadcrumb-item
+                v-for="(item, index) in breadList"
+                :key="index"
+                @click="this.$router.go(-1)"
+                >{{ item.meta.title }}</el-breadcrumb-item
+              >
+            </el-breadcrumb>
+          </el-row></el-col
+        ><el-col :span="6" class="header-row-col2">
+          <el-row class="headerrow" type="flex" justify="end" align="middle">
+            <el-button type="text" @click="handleClick"
+              ><el-avatar
+                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+              ></el-avatar
+            ></el-button>
+            <el-button type="text" @click="handleClick">场地管理员</el-button>
+          </el-row></el-col
+        >
+      </el-row>
+    </el-header>
+            <el-container style="height: 100%">
+
+      
       <!-- 侧边栏 -->
-      <el-aside width="15%">
-        <el-row type="flex" justify="center" align="middle">
-          <img src="../../assets/tjlogo.png" class="logoImage" />
-        </el-row>
+      <el-aside style="width: auto">
+        
         <el-menu
-          :default-active="$route.path"
-          class="menu"
-          style="height=100%"
+          class="el-menu-vertical-demo"
+          default-active="/SysAdminFrame/SysAdminHomePage"
           router
+          active-text-color="#409EFF"
+          :collapse="isCollapse"
+          style="height: 100%"
         >
           <el-menu-item index="/SysAdminFrame/SysAdminHomePage">
             <i class="el-icon-house"></i>
@@ -32,16 +66,11 @@
       </el-aside>
 
       <!-- header -->
-      <el-container style="height: 100%">
-        <el-header class="myheader" style="height: 10%">
+        <!-- <el-header class="myheader" style="height: 10%">
           <el-row :gutter="20" type="flex" align="middle">
             <el-col :span="6"  
               >
-              <!-- style="margin-top:15%" -->
               <el-breadcrumb separator-class="el-icon-arrow-right" >
-            <!-- // 首页我是写死的，其他的遍历出来
-            <el-breadcrumb-item :to="{ name: 'home' }">首页</el-breadcrumb-item> -->
-            <!-- // 因为路由是后台返回的，所以取title是按照后台格式来取的 -->
             <el-breadcrumb-item
               v-for="(item, index) in breadList"
               :key="index"
@@ -49,13 +78,6 @@
               >{{ item.meta.title }}</el-breadcrumb-item
             >
           </el-breadcrumb>
-          <!-- <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
-            <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-            <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-          </el-breadcrumb> -->
-
 
             </el-col>
             <el-col :span="6" :offset="10"
@@ -77,47 +99,81 @@
               
               </el-col>
           </el-row>
+        </el-header> -->
 
-          
-
-         
-        </el-header>
-
-        <el-main style="height: 90%; overflow: auto">
+        <el-main style="height: 100%; overflow: auto">
           <keep-alive>
             <router-view></router-view>
           </keep-alive>
         </el-main>
       </el-container>
     </el-container>
-  </div>
 </template>
 
 <style scoped>
-.myheader {
-  background-color: #d7e4f7;
-  color: #333;
-  line-height: 55px;
-  text-align: right;
-  font-size: 15px;
-  display: inline-block;
+html,
+body,
+#app,
+.el-container {
+  /*设置内部填充为0，几个布局元素之间没有间距*/
+  padding: 0px;
+  /*外部间距也是如此设置*/
+  margin: 0px;
+  /*统一设置高度为100%*/
+  height: 100%;
+  overflow: hidden;
 }
-
+.el-main {
+  overflow: hidden;
+  /* background-color: wheat; */
+  background-color: rgb(237, 241, 245);
+}
+.header-row {
+  height: 100%;
+}
+.header-row-col1 {
+  height: 100%;
+}
+.header-row-col2 {
+  height: 100%;
+  /* background-color: azure; */
+}
 .logoImage {
-  height: 90%;
-  width: 90%;
-  padding: 5%;
+  height: 40px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  /* background-color: yellow; */
+  /* width: 40%; */
+  /* padding: 5%; */
 }
-
-.personalButton {
-  font-size: 15px;
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 180px;
+  min-height: 400px;
 }
+.fold-button {
+  font-size: 30px;
 
+  /* border-style: hidden;
+  border-color: white;
+  background-color: white; */
+}
+.headerrow {
+  font-size: 30px;
+  height: 100%;
+}
+/* .el-icon-s-unfold {
+  height: 40px;
+  width: 40px;
+} */
+.el-card {
+  border-radius: 15px;
+}
 /* 面包屑导航 */
 .el-breadcrumb {
+  /* background-color: thistle; */
   box-sizing: border-box;
-    height: 90%;
-  width: 90%;
+  /* height: 100%;
+  width: 90%; */
   padding: 5%;
   /* border-bottom: 1px solid #eee; */
 }
@@ -127,19 +183,22 @@
 export default {
   data() {
     return {
+      isCollapse: true,
       value: "",
       breadList: [],
     };
   },
   methods: {
-    handleClick() {
-      this.$router.push({ path: "AccountModify" });
+    test() {
+      this.isCollapse = !this.isCollapse;
     },
 
+    handleClick() {
+      this.$router.push("/OrgFrame/OrgAccountModify");
+    },
     /**
      * @description 获取路由数组
      * @params val 路由参数
-     * @author tw
      */
     getBreadList(val) {
       // 过滤路由matched对象
@@ -156,7 +215,6 @@ export default {
       console.log("this.breadList", this.breadList);
     },
   },
-
   watch: {
     // 监听路由
     $route(val) {
@@ -165,5 +223,5 @@ export default {
       console.log("调用获取路由数组方法", this.getBreadList(val));
     },
   },
-};
+  };
 </script>
