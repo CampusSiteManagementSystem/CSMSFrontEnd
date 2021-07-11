@@ -2,7 +2,7 @@
   <div>
     <el-col :span="12">
       <el-card class="maincard">
-        <h1 class="maintitle">活动详情</h1>
+        <div class="maintitle">活动详情</div>
         <div class="detailinfo">
           <p class="">活动名称：{{ activityName }}</p>
           <p class="">主办组织：{{ groupName }}</p>
@@ -52,7 +52,7 @@
           </el-form-item>
           <el-form-item>
             <router-link
-              to="/FeedbackActivityList"
+              to="/GroundsAdmin/FeedbackActivityList"
               tag="el-button"
               class="primary"
               >返回</router-link
@@ -81,8 +81,10 @@ body,
 }
 
 .maintitle {
-  text-align: center;
-  font-size: 27px;
+  font-size: 22px;
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
 }
 
 .el-card {
@@ -141,7 +143,7 @@ export default {
   methods: {
     cancle() {
       this.$router.push({
-        path: "/ScoringActivityList",
+        path: "/GroundsAdmin/ScoringActivityList",
       });
     },
     publish() {

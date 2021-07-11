@@ -45,7 +45,7 @@
         <el-table-column label="操作" width="400">
           <template>
             <router-link
-              to="/SystemAdminFrame/SystemAdminAccountModify"
+              to="/SysAdminFrame/AccountModify"
               tag="el-button"
               type="primary"
               >编辑信息</router-link

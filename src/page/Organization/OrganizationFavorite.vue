@@ -18,7 +18,12 @@
         </el-row>
       </div>
 
-      <el-table :data="matchList" style="width: 100%">
+      <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" :data="matchList" style="width: 100%" stripe>
+        <el-table-column
+          label="场地编号"
+          prop="groundID"
+          width="auto"
+        ></el-table-column>
         <el-table-column
           label="地点"
           prop="position"
@@ -39,7 +44,21 @@
         </el-table-column>
 
         <el-table-column label="查看" width="auto">
-          <el-button size="mini">前往</el-button>
+           <template slot-scope="scope">
+            <router-link
+              :to="{
+                name: 'ShowScheduleforOrg',
+                params: { groundID: scope.row.groundID },
+              }"
+            >
+              <el-button
+                size="small"
+                @click="handleEdit(scope.$index, scope.row)"
+                round
+                >查看</el-button
+              >
+            </router-link>
+          </template>
         </el-table-column>
       </el-table>
     </el-card>
@@ -53,23 +72,27 @@ export default {
   },
   data() {
     return {
-      favoriteList: [
+       favoriteList: [
         {
+          groundID: 123,
           isBusy: true,
           position: "F201",
           type: "室内",
         },
         {
+          groundID: 124,
           isBusy: false,
           position: "篮球场",
           type: "室外",
         },
         {
+          groundID: 125,
           isBusy: true,
           position: "G201",
           type: "室内",
         },
         {
+          groundID: 126,
           isBusy: true,
           position: "A201",
           type: "室内",

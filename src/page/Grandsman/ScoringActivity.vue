@@ -57,9 +57,9 @@
           <p class="">评分时间：{{ creditTime }}</p>
           <p class="">评分理由：{{ reason }}</p>
           <div style="float:right">
-          <router-link to="/ScoringActivityList">
-              <el-button type="primary">返回</el-button>
-            </router-link>
+          <!-- <router-link to="/ScoringActivityList"> -->
+              <el-button type="primary" @click="cancle">返回</el-button>
+            <!-- </router-link> -->
             </div>
         </div>
       </el-card>
@@ -148,7 +148,7 @@ export default {
   methods: {
     cancle(){
        this.$router.push({
-          path: "/ScoringActivityList",
+          path: "/GroundsAdmin/ScoringActivityList",
     })
     },
     publish() {

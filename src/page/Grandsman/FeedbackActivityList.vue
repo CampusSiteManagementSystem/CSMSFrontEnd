@@ -1,7 +1,7 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-      <h1 class="maintitle">活动反馈</h1>
+      <div class="maintitle">活动反馈</div>
       <!-- <p class="groundinfo">{{ num }}个活动</p> -->
       <el-table
         height="520"
@@ -65,8 +65,10 @@ body,
 }
 
 .maintitle {
-  text-align: center;
-  font-size: 27px;
+  font-size: 22px;
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
 }
 .groundinfo {
   text-align: right;

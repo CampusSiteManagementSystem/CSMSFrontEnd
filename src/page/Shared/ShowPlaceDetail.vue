@@ -1,19 +1,26 @@
 <template>
   <div>
     <el-card class="box-card">
-       <div>
-        <h2>查看地点</h2>
+      <div slot="header" class="clearfix">
+        <el-row>
+          <el-col :span="18">
+            <div>
+              <h2>查看场地</h2>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <el-input
+              v-model="toMatch"
+              placeholder="请输入关键字搜索"
+              @input="search"
+            ></el-input>
+          </el-col>
+        </el-row>
       </div>
-        <div class="search">
-          <el-cascader
-            :options="options"
-            :props="{ multiple: true, checkStrictly: true }"
-            clearable
-          ></el-cascader>
-          <el-button type="primary" icon="el-icon-search">搜索</el-button>
-        </div>
+        
       <div class="text item">
-        <el-table :data="tableData" height="450">
+        <el-table :header-row-style="{height:'10px'}" :cell-style="{padding:'1px'}" :data="matchList" height="450" stripe>
+          <el-table-column prop="groundID" label="场地编号"> </el-table-column>
           <el-table-column prop="type" label="是否室内"> </el-table-column>
           <el-table-column prop="building" label="楼号"> </el-table-column>
           <el-table-column prop="floor" label="层号"> </el-table-column>
@@ -23,7 +30,7 @@
           <el-table-column prop="description" label="详情"> </el-table-column>
           <el-table-column label="操作" width="200">
             <template slot-scope="scope">
-              <router-link
+              <!-- <router-link
                 to="/ShowSchedule"
                 size="mini"
                 type="primary"
@@ -31,22 +38,45 @@
                 @click="handleEdit(scope.$index, scope.row)"
                 class="el-icon-edit choose-button"
                 >查看</router-link
+              > -->
+              <!-- 这个是学生的 -->
+              <!-- class="el-icon-edit choose-button" -->
+               <router-link
+               v-show="membertype"
+               :to="{ name: 'ShowScheduleforStu', params: { groundID: scope.row.groundID ,membertype:true} }"
+                size="mini"
+                type="success"
+                tag="el-button"
+                @click="handleEdit(scope.$index, scope.row)"
+               
+                >查看</router-link
+              >
+              <!-- 这个是组织的 -->
+              <router-link
+              v-show="othertype"
+               :to="{ name: 'ShowScheduleforOrg', params: { groundID: scope.row.groundID ,membertype:false} }"
+                size="mini"
+                type="success"
+                tag="el-button"
+                @click="handleEdit(scope.$index, scope.row)"
+                
+                >查看</router-link
               >
               <router-link
                 v-show="othertype"
-                to="/ShowSchedule"
+                to="/OrgFrame/ApplySite"
                 size="mini"
                 type="primary"
                 tag="el-button"
                 @click="addFood(scope.$index, scope.row)"
-                class="el-icon-check choose-button"
+            
                 >申请</router-link
               >
             </template>
           </el-table-column>
         </el-table>
-        <el-pagination :page-size="20" layout="prev, pager, next" :total="1000">
-        </el-pagination>
+        <!-- <el-pagination :page-size="20" layout="prev, pager, next" :total="1000">
+        </el-pagination> -->
       </div>
     </el-card>
   </div>
@@ -56,83 +86,86 @@
 export default {
   data() {
     const item = {
+      groundID:123123,
       type: "室内",
       building: "F",
       floor: "4",
       room: "402",
       capacity: 100,
-      description: "F楼大教室",
+      description: "F楼402大教室",
     };
-    const places = [
-      {
-        // eslint-disable-line no-unused-vars
-        value: "indoor",
-        label: "室内",
-        children: [
-          {
-            value: "F",
-            label: "F",
-            children: [
-              {
-                value: "F1",
-                label: "F1",
-              },
-              {
-                value: "F2",
-                label: "F2",
-              },
-              {
-                value: "F3",
-                label: "F3",
-              },
-              {
-                value: "F4",
-                label: "F4",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        value: "outdoor",
-        label: "室外",
-        children: [
-          {
-            value: "basketballPlace",
-            label: "篮球场",
-            children: [
-              {
-                value: "basketballPlace1",
-                label: "篮球场1",
-              },
-              {
-                value: "basketballPlace2",
-                label: "篮球场2",
-              },
-            ],
-          },
-          {
-            value: "footballPlace",
-            label: "足球场",
-            children: [
-              {
-                value: "footballPlace1",
-                label: "足球场1",
-              },
-              {
-                value: "footballPlace2",
-                label: "足球场2",
-              },
-            ],
-          },
-        ],
-      },
-    ];
+    // const places = [
+    //   {
+    //     // eslint-disable-line no-unused-vars
+    //     value: "indoor",
+    //     label: "室内",
+    //     children: [
+    //       {
+    //         value: "F",
+    //         label: "F",
+    //         children: [
+    //           {
+    //             value: "F1",
+    //             label: "F1",
+    //           },
+    //           {
+    //             value: "F2",
+    //             label: "F2",
+    //           },
+    //           {
+    //             value: "F3",
+    //             label: "F3",
+    //           },
+    //           {
+    //             value: "F4",
+    //             label: "F4",
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     value: "outdoor",
+    //     label: "室外",
+    //     children: [
+    //       {
+    //         value: "basketballPlace",
+    //         label: "篮球场",
+    //         children: [
+    //           {
+    //             value: "basketballPlace1",
+    //             label: "篮球场1",
+    //           },
+    //           {
+    //             value: "basketballPlace2",
+    //             label: "篮球场2",
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         value: "footballPlace",
+    //         label: "足球场",
+    //         children: [
+    //           {
+    //             value: "footballPlace1",
+    //             label: "足球场1",
+    //           },
+    //           {
+    //             value: "footballPlace2",
+    //             label: "足球场2",
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   },
+    // ];
 
     return {
       tableData: Array(20).fill(item),
-      options: places,
+      // options: places,
       othertype:!this.membertype,
+      matchList: [],
+      toMatch: "",
 
       // baseUrl,
       // baseImgPath,
@@ -149,6 +182,9 @@ export default {
       // address: {},
     };
   },
+   created() {
+    this.matchList = this.tableData;
+  },
   mounted(){
     console.log("membertype student");
      console.log(this.membertype);
@@ -156,8 +192,23 @@ export default {
 
   },
   methods: {
+    search: function () {
+      if (this.toMatch == "") {
+        this.matchList = this.tableData;
+      } else {
+        this.matchList = [];
+        for (var i = 0; i < this.tableData.length; i++) {
+          if (
+            this.tableData[i].description.search(this.toMatch) != -1 
+          ) {
+            this.matchList.push(this.tableData[i]);
+          }
+        }
+      }
+    },
     // handleEdit() {},
     // handleEdit(index, row) {
+      
     //   this.selectTable = row;
     //   this.address.address = row.address;
     //   this.dialogFormVisible = true;
@@ -197,4 +248,5 @@ export default {
 .clearfix:after {
   clear: both;
 }
+
 </style>

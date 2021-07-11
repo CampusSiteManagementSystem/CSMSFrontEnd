@@ -1,13 +1,17 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-    <h1 class="maintitle">查看活动</h1>
-    <el-tabs v-model="activeTab" @tab-click="handleClick" :stretch="true" type="border-card" class="maintabs">
+      <div>
+        <h2>查看活动</h2>
+      </div>
+    <el-tabs v-model="activeTab">
         <el-tab-pane label="未举办" name="pane1">
         <el-table
+          :header-row-style="{height:'10px'}" :cell-style="{padding:'5px'}"
           :data="tableData"
           :default-sort = "{prop: 'time', order: 'ascending'}"
           height="450"
+          stripe
         >
           <el-table-column
               prop="name"
@@ -34,18 +38,25 @@
           </el-table-column>
           <el-table-column
             fixed="right"
-            width="100">
+            width="100"
+            label="操作">
             <template slot-scope="scope">
-                <el-button @click="handleClick(scope.row)" type="text" size="small">查看详情</el-button>
+              <router-link
+              :to="{ name: 'ActivityInfo', params: { ID: scope.row.id } }"
+              >
+                <el-button type="text" size="small">查看详情</el-button>
+              </router-link>
             </template>
           </el-table-column>
         </el-table>
         </el-tab-pane>
         <el-tab-pane label="已举办" name="pane2">
         <el-table
+          header-row-style="{height:'10px'}" :cell-style="{padding:'5px'}"
           :data="tableData"
           :default-sort = "{prop: 'time', order: 'ascending'}"
           height="450"
+          stripe
         >
           <el-table-column
               prop="name"
@@ -71,9 +82,15 @@
               label="地点">
           </el-table-column>
           <el-table-column
-            width="100">
+            fixed="right"
+            width="100"
+            label="操作">
             <template slot-scope="scope">
-                <el-button @click="handleClick(scope.row)" type="text" size="small">查看详情</el-button>
+              <router-link
+              :to="{ name: 'ActivityInfo', params: { ID: scope.row.id } }"
+              >
+                <el-button type="text" size="small">查看详情</el-button>
+              </router-link>
             </template>
           </el-table-column>
         </el-table>
@@ -104,13 +121,6 @@ body,
   background-color: rgb(237, 241, 245);
   height: 100%;
 }
-.maintitle {
-  text-align: center;
-  font-size: 27px;
-}
-.maintabs {
-  border-radius: 8px;
-}
 .el-card {
   height: 100%;
 }
@@ -136,34 +146,39 @@ body,
       return {    
         activeTab: 'pane1',
         tableData: [{
+          id: 65535,
           name: '批评大会',
           description: '某王姓同学在知乎上批评学校，给学校的招生和声誉造成了恶劣...',
           host: '德育办公室',
-          time: '2021-5-28 14：30',
+          time: '2021-5-28 14:30',
           location: '129礼堂'
         }, {
+          id: 65536,
           name: '批评大会',
           description: '某王姓同学在知乎上批评学校，给学校的招生和声誉造成了恶劣...',
           host: '德育办公室',
-          time: '2021-5-28 14：30',
+          time: '2021-5-28 14:31',
           location: '129礼堂'
         }, {
+          id: 65537,
           name: '批评大会',
           description: '某王姓同学在知乎上批评学校，给学校的招生和声誉造成了恶劣...',
           host: '德育办公室',
-          time: '2021-5-28 14：30',
+          time: '2021-5-28 14:32',
           location: '129礼堂'
         }, {
+          id: 65538,
           name: '批评大会',
           description: '某王姓同学在知乎上批评学校，给学校的招生和声誉造成了恶劣...',
           host: '德育办公室',
-          time: '2021-5-28 14：30',
+          time: '2021-5-28 14:33',
           location: '129礼堂'
         }, {
+          id: 65539,
           name: '批评大会',
           description: '某王姓同学在知乎上批评学校，给学校的招生和声誉造成了恶劣...',
           host: '德育办公室',
-          time: '2021-5-28 14：30',
+          time: '2021-5-28 14:34',
           location: '129礼堂'
         }
         ]

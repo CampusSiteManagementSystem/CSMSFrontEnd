@@ -3,9 +3,7 @@
   <div>
     <!-- 第一行布局 -->
     <el-row class="upperrow">
-      <!-- <el-row class="upper-row"> -->
       <el-col :span="10" class="upper-row-col1">
-        <!-- <el-col :span="24" class="person-info-col"> -->
         <el-card class="person-info-card">
           <el-col :span="8" class="person-info-card-photo-col">
             <div>
@@ -27,16 +25,12 @@
             <div class="other-info">祝您工作愉快！</div>
           </el-col>
         </el-card>
-        <!-- </el-col> -->
-        <!-- <el-col :span="24" class="col4">
-          <el-card class="unknown-card"> </el-card>
-        </el-col> -->
       </el-col>
       <el-col :span="14" class="upper-row-col2">
         <el-card class="system-announcement-card">
           <div slot="header" class="clearfix">
             <span>系统公告</span>
-            <router-link to="/Groundsman/Announcement"><el-button style="float: right; padding: 3px 0" type="text"
+            <router-link to="/GroundsAdmin/ReviewActivityList"><el-button style="float: right; padding: 3px 0" type="text"
               >查看更多</el-button
             ></router-link>
           </div>
@@ -66,7 +60,7 @@
         <el-card class="appointment-card">
           <div slot="header" class="clearfix">
             <span>待审核预约</span>
-            <router-link to="/ReviewActivityList">
+            <router-link to="/GroundsAdmin/ReviewActivityList">
             <el-button style="float: right; padding: 3px 0" type="text"
               >查看更多</el-button
             >
@@ -152,7 +146,6 @@ body,
   font-size: 15px;
   line-height: 25px;
   font-weight: 500;
-  /* letter-spacing: 3px; */
 }
 .date {
   font-size: 20px;
@@ -171,13 +164,10 @@ body,
 
 .person-info-col {
   /* background-color: teal; */
-  height: 100%;
+  height: 50%;
   padding: 5px;
 }
-.upper-row-col2 {
-  /* background-color: tomato; */
-  padding: 5px;
-}
+
 .appointment-col {
   /* background-color: thistle; */
   padding: 5px;
@@ -186,11 +176,7 @@ body,
   /* background-color: rgb(19, 179, 201); */
   padding: 5px;
 }
-.col4 {
-  /* background-color: rgb(253, 237, 14); */
-  height: 35%;
-  padding: 5px;
-}
+
 .el-card {
   border-radius: 15px;
 }
@@ -216,14 +202,7 @@ body,
 .box-card {
   width: 480px;
 }
-.upper-row {
-  height: 20%;
-}
 
-.lowercol {
-  height: 70%;
-  /* background-color: bisque; */
-}
 .upper-row-col1 {
   height: 100%;
   padding: 5px;
@@ -265,7 +244,7 @@ export default {
         id: 1956666,
         grounds: ["复楼", "诚楼"],
         type: ["", "success", "info", "warning", "danger"],
-        date: "2020-2021学年度第2学期第13周",
+        date: "2020-2021学年第2学期第13周",
       },
       systemannouncement: [
         { text: "明天维护", date: "2021-6-1" },

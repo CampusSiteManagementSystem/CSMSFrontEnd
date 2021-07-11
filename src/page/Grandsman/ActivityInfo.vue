@@ -1,7 +1,7 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-      <h1 class="maintitle">审批预约记录</h1>
+      <div class="maintitle">审批预约记录</div>
       <el-card class="box-card">
       <el-row>
         <el-col :span="12"><b>组织名称：</b>{{organization}}</el-col>
@@ -84,7 +84,7 @@ export default {
         })
       },
       back() {
-        this.$router.push({path:'/ReviewActivityList'});
+        this.$router.push({path:'/GroundsAdmin/ReviewActivityList'});
       }
     }
   }
@@ -106,8 +106,10 @@ export default {
     font-size: 25px;
   }
   .maintitle {
-    text-align: center;
-    font-size: 27px;
+    font-size: 22px;
+    text-align: left;
+    font-weight: bold;
+    padding: 5px;
   }
   .bg-purple {
   background: #f5f5f5;

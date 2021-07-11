@@ -5,7 +5,7 @@
       <p style="text-align: center; font-size: small">{{ building }}</p>
       <img src="../assets/Indoor.jpg" class="image" />
     </el-row>
-    <el-row style="padding: 14px;">
+    <el-row style="padding: 14px">
       <span>{{ placeType }}</span>
       <p v-for="(value, key) in utils" :key="value">{{ key }}:{{ value }}</p>
     </el-row>
@@ -13,14 +13,12 @@
       <div class="bottom clearfix">
         <time class="time">{{ currentDate }}</time>
         <el-button icon="el-icon-star-off" class="button" circle=""></el-button>
-        <!-- <router-link to="/ApplySite"><el-button type="primary" icon="el-icon-star-off" class="button"
-          >预约</el-button
-        ></router-link> -->
-        <!-- <router-link to="/预约界面"  
-            type="primary"
-            tag='el-button' 
-             @click="handleEdit(scope.$index, scope.row)"
-            class="el-icon-edit choose-button button">预约</router-link> -->
+        <router-link to="/ApplySite" v-show="buttonshow"
+          ><el-button type="primary" icon="el-icon-star-off" class="button"
+            >预约</el-button
+          ></router-link
+        >
+       
       </div>
     </el-row>
   </div>
@@ -60,11 +58,11 @@
 
 <script>
 export default {
-  name: "StuPicCard",
+  name: "PicCard",
   data() {
     const utils = {
       电脑数量: 100,
-      桌子数量: 100,
+      桌子数量: 13,
     };
     return {
       utils: utils,
@@ -75,11 +73,15 @@ export default {
       placeType: "室内场地",
     };
   },
-   props: {
-    buttonShow: {
+  mounted(){
+    console.log("PICCARD buttonshow",this.$props.buttonshow);
+
+  },
+  props: {
+    buttonshow: {
       type: Boolean,
       default: false,
     },
-  }
+  },
 };
 </script>
