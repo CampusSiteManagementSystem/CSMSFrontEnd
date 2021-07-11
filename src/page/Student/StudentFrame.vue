@@ -1,10 +1,42 @@
 <template>
     <el-container style="border: 1px solid #eee; height: 100%">
-      <el-aside style="width: 15%">
-        <el-row>
-          <img src="../../assets/tjlogo.png" class="logoImage" />
-        </el-row>
-        <el-row>
+     
+     <el-header style="height: 8%; background-color: white">
+      <el-row class="header-row">
+        <el-col :span="18" class="header-row-col1"
+          ><el-row class="headerrow" type="flex" justify="left" align="middle">
+            <el-button class="fold-button" @click="test" type="text">
+              <i v-if="isCollapse" class="el-icon-s-unfold"></i
+              ><i v-else class="el-icon-s-fold"></i
+            ></el-button>
+            <!-- <i class="el-icon-s-unfold" @click="test"></i> -->
+            <img src="../../assets/tjlogo.png" class="logoImage" />
+
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+              <el-breadcrumb-item
+                v-for="(item, index) in breadList"
+                :key="index"
+                @click="this.$router.go(-1)"
+                >{{ item.meta.title }}</el-breadcrumb-item
+              >
+            </el-breadcrumb>
+          </el-row></el-col
+        ><el-col :span="6" class="header-row-col2">
+          <el-row class="headerrow" type="flex" justify="end" align="middle">
+            <el-button type="text" @click="handleClick"
+              ><el-avatar
+                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+              ></el-avatar
+            ></el-button>
+            <el-button type="text" @click="handleClick">学生</el-button>
+          </el-row></el-col
+        >
+      </el-row>
+    </el-header>
+           <el-container style="height: 100%">
+
+      <el-aside style="width: auto">
+        
           <el-menu mode="vertical" router active-text-color="#409EFF">
             <el-menu-item index="/StuFrame/Main">
               <i class="el-icon-s-home"></i>
@@ -35,11 +67,9 @@
               <span style="font-size: 14px">查看公告</span>
             </el-menu-item>
           </el-menu>
-        </el-row>
       </el-aside>
 
-      <el-container style="height: 100%">
-        <el-header style="height: 10%">
+        <!-- <el-header style="height: 10%">
           <el-row
             class="headerrow"
             type="flex"
@@ -47,7 +77,7 @@
             align="middle"
             @click="handleClick"
           >
-          <el-col></el-col><!---->
+          <el-col></el-col>
           <el-col>
             <el-button type="text"
               ><el-avatar
@@ -57,7 +87,7 @@
             <el-button type="text" @click="handleClick">学生</el-button>
           </el-col>
           </el-row>
-        </el-header>
+        </el-header> -->
 
         <el-main
           style="height: 90%; overflow: auto; background: rgb(237, 241, 245)"
@@ -75,22 +105,72 @@ export default {};
 </script>
 
 <style scoped>
-.el-header {
-  background-color: #d7e4f7;
-  color: #333;
-  line-height: 55px;
-  text-align: right;
-  font-size: 15px;
-  display: inline-block;
-}
-
-.logoImage {
+html,
+body,
+#app,
+.el-container {
+  /*设置内部填充为0，几个布局元素之间没有间距*/
+  padding: 0px;
+  /*外部间距也是如此设置*/
+  margin: 0px;
+  /*统一设置高度为100%*/
   height: 100%;
-  width: 85%;
-  padding: 5%;
-  margin: 0 1px 0 0;
+  overflow: hidden;
 }
+.el-main {
+  overflow: hidden;
+  /* background-color: wheat; */
+  background-color: rgb(237, 241, 245);
+}
+.header-row {
+  height: 100%;
+}
+.header-row-col1 {
+  height: 100%;
+}
+.header-row-col2 {
+  height: 100%;
+  /* background-color: azure; */
+}
+.logoImage {
+  height: 40px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  /* background-color: yellow; */
+  /* width: 40%; */
+  /* padding: 5%; */
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
+.fold-button {
+  font-size: 30px;
 
+  /* border-style: hidden;
+  border-color: white;
+  background-color: white; */
+}
+.headerrow {
+  font-size: 30px;
+  height: 100%;
+}
+/* .el-icon-s-unfold {
+  height: 40px;
+  width: 40px;
+} */
+.el-card {
+  border-radius: 15px;
+}
+/* 面包屑导航 */
+.el-breadcrumb {
+  /* background-color: thistle; */
+  box-sizing: border-box;
+  /* height: 100%;
+  width: 90%; */
+  padding: 5%;
+  /* border-bottom: 1px solid #eee; */
+}
 
 </style>
 
