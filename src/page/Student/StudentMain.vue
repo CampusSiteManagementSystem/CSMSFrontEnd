@@ -36,7 +36,7 @@
       </el-col>
       <el-col :span="14" class="upper-row-col2">
         <el-card class="upper-card">
-          <el-tabs>
+          <el-tabs addable="true" @tab-add="showAnnouncement">
             <el-tab-pane label="系统公告">
               <el-table
                 :data="systemAnnouncement"
@@ -72,7 +72,14 @@
     <el-row class="lowerrow">
       <el-col :span="15" class="lower-row-col1">
         <el-card class="lower-card">
-          <div slot="header" class="clearfix">未来活动</div>
+          <div slot="header" class="clearfix">
+            <span>未来活动</span>
+            <router-link to="/StuFrame/ViewActivities">
+              <el-button style="float: right; padding: 3px 0" type="text"
+                >查看更多</el-button
+              >
+            </router-link>
+          </div>
           <el-table
             :data="futureActivity"
             stripe
@@ -94,7 +101,14 @@
       </el-col>
       <el-col :span="9" class="lower-row-col2">
         <el-card class="lower-card">
-          <div slot="header" class="clearfix">占用中的场地</div>
+          <div slot="header" class="clearfix">
+            <span>占用中的场地</span>
+            <router-link to="/StuFrame/ViewSites">
+              <el-button style="float: right; padding: 3px 0" type="text"
+                >查看更多</el-button
+              >
+            </router-link>
+          </div>
           <el-table :data="occupation" stripe style="width: 100%" height="260">
             <el-table-column prop="position" label="地点" width="auto">
             </el-table-column>
@@ -243,6 +257,11 @@ export default {
       ],
     };
   },
+  methods:{
+showAnnouncement(){
+  this.$router.push("/StuFrame/Announcement");
+}
+}
 };
 </script>
 
