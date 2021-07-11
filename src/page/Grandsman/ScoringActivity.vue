@@ -119,21 +119,14 @@ body,
   font-size: 20px;
   font-weight: 600;
 }
-
-.el-card {
+.maincard{
   height: 100%;
-  border-radius: 15px;
 }
-.el-input {
-  height: 50%;
-}
+
 .detailinfo {
   padding-left: 15px;
 }
 
-.header-row {
-  background-color: rgb(158, 29, 29);
-}
 </style>
 
 

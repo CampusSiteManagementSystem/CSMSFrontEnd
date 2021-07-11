@@ -73,9 +73,9 @@ body,
 .groundinfo {
   text-align: right;
 }
-.el-card {
+/* .el-card {
   height: 100%;
-}
+} */
 .maindiv {
   /* background-color: floralwhite; */
   height: 100%;

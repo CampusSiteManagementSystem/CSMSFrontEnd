@@ -42,16 +42,16 @@ body,
   height: 100%;
 }
 
-.el-header {
+/* .el-header {
   background-color: white;
-}
+} */
 .info-row {
   height: 250px;
 }
-.el-main {
+/* .el-main {
   background-color: rgb(237, 241, 245);
   height: 100%;
-}
+} */
 .maintitle {
   font-size: 22px;
   text-align: left;
@@ -62,12 +62,12 @@ body,
 .groundinfo {
   text-align: center;
 }
-.el-card {
+/* .el-card {
   height: 99.6%;
-}
-.el-input {
+} */
+/* .el-input {
   height: 50%;
-}
+} */
 </style>
 
 

@@ -373,32 +373,31 @@ export default {
 html,
 body,
 #app,
-.el-container {
+/* .el-container {
   padding: 0px;
   margin: 0px;
   height: 100%;
-}
+} */
 
-.el-main {
+/* .el-main {
   background-color: rgb(237, 241, 245);
   height: 100%;
-}
+} */
 .maintitle {
   text-align: left;
   font-size: 17px;
 }
 
-.el-input {
+/* .el-input {
   height: 50%;
-}
+} */
 .detailinfo {
   padding: 15px;
 }
-.el-col {
+/* .el-col {
   padding: 5px;
-  /* height: */
   height: 100%;
-}
+} */
 .upperCol {
   height: 48%;
 }
@@ -413,5 +412,6 @@ body,
 }
 .upperCard {
   height: 280px;
+  overflow: auto;
 }
 </style>

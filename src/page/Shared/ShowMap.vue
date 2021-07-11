@@ -11,7 +11,7 @@
       <!-- See a list of Mapbox-hosted public styles at -->
       <!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles -->
       <label for="satellite-v9">satellite</label>
-      <PopMeg v-show=false building="b" description="a" />
+      <PopMeg v-show="false" building="b" description="a" />
     </div>
     <div id="menu"></div>
   </div>
@@ -23,8 +23,8 @@ import Vue from "vue";
 export default {
   data() {
     return {
-      router:this.$router,
-      testValue:1,
+      router: this.$router,
+      testValue: 1,
     };
   },
   components: { PopMeg },
@@ -33,22 +33,22 @@ export default {
     this.initmap();
     // console.log(this.$router);
   },
-   props: {
-    membertype: {//true代表学生，false代表组织
+  props: {
+    membertype: {
+      //true代表学生，false代表组织
       type: Boolean,
       // default: true,
-    }
-    ,
+    },
   },
   computed: {},
   methods: {
     initmap() {
       // console.log("data router",this.$data.router);
       // console.log("this.$router",this.$router);
-      const tempTest=this.$router;
-      const membertype=this.$props.membertype;
-      console.log("membertype",membertype);
-      console.log("tempTest",tempTest);
+      const tempTest = this.$router;
+      const membertype = this.$props.membertype;
+      console.log("membertype", membertype);
+      console.log("tempTest", tempTest);
       const bounds = [
         // Southwest coordinates
         [121.2, 31.28], // Northeast coordinates
@@ -259,11 +259,10 @@ export default {
           },
           labelLayerId
         );
-        
 
         map.on("mouseenter", "places", function (e) {
           console.log(e);
-          
+
           //将光标样式更改为UI指示符。
           map.getCanvas().style.cursor = "pointer";
 
@@ -283,10 +282,8 @@ export default {
           //填充弹出窗口，并根据找到的特性设置其坐标。
           console.log(description);
           // console.log("11111");
-        
+
           // console.log("tempTest",tempTest)
-      
-          
 
           const p = Vue.extend(PopMeg);
           let vm = new p({
@@ -295,8 +292,8 @@ export default {
               all: 13,
               freeRoom: 13,
               description: "1212",
-              router:tempTest,
-              membertype:membertype,
+              router: tempTest,
+              membertype: membertype,
             }, //传参
           }).$mount();
           // vm.$mount(); //挂载
@@ -317,9 +314,17 @@ export default {
           console.log(vm.$el);
 
           // popup.setLngLat(coordinates).setHTML(vm.$el.innerHTML).addTo(map);
-            popup.setLngLat(coordinates). setDOMContent(vm.$el).addTo(map);
+          popup.setLngLat(coordinates).setDOMContent(vm.$el).addTo(map);
+          
+          // popup.style(mapboxgl-popup-content);
+          // popup.style{
 
-
+          // }
+          //             popup.style()
+          // backdrop-filter: blur(10px)
+          // .mapboxgl-popup-content {
+          //   background: transparent;
+          // }
           //这个方法更好用，但不知道为什么出现bug了，救命救命救命sososososo
           // var popupHTML = '<div id="base-detail"></div>'
           // popup.setLngLat(coordinates).setHTML(popupHTML).addTo(map);
@@ -334,12 +339,6 @@ export default {
           //     map:this,
           //   }, //传参
           // }).$mount('#base-detail');
-
-
-
-
-
-
         });
 
         map.on("click", "places", function () {
@@ -377,5 +376,8 @@ export default {
 #map {
   height: 680px;
   width: 100%;
+}
+.mapboxgl-popup-content {
+  background: transparent;
 }
 </style>
