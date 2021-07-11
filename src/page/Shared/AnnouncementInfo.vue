@@ -25,7 +25,7 @@ body,
   height: 100%;
 }
 
-.el-header {
+/* .el-header {
   background-color: white;
 }
 .el-aside {
@@ -34,7 +34,7 @@ body,
 .el-main {
   background-color: rgb(237, 241, 245);
   height: 100%;
-}
+} */
 .maintitle {
   text-align: center;
   font-size: 27px;

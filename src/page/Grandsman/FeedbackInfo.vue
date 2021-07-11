@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-col :span="12">
+    <el-col :span="12" class="left-col">
       <el-card class="maincard">
         <div class="maintitle">活动详情</div>
         <div class="detailinfo">
@@ -18,7 +18,7 @@
       </el-card>
     </el-col>
 
-    <el-col :span="12">
+    <el-col :span="12" class="right-col">
       <el-card class="maincard">
         <h1 class="maintitle">场地反馈</h1>
         <!-- <div class="detailinfo">
@@ -87,21 +87,19 @@ body,
   padding: 5px;
 }
 
-.el-card {
+.maincard {
   height: 100%;
 }
 
 .detailinfo {
   padding: 15px;
 }
-.el-col {
+.left-col,
+.right-col {
   padding: 5px;
-  /* height: */
   height: 100%;
 }
-.header-row {
-  background-color: rgb(158, 29, 29);
-}
+
 .block {
   /* margin: 0;
   height: 30%;

@@ -152,7 +152,7 @@ body,
   line-height: 40px;
   font-weight: 700;
 }
-.el-header {
+/* .el-header {
   background-color: white;
 }
 .el-aside {
@@ -160,7 +160,7 @@ body,
 }
 .el-main {
   background-color: rgb(237, 241, 245);
-}
+} */
 
 .person-info-col {
   /* background-color: teal; */

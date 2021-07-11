@@ -28,17 +28,20 @@
 
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="意见：">
-          <el-radio-group v-model="form.state">
+          <el-radio-group :disabled="state!=0"  v-model="form.state" >
             <el-radio label="批准"></el-radio>
             <el-radio label="不批准"></el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="说明：">
-          <el-input type="textarea" v-model="form.comment" rows="3" :disabled="state!=0"></el-input>
+          <el-input class="reason-input" type="textarea" v-model="form.comment" rows="3" v-if="state==0"></el-input>
+          <p v-else>{{form.comment}}</p>
         </el-form-item>
-      </el-form>
-      <el-button type="primary" @click="onSubmit" :disabled="state!=0">确认</el-button>
+      <el-form-item>
+      <el-button v-if="state==0" type="primary" @click="onSubmit" >确认</el-button>
       <el-button @click="back">返回</el-button>
+      </el-form-item>
+    </el-form>
     </el-card>
   </div>
 </template>
@@ -92,19 +95,19 @@ export default {
 </script>
 
 <style scoped>
-  .el-input {
+  .reason-input {
     width: 600px;
   }
-  .el-main {
+  /* .el-main {
     text-align: left;
     line-height: 50px;
     margin-left: 100px;
     margin-right: 100px;
     margin-bottom: 100px;
-  }
-  h1{
+  } */
+  /* h1{
     font-size: 25px;
-  }
+  } */
   .maintitle {
     font-size: 22px;
     text-align: left;
