@@ -50,7 +50,6 @@
     <el-dialog
       :visible.sync="dialogVisible"
       width="50%"
-      :before-close="handleClose"
       class="dialog">
       <span slot="title">
         <h3>{{title}}</h3>
