@@ -26,7 +26,7 @@
       </el-card>
       <p></p>
 
-      <el-form ref="form" :model="form" label-width="80px">
+      <el-form ref="form" :model="form" label-width="80px" v-if="state==0">
         <el-form-item label="意见：">
           <el-radio-group :disabled="state!=0"  v-model="form.state" >
             <el-radio label="批准"></el-radio>
@@ -42,6 +42,11 @@
       <el-button @click="back">返回</el-button>
       </el-form-item>
     </el-form>
+  
+    <div v-else>
+      <p><b>审核结果：</b>{{state==1?'审核通过':'不通过'}}</p>
+      <p><b>审核意见：</b>{{comment}}</p>
+    </div>
     </el-card>
   </div>
 </template>
@@ -65,7 +70,8 @@ export default {
         participantnum: 40,
         description: '进行专业方向介绍，开展防范电信诈骗教育',
         additionalrequest: '无',
-        state: 0,
+        state: 1,
+        comment: '',
         form: {
           state: '',
           comment: ''
@@ -75,6 +81,8 @@ export default {
     methods: {
       onSubmit() {
         console.log('submit!');
+        this.state = this.form.state;
+        this.comment = this.form.comment;
         this.$alert('您已批准该活动。', '审核完成', {
           confirmButtonText: '返回列表',
           callback: action => {
