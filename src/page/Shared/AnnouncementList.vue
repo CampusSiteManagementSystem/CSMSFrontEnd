@@ -126,7 +126,7 @@ body,
   height: 50%;
 }
 .el-dialog {
-  border-radius: 12px;;
+  border-radius: 12px;
 }
 .dialog {
   backdrop-filter: blur(10px);
