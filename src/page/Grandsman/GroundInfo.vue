@@ -83,17 +83,17 @@ body,
 } */
 
 .main-card {
-  height: 99%;
+  height: 40px;
   overflow: auto;
 }
 
 .upper-row {
-  height: 250px;
+  /* height: 250px; */
   padding: 20px;
 }
 .lower-row {
   padding: 20px;
-  height: 100%;
+  /* height: 100%; */
 }
 
 .block {
