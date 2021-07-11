@@ -1,51 +1,14 @@
 <template>
   <el-card class="maincard">
     <div class="maintitle">发布场地公告</div>
-    <el-row :gutter="20">
-      <el-col :span="12">
-        <el-row>
-          <p><b>选择一个场地以发布公告</b></p>
-        </el-row>
-        <el-table
-          :data="groundTable"
-          height="450"
-          highlight-current-row
-          @row-click="onRowClick"
-        >
-          <el-table-column prop="name" label="场地名称" min-width="40%">
-          </el-table-column>
-          <el-table-column prop="id" label="场地ID" min-width="20%">
-          </el-table-column>
-          <el-table-column
-            prop="class"
-            label="类别"
-            min-width="15%"
-            column-key="class"
-            :filters="[
-              { text: '室内', value: 0 },
-              { text: '室外', value: 1 },
-            ]"
-            :filter-method="filterTag"
-            filter-placement="bottom-end"
-          >
-            <template slot-scope="scope">
-              <el-tag
-                :type="scope.row.class === 0 ? 'primary' : 'success'"
-                disable-transitions
-                >{{ scope.row.class === 0 ? "室内" : "室外" }}</el-tag
-              >
-            </template>
-          </el-table-column>
-          <el-table-column prop="area" label="区域" min-width="25%">
-          </el-table-column>
-        </el-table>
-      </el-col>
-      <el-col :span="12">
-        <el-row class="info-row">
-          <p><b>当前选择：{{this.nameSelected}}</b></p>
-          <p>{{this.description}}</p>
-        </el-row>
         <el-form ref="form" :model="form" label-width="80px">
+           <el-form-item label="场地" prop="site" required>
+              <el-cascader
+                v-model="form.site"
+                :options="options"
+                @change="handleChange"
+              ></el-cascader>
+            </el-form-item>
           <el-form-item label="公告内容">
             <el-input
               type="textarea"
@@ -61,8 +24,6 @@
             <el-button @click="back">取消</el-button>
           </el-form-item>
         </el-form>
-      </el-col>
-    </el-row>
   </el-card>
 </template>
 
@@ -96,6 +57,7 @@ body,
   text-align: left;
   font-weight: bold;
   padding: 5px;
+  margin-bottom: 30px;
 }
 .groundinfo {
   text-align: center;
@@ -115,10 +77,8 @@ export default {
   name: "ReleaseGroundAnnouncement",
   data() {
     return {
-      nameSelected: "请选择一个场地以发布公告",
-      idSelected: -1,
-      description: "",
-      form:{
+      form: {
+        site: [],
         content: "",
       },
       groundTable: [
@@ -179,6 +139,163 @@ export default {
           description: "暂无描述",
         },
       ],
+
+      /* 级联选择框 */
+      options: [{
+          value: 'A',
+          label: 'A楼',
+          children: [{
+            value: '1',
+            label: '1楼',
+            children: [{
+              value: 'yizhi',
+              label: '一致'
+            }, {
+              value: 'fankui',
+              label: '反馈'
+            }, {
+              value: 'xiaolv',
+              label: '效率'
+            }, {
+              value: 'kekong',
+              label: '可控'
+            }]
+          }, {
+            value: '2',
+            label: '2楼',
+            children: [{
+              value: 'cexiangdaohang',
+              label: '侧向导航'
+            }, {
+              value: 'dingbudaohang',
+              label: '顶部导航'
+            }]
+          }]
+        }, {
+          value: 'B',
+          label: 'B楼',
+          children: [{
+            value: '1',
+            label: '1楼',
+            children: [{
+              value: 'layout',
+              label: 'Layout 布局'
+            }, {
+              value: 'color',
+              label: 'Color 色彩'
+            }, {
+              value: 'typography',
+              label: 'Typography 字体'
+            }, {
+              value: 'icon',
+              label: 'Icon 图标'
+            }, {
+              value: 'button',
+              label: 'Button 按钮'
+            }]
+          }, {
+            value: '2',
+            label: '2楼',
+            children: [{
+              value: 'radio',
+              label: 'Radio 单选框'
+            }, {
+              value: 'checkbox',
+              label: 'Checkbox 多选框'
+            }, {
+              value: 'input',
+              label: 'Input 输入框'
+            }, {
+              value: 'input-number',
+              label: 'InputNumber 计数器'
+            }, {
+              value: 'select',
+              label: 'Select 选择器'
+            }, {
+              value: 'cascader',
+              label: 'Cascader 级联选择器'
+            }, {
+              value: 'switch',
+              label: 'Switch 开关'
+            }, {
+              value: 'slider',
+              label: 'Slider 滑块'
+            }, {
+              value: 'time-picker',
+              label: 'TimePicker 时间选择器'
+            }, {
+              value: 'date-picker',
+              label: 'DatePicker 日期选择器'
+            }, {
+              value: 'datetime-picker',
+              label: 'DateTimePicker 日期时间选择器'
+            }, {
+              value: 'upload',
+              label: 'Upload 上传'
+            }, {
+              value: 'rate',
+              label: 'Rate 评分'
+            }, {
+              value: 'form',
+              label: 'Form 表单'
+            }]
+          }, {
+            value: '3',
+            label: '3楼',
+            children: [{
+              value: 'table',
+              label: 'Table 表格'
+            }, {
+              value: 'tag',
+              label: 'Tag 标签'
+            }, {
+              value: 'progress',
+              label: 'Progress 进度条'
+            }, {
+              value: 'tree',
+              label: 'Tree 树形控件'
+            }, {
+              value: 'pagination',
+              label: 'Pagination 分页'
+            }, {
+              value: 'badge',
+              label: 'Badge 标记'
+            }]
+          }, {
+            value: '4',
+            label: '4楼',
+            children: [{
+              value: 'alert',
+              label: 'Alert 警告'
+            }, {
+              value: 'loading',
+              label: 'Loading 加载'
+            }, {
+              value: 'message',
+              label: 'Message 消息提示'
+            }, {
+              value: 'message-box',
+              label: 'MessageBox 弹框'
+            }, {
+              value: 'notification',
+              label: 'Notification 通知'
+            }]
+          }]
+        }, {
+          value: 'C',
+          label: 'C楼',
+          children: [{
+            value: 'axure',
+            label: 'Axure Components'
+          }, {
+            value: 'sketch',
+            label: 'Sketch Templates'
+          }, {
+            value: 'jiaohu',
+            label: '组件交互文档'
+          }]
+        }],
+        /* end of options */
     };
   },
   methods: {
@@ -187,10 +304,10 @@ export default {
         message: "公告发布成功",
         type: "success",
       });
-      this.$router.push({path:'/GroundsAdmin/Main'});
+      this.$router.push({ path: "/GroundsAdmin/Main" });
     },
     back() {
-      this.$router.push({path:'/GroundsAdmin/Main'});
+      this.$router.push({ path: "/GroundsAdmin/Main" });
     },
     filterTag(value, row, column) {
       const property = column["property"];
@@ -198,6 +315,9 @@ export default {
     },
     onSubmit() {
       this.editstate = false;
+    },
+    handleChange(value) {
+      console.log(value);
     },
     onRowClick(row) {
       this.nameSelected = row.name;
