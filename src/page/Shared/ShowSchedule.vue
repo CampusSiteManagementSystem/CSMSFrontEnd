@@ -52,7 +52,6 @@ export default {
     desideType() {
       console.log("membertype", this.membertype);
       console.log("othertype", this.othertype);
-
       console.log("groundID", this.$route.params.groundID);
 
       // console.log(this.$route.params.user);
