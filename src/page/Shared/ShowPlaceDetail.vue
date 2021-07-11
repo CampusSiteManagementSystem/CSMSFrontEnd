@@ -19,7 +19,7 @@
       </div>
         
       <div class="text item">
-        <el-table :header-row-style="{height:'10px'}" :cell-style="{padding:'1px'}" :data="matchList" height="450">
+        <el-table :header-row-style="{height:'10px'}" :cell-style="{padding:'1px'}" :data="matchList" height="450" stripe>
           <el-table-column prop="groundID" label="场地编号"> </el-table-column>
           <el-table-column prop="type" label="是否室内"> </el-table-column>
           <el-table-column prop="building" label="楼号"> </el-table-column>

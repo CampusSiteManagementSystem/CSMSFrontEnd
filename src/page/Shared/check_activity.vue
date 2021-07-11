@@ -11,6 +11,7 @@
           :data="tableData"
           :default-sort = "{prop: 'time', order: 'ascending'}"
           height="450"
+          stripe
         >
           <el-table-column
               prop="name"
@@ -55,6 +56,7 @@
           :data="tableData"
           :default-sort = "{prop: 'time', order: 'ascending'}"
           height="450"
+          stripe
         >
           <el-table-column
               prop="name"
