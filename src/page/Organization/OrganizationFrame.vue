@@ -65,16 +65,18 @@
       </el-aside>
       <el-container style="height: 100%">
         <el-header class="myheader" style="height:10%">
-          <el-row class="headerrow" type="flex" justify="end" align="middle" @click="handleClick">
-            <el-col>
+          <el-row :gutter="20" type="flex" align="middle">
+            <el-col :span="6">
 
             </el-col>
-            <el-col>
+            <el-col :span="6" :offset="13">
+          <el-row class="headerrow" type="flex" justify="end" align="middle" @click="handleClick">
             <el-button type="text">
               <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
             </el-button>
             <el-button type="text" @click="handleClick">软件学院</el-button>
-            </el-col>
+          </el-row>
+          </el-col>
           </el-row>
         </el-header>
         <el-main
