@@ -364,6 +364,17 @@ const routes = [
             },
         ]
     },
+    
+    {
+        path: "/404",
+        name: "notFound",
+        component: () =>
+        import ('../page/Shared/404.vue')
+    }, 
+    {
+        path: "*",
+        redirect: "/404"
+    }
 ]
 
 
