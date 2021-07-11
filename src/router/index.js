@@ -162,6 +162,12 @@ const routes = [
                 name: "SystemAdminGroupVerify",
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminGroupVerify.vue')
+            },
+            {
+                path: "Announcement",
+                name: "AnnouncementforSystem",
+                component: () =>
+                import ('../page/Shared/AnnouncementList.vue')
             }
         ]
     },

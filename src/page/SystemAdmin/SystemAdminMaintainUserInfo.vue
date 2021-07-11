@@ -36,13 +36,13 @@
         >
       </div>
 
-      <el-table :data="tableData">
-        <el-table-column label="账户" width="400">
+      <el-table :data="tableData" max-height="480" style="width: 100%">
+        <el-table-column label="账户" >
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="400">
+        <el-table-column label="操作" >
           <template>
             <router-link
               to="/SysAdminFrame/AccountModify"
