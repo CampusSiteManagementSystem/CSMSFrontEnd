@@ -3,7 +3,7 @@
     <el-card style="border-radius: 12px">
       <div class="main-title">审核组织注册</div>
       <div>
-        <el-table :data="tableData" max-height="480" style="width: 100%">
+        <el-table :data="tableData" max-height="480" stripe style="width: 100%">
           <el-table-column label="日期">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.date }}</span>

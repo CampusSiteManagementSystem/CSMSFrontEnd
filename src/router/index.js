@@ -162,6 +162,12 @@ const routes = [
         component: () =>
             import('../page/SystemAdmin/SystemAdminFrame.vue'),
         children: [{
+                path: "SysAdminHomePage",
+                name: "SystemAdminHomePage",
+                component: () =>
+                    import('../page/SystemAdmin/SystemAdminHomePage.vue')
+            },
+            {
                 path: "GroupVerifyList",
                 name: "SystemAdminGroupVerifyList",
                 meta: {
@@ -482,6 +488,18 @@ const routes = [
             component: () =>
                 import('../page/Grandsman/GroundInfo'),
         },
+        {
+            path: "ShowSchedule/:groundID",
+            name: "ShowScheduleforStu",
+            props: {
+                membertype: true,
+            },
+            component: () =>
+                import ('../page/Shared/ShowSchedule.vue'),
+            meta: {
+                title: '场地详情'
+            }
+        }
         ]
     },
     {

@@ -1,24 +1,29 @@
 <template>
-  <el-container  style="height:100%">
+  <el-container style="height: 100%">
     <el-header style="height: 8%; background-color: white">
       <el-row class="header-row">
-        <el-col :span="12" class="header-row-col1"
-          ><el-row class="tjlogo-row" type="flex" justify="left" align="middle"> 
-            <el-button class="fold-button" @click="test"  type="text" > <i v-if="isCollapse" class="el-icon-s-unfold" ></i><i v-else class="el-icon-s-fold" ></i></el-button>
+        <el-col :span="18" class="header-row-col1"
+          ><el-row class="headerrow" type="flex" justify="left" align="middle">
+            <el-button class="fold-button" @click="test" type="text">
+              <i v-if="isCollapse" class="el-icon-s-unfold"></i
+              ><i v-else class="el-icon-s-fold"></i
+            ></el-button>
             <!-- <i class="el-icon-s-unfold" @click="test"></i> -->
-            <img
-              src="../../assets/tjlogo.png"
-              class="logoImage"
-            /> </el-row></el-col
-        ><el-col :span="12" class="header-row-col2">
-          <el-row
-            class="headerrow"
-            type="flex"
-            justify="end"
-            align="middle"
-            @click="handleClick"
-          >
-            <el-button type="text"
+            <img src="../../assets/tjlogo.png" class="logoImage" />
+
+            <el-breadcrumb separator-class="el-icon-arrow-right" >
+              <el-breadcrumb-item
+              
+                v-for="(item, index) in breadList"
+                :key="index"
+                @click="this.$router.go(-1)"
+                >{{ item.meta.title }}</el-breadcrumb-item
+              >
+            </el-breadcrumb>
+          </el-row></el-col
+        ><el-col :span="6" class="header-row-col2">
+          <el-row class="headerrow" type="flex" justify="end" align="middle">
+            <el-button type="text" @click="handleClick"
               ><el-avatar
                 src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
               ></el-avatar
@@ -41,9 +46,6 @@
           default-active="/GroundsAdmin/Main"
           class="el-menu-vertical-demo"
           :collapse="isCollapse"
-          @open="handleOpen"
-          @close="handleClose"
-          collapse-transition="true"
           style="height: 100%"
           router
         >
@@ -78,7 +80,7 @@
         </el-menu>
       </el-aside>
       <!-- <el-button @click="test"> test</el-button> -->
-      <el-main >
+      <el-main>
         <keep-alive>
           <router-view style="height: 100%"></router-view>
         </keep-alive>
@@ -102,15 +104,15 @@ body,
   height: 100%;
   overflow: hidden;
 }
-.el-main{
+.el-main {
   overflow: hidden;
-}
+  /* background-color: wheat; */
+ background-color: rgb(237, 241, 245);}
 .header-row {
   height: 100%;
 }
 .header-row-col1 {
   height: 100%;
-  /* background-color: aqua; */
 }
 .header-row-col2 {
   height: 100%;
@@ -120,6 +122,7 @@ body,
   height: 40px;
   padding-left: 10px;
   padding-bottom: 5px;
+  /* background-color: yellow; */
   /* width: 40%; */
   /* padding: 5%; */
 }
@@ -134,8 +137,9 @@ body,
   border-color: white;
   background-color: white; */
 }
-.tjlogo-row{
+.headerrow {
   font-size: 30px;
+  height: 100%;
 }
 /* .el-icon-s-unfold {
   height: 40px;
@@ -144,6 +148,16 @@ body,
 .el-card {
   border-radius: 15px;
 }
+/* 面包屑导航 */
+.el-breadcrumb {
+  /* background-color: thistle; */
+  box-sizing: border-box;
+  /* height: 100%;
+  width: 90%; */
+  padding: 5%;
+  /* border-bottom: 1px solid #eee; */
+}
+
 </style>
 
 
@@ -158,18 +172,43 @@ export default {
   data() {
     return {
       isCollapse: true,
-      siderWidth: 64,
+      value: "",
+      breadList: [],
     };
   },
   methods: {
     test() {
       this.isCollapse = !this.isCollapse;
     },
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+
+    handleClick() {
+      this.$router.push({ path: "Home" });
     },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    /**
+     * @description 获取路由数组
+     * @params val 路由参数
+     */
+    getBreadList(val) {
+      // 过滤路由matched对象
+      console.log("val.matched", val.matched);
+      if (val.matched) {
+        let matched = val.matched.filter(
+          (item) => item.meta && item.meta.title
+        );
+        console.log("matched", matched);
+        // 拿到过滤好的路由v-for遍历出来
+        this.breadList = matched;
+      }
+      this.breadList = val.matched;
+      console.log("this.breadList", this.breadList);
+    },
+  },
+  watch: {
+    // 监听路由
+    $route(val) {
+      // 调用获取路由数组方法
+      this.getBreadList(val);
+      console.log("调用获取路由数组方法", this.getBreadList(val));
     },
   },
 };
