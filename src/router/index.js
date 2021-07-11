@@ -164,7 +164,7 @@ const routes = [
                 path: "Announcement",
                 name: "AnnouncementforSystem",
                 component: () =>
-                import ('../page/Shared/AnnouncementList.vue')
+                    import ('../page/Shared/AnnouncementList.vue')
             }
         ]
     },
