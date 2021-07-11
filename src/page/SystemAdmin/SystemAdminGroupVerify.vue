@@ -51,8 +51,9 @@
 <style scoped>
 html,
 body,
-.el-card {
+.myard {
   height: 100%;
+  border-radius: 12px;
 }
 .info {
   text-align: left;

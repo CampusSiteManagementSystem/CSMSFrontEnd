@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card>
+    <el-card style="border-radius: 12px">
       <div>
         <h2>审核组织注册</h2>
       </div>

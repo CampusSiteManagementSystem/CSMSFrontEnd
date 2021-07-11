@@ -13,20 +13,19 @@
         </el-card>
       </el-col>
     </el-row> -->
-          <el-page-header @back="goBack" content="详情页面">
-</el-page-header>
+    <!-- <el-page-header @back="goBack" content="详情页面">
+</el-page-header> -->
     <el-row :gutter="10" type="flex">
-
-        <div class="grid-content">
-          <el-card class="box-card">
-            <PicCard :buttonshow="othertype" />
-          </el-card></div>
-     </el-row>
-       <el-row :gutter="10" type="flex">
+      <div class="grid-content">
         <el-card class="box-card">
-          <CourseTable />
+          <PicCard :buttonshow="othertype" />
         </el-card>
-     
+      </div>
+    </el-row>
+    <el-row :gutter="10" type="flex">
+      <el-card class="box-card">
+        <CourseTable />
+      </el-card>
     </el-row>
   </div>
 </template>
@@ -55,7 +54,6 @@ export default {
       console.log("othertype", this.othertype);
 
       console.log("groundID", this.$route.params.groundID);
-      
 
       // console.log(this.$route.params.user);
 
@@ -84,10 +82,9 @@ export default {
 </script>
 
 <style scoped>
- .el-row {
-    margin-bottom: 20px;
-    
-  }
+.el-row {
+  margin-bottom: 20px;
+}
 .grid-content {
   border-radius: 4px;
   height: 100%;
@@ -103,5 +100,7 @@ export default {
 .box-card {
   width: 100%;
   height: 100%;
+  border-radius: 15px;
 }
+
 </style>

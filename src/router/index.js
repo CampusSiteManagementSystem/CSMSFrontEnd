@@ -134,35 +134,53 @@ const routes = [
     {
         path: "/SysAdminFrame",
         name: "SystemAdminFrame",
+        meta:{
+            title:"系统管理员",
+        },
         component: () =>
             import ('../page/SystemAdmin/SystemAdminFrame.vue'),
         children: [{
                 path: "GroupVerifyList",
                 name: "SystemAdminGroupVerifyList",
+                meta:{
+                    title:"审核注册",
+                },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminGroupVerifyList.vue')
             },
             {
                 path: "MaintainUserInfo",
                 name: "SystemAdminMaintainUserInfo",
+                meta:{
+                    title:"维护信息",
+                },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminMaintainUserInfo.vue')
             },
             {
                 path: "AccountModify",
                 name: "SystemAdminAccountModify",
+                meta:{
+                    title:"查看信息",
+                },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminAccountModify.vue')
             },
             {
                 path: "GroupVerify",
                 name: "SystemAdminGroupVerify",
+                meta:{
+                    title:"审核组织",
+                },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminGroupVerify.vue')
             },
             {
                 path: "Announcement",
                 name: "AnnouncementforSystem",
+                meta:{
+                    title:"发布公告",
+                },
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue')
             }
