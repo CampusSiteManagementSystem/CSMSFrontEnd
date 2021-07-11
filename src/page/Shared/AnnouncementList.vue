@@ -5,17 +5,19 @@
       <el-tabs v-model="activeTab">
         <el-tab-pane label="系统公告" name="pane1">
           <el-table
+            :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}"
             :data="systemTableData"
             :default-sort="{ prop: 'time', order: 'descending' }"
             :show-header="false"
             style="width: 100%"
             max-height="480"
+            stripe
           >
             <el-table-column prop="title" label="标题" min-width="75%">
               <template slot-scope="scope">
                 <router-link
                   :to="{
-                    name: 'AnnouncementInfo',
+                    name: 'AnnouncementDetailShared',
                     params: { ID: scope.row.accountNum },
                   }"
                 >
@@ -31,11 +33,13 @@
         </el-tab-pane>
         <el-tab-pane label="场地公告" name="pane2">
           <el-table
+            :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}"
             :data="groundTableData"
             :default-sort="{ prop: 'time', order: 'descending' }"
             :show-header="false"
             style="width: 100%"
             max-height="480"
+            stripe
           >
             <el-table-column prop="title" label="公告" min-width="75%">
               <template slot-scope="scope">
@@ -62,7 +66,6 @@
 <script>
 export default {
   name: "AnnouncementList",
-  components: {},
   data() {
     const groundItem = {
       title: "关于图书馆暂停开放的通知",

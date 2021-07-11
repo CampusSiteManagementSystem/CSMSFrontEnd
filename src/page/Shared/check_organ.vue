@@ -4,7 +4,7 @@
       <div>
         <h2>查看组织</h2>
       </div>
-      <el-table header-row-style="{height:'10px'}" :cell-style="{padding:'5px'}" :data="tableData" :default-sort="{prop: 'time', order: 'ascending'}" height="450">
+      <el-table header-row-style="{height:'10px'}" :cell-style="{padding:'5px'}" :data="tableData" :default-sort="{prop: 'time', order: 'ascending'}" height="450" stripe>
         <el-table-column prop="name" label="组织名称">
         </el-table-column>
         <el-table-column prop="description" label="组织描述" width="450">
