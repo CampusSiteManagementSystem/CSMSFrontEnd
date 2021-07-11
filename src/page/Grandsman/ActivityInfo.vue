@@ -4,7 +4,7 @@
       <div class="maintitle">审批预约记录</div>
       <el-row gutter="20">
         <el-col :span="10">
-          <el-card class="box-card">
+          <el-card class="info-card">
             <el-row gutter="20">
               <el-col :span="9">
                 <div class="image">
@@ -21,7 +21,7 @@
           </el-card>
         </el-col>
         <el-col :span="14">
-          <el-card class="box-card">
+          <el-card class="info-card">
             <p><b>活动名称：</b>{{ name }}</p>
             <p><b>参与人数：</b>{{ participantnum }}</p>
             <p><b>活动时间：</b>{{ date + " " + time }}</p>
@@ -143,7 +143,7 @@ export default {
   border-radius: 6px;
   min-height: 36px;
 }
-.box-card {
+.info-card {
   height: 320px;
   border-radius: 12px;
   background: white;
