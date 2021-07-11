@@ -94,8 +94,10 @@ body,
 .content{
   height: 320px;
 }
+.el-dialog {
+  border-radius: 12px;;
+}
 .dialog {
-  border-radius: 12px;
   backdrop-filter: blur(10px);
 }
 .el-aside {
