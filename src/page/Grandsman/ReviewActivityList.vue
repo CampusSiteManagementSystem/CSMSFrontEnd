@@ -172,19 +172,18 @@ body,
   padding: 5px;
   margin-bottom: 8px;
 }
-.el-card {
+/* .el-card {
   height: 100%;
 }
 .el-input {
   height: 50%;
-}
+} */
 .detailinfo {
   padding: 15px;
 }
-.el-col {
+/* .el-col {
   padding: 5px;
-  /* height: */
   height: 100%;
-}
+} */
 
 </style>

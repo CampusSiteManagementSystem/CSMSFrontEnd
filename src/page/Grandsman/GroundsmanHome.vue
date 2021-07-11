@@ -177,9 +177,7 @@ body,
   padding: 5px;
 }
 
-.el-card {
-  border-radius: 15px;
-}
+
 /* 系统公告卡片 */
 
 .text {

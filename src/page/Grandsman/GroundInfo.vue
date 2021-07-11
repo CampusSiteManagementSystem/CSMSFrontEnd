@@ -83,12 +83,12 @@ body,
 } */
 
 .main-card {
-  height: 40px;
+  height: 10px;
   overflow: auto;
 }
 
 .upper-row {
-  /* height: 250px; */
+  height: 250px;
   padding: 20px;
 }
 .lower-row {

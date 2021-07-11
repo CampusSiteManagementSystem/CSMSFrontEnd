@@ -1,5 +1,5 @@
 <template>
-  <el-container class="666" style="height=100%">
+  <el-container  style="height:100%">
     <el-header style="height: 8%; background-color: white">
       <el-row class="header-row">
         <el-col :span="12" class="header-row-col1"
@@ -78,7 +78,7 @@
         </el-menu>
       </el-aside>
       <!-- <el-button @click="test"> test</el-button> -->
-      <el-main style="overflow: auto">
+      <el-main >
         <keep-alive>
           <router-view style="height: 100%"></router-view>
         </keep-alive>
@@ -100,6 +100,10 @@ body,
   margin: 0px;
   /*统一设置高度为100%*/
   height: 100%;
+  overflow: hidden;
+}
+.el-main{
+  overflow: hidden;
 }
 .header-row {
   height: 100%;
@@ -137,6 +141,9 @@ body,
   height: 40px;
   width: 40px;
 } */
+.el-card {
+  border-radius: 15px;
+}
 </style>
 
 

@@ -85,15 +85,15 @@ export default {
   .groundinfo {
     text-align: right;
   }
-  .el-card {
+  /* .el-card {
     height: 100%;
-  }
-  .el-main {
+  } */
+  /* .el-main {
     text-align: left;
     line-height: 50px;
     margin-left: 100px;
     margin-right: 100px;
-  }
+  } */
   .maindiv {
     height: 100%;
   }
