@@ -34,14 +34,14 @@
         <el-table-column>
             <template slot-scope="scope">
             <router-link
-              :to="{ name: 'ActivityInfo', params: { ID: scope.row.activityID } }"
+              :to="{ name: 'OrgActivityInfo', params: { ID: scope.row.activityID } }"
             >
               <el-button @click="handleClick(scope.row)" type="text"
                 >查看</el-button
               >
             </router-link>
             </template>
-            <router-link to="/ActivityInfo"></router-link>
+            <router-link to="/GroundsAdmin/ActivityInfo"></router-link>
         </el-table-column>
       </el-table>
         </el-tab-pane>
@@ -80,14 +80,14 @@
         <el-table-column>
             <template slot-scope="scope">
             <router-link
-              :to="{ name: 'ActivityInfo', params: { ID: scope.row.activityID } }"
+              :to="{ name: 'OrgActivityInfo', params: { ID: scope.row.activityID } }"
             >
               <el-button @click="handleClick(scope.row)" type="text"
                 >查看</el-button
               >
             </router-link>
             </template>
-            <router-link to="/ActivityInfo"></router-link>
+            <router-link to="/GroundsAdmin/ActivityInfo"></router-link>
         </el-table-column>
       </el-table>
         </el-tab-pane>

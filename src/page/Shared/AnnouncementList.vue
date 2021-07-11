@@ -17,7 +17,7 @@
               <template slot-scope="scope">
                 <router-link
                   :to="{
-                    name: 'AnnouncementInfo',
+                    name: 'AnnouncementDetailShared',
                     params: { ID: scope.row.accountNum },
                   }"
                 >
@@ -66,7 +66,6 @@
 <script>
 export default {
   name: "AnnouncementList",
-  components: {},
   data() {
     const groundItem = {
       title: "关于图书馆暂停开放的通知",
