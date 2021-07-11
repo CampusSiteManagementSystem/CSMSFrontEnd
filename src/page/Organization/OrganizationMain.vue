@@ -31,7 +31,7 @@
       </el-col>
       <el-col :span="14" class="upper-row-col2">
         <el-card class="upper-card">
-          <el-tabs addable="true" @tab-add="showAnnouncement">
+          <el-tabs :addable='true' @tab-add="showAnnouncement">
             <el-tab-pane label="系统公告">
               <el-table
                 :data="systemAnnouncement"
