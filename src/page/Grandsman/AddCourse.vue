@@ -1,4 +1,6 @@
 <template>
+<transition name="el-fade-in-linear">
+  <el-collapse-transition>
   <div>
     <el-row class="mainRow">
       <el-col :span="24" class="upperCol">
@@ -109,6 +111,8 @@
       </el-col>
     </el-row>
   </div>
+   </el-collapse-transition>
+    </transition>
 </template>
 
 <script>
@@ -369,7 +373,7 @@ export default {
 };
 </script>
 
-<style>
+<style scpoed>
 html,
 body,
 #app,

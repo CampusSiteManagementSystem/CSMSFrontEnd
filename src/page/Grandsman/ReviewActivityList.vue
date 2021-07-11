@@ -1,4 +1,6 @@
 <template>
+ <transition name="el-fade-in-linear">
+  <el-collapse-transition>
   <div class="maindiv">
     <el-card class="maincard">
     <div class="maintitle">审核预约记录</div>
@@ -94,6 +96,9 @@
       </el-tabs>
     </el-card>
   </div>
+  
+   </el-collapse-transition>
+    </transition>
 </template>
 
 <script>
@@ -145,7 +150,7 @@ export default {
   };
 </script>
 
-<style>
+<style scpoed>
 html,
 body,
 #app,
@@ -155,16 +160,6 @@ body,
   height: 100%;
 }
 
-/* .el-header {
-  background-color: white;
-}
-.el-aside {
-  background-color: white;
-}
-.el-main {
-  background-color: rgb(237, 241, 245);
-  height: 100%;
-} */
 .maintitle {
   font-size: 22px;
   text-align: left;
@@ -172,18 +167,10 @@ body,
   padding: 5px;
   margin-bottom: 8px;
 }
-/* .el-card {
-  height: 100%;
-}
-.el-input {
-  height: 50%;
-} */
+
 .detailinfo {
   padding: 15px;
 }
-/* .el-col {
-  padding: 5px;
-  height: 100%;
-} */
+
 
 </style>

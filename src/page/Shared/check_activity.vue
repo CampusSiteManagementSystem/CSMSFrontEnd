@@ -78,7 +78,7 @@
 </template>
 
 
-<style>
+<style scpoed>
 html,
 body,
 #app,

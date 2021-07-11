@@ -1,8 +1,11 @@
 <template>
+<transition name="el-fade-in-linear">
+  <el-collapse-transition>
   <div>
     <!-- 第一行布局 -->
     <el-row class="upperrow">
       <el-col :span="10" class="upper-row-col1">
+        <!-- <el-collapse-transition> -->
         <el-card class="upper-card">
           <el-col :span="8" class="person-info-card-photo-col">
             <div>
@@ -24,8 +27,10 @@
             <div class="other-info">祝您工作愉快！</div>
           </el-col>
         </el-card>
+        <!-- </el-collapse-transition> -->
       </el-col>
       <el-col :span="14" class="upper-row-col2">
+        <!-- <el-collapse-transition> -->
         <el-card class="upper-card">
           <div slot="header" class="clearfix">
             <span>系统公告</span>
@@ -44,11 +49,13 @@
             <el-table-column prop="time" label="日期"> </el-table-column>
           </el-table>
         </el-card>
+        <!-- </el-collapse-transition> -->
       </el-col>
     </el-row>
     <!-- 第二行布局 -->
     <el-row class="lowerrow">
       <el-col :span="14" class="appointment-col">
+        <!-- <el-collapse-transition> -->
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
             <span>待审核预约</span>
@@ -71,8 +78,10 @@
           </el-table>
          
         </el-card>
+        <!-- </el-collapse-transition> -->
       </el-col>
       <el-col :span="10" class="ground-col">
+        <!-- <el-collapse-transition> -->
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
             <span>占用中的场地</span>
@@ -104,6 +113,7 @@
                 </div> 
               </div>-->
         </el-card>
+        <!-- </el-collapse-transition> -->
       </el-col>
     </el-row>
     <el-dialog :visible.sync="dialogVisible" width="50%" class="dialog">
@@ -120,9 +130,10 @@
       </span>
     </el-dialog>
   </div>
-</template>
+ </el-collapse-transition>
+    </transition></template>
 
-<style>
+<style scpoed>
 html,
 body,
 #app,
@@ -150,9 +161,6 @@ body,
   line-height: 40px;
   font-weight: 700;
 }
-
-
-
 
 .appointment-col {
   /* background-color: thistle; */
@@ -222,7 +230,11 @@ body,
 .lower-card {
   height: 350px;
 }
-
+.upper-card,
+.lower-card{
+  overflow: auto;
+  border-radius: 15px;
+}
 </style>
 
 
