@@ -34,10 +34,11 @@
       <!-- header -->
       <el-container style="height: 100%">
         <el-header class="myheader" style="height: 10%">
-          <el-row :gutter="20">
+          <el-row :gutter="20" type="flex" align="middle">
             <el-col :span="6"  
               >
-              <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-top:15%">
+              <!-- style="margin-top:15%" -->
+              <el-breadcrumb separator-class="el-icon-arrow-right" >
             <!-- // 首页我是写死的，其他的遍历出来
             <el-breadcrumb-item :to="{ name: 'home' }">首页</el-breadcrumb-item> -->
             <!-- // 因为路由是后台返回的，所以取title是按照后台格式来取的 -->
@@ -115,6 +116,9 @@
 /* 面包屑导航 */
 .el-breadcrumb {
   box-sizing: border-box;
+    height: 90%;
+  width: 90%;
+  padding: 5%;
   /* border-bottom: 1px solid #eee; */
 }
 </style>
