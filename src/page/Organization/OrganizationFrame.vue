@@ -67,6 +67,14 @@
         <el-header class="myheader" style="height:10%">
           <el-row :gutter="20" type="flex" align="middle">
             <el-col :span="6">
+              <el-breadcrumb separator-class="el-icon-arrow-right" >
+            
+            <el-breadcrumb-item
+              v-for="(item, index) in breadList"
+              :key="index"
+              >{{ item.meta.title }}</el-breadcrumb-item
+            >
+          </el-breadcrumb>
 
             </el-col>
             <el-col :span="6" :offset="13">
@@ -96,18 +104,52 @@ export default {
     data() {
     return {
       value: "",
+      breadList: [],
     };
   },
     methods: {
     handleClick() {
       this.$router.push('/OrgFrame/OrgAccountModify');
-    }
+    },
+    /**
+     * @description 获取路由数组
+     * @params val 路由参数
+     */
+    getBreadList(val) {
+      // 过滤路由matched对象
+      console.log("val.matched", val.matched);
+      if (val.matched) {
+        let matched = val.matched.filter(
+          (item) => item.meta && item.meta.title
+        );
+        console.log("matched", matched);
+        // 拿到过滤好的路由v-for遍历出来
+        this.breadList = matched;
+      }
+      this.breadList = val.matched;
+      console.log("this.breadList", this.breadList);
+    },
+  },
+   watch: {
+    // 监听路由
+    $route(val) {
+      // 调用获取路由数组方法
+      this.getBreadList(val);
+      console.log("调用获取路由数组方法", this.getBreadList(val));
+    },
   },
 };
 </script>
 
 <style scoped>
-
+/* 面包屑导航 */
+.el-breadcrumb {
+  box-sizing: border-box;
+    height: 90%;
+  width: 90%;
+  padding: 5%;
+  /* border-bottom: 1px solid #eee; */
+}
 .myheader {
   background-color: #d7e4f7;
   color: #333;
