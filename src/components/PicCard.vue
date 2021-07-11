@@ -1,12 +1,45 @@
 <template>
   <div class="main">
-    <el-row :gutter="20">
+    <el-row :gutter="50">
       <el-col :span="8"
         ><div>
           <img src="../assets/Indoor.jpg" class="image" /></div
       ></el-col>
-      <el-col :span="16">
-        <p style="text-align: center; font-size: x-large">{{ room }}</p>
+      <el-col :span="16" >
+        <!-- <div slot="header" class="clearfix"> -->
+          <div>
+            <h3>场地详情 </h3>
+          </div>
+        <el-row >
+          
+          
+              <p >场地名称：{{ building }}{{ room }}</p>
+              <p >场地类型：{{ placeType }}</p>
+              <p v-for="(value, key) in utils" :key="value">
+                {{ key }}:{{ value }}
+              </p>
+              <!-- <p class="">活动日期：{{ date }}</p>
+            <p class="">活动时间：{{ startTime }}</p> -->
+            
+              </el-row>
+              <el-row style="float:right">
+              <time class="time"
+                >{{ currentDate }}
+                <router-link to="/ApplySite" v-show="buttonshow"
+                  ><el-button type="text">预约</el-button></router-link
+                ></time
+              ><el-button
+                icon="el-icon-star-off"
+                class="button"
+                circle=""
+                size="mini"
+              ></el-button>
+              
+            
+          
+        </el-row>
+
+        <!-- <p style="text-align: center; font-size: x-large">{{ room }}</p>
         <p style="text-align: center; font-size: small">{{ building }}</p>
         <span>{{ placeType }}</span>
         <p v-for="(value, key) in utils" :key="value">{{ key }}:{{ value }}</p>
@@ -20,7 +53,7 @@
           class="button"
           circle=""
           size="mini"
-        ></el-button>
+        ></el-button> -->
       </el-col>
     </el-row>
   </div>
