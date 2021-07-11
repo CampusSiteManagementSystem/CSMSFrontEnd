@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="page">
     <div class="background">
-      <el-card class="card">
+      <el-card>
         <div>
           <h2>场地使用申请</h2>
         </div>
@@ -14,7 +14,7 @@
           >
             <el-form-item label="活动名称：" prop="name">
               <el-input
-                class="name"
+                class="titlename"
                 type="text"
                 placeholder="请输入内容"
                 v-model="ruleform.name"
@@ -502,34 +502,22 @@ export default {
 }
 .background {
   margin: 0;
-  height: 100%;
-  width: 100%;
+  height: 98%;
+  width: 99%;
   background-color: rgb(255, 255, 255);
   background: rgba(255, 255, 255, 0.5);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
   position: relative;
 }
-.card {
-  margin: 0;
+.el-card {
   height: 100%;
-  width: 100%;
-  position: relative;
-}
-#applytitle {
-  font-family: Helvetica;
-  font-weight: bold;
-  font-size: 200%;
-  position: absolute;
-  left: 100px;
-  top: 20px;
 }
 #content {
-  font-family: Helvetica;
   position: absolute;
   left: 350px;
   top: 90px;
 }
-.name {
-  width: 120%;
+.titlename {
+  width: 100%;
 }
 </style>

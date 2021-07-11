@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="page">
     <div class="background">
-      <el-card class="maincard">
+      <el-card>
         <div>
           <h2>场地反馈</h2>
         </div>

@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="page">
     <div class="background">
-      <el-card class="card">
+      <el-card>
         <div>
           <h2>完成活动列表</h2>
         </div>
