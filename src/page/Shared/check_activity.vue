@@ -32,7 +32,7 @@
         </el-tab-pane>
         <el-tab-pane label="已举办" name="pane2">
           <el-table
-            header-row-style="{height:'10px'}"
+            :header-row-style="{height:'10px'}"
             :cell-style="{ padding: '5px' }"
             :data="tableData"
             :default-sort="{ prop: 'time', order: 'ascending' }"
@@ -94,8 +94,10 @@ body,
 .content{
   height: 320px;
 }
+.el-dialog {
+  border-radius: 12px;;
+}
 .dialog {
-  border-radius: 12px;
   backdrop-filter: blur(10px);
 }
 .el-aside {

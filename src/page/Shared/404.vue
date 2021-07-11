@@ -30,7 +30,7 @@ body,
   font-weight: bold;
 }
 .maindiv {
-  background-color: rgb(237, 241, 245);
+  background-color: white;
   height: 100%;
 }
 </style>

@@ -50,7 +50,6 @@
     <el-dialog
       :visible.sync="dialogVisible"
       width="50%"
-      :before-close="handleClose"
       class="dialog">
       <span slot="title">
         <h3>{{title}}</h3>
@@ -126,8 +125,10 @@ body,
 .el-input {
   height: 50%;
 }
+.el-dialog {
+  border-radius: 12px;;
+}
 .dialog {
-  border-radius: 12px;
   backdrop-filter: blur(10px);
 }
 .main-title {
