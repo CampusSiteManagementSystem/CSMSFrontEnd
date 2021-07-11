@@ -15,7 +15,7 @@
         </el-col>
       </el-row>
 
-      <el-table :data="tableData" max-height="480" style="width: 100%">
+      <el-table :data="tableData" max-height="480" stripe style="width: 100%">
         <el-table-column label="ID">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>

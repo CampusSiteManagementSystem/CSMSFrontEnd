@@ -12,7 +12,7 @@
           style="height=100%"
           router
         >
-          <el-menu-item index="/SysAdminHomePage">
+          <el-menu-item index="/SysAdminFrame/SysAdminHomePage">
             <i class="el-icon-house"></i>
             <span style="font-size: 14px">主页</span>
           </el-menu-item>
