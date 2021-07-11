@@ -122,11 +122,11 @@ export default {
         if (valid) {
           //提交表单到后台验证身份，并路由到指定页面
           if (this.identity === 1) {
-            this.$router.push("/StuFrame");
+            this.$router.push("/StuFrame/Main");
           } else if (this.identity === 2) {
-            this.$router.push("/GroundsAdmin");
+            this.$router.push("/GroundsAdmin/Main");
           } else if (this.identity === 3) {
-            this.$router.push("/OrgFrame");
+            this.$router.push("/OrgFrame/Main");
           } else if (this.identity === 4) {
             this.$router.push("/SysAdminFrame");
           }
