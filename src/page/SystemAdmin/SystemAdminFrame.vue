@@ -133,7 +133,7 @@ export default {
   },
   methods: {
     handleClick() {
-      this.$router.push({ path: "SystemAdminAccountModify" });
+      this.$router.push({ path: "AccountModify" });
     },
 
     /**
