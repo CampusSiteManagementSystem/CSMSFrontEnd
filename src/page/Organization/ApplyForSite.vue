@@ -37,7 +37,7 @@
           </el-form-item>
             <el-form-item align="center">
       <el-button type="primary"  @click="submitForm('ruleform')">提交</el-button>
-      <router-link to="/" tag='el-button'>取消</router-link>
+      <router-link to="/OrgFrame/Main" tag='el-button'>取消</router-link>
   </el-form-item>
         </el-form>
       </div>

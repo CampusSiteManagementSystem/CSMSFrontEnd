@@ -199,7 +199,7 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <router-link to="/FeedBack">
+                  <router-link to="/OrgFrame/FeedBack">
                     <el-button size="mini" type="primary" @click.stop="handleFeedback(scope.$index, scope.row)">反馈
                     </el-button>
                   </router-link>
@@ -267,7 +267,7 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <router-link to="/ApplySite">
+                  <router-link to="/OrgFrame/ApplySite">
                     <el-button size="mini" type="success" @click.stop="handleRenew(scope.$index, scope.row)">重新申请
                     </el-button>
                   </router-link>
