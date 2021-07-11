@@ -475,15 +475,33 @@ export default {
     },
     handleCurrentChange2(val) {
       this.currentRow = val;
-      this.$router.push("/OrgFrame/Pending");
+      this.$router.push(
+      {
+      name: 'PendingWindow',
+      params: {
+           activityID: val.ID
+      }
+      });
     },
     handleCurrentChange3(val) {
       this.currentRow = val;
-      this.$router.push("/OrgFrame/RecordDetails");
+      this.$router.push(
+      {
+      name: 'RecordWindow',
+      params: {
+           activityID: val.ID
+      }
+      });
     },
     handleCurrentChange4(val) {
       this.currentRow = val;
-      this.$router.push("/OrgFrame/Rejected");
+      this.$router.push(
+      {
+      name: 'RejectedWindow',
+      query: {
+           activityID: val.ID
+      }
+      });
     },
   },
 };
