@@ -1,9 +1,7 @@
 <template>
   <div>
     <el-card style="border-radius: 12px">
-      <div>
-        <h2>审核组织注册</h2>
-      </div>
+      <div class="main-title">审核组织注册</div>
       <div>
         <el-table :data="tableData" max-height="480" style="width: 100%">
           <el-table-column label="日期">

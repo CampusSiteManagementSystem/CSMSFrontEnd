@@ -1,10 +1,11 @@
 <template>
   <div>
     <el-card class="mycard">
-      <div>
-        <h2>用户信息维护</h2>
-      </div>
-      <div class="mysearch">
+      <el-row>
+        <el-col :span="18">
+        <div class="main-title">维护用户信息</div>
+        </el-col>
+
         <el-col :span="6">
           <el-input
             v-model="toMatch"
@@ -12,15 +13,7 @@
             @input="search"
           ></el-input>
         </el-col>
-        <el-col :span="3" :offset="1">
-          <el-button
-            type="primary"
-            icon="el-icon-search"
-            @click="handleContentChange"
-            >搜索</el-button
-          >
-        </el-col>
-      </div>
+      </el-row>
 
       <el-table :data="tableData" max-height="480" style="width: 100%">
         <el-table-column label="ID">
@@ -61,9 +54,7 @@ body,
 export default {
   data() {
     return {
-      value1: "",
-      value2: "",
-
+      toMatch: "",
       tableData: [
         {
           id: "0000",

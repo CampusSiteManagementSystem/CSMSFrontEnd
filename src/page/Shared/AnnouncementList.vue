@@ -1,6 +1,6 @@
 <template>
   <div class="maindiv">
-    <el-card class="maincard">
+    <el-card class="maincard" style="border-radius: 12px">
       <div class="main-title">公告</div>
       <el-tabs v-model="activeTab">
         <el-tab-pane label="系统公告" name="pane1">

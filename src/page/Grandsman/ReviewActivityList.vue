@@ -137,7 +137,11 @@ export default {
         const property = column["property"];
         return row[property] === value;
     },
-    }
+    handleClick(){
+
+    },
+    },
+  
   };
 </script>
 
@@ -151,7 +155,7 @@ body,
   height: 100%;
 }
 
-.el-header {
+/* .el-header {
   background-color: white;
 }
 .el-aside {
@@ -160,7 +164,7 @@ body,
 .el-main {
   background-color: rgb(237, 241, 245);
   height: 100%;
-}
+} */
 .maintitle {
   font-size: 22px;
   text-align: left;
@@ -182,7 +186,5 @@ body,
   /* height: */
   height: 100%;
 }
-.header-row {
-  background-color: rgb(158, 29, 29);
-}
+
 </style>
