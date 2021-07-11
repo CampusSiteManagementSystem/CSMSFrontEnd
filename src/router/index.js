@@ -28,62 +28,80 @@ const routes = [
         path: "/StuFrame",
         component: () =>
             import ('../page/Student/StudentFrame.vue'),
+        meta: {
+            title: '学生'
+        },
         children: [{
                 path: "Main",
                 name: "StudentFrameMain",
                 component: () =>
-                    import ('../page/Student/StudentMain.vue')
+                    import ('../page/Student/StudentMain.vue'),
+                meta: {
+                    title: '主页'
+                }
             },
             {
-                path: "testMain",
-                name: "testStudentFrameMain",
-                component: () =>
-                    import ('../page/Grandsman/GroundsmanHome.vue')
-            }, {
                 path: "Favorite",
                 name: "StudentFrameFavorite",
                 component: () =>
-                    import ('../page/Student/StudentFavorite.vue')
-            }, {
-                path: "ViewOrgs",
-                name: "ViewOrgs",
-                component: () =>
-                    import ('../page/Shared/check_organ.vue')
+                    import ('../page/Student/StudentFavorite.vue'),
+                meta: {
+                    title: '收藏'
+                }
             }, {
                 path: "ViewSites",
                 name: "ViewSites",
                 component: () =>
-                    import ('../page/Shared/check_site.vue')
+                    import ('../page/Shared/check_site.vue'),
+                meta: {
+                    title: '查看场地'
+                }
             }, {
                 path: "ActivityInfo/:ID",
                 name: "StuActivityInfo",
                 component: () =>
-                    import ('../page/Shared/ActivityInfo.vue')
+                    import ('../page/Shared/ActivityInfo.vue'),
+                meta: {
+                    title: '活动详情'
+                }
             }, {
                 path: "ViewActivities",
                 name: "ViewActivities",
                 component: () =>
-                    import ('../page/Shared/check_activity.vue')
+                    import ('../page/Shared/check_activity.vue'),
+                meta: {
+                    title: '查看活动'
+                }
             }, {
                 path: "Map",
                 name: "StudentMap",
                 props: {
                     membertype: true,
                 },
+
                 component: () =>
-                    import ('../page/Shared/ShowMap.vue')
+                    import ('../page/Shared/ShowMap.vue'),
+                meta: {
+                    title: '地图'
+                }
             },
             {
                 path: "Announcement",
                 name: "StuAnnouncement",
                 component: () =>
-                    import ('../page/Shared/AnnouncementList.vue')
+                    import ('../page/Shared/AnnouncementList.vue'),
+                meta: {
+                    title: '公告'
+                }
             },
             {
                 path: "Favorite",
                 name: "StudentFrameFavorite",
                 component: () =>
-                    import ('../page/Student/StudentFavorite.vue')
+                    import ('../page/Student/StudentFavorite.vue'),
+                meta: {
+                    title: '收藏'
+                }
             }, {
                 path: "ShowPlaceDetail",
                 name: "StuShowPlaceDetail",
@@ -91,25 +109,26 @@ const routes = [
                     membertype: true,
                 },
                 component: () =>
-                    import ('../page/Shared/ShowPlaceDetail.vue')
+                    import ('../page/Shared/ShowPlaceDetail.vue'),
+                meta: {
+                    title: '场地细节'
+                }
             }, {
                 path: "ViewOrgs",
                 name: "ViewOrgs",
                 component: () =>
-                    import ('../page/Shared/check_organ.vue')
+                    import ('../page/Shared/check_organ.vue'),
+                meta: {
+                    title: '查看组织'
+                }
             }, {
                 path: "ViewSites",
                 name: "ViewSites",
                 component: () =>
-                    import ('../page/Shared/check_site.vue')
-            }, {
-                path: "Map",
-                name: "StudentMap",
-                props: {
-                    membertype: true,
-                },
-                component: () =>
-                    import ('../page/Shared/ShowMap.vue')
+                    import ('../page/Shared/check_site.vue'),
+                meta: {
+                    title: '查看场地'
+                }
             },
             {
                 path: "ShowSchedule/:groundID",
@@ -118,7 +137,10 @@ const routes = [
                     membertype: true,
                 },
                 component: () =>
-                    import ('../page/Shared/ShowSchedule.vue')
+                    import ('../page/Shared/ShowSchedule.vue'),
+                meta: {
+                    title: '场地详情'
+                }
             }
         ]
     },
@@ -134,16 +156,16 @@ const routes = [
     {
         path: "/SysAdminFrame",
         name: "SystemAdminFrame",
-        meta:{
-            title:"系统管理员",
+        meta: {
+            title: "系统管理员",
         },
         component: () =>
             import ('../page/SystemAdmin/SystemAdminFrame.vue'),
         children: [{
                 path: "GroupVerifyList",
                 name: "SystemAdminGroupVerifyList",
-                meta:{
-                    title:"审核注册",
+                meta: {
+                    title: "审核注册",
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminGroupVerifyList.vue')
@@ -151,8 +173,8 @@ const routes = [
             {
                 path: "MaintainUserInfo",
                 name: "SystemAdminMaintainUserInfo",
-                meta:{
-                    title:"维护信息",
+                meta: {
+                    title: "维护信息",
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminMaintainUserInfo.vue')
@@ -160,8 +182,8 @@ const routes = [
             {
                 path: "AccountModify",
                 name: "SystemAdminAccountModify",
-                meta:{
-                    title:"查看信息",
+                meta: {
+                    title: "查看信息",
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminAccountModify.vue')
@@ -169,8 +191,8 @@ const routes = [
             {
                 path: "GroupVerify",
                 name: "SystemAdminGroupVerify",
-                meta:{
-                    title:"审核组织",
+                meta: {
+                    title: "审核组织",
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminGroupVerify.vue')
@@ -178,8 +200,8 @@ const routes = [
             {
                 path: "Announcement",
                 name: "AnnouncementforSystem",
-                meta:{
-                    title:"发布公告",
+                meta: {
+                    title: "发布公告",
                 },
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue')
