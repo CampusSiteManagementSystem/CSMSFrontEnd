@@ -12,26 +12,33 @@
               :default-sort="{prop: 'date', order: 'descending'}">
               <el-table-column type="expand">
                 <template slot-scope="props">
-                  <el-form label-position="left" class="demo-table-expand">
+                  <el-form label-position="left" class="demo-table-expand" label-width="150px">
                     <el-form-item label="活动ID">
+                      <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
                       <span>{{ props.row.ID }}</span>
                     </el-form-item>
                     <el-form-item label="活动名称">
+                      <label slot="label">活动名称</label>
                       <span>{{ props.row.name }}</span>
                     </el-form-item>
-                    <el-form-item label="时间">
+                    <el-form-item label="活动时间">
+                      <label slot="label">活动时间</label>
                       <span>{{ props.row.date }}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
+                      <label slot="label">申请地点</label>
                       <span>{{ props.row.address }}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
+                      <label slot="label">参加人数</label>
                       <span>{{ props.row.people }}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
+                      <label slot="label">特殊要求</label>
                       <span>{{ props.row.require }}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
+                      <label slot="label">活动描述</label>
                       <span>{{ props.row.details }}</span>
                     </el-form-item>
                   </el-form>
@@ -58,7 +65,7 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <router-link to="/FeedBack">
+                  <router-link to="/OrgFrame/FeedBack">
                     <el-button size="mini" type="primary" @click="handleFeedback(scope.$index, scope.row)">反馈
                     </el-button>
                   </router-link>
@@ -72,27 +79,38 @@
               :default-sort="{prop: 'date', order: 'descending'}">
               <el-table-column type="expand">
                 <template slot-scope="props">
-                  <el-form label-position="left" class="demo-table-expand">
+                  <el-form label-position="left" class="demo-table-expand" label-width="150px">
                     <el-form-item label="活动ID">
+                      <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
                       <span>{{ props.row.ID }}</span>
                     </el-form-item>
                     <el-form-item label="活动名称">
+                      <label slot="label">活动名称</label>
                       <span>{{ props.row.name }}</span>
                     </el-form-item>
-                    <el-form-item label="时间">
+                    <el-form-item label="活动时间">
+                      <label slot="label">活动时间</label>
                       <span>{{ props.row.date }}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
+                      <label slot="label">申请地点</label>
                       <span>{{ props.row.address }}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
+                      <label slot="label">参加人数</label>
                       <span>{{ props.row.people }}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
+                      <label slot="label">特殊要求</label>
                       <span>{{ props.row.require }}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
+                      <label slot="label">活动描述</label>
                       <span>{{ props.row.details }}</span>
+                    </el-form-item>
+                    <el-form-item label="反馈信息">
+                      <label slot="label">反馈信息</label>
+                      <span>{{ props.row.back }}</span>
                     </el-form-item>
                   </el-form>
                 </template>
@@ -118,7 +136,7 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <router-link to="/ApplySite">
+                  <router-link to="/OrgFrame/FeedBack">
                     <el-button size="mini" type="success" @click="handleRenew(scope.$index, scope.row)">修改反馈</el-button>
                   </router-link>
                 </template>
@@ -143,7 +161,8 @@ export default {
           people:40,
           require:'无',
           details:'听数据库开会',
-          tag:'室内'
+          tag:'室内',
+          back:'很好，再接再厉！'
         }, {
           date: '2016-05-04',
           name: '王小虎',
@@ -152,7 +171,8 @@ export default {
           people:40,
           require:'无',
           details:'听数据库开会',
-          tag:'室内'
+          tag:'室内',
+          back:'很好，再接再厉！'
         }, {
           date: '2016-05-01',
           name: '王小虎',
@@ -161,7 +181,8 @@ export default {
           people:40,
           require:'无',
           details:'听数据库开会',
-          tag:'室内'
+          tag:'室内',
+          back:'很好，再接再厉！'
         }, {
           date: '2016-05-03',
           name: '王小虎',
@@ -170,7 +191,8 @@ export default {
           people:40,
           require:'无',
           details:'听数据库开会',
-          tag:'室内'
+          tag:'室内',
+          back:'很好，再接再厉！'
         },{
           date: '2016-05-03',
           name: '王小虎',
@@ -179,7 +201,8 @@ export default {
           people:4,
           require:'无',
           details:'听数据库开会',
-          tag:'室内'
+          tag:'室内',
+          back:'很好，再接再厉！'
         },{
           date: '2016-05-03',
           name: '王小虎',
@@ -188,7 +211,8 @@ export default {
           people:40,
           require:'无',
           details:'听数据库开会',
-          tag:'室外'
+          tag:'室外',
+          back:'很好，再接再厉！'
         },{
           date: '2016-05-03',
           name: '王小虎',
@@ -197,7 +221,8 @@ export default {
           people:40,
           require:'无',
           details:'听数据库开会',
-          tag:'室外'
+          tag:'室外',
+          back:'很好，再接再厉！'
         },{
           date: '2016-05-15',
           name: '王小虎',
@@ -206,7 +231,8 @@ export default {
           people:40,
           require:'无',
           details:'听数据库开会',
-          tag:'室内'
+          tag:'室内',
+          back:'很好，再接再厉！'
         },{
           date: '2016-06-03',
           name: '王小虎',
@@ -215,7 +241,8 @@ export default {
           people:40,
           require:'无',
           details:'听数据库开会',
-          tag:'室内'
+          tag:'室内',
+          back:'很好，再接再厉！'
         },{
           date: '2016-05-03',
           name: '王小虎',
@@ -224,7 +251,8 @@ export default {
           people:40,
           require:'无',
           details:'听数据库开会',
-          tag:'室外'
+          tag:'室外',
+          back:'很好，再接再厉！'
         },{
           date: '2016-05-03',
           name: '王小虎',
@@ -233,7 +261,8 @@ export default {
           people:40,
           require:'无',
           details:'听数据库开会',
-          tag:'室外'
+          tag:'室外',
+          back:'很好，再接再厉！'
         }],
         activeName: 'third'
       };
@@ -293,13 +322,12 @@ export default {
     position:relative;
 }
 .demo-table-expand {
-    font-size: 0;
+  font-size: 0;
 }
 .demo-table-expand label {
-   width: 90px;
-    color: #f01010;
+  width: 90px;
+  font-weight: 700;
 }
-
 .demo-table-expand .el-form-item {
     margin-right: 0;
     margin-bottom: 0;

@@ -96,8 +96,4 @@ export default {
     clear: both
   }
 
-  .box-card {
-   
-  }
-
 </style>
