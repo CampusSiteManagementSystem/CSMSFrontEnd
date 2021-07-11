@@ -11,9 +11,8 @@
             <!-- <i class="el-icon-s-unfold" @click="test"></i> -->
             <img src="../../assets/tjlogo.png" class="logoImage" />
 
-            <el-breadcrumb separator-class="el-icon-arrow-right" >
+            <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item
-              
                 v-for="(item, index) in breadList"
                 :key="index"
                 @click="this.$router.go(-1)"
@@ -35,13 +34,6 @@
     </el-header>
     <el-container>
       <el-aside width="auto">
-        <!-- <el-aside :width="siderWidth + 'px'"> -->
-
-        <!-- <el-row type="flex" justify="center" align="middle">
-          <el-row type="flex">
-            <img src="../../assets/tjlogo.png" class="logoImage" />
-          </el-row>
-        </el-row> -->
         <el-menu
           default-active="/GroundsAdmin/Main"
           class="el-menu-vertical-demo"
@@ -104,10 +96,12 @@ body,
   height: 100%;
   overflow: hidden;
 }
+
 .el-main {
-  overflow: hidden;
+  overflow: auto;
   /* background-color: wheat; */
- background-color: rgb(237, 241, 245);}
+  background-color: rgb(237, 241, 245);
+}
 .header-row {
   height: 100%;
 }
@@ -157,7 +151,6 @@ body,
   padding: 5%;
   /* border-bottom: 1px solid #eee; */
 }
-
 </style>
 
 

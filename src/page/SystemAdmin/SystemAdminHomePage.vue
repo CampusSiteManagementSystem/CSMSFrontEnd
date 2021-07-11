@@ -34,7 +34,7 @@
                 :data="systemAnnouncement"
                 stripe
                 style="width: 100%"
-                height="200"
+                height="136"
                 :show-header="false"
               >
                 <el-table-column prop="title" label="活动名" width="auto">
@@ -48,7 +48,7 @@
                 :data="activityAnnouncement"
                 stripe
                 style="width: 100%"
-                height="150"
+                height="136"
                 :show-header="false"
               >
                 <el-table-column prop="title" label="活动名" width="auto">
@@ -76,7 +76,8 @@
             :data="groupInfo"
             stripe
             style="width: 100%"
-            height="260"
+            height="241"
+            :show-header="false"
           >
             <el-table-column prop="applyTime" label="申请时间" width="auto">
             </el-table-column>
@@ -97,7 +98,7 @@
               >
             </router-link>
           </div>
-          <el-table :data="userInfo" stripe style="width: 100%" height="260" :show-header="false">
+          <el-table :data="userInfo" stripe style="width: 100%" height="241" :show-header="false">
             <el-table-column prop="userid" label="ID" width="auto">
             </el-table-column>
             <el-table-column prop="account" label="账号" width="auto">
@@ -250,17 +251,18 @@ export default {
 </script>
 
 <style scoped>
-.el-card {
+.upper-card,
+.lower-card {
+  overflow: auto;
   border-radius: 15px;
-  height: 100%;
 }
 .upper-row {
   padding: 5px;
-  height: 60%;
+  height: 40%;
 }
 .lower-row {
   padding: 5px;
-  height: 40%;
+  height: 60%;
 }
 .lower-row-col1,
 .lower-row-col2,
@@ -280,10 +282,10 @@ export default {
 }
 
 .upper-card {
-  height: 290px;
+  height: 230px;
 }
 .lower-card {
-  height: 280px;
+  height: 340px;
 }
 
 .name {
