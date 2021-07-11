@@ -34,14 +34,14 @@
         <el-table-column>
             <template slot-scope="scope">
             <router-link
-              :to="{ name: 'ActivityInfo', params: { ID: scope.row.activityID } }"
+              :to="{ name: 'OrgActivityInfo', params: { ID: scope.row.activityID } }"
             >
               <el-button @click="handleClick(scope.row)" type="text"
                 >查看</el-button
               >
             </router-link>
             </template>
-            <router-link to="/ActivityInfo"></router-link>
+            <router-link to="/GroundsAdmin/ActivityInfo"></router-link>
         </el-table-column>
       </el-table>
         </el-tab-pane>
@@ -49,7 +49,7 @@
         <el-table
           :data="tableData.filter((item, index, arr)=>{return item.state != 0})"
           :default-sort = "{prop: 'time', order: 'descending'}"
-          height="450"
+          height="480"
         >
         <el-table-column prop="organization" sortable label="组织" width="220">
         </el-table-column>
@@ -80,14 +80,14 @@
         <el-table-column>
             <template slot-scope="scope">
             <router-link
-              :to="{ name: 'ActivityInfo', params: { ID: scope.row.activityID } }"
+              :to="{ name: 'OrgActivityInfo', params: { ID: scope.row.activityID } }"
             >
               <el-button @click="handleClick(scope.row)" type="text"
                 >查看</el-button
               >
             </router-link>
             </template>
-            <router-link to="/ActivityInfo"></router-link>
+            <router-link to="/GroundsAdmin/ActivityInfo"></router-link>
         </el-table-column>
       </el-table>
         </el-tab-pane>

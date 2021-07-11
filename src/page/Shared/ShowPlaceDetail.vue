@@ -21,10 +21,22 @@
       <div class="text item">
         <el-table :header-row-style="{height:'10px'}" :cell-style="{padding:'1px'}" :data="matchList" height="450" stripe>
           <el-table-column prop="groundID" label="场地编号"> </el-table-column>
-          <el-table-column prop="type" label="是否室内"> </el-table-column>
-          <el-table-column prop="building" label="楼号"> </el-table-column>
+          <!-- <el-table-column prop="type" label="是否室内"> </el-table-column> -->
+
+          <el-table-column label="类型" width="auto">
+          <template slot-scope="scope">
+            <el-tag
+              size="medium"
+              :type="scope.row.type=='室内' ? 'primary' : 'success'"
+              >{{ scope.row.type }}</el-tag
+            >
+          </template>
+        </el-table-column>
+
+         <el-table-column prop="details" label="房间号"> </el-table-column>
+          <!-- <el-table-column prop="building" label="楼号"> </el-table-column>
           <el-table-column prop="floor" label="层号"> </el-table-column>
-          <el-table-column prop="room" label="房间号"> </el-table-column>
+          <el-table-column prop="room" label="房间号"> </el-table-column> -->
           <el-table-column prop="capacity" label="可容纳人数">
           </el-table-column>
           <el-table-column prop="description" label="详情"> </el-table-column>
@@ -87,12 +99,13 @@ export default {
   data() {
     const item = {
       groundID:123123,
-      type: "室内",
+      type: "室外",
       building: "F",
       floor: "4",
       room: "402",
       capacity: 100,
       description: "F楼402大教室",
+      details:this.building+this.room
     };
     // const places = [
     //   {
@@ -166,6 +179,7 @@ export default {
       othertype:!this.membertype,
       matchList: [],
       toMatch: "",
+      item:item
 
       // baseUrl,
       // baseImgPath,
@@ -184,11 +198,14 @@ export default {
   },
    created() {
     this.matchList = this.tableData;
+    
   },
   mounted(){
-    console.log("membertype student");
+    console.log("mounted membertype student");
      console.log(this.membertype);
     console.log(this.othertype);
+    this.item.details=this.item.building+this.item.room;
+    console.log("mounted detail",this.item);
 
   },
   methods: {
@@ -199,7 +216,7 @@ export default {
         this.matchList = [];
         for (var i = 0; i < this.tableData.length; i++) {
           if (
-            this.tableData[i].description.search(this.toMatch) != -1 
+            this.tableData[i].details.search(this.toMatch) != -1 
           ) {
             this.matchList.push(this.tableData[i]);
           }
