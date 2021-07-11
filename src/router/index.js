@@ -482,6 +482,18 @@ const routes = [
             component: () =>
                 import('../page/Grandsman/GroundInfo'),
         },
+        {
+            path: "ShowSchedule/:groundID",
+            name: "ShowScheduleforStu",
+            props: {
+                membertype: true,
+            },
+            component: () =>
+                import ('../page/Shared/ShowSchedule.vue'),
+            meta: {
+                title: '场地详情'
+            }
+        }
         ]
     },
     {

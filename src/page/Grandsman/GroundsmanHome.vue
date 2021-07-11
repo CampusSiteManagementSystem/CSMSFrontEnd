@@ -30,27 +30,20 @@
         <el-card class="system-announcement-card">
           <div slot="header" class="clearfix">
             <span>系统公告</span>
-            <router-link to="/GroundsAdmin/ReviewActivityList"><el-button style="float: right; padding: 3px 0" type="text"
+            <router-link to="/GroundsAdmin/Announcement"><el-button style="float: right; padding: 3px 0" type="text"
               >查看更多</el-button
             ></router-link>
           </div>
           <el-table
-            :data="systemannouncement"
+            :data="systemAnnouncement"
             style="width: 100%"
             height="140px"
             :show-header="false"
+            @row-click="onRowClick"
           >
-            <el-table-column prop="text" label="内容"> </el-table-column>
-            <el-table-column prop="date" label="日期"> </el-table-column>
+            <el-table-column prop="title" label="内容"> </el-table-column>
+            <el-table-column prop="time" label="日期"> </el-table-column>
           </el-table>
-          <!-- <div
-                v-for="(item, index) in systemannouncement"
-                :key="index"
-                class="text item"
-              >
-                <div class="announcement-text">{{ item.text }}</div>
-                <div class="announcement-date">{{ item.date }}</div>
-              </div> -->
         </el-card>
       </el-col>
     </el-row>
@@ -71,6 +64,7 @@
             style="width: 100%"
             height="200px"
             :show-header="false"
+            @row-click="onReviewRowClick"
           >
             <el-table-column prop="title" label="内容"> </el-table-column>
             <el-table-column prop="ground" label="日期"> </el-table-column>
@@ -102,11 +96,11 @@
             style="width: 100%"
             height="200px"
             :show-header="false"
+            @row-click="onOccupyRowClick"
           >
-            <el-table-column prop="groundname" label="内容"> </el-table-column>
-            <el-table-column prop="activityname" label="日期">
+            <el-table-column prop="position" label="内容"> </el-table-column>
+            <el-table-column prop="activityName" label="活动名称">
             </el-table-column>
-            <el-table-column prop="time" label="占用时间"> </el-table-column>
           </el-table>
           <!-- <div
                 v-for="(item, index) in busyground"
@@ -121,6 +115,19 @@
         </el-card>
       </el-col>
     </el-row>
+    <el-dialog :visible.sync="dialogVisible" width="50%" class="dialog">
+      <span slot="title">
+        <h3>{{ dialogTitle }}</h3>
+      </span>
+      <div class="content">
+        <span>{{ dialogContent }}</span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false"
+          >确定</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -226,6 +233,15 @@ body,
 .ground-col {
   height: 100%;
 }
+.el-dialog {
+  border-radius: 12px;
+}
+.dialog {
+  backdrop-filter: blur(10px);
+}
+.content{
+  height: 320px;
+}
 </style>
 
 
@@ -234,6 +250,14 @@ body,
 export default {
   name: "GrandsmanHome",
   data() {
+    const systemItem = {
+      title: "关于系统停机维护的通知",
+      time: "2021-7-5 15:30",
+      accountNum: "14335",
+      content:
+        "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
+    };
+
     return {
       personinfo: {
         photosrc:
@@ -244,44 +268,71 @@ export default {
         type: ["", "success", "info", "warning", "danger"],
         date: "2020-2021学年第2学期第13周",
       },
-      systemannouncement: [
-        { text: "明天维护", date: "2021-6-1" },
-        { text: "明天维护", date: "2021-6-1" },
-        { text: "明天维护", date: "2021-6-1" },
-        { text: "明天维护", date: "2021-6-1" },
-        { text: "明天维护", date: "2021-6-1" },
-        { text: "明天维护", date: "2021-6-1" },
-        { text: "明天维护", date: "2021-6-1" },
-        { text: "明天维护", date: "2021-6-1" },
-      ],
+
+      //弹出式公告
+      dialogTitle: "",
+      dialogContent: "",
+      dialogVisible: false,
+      activityVisible: false,
+      activitySelected: {
+        id: 65535,
+        name: "批评大会",
+        description: "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
+        host: "德育办公室",
+        time: "2021-5-28 14:30",
+        location: "129礼堂",
+        participantnum: 0,
+      },
+      systemAnnouncement: Array(20).fill(systemItem),
+
       appointment: [
-        { title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 19:00" },
-        { title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 19:00" },
-        { title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 19:00" },
-        { title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 19:00" },
-        { title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 19:00" },
-        { title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 19:00" },
+        { activityID:'0001', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 19:00" },
+        { activityID:'0002', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 20:00" },
+        { activityID:'0003', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 21:00" },
+        { activityID:'0004', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 22:00" },
+        { activityID:'0005', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 23:00" },
+        { activityID:'0006', title: "数据库会议", ground: "广楼101", datetime: "2021-6-2 00:00" },
       ],
       busyground: [
         {
-          groundname: "广楼666",
-          activityname: "数据库会议",
-          time: "16:00-18:00",
+          groundID: "12201",
+          position: "F201",
+          activityName: "数据结构",
         },
         {
-          groundname: "广楼666",
-          activityname: "数据库会议",
-          time: "16:00-18:00",
+          groundID: "21404",
+          position: "G404",
+          activityName: "数据库",
         },
         {
-          groundname: "广楼666",
-          activityname: "数据库会议",
-          time: "16:00-18:00",
+          groundID: "35130",
+          position: "F201",
+          activityName: "数据结构1",
         },
         {
-          groundname: "广楼666",
-          activityname: "数据库会议",
-          time: "16:00-18:00",
+          groundID: "35404",
+          position: "G404",
+          activityName: "数据库2",
+        },
+        {
+          groundID: "21404",
+          position: "F201",
+          activityName: "数据结构3",
+        },
+        {
+          groundID: "21404",
+          position: "G404",
+          activityName: "数据库4",
+        },
+        {
+          groundID: "21404",
+          position: "F201",
+          activityName: "数据结构5",
+        },
+        {
+          groundID: "21404",
+          position: "G404",
+          activityName: "数据库6",
         },
       ],
       msg: "666",
@@ -309,6 +360,18 @@ export default {
       ],
     };
   },
-  methods: {},
+  methods: {
+    onRowClick(row) {
+      this.dialogTitle = row.title;
+      this.dialogContent = row.content;
+      this.dialogVisible = true;
+    },
+    onOccupyRowClick(row) {
+      this.$router.push("/GroundsAdmin/ShowSchedule/" + row.groundID);
+    },
+    onReviewRowClick(row) {
+      this.$router.push("/GroundsAdmin/ActivityInfo/" + row.activityID);
+    }
+  },
 };
 </script>
