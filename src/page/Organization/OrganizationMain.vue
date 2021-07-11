@@ -66,7 +66,7 @@
       <el-col :span="15" class="lower-row-col1">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
-            <span>未来活动</span>
+            <span><b>未来活动</b></span>
             <router-link to="/StuFrame/ViewActivities">
               <el-button style="float: right; padding: 3px 0" type="text"
                 >查看更多</el-button
@@ -95,7 +95,7 @@
       <el-col :span="9" class="lower-row-col2">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
-            <span>占用中的场地</span>
+            <span><b>占用中的场地</b></span>
             <router-link to="/OrgFrame/CheckSite">
               <el-button style="float: right; padding: 3px 0" type="text"
                 >查看更多</el-button

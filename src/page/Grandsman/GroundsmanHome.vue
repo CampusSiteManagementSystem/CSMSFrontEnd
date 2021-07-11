@@ -51,7 +51,7 @@
       <el-col :span="14" class="appointment-col">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
-            <span>待审核预约</span>
+            <span><b>待审核预约</b></span>
             <router-link to="/GroundsAdmin/ReviewActivityList">
             <el-button style="float: right; padding: 3px 0" type="text"
               >查看更多</el-button
@@ -75,7 +75,7 @@
       <el-col :span="10" class="ground-col">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
-            <span>占用中的场地</span>
+            <span><b>占用中的场地</b></span>
             <!-- <router-link to="/groundinfo"
               ><el-button style="float: right; padding: 3px 0" type="text"
                 >操作按钮</el-button
