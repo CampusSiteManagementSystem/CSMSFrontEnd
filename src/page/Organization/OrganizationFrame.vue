@@ -47,7 +47,7 @@
             <i class="el-icon-s-home"></i>
             <span slot="title">主页</span>
           </el-menu-item>
-          <el-submenu>
+          <el-submenu index="">
             <template slot="title">
               <i class="el-icon-search"></i>
               <span slot="title">查看</span>
