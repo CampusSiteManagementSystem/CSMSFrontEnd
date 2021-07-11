@@ -25,7 +25,7 @@
               <el-row style="float:right">
               <time class="time"
                 >{{ currentDate }}
-                <router-link to="/ApplySite" v-show="buttonshow"
+                <router-link to="/OrgFrame/ApplySite" v-show="buttonshow"
                   ><el-button type="text">预约</el-button></router-link
                 ></time
               ><el-button
