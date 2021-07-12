@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card class="box-card">
+    <el-card class="box-card" v-if="!childPage">
       <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="18">
@@ -18,23 +18,29 @@
           </el-col>
         </el-row>
       </div>
-        
+
       <div class="text item">
-        <el-table :header-row-style="{height:'10px'}" :cell-style="{padding:'1px'}" :data="matchList" height="450" stripe>
+        <el-table
+          :header-row-style="{ height: '10px' }"
+          :cell-style="{ padding: '1px' }"
+          :data="matchList"
+          height="450"
+          stripe
+        >
           <el-table-column prop="groundID" label="场地编号"> </el-table-column>
           <!-- <el-table-column prop="type" label="是否室内"> </el-table-column> -->
 
           <el-table-column label="类型" width="auto">
-          <template slot-scope="scope">
-            <el-tag
-              size="medium"
-              :type="scope.row.type=='室内' ? 'primary' : 'success'"
-              >{{ scope.row.type }}</el-tag
-            >
-          </template>
-        </el-table-column>
+            <template slot-scope="scope">
+              <el-tag
+                size="medium"
+                :type="scope.row.type == '室内' ? 'primary' : 'success'"
+                >{{ scope.row.type }}</el-tag
+              >
+            </template>
+          </el-table-column>
 
-         <el-table-column prop="details" label="房间号"> </el-table-column>
+          <el-table-column prop="details" label="房间号"> </el-table-column>
           <!-- <el-table-column prop="building" label="楼号"> </el-table-column>
           <el-table-column prop="floor" label="层号"> </el-table-column>
           <el-table-column prop="room" label="房间号"> </el-table-column> -->
@@ -54,25 +60,29 @@
               > -->
               <!-- 这个是学生的 -->
               <!-- class="el-icon-edit choose-button" -->
-               <router-link
-               v-show="membertype"
-               :to="{ name: 'ShowScheduleforStu', params: { groundID: scope.row.groundID ,membertype:true} }"
+              <router-link
+                v-show="membertype"
+                :to="{
+                  name: 'ShowScheduleforStu',
+                  params: { groundID: scope.row.groundID, membertype: true },
+                }"
                 size="mini"
                 type="success"
                 tag="el-button"
-                @click="handleEdit(scope.$index, scope.row)"
-               
+                @click.native="handleEdit"
                 >查看</router-link
               >
               <!-- 这个是组织的 -->
               <router-link
-              v-show="othertype"
-               :to="{ name: 'ShowScheduleforOrg', params: { groundID: scope.row.groundID ,membertype:false} }"
+                v-show="othertype"
+                :to="{
+                  name: 'ShowScheduleforOrg',
+                  params: { groundID: scope.row.groundID, membertype: false },
+                }"
                 size="mini"
                 type="success"
                 tag="el-button"
                 @click="handleEdit(scope.$index, scope.row)"
-                
                 >查看</router-link
               >
               <router-link
@@ -82,7 +92,6 @@
                 type="primary"
                 tag="el-button"
                 @click="addFood(scope.$index, scope.row)"
-            
                 >申请</router-link
               >
             </template>
@@ -92,6 +101,11 @@
         </el-pagination> -->
       </div>
     </el-card>
+    <keep-alive v-else>
+      <transition name="fade-transform" mode="out-in">
+        <router-view style="height: 100%"></router-view>
+      </transition>
+    </keep-alive>
   </div>
 </template>
 
@@ -99,14 +113,14 @@
 export default {
   data() {
     const item = {
-      groundID:"123123",
+      groundID: "123123",
       type: "室外",
       building: "F",
       floor: "4",
       room: "402",
       capacity: 100,
       description: "F楼402大教室",
-      details:this.building+this.room
+      details: this.building + this.room,
     };
     // const places = [
     //   {
@@ -177,11 +191,11 @@ export default {
     return {
       tableData: Array(20).fill(item),
       // options: places,
-      othertype:!this.membertype,
+      othertype: !this.membertype,
       matchList: [],
       toMatch: "",
-      item:item
-
+      item: item,
+      childPage: false,
       // baseUrl,
       // baseImgPath,
       // city: {},
@@ -197,18 +211,22 @@ export default {
       // address: {},
     };
   },
-   created() {
+  created() {
     this.matchList = this.tableData;
-    
   },
-  mounted(){
-    console.log("mounted membertype student");
-     console.log(this.membertype);
-    console.log(this.othertype);
-    this.item.details=this.item.building+this.item.room;
-    console.log("mounted detail",this.item);
-
+  mounted() {
+    console.log("run mounted");
+    // console.log("mounted membertype student");
+    // console.log(this.membertype);
+    // console.log(this.othertype);
+    this.item.details = this.item.building + this.item.room;
+    // console.log("mounted detail", this.item);
+        this.childPage = this.$route.meta.title == "场地细节" ? false : true;
   },
+  updated() {
+      console.log("run updated");
+      this.childPage = this.$route.meta.title == "场地细节" ? false : true;
+    },
   methods: {
     search: function () {
       if (this.toMatch == "") {
@@ -216,17 +234,32 @@ export default {
       } else {
         this.matchList = [];
         for (var i = 0; i < this.tableData.length; i++) {
-          if (
-            this.tableData[i].details.search(this.toMatch) != -1 
-          ) {
+          if (this.tableData[i].details.search(this.toMatch) != -1) {
             this.matchList.push(this.tableData[i]);
           }
         }
       }
     },
+    handleEdit() {
+      this.childPage = !this.childPage;
+    },
+    mounted() {
+      console.log("run mounted");
+      this.childPage = this.$route.meta.name == "场地细节" ? false : true;
+    },
+    // mounted(){
+
+    // },
+    // beforeUpdate() {
+
+    // }
+    updated() {
+      console.log("run mounted");
+      this.childPage = this.$route.meta.name == "场地细节" ? false : true;
+    },
     // handleEdit() {},
     // handleEdit(index, row) {
-      
+
     //   this.selectTable = row;
     //   this.address.address = row.address;
     //   this.dialogFormVisible = true;
@@ -239,12 +272,12 @@ export default {
     //   this.$router.push({ path: "addGoods", query: { restaurant_id: row.id } });
     // },
   },
-   props: {
-    membertype: {//true代表学生，false代表组织
+  props: {
+    membertype: {
+      //true代表学生，false代表组织
       type: Boolean,
       // default: true,
-    }
-    ,
+    },
   },
 };
 </script>
@@ -266,5 +299,4 @@ export default {
 .clearfix:after {
   clear: both;
 }
-
 </style>

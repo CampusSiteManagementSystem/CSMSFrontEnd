@@ -84,7 +84,7 @@ export default {
       participantnum: 40,
       description: "进行专业方向介绍，开展防范电信诈骗教育",
       additionalrequest: "无",
-      state: 0,
+      state: 1,
       comment: "",
       form: {
         state: "",

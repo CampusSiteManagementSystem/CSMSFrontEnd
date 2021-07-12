@@ -61,7 +61,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row class="lowerrow">
+    <el-row class="lower-row">
       <el-col :span="15" class="lower-row-col1">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
@@ -256,14 +256,14 @@ export default {
   overflow: auto;
   border-radius: 15px;
 }
-.upper-row {
+/* .upper-row {
   padding: 5px;
   height: 40%;
 }
 .lower-row {
   padding: 5px;
   height: 60%;
-}
+} */
 .lower-row-col1,
 .lower-row-col2,
 .upper-row-col1,

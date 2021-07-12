@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- 第一行布局 -->
-    <el-row class="upperrow">
+    <el-row class="upper-row">
       <el-col :span="10" class="upper-row-col1">
-        <!-- <el-collapse-transition> -->
         <el-card class="upper-card">
+          <el-row>
           <el-col :span="8" class="person-info-card-photo-col">
             <div>
               <el-avatar :size="130" :src="personinfo.photosrc"></el-avatar>
@@ -24,11 +24,10 @@
             <div class="date">{{ personinfo.date }}</div>
             <div class="other-info">祝您工作愉快！</div>
           </el-col>
+          </el-row>
         </el-card>
-        <!-- </el-collapse-transition> -->
       </el-col>
       <el-col :span="14" class="upper-row-col2">
-        <!-- <el-collapse-transition> -->
         <el-card class="upper-card">
           <div slot="header" class="clearfix">
             <span>系统公告</span>
@@ -45,17 +44,15 @@
             :show-header="false"
             @row-click="onRowClick"
           >
-            <el-table-column prop="title" label="内容"> </el-table-column>
-            <el-table-column prop="time" label="日期"> </el-table-column>
+            <el-table-column prop="title" width="auto"> </el-table-column>
+            <el-table-column prop="time" width="auto"> </el-table-column>
           </el-table>
         </el-card>
-        <!-- </el-collapse-transition> -->
       </el-col>
     </el-row>
     <!-- 第二行布局 -->
-    <el-row class="lowerrow">
-      <el-col :span="14" class="appointment-col">
-        <!-- <el-collapse-transition> -->
+    <el-row class="lower-row">
+      <el-col :span="14" class="lower-row-col1">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
             <span><b>待审核预约</b></span>
@@ -77,18 +74,11 @@
             <el-table-column prop="datetime" label="日期"> </el-table-column>
           </el-table>
         </el-card>
-        <!-- </el-collapse-transition> -->
       </el-col>
-      <el-col :span="10" class="ground-col">
-        <!-- <el-collapse-transition> -->
+      <el-col :span="10" class="lower-row-col2">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
             <span><b>占用中的场地</b></span>
-            <!-- <router-link to="/groundinfo"
-              ><el-button style="float: right; padding: 3px 0" type="text"
-                >操作按钮</el-button
-              ></router-link
-            > -->
           </div>
           <el-table
             :data="busyground"
@@ -101,18 +91,7 @@
             <el-table-column prop="activityName" label="活动名称">
             </el-table-column>
           </el-table>
-          <!-- <div
-                v-for="(item, index) in busyground"
-                :key="index"
-                class="text item"
-              >
-                <div class="busyground-groundname">{{ item.groundname }}</div>
-                <div class="busyground-activityname">
-                  {{ item.activityname }}
-                </div> 
-              </div>-->
         </el-card>
-        <!-- </el-collapse-transition> -->
       </el-col>
     </el-row>
     <el-dialog :visible.sync="dialogVisible" width="50%" class="dialog">
@@ -132,18 +111,6 @@
 </template>
 
 <style scpoed>
-html,
-body,
-#app,
-.el-container {
-  /*设置内部填充为0，几个布局元素之间没有间距*/
-  padding: 0px;
-  /*外部间距也是如此设置*/
-  margin: 0px;
-  /*统一设置高度为100%*/
-  height: 100%;
-}
-
 .name {
   font-size: 30px;
   font-weight: 550;
@@ -160,15 +127,13 @@ body,
   font-weight: 700;
 }
 
-.appointment-col {
-  /* background-color: thistle; */
+.lower-row-col1,
+.lower-row-col2,
+.upper-row-col1,
+.upper-row-col2 {
+  height: 100%;
   padding: 5px;
 }
-.ground-col {
-  /* background-color: rgb(19, 179, 201); */
-  padding: 5px;
-}
-
 /* 系统公告卡片 */
 
 .text {
@@ -188,29 +153,14 @@ body,
   clear: both;
 }
 
-.upper-row-col1 {
-  height: 100%;
-  padding: 5px;
-}
-.upper-row-col2 {
-  height: 100%;
-  padding: 5px;
-}
-
-.upperrow {
+/* .upperrow {
   padding: 5px;
   height: 40%;
 }
 .lowerrow {
   padding: 5px;
   height: 60%;
-}
-.appointment-col {
-  height: 100%;
-}
-.ground-col {
-  height: 100%;
-}
+} */
 .el-dialog {
   border-radius: 12px;
 }
