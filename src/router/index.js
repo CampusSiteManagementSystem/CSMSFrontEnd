@@ -120,29 +120,6 @@ const routes = [
                 }
             },
             {
-                path: "Favorite",
-                name: "StudentFrameFavorite",
-                component: () =>
-                    import('../page/Student/StudentFavorite.vue'),
-                meta: {
-                    title: '收藏'
-                }
-                ,children: [
-                    {
-                        path: "ShowSchedule/:groundID",
-                        name: "ShowScheduleforStuFav",
-                        props: {
-                            membertype: true,
-                        },
-                        component: () =>
-                            import('../page/Shared/ShowSchedule.vue'),
-                        meta: {
-                            title: '场地详情'
-                        }
-                    },]
-
-            
-            }, {
                 path: "ShowPlaceDetail",
                 name: "StuShowPlaceDetail",
                 props: {
