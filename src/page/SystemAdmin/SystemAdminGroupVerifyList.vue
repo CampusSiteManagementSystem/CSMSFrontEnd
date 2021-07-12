@@ -43,9 +43,9 @@
 </template>
 
 <style scoped>
-.el-card {
+/* .el-card {
   height: 100%;
-}
+} */
 </style>
 
 

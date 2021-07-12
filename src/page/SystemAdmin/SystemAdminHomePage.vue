@@ -37,7 +37,6 @@
                 height="136"
                 @row-click="onRowClick"
                 :show-header="false"
-                @row-click="onRowClick"
               >
                 <el-table-column prop="title" width="auto"> </el-table-column>
                 <el-table-column prop="time" width="auto"> </el-table-column>

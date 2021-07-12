@@ -63,10 +63,6 @@
 </template>
 
 <style scoped>
-.infoMain {
-  height: 100%;
-}
-
 .info {
   text-align: left;
 }

@@ -3,7 +3,7 @@
     <el-card class="mycard">
       <el-row>
         <el-col :span="18">
-        <div class="main-title">维护用户信息</div>
+          <div class="main-title">维护用户信息</div>
         </el-col>
 
         <el-col :span="6">
@@ -16,8 +16,14 @@
         </el-col>
       </el-row>
 
-      <el-table :data="tableData" max-height="480" stripe style="width: 100%"
-      :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}">
+      <el-table
+        :data="tableData"
+        max-height="480"
+        stripe
+        style="width: 100%"
+        :header-row-style="{ height: '20px' }"
+        :cell-style="{ padding: '5px' }"
+      >
         <el-table-column label="ID">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
@@ -29,13 +35,14 @@
           </template>
         </el-table-column>
         <el-table-column label="操作">
-          <template>
+          <template slot-scope="scope">
             <router-link
               to="/SysAdminFrame/AccountModify"
               tag="el-button"
               type="primary"
               >编辑信息</router-link
             >
+          <el-button type="danger" @click="userdelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -47,7 +54,7 @@
 html,
 body,
 .mycard {
-  height: 100%;
+  /* height: 100%; */
   border-radius: 12px;
 }
 </style>
@@ -98,6 +105,36 @@ export default {
   },
   methods: {
     handleContentChange() {},
+
+    userdelete(index, row) {
+      console.log(index, row);
+      this.$confirm("此操作将永久删除该用户, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+        .then(() => {
+          for (var i = 0; i < this.tableData.length; i++) {
+            if (
+              this.tableData[i].id == row.id
+            ) {
+              this.tableData.splice(i, 1);
+              break;
+            }
+          }
+          this.$message({
+            type: "success",
+            message: "删除成功!",
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+    },
+
 
     search: function () {
       if (this.toMatch == "") {
