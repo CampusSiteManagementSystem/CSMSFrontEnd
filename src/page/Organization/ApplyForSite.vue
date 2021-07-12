@@ -95,7 +95,7 @@
               <el-button type="primary" @click="submitForm('applyform')"
                 >提交</el-button
               >
-              <router-link to="/OrgFrame/Main" tag="el-button"
+              <router-link to="/OrgFrame/Appointment" tag="el-button"
                 >取消</router-link
               >
             </el-form-item>
