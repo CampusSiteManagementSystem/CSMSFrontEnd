@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {GETIndooeGrounds} from "./API/http";
+import {GETGrounds} from "./API/http";
 export default {
   data() {
     return {
@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     test() {
-      GETIndooeGrounds()
+      GETGrounds()
         .then((data) => {
           this.res = data;
         })
