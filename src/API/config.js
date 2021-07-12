@@ -135,7 +135,9 @@ export function Post(url, params) {
 
 export function Delete(url, params) {
     return new Promise((resolve, reject) => {
-        axios.delete(url, params).then(res => {
+        axios.delete(url, {
+            params: params
+        }).then(res => {
             resolve(res.data)
         }).catch(err => {
             reject(err.data)

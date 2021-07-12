@@ -10,7 +10,7 @@
           <h3>场地详情</h3>
         </div>
         <el-row>
-          <p>场地名称：{{ building }}{{ room }}</p>
+          <p>场地名称：{{ positionName }}{{roomNo}}</p>
           <p>场地类型：{{ placeType }}</p>
           <p v-for="(value, key) in utils" :key="value">
             {{ key }}:{{ value }}
@@ -75,23 +75,48 @@
 </style>
 
 <script>
+import { GETIndoorGroundsID } from "../API/http";
 export default {
   name: "PicCard",
   data() {
-    const utils = {
-      电脑数量: 100,
-      桌子数量: 13,
-    };
+    // const utils = {
+    //   电脑数量: 100,
+    //   桌子数量: 13,
+    // };
     return {
-      utils: utils,
+      axiosdata:"",
+      computerNum: 1,
+floor: 2,
+positionName: "G楼",
+roomNo: 201,
+seatNum: 500,
+utils:null,
+
+
+
+
+      // utils: utils,
       currentDate: new Date(),
-      building: "F",
-      floor: "层号",
-      room: "202",
+      // building: "F",
+      // floor: "层号",
+      // room: "202",
       placeType: "室内场地",
     };
   },
   mounted() {
+    const that=this;
+
+
+   
+
+     GETIndoorGroundsID(that.$props.groundId)
+        .then((data) => {
+          that.axiosdata = data;
+          // console.log(that.$props.groundId,that.axiosdata)
+        })
+        .catch((err) => {
+          this.data = err;
+        });
     console.log("PICCARD buttonshow", this.$props.buttonshow);
     console.log("PICCARD groundId", this.$props.groundId);
   },
@@ -109,6 +134,25 @@ export default {
     handleApply() {
       console.log("PICCARD groundId", this.$props.groundId);
     },
+//     dealWithaxiosdata(){
+//        computerNum: 1,
+// floor: 2,
+// positionName: "G楼",
+// roomNo: 201,
+// seatNum: 500,
+
+
+
+
+//       // utils: utils,
+//       currentDate: new Date(),
+//       // building: "F",
+//       // floor: "层号",
+//       // room: "202",
+//       placeType: "室内场地",
+
+
+//     }
   },
 };
 </script>

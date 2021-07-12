@@ -167,28 +167,16 @@ const routes = [
                 title: '查看场地'
             }
         },
-            // {
-            //     path: "ShowSchedule/:groundID",
-            //     name: "ShowScheduleforStu",
-            //     props: {
-            //         membertype: true,
-            //     },
-            //     component: () =>
-            //         import('../page/Shared/ShowSchedule.vue'),
-            //     meta: {
-            //         title: '场地详情'
-            //     }
-            // }
         ]
     },
     //系统管理员！！！！！！！！
     //这个界面估计要删了
-    {
-        path: "/SystemAdminHomePage",
-        name: "SystemAdminHomePage",
-        component: () =>
-            import('../page/SystemAdmin/SystemAdminHomePage.vue')
-    },
+    // {
+    //     path: "/SystemAdminHomePage",
+    //     name: "SystemAdminHomePage",
+    //     component: () =>
+    //         import('../page/SystemAdmin/SystemAdminHomePage.vue')
+    // },
     //这两个中间要删了
     {
         path: "/SysAdminFrame",
@@ -204,51 +192,55 @@ const routes = [
             component: () =>
                 import('../page/SystemAdmin/SystemAdminHomePage.vue')
         },
+        // {
+        //     path: "ModifyPassword",
+        //     name: "SysAdminModifyPassword",
+        //     component: () =>
+        //         import('../page/Shared/ModifyPassword.vue'),
+        //     meta: {
+        //         title: '修改密码'
+        //     }
+        // },
+        // {
+        //     path: 'CheckSite',
+        //     name: 'OrgCheckSite',
+        //     meta: {
+        //         title: '所有场地'
+        //     },
+        //     props: {
+        //         membertype: false
+        //     },
+        //     component: () =>
+        //         import('../page/Shared/ShowPlaceDetail.vue')
+        // }, 
+        // {
+        //     path: "Main",
+        //     name: "OrganizationFrameMain",
+        //     meta: {
+        //         title: '组织主页'
+        //     },
+        //     component: () =>
+        //         import('../page/Organization/OrganizationMain.vue')
+        // }, 
+        // {
+        //     path: 'ViewActivities/:ID',
+        //     name: 'ViewActivities',
+        //     meta: {
+        //         title: '查看活动'
+        //     },
+        //     component: () =>
+        //         import('../page/Shared/check_activity.vue')
+        // },
+        //  {
+        //     path: "OrgAccountModify",
+        //     name: "OrganizationAccountModify",
+        //     meta: {
+        //         title: '组织详细信息'
+        //     },
+        //     component: () =>
+        //         import('../page/Organization/OrganizationAccountModify.vue')
+        // }, 
         {
-            path: "ModifyPassword",
-            name: "SysAdminModifyPassword",
-            component: () =>
-                import('../page/Shared/ModifyPassword.vue'),
-            meta: {
-                title: '修改密码'
-            }
-        },
-        {
-            path: 'CheckSite',
-            name: 'OrgCheckSite',
-            meta: {
-                title: '所有场地'
-            },
-            props: {
-                membertype: false
-            },
-            component: () =>
-                import('../page/Shared/ShowPlaceDetail.vue')
-        }, {
-            path: "Main",
-            name: "OrganizationFrameMain",
-            meta: {
-                title: '组织主页'
-            },
-            component: () =>
-                import('../page/Organization/OrganizationMain.vue')
-        }, {
-            path: 'ViewActivities/:ID',
-            name: 'ViewActivities',
-            meta: {
-                title: '查看活动'
-            },
-            component: () =>
-                import('../page/Shared/check_activity.vue')
-        }, {
-            path: "OrgAccountModify",
-            name: "OrganizationAccountModify",
-            meta: {
-                title: '组织详细信息'
-            },
-            component: () =>
-                import('../page/Organization/OrganizationAccountModify.vue')
-        }, {
             path: 'GroupVerifyList',
             name: 'SystemAdminGroupVerify',
             meta: {
@@ -608,18 +600,18 @@ const routes = [
             component: () =>
                 import('../page/Grandsman/GroundInfo'),
         },
-        {
-            path: "ShowSchedule/:groundId",
-            name: "ShowScheduleforStu",
-            props: {
-                membertype: true,
-            },
-            component: () =>
-                import('../page/Shared/ShowSchedule.vue'),
-            meta: {
-                title: '场地详情'
-            }
-        }
+        // {
+        //     path: "ShowSchedule/:groundId",
+        //     name: "ShowScheduleforStu",
+        //     props: {
+        //         membertype: true,
+        //     },
+        //     component: () =>
+        //         import('../page/Shared/ShowSchedule.vue'),
+        //     meta: {
+        //         title: '场地详情'
+        //     }
+        // }
         ]
 
     },
