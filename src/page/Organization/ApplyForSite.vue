@@ -3,7 +3,8 @@
     <div slot="header" class="clearfix">
       <span><b>使用场地申请</b></span>
     </div>
-    <div id="content">
+    <el-row>
+      <el-col :span="12">
       <el-form
         ref="applyform"
         :rules="rules"
@@ -97,7 +98,10 @@
           >
         </el-form-item>
       </el-form>
-    </div>
+      </el-col>
+      <el-col :span="12">
+      </el-col>
+    </el-row>
   </el-card>
 </template>
 
