@@ -32,8 +32,12 @@
                 管理员<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="accountInfo">账号信息</el-dropdown-item>
-                <el-dropdown-item command="modifyPassword">修改密码</el-dropdown-item>
+                <el-dropdown-item command="accountInfo"
+                  >账号信息</el-dropdown-item
+                >
+                <el-dropdown-item command="modifyPassword"
+                  >修改密码</el-dropdown-item
+                >
                 <el-dropdown-item command="logout">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -83,7 +87,9 @@
       <!-- <el-button @click="test"> test</el-button> -->
       <el-main>
         <keep-alive>
-          <router-view style="height: 100%"></router-view>
+          <transition name="fade-transform" mode="out-in">
+            <router-view style="height: 100%"></router-view>
+          </transition>
         </keep-alive>
       </el-main>
     </el-container>
@@ -182,11 +188,11 @@ export default {
     },
 
     handleCommand(command) {
-      switch(command) {
-        case 'accountInfo':
+      switch (command) {
+        case "accountInfo":
           this.$router.push({ path: "/GroundsAdmin/AccountModify" });
           break;
-        case 'modifyPassword':
+        case "modifyPassword":
           this.$router.push({ path: "/GroundsAdmin/ModifyPassword" });
           break;
         default:
