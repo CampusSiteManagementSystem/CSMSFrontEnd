@@ -108,17 +108,6 @@
 import { GETGrounds } from "../../API/http";
 export default {
   data() {
-    // const item = {
-    //   groundId: "123123",
-    //   type: "室外",
-    //   building: "F",
-    //   floor: "4",
-    //   room: "402",
-    //   capacity: 100,
-    //   description: "F楼402大教室",
-    //  name:"F402",
-    // };
-
     return {
       // tableData: Array(20).fill(item),
       tableData: [],
@@ -143,7 +132,6 @@ export default {
       .then((data) => {
         that.axiosdata = data;
         that.tableData = that.dealWith(that.axiosdata);
-
         console.log(that.axiosdata[0]);
       })
       .catch((err) => {
@@ -151,7 +139,7 @@ export default {
       });
 
     // this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
-    this.item.details = this.item.building + this.item.room;
+    // this.item.details = this.item.building + this.item.room;
     this.childPage =
       this.$route.name == "StuShowPlaceDetail" ||
       this.$route.name == "OrgCheckSite"
@@ -184,6 +172,7 @@ export default {
     },
     handleEdit() {
       console.log("handleedit");
+      console.log(this.$route);
       this.childPage =
         this.$route.name == "StuShowPlaceDetail" ||
         this.$route.name == "OrgCheckSite"
@@ -207,25 +196,6 @@ export default {
         this.tableData.push(temp);
       }
     },
-
-    // beforeUpdate() {
-
-    // }
-
-    // handleEdit() {},
-    // handleEdit(index, row) {
-
-    //   this.selectTable = row;
-    //   this.address.address = row.address;
-    //   this.dialogFormVisible = true;
-    //   this.selectedCategory = row.category.split("/");
-    //   if (!this.categoryOptions.length) {
-    //     this.getCategory();
-    //   }
-    // },
-    // addFood(index, row) {
-    //   this.$router.push({ path: "addGoods", query: { restaurant_id: row.id } });
-    // },
   },
   props: {
     membertype: {
