@@ -10,34 +10,108 @@
             <h3>组织画像</h3>
           </div>
           <div class="image">
-            <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic" />
+            <img
+              src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+              class="pic"
+            />
           </div>
           <div class="modify">
             <el-button type="primary" @click="success">更改照片</el-button>
           </div>
         </el-col>
         <el-col :span="12">
-          
           <div>
             <h3>组织信息</h3>
           </div>
-          <el-table :show-header="false" :data="tableData" :cell-style="columnStyle" border
-            style="width: 80%; margin-top: 20px">
+
+          <el-form
+            ref="ruleForm"
+            :rules="rules"
+            :model="ruleForm"
+            label-width="100px"
+            :hide-required-asterisk="true"
+          >
+            <el-form-item label="组织账号：" prop="account">
+              <el-input v-model="ruleForm.account" :readonly="true"></el-input>
+            </el-form-item>
+            <el-form-item label="组织名称：" prop="name">
+              <el-input v-model="ruleForm.name" :readonly="true"></el-input>
+            </el-form-item>
+            <el-form-item label="组织类型：" prop="type">
+              <el-input v-model="ruleForm.type" :readonly="true"></el-input>
+            </el-form-item>
+            <el-form-item label="信用分：" prop="credit">
+              <el-input v-model="ruleForm.credit" :readonly="true"></el-input>
+            </el-form-item>
+
+            <el-form-item label="负责人：" prop="user">
+              <div v-if="isSet == false">
+                <el-input v-model="ruleForm.user" :readonly="true"></el-input>
+              </div>
+              <div v-else>
+                <el-input v-model="ruleForm.user"></el-input>
+              </div>
+            </el-form-item>
+
+            <el-form-item label="联系方式：" prop="telephone">
+              <div v-if="isSet == false">
+                <el-input
+                  v-model="ruleForm.telephone"
+                  :readonly="true"
+                ></el-input>
+              </div>
+              <div v-else>
+                <el-input v-model="ruleForm.telephone"></el-input>
+              </div>
+            </el-form-item>
+            <el-form-item label="邮箱：" prop="email">
+              <div v-if="isSet == false">
+                <el-input v-model="ruleForm.email" :readonly="true"></el-input>
+              </div>
+              <div v-else>
+                <el-input v-model="ruleForm.email"></el-input>
+              </div>
+            </el-form-item>
+            <el-form-item label="详细信息：" prop="content">
+              <div v-if="isSet == false">
+                <el-input
+                  v-model="ruleForm.content"
+                  :readonly="true"
+                ></el-input>
+              </div>
+              <div v-else>
+                <el-input v-model="ruleForm.content"></el-input>
+              </div>
+            </el-form-item>
+          </el-form>
+
+          <!-- <el-table
+            :show-header="false"
+            :data="tableData"
+            :cell-style="columnStyle"
+            border
+            style="width: 80%; margin-top: 20px"
+          >
             <el-table-column width="180" prop="title" label="标题">
             </el-table-column>
             <el-table-column prop="content" label="内容">
               <template slot-scope="scope">
-                <span v-if="scope.row.change=='false'||isSet==false">{{scope.row.content}}</span>
+                <span v-if="scope.row.change == 'false' || isSet == false">{{
+                  scope.row.content
+                }}</span>
                 <span v-else>
-                  <el-input size="medium" v-model="scope.row.content"></el-input>
+                  <el-input
+                    size="medium"
+                    v-model="scope.row.content"
+                  ></el-input>
                 </span>
               </template>
             </el-table-column>
-          </el-table>
-          <div v-if="isSet==false" class="modify">
+          </el-table> -->
+          <div v-if="isSet == false" class="modify">
             <el-button type="primary" @click="edit">编辑个人信息</el-button>
           </div>
-          <div v-else  class="modify">
+          <div v-else class="modify">
             <el-button type="primary" @click="success">完成</el-button>
           </div>
         </el-col>
@@ -55,7 +129,7 @@ p {
   position: relative;
 }
 
-.image{
+.image {
   margin-top: -0.5cm;
 }
 
@@ -79,57 +153,99 @@ p {
 export default {
   data() {
     return {
-      tableData: [{
-        change: 'false',
-        title: '组织账号',
-        content: '1850668',
-      }, {
-        change: 'false',
-        title: '组织名称',
-        content: '数据库小组',
-      }, {
-        change: 'false',
-        title: '组织类型',
-        content: '班级',
-      }, {
-        change: 'false',
-        title: '信用分',
-        content: '100',
-      }, {
-        change: 'true',
-        title: '邮箱地址',
-        content: 'www.ljj@sjk.com',
-      }, {
-        change: 'true',
-        title: '负责人',
-        content: '李俊杰',
-      }, {
-        change: 'true',
-        title: '联系方式',
-        content: '14515485465',
-      }, {
-        change: 'true',
-        title: '详细信息',
-        content: '数据库小组ddl赶工中！',
-      }],
+      ruleForm: {
+        account: "123456",
+        name: "软件学院",
+        type: "班级",
+        user: "王某",
+        credit: "90",
+        telephone: "123456789",
+        email: "puupuuu@163.com",
+        content: "很好",
+      },
+
+      rules: {
+        telephone: [
+          {
+            required: true,
+            message: "请输入联系电话",
+            trigger: "blur",
+          },
+          {
+            pattern:
+              /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/,
+            message: "请正确输入联系电话，为11位数字",
+            trigger: "blur",
+          },
+        ],
+        content: [{ required: true, message: "请输入介绍", trigger: "blur" }],
+        user: [{ required: true, message: "请输入负责人", trigger: "blur" }],
+        email: [
+          { required: true, message: "请输入邮箱", trigger: "blur" },
+          {
+            type: "email",
+            massage: "请正确输入邮箱",
+            trigger: "blur",
+          },
+        ],
+      },
+
+      // tableData: [
+      //   {
+      //     change: "false",
+      //     title: "组织账号",
+      //     content: "1850668",
+      //   },
+      //   {
+      //     change: "false",
+      //     title: "组织名称",
+      //     content: "数据库小组",
+      //   },
+      //   {
+      //     change: "false",
+      //     title: "组织类型",
+      //     content: "班级",
+      //   },
+      //   {
+      //     change: "false",
+      //     title: "信用分",
+      //     content: "100",
+      //   },
+      //   {
+      //     change: "true",
+      //     title: "邮箱地址",
+      //     content: "www.ljj@sjk.com",
+      //   },
+      //   {
+      //     change: "true",
+      //     title: "负责人",
+      //     content: "李俊杰",
+      //   },
+      //   {
+      //     change: "true",
+      //     title: "联系方式",
+      //     content: "14515485465",
+      //   },
+      //   {
+      //     change: "true",
+      //     title: "详细信息",
+      //     content: "数据库小组ddl赶工中！",
+      //   },
+      // ],
       radio: "1",
       textarea: "",
-      isSet: false
+      isSet: false,
     };
   },
 
   methods: {
-    columnStyle({
-      row,
-      column,
-      rowIndex,
-      columnIndex
-    }) {
+    columnStyle({ row, column, rowIndex, columnIndex }) {
       console.log(row, column, rowIndex, columnIndex, "row");
-      if (columnIndex == 0 && rowIndex < 4) { //第三第四列的背景色就改变了2和3都是列数的下标
-        return 'background:#FBFBEF; font-weight: 700;'
+      if (columnIndex == 0 && rowIndex < 4) {
+        //第三第四列的背景色就改变了2和3都是列数的下标
+        return "background:#FBFBEF; font-weight: 700;";
       } else if (columnIndex == 0) {
-        return 'background:#EFFBEF; font-weight: 700;'
+        return "background:#EFFBEF; font-weight: 700;";
       }
     },
     edit() {
@@ -137,18 +253,18 @@ export default {
     },
     success() {
       this.isSet = false;
-      this.$alert('编辑成功！', {
-        confirmButtonText: '确定',
-        callback: action => {
-          if (action === 'confirm') {
+      this.$alert("编辑成功！", {
+        confirmButtonText: "确定",
+        callback: (action) => {
+          if (action === "confirm") {
             this.$message({
-              type: 'success',
-              message: '编辑成功'
+              type: "success",
+              message: "编辑成功",
             });
           }
-        }
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>

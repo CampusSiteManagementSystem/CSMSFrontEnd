@@ -8,7 +8,10 @@
             <el-row gutter="20">
               <el-col :span="9">
                 <div class="image">
-                  <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic" />
+                  <img
+                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                    class="pic"
+                  />
                 </div>
               </el-col>
               <el-col :span="15">
@@ -53,14 +56,35 @@
           <el-button v-if="state == 0" type="primary" @click="onSubmit"
             >确认</el-button
           >
-          <el-button @click="back">返回</el-button>
+          <el-button @click="back">返回列表</el-button>
         </el-form-item>
       </el-form>
 
       <div v-else>
-        <p><b>审核结果：</b>{{ state == 1 ? "审核通过" : "不通过" }}</p>
+        <el-form ref="form" :model="form" label-width="100px">
+          <el-form-item label="审核结果：">
+            <el-radio-group v-model="form.state" v-if="state == 2">
+              <el-radio label="批准"></el-radio>
+              <el-radio label="不批准"></el-radio>
+            </el-radio-group>
+            <span v-else>{{ form.state == 0 ? "不批准" : "批准" }}</span>
+          </el-form-item>
+          <!-- <el-form-item label="说明：">
+          <p><b>审核意见：</b>{{ comment }}</p>
+        </el-form-item> -->
+          <el-form-item>
+            <el-button type="primary" @click="reReview" v-if="state != 2"
+              >重审</el-button
+            >
+            <el-button type="primary" @click="submitReReview" v-else
+              >提交</el-button
+            >
+            <el-button @click="back">返回列表</el-button>
+          </el-form-item>
+        </el-form>
+        <!-- <p><b>审核结果：</b>{{ state == 1 ? "审核通过" : "不通过" }}</p>
         <p><b>审核意见：</b>{{ comment }}</p>
-        <el-button type="primary" @click="back">返回</el-button>
+        <el-button type="primary" @click="back">返回</el-button> -->
       </div>
     </el-card>
   </div>
@@ -84,30 +108,44 @@ export default {
       participantnum: 40,
       description: "进行专业方向介绍，开展防范电信诈骗教育",
       additionalrequest: "无",
-      state: 1,
+      state: 0, //0未审核，1已审核，2重审
       comment: "",
       form: {
-        state: "",
+        state: "批准",
         comment: "",
       },
     };
   },
   methods: {
+    reReview() {
+      this.state = 2; //重审
+    },
+    submitReReview() {
+      this.state = 1; //审核过
+      this.$message({
+        message: "重审成功",
+        type: "success",
+      });
+    },
     onSubmit() {
       console.log("submit!");
       this.state = this.form.state;
-      this.comment = this.form.comment;
-      this.$alert("您已批准该活动。", "审核完成", {
-        confirmButtonText: "返回列表",
-        callback: (action) => {
-          this.$message({
-            type: "info",
-            message: `action: ${action}`,
-          });
-          this.back();
-        },
+      this.$message({
+        message: "审核提交成功",
+        type: "success",
       });
-    },
+    //   this.comment = this.form.comment;
+    //   this.$alert("您已批准该活动。", "审核完成", {
+    //     confirmButtonText: "返回列表",
+    //     callback: (action) => {
+    //       this.$message({
+    //         type: "info",
+    //         message: `action: ${action}`,
+    //       });
+    //       this.back();
+    //     },
+    //   });
+     },
     back() {
       this.$router.push({ path: "/GroundsAdmin/ReviewActivityList" });
     },
@@ -119,16 +157,7 @@ export default {
 .reason-input {
   width: 600px;
 }
-/* .el-main {
-    text-align: left;
-    line-height: 50px;
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-bottom: 100px;
-  } */
-/* h1{
-    font-size: 25px;
-  } */
+
 .maintitle {
   font-size: 22px;
   text-align: left;
@@ -146,7 +175,7 @@ export default {
   border-radius: 12px;
   /* background: white; */
 }
-.maincard{
+.maincard {
   border-radius: 15px;
   height: 100%;
 }

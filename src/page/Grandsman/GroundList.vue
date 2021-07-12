@@ -2,10 +2,22 @@
   <div class="maindiv">
     <el-card class="maincard">
       <div slot="header" class="clearfix">
+            <el-row type="flex" align="middle">
+          <el-col :span="18">
             <span><b>维护场地信息</b></span>
+          </el-col>
+          <el-col :span="6">
+            <el-input
+              clearable
+              v-model="toMatch"
+              placeholder="输入场地名称以搜索"
+              @input="search"
+            ></el-input>
+          </el-col>
+        </el-row>
           </div>
       <el-table
-        :data="groundTable"
+        :data="matchList"
         height="520"
         :header-row-style="{ height: '20px' }"
         :cell-style="{ padding: '5px' }"
@@ -65,13 +77,30 @@ export default {
       description: "暂无描述",
     };
     return {
+      toMatch: "",
+      matchList: [],
       groundTable: Array(20).fill(ground),
     };
+  },
+  created(){
+    this.search();
   },
   methods: {
     filterTag(value, row, column) {
       const property = column["property"];
       return row[property] === value;
+    },
+    search: function () {
+      if (this.toMatch == "") {
+        this.matchList = this.groundTable;
+      } else {
+        this.matchList = [];
+        for (var i = 0; i < this.groundTable.length ; i++) {
+          if (this.groundTable[i].name.search(this.toMatch) != -1) {
+            this.matchList.push(this.groundTable[i]);
+          }
+        }
+      }
     },
   },
 };

@@ -2,12 +2,24 @@
   <div class="maindiv">
     <el-card class="maincard">
       <div slot="header" class="clearfix">
-        <span><b>待评分活动</b></span>
+         <el-row type="flex" align="middle">
+          <el-col :span="18">
+            <span><b>待评分活动</b></span>
+          </el-col>
+          <el-col :span="6">
+            <el-input
+              clearable
+              v-model="toMatch"
+              placeholder="输入活动名称以搜索"
+              @input="search"
+            ></el-input>
+          </el-col>
+        </el-row>
       </div>
       <el-table
         height="520"
         ref="filterTable"
-        :data="tableData"
+        :data="matchList"
         style="width: 100%"
         :default-sort="{ prop: 'time', order: 'descending' }"
       >
@@ -92,6 +104,8 @@ export default {
   name: "ActivityList",
   data() {
     return {
+      toMatch: "",
+      matchList: [],
       content: "",
       building: "同心楼",
       roomno: 666,
@@ -188,6 +202,9 @@ export default {
       ],
     };
   },
+  created(){
+    this.search();
+  },
   methods: {
     publish() {
       this.$message({
@@ -207,6 +224,18 @@ export default {
     },
     handleClick(row) {
       console.log(row.activityID);
+    },
+    search: function () {
+      if (this.toMatch == "") {
+        this.matchList = this.tableData;
+      } else {
+        this.matchList = [];
+        for (var i = 0; i < this.tableData.length ; i++) {
+          if (this.tableData[i].activityname.search(this.toMatch) != -1) {
+            this.matchList.push(this.tableData[i]);
+          }
+        }
+      }
     },
   },
 };

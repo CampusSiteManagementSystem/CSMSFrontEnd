@@ -1,109 +1,108 @@
 ﻿<template>
-  <div class="page">
-    <div class="background">
-      <el-card>
-        <div>
-          <h2>场地使用申请</h2>
-        </div>
-        <div id="content">
-          <el-form
-            ref="applyform"
-            :rules="rules"
-            :model="ruleform"
-            label-width="100px"
-          >
-            <el-form-item label="活动名称：" prop="name">
-              <el-input
-                class="titlename"
-                type="text"
-                placeholder="请输入内容"
-                v-model="ruleform.name"
-                maxlength="20"
-                show-word-limit
-                clearable
-              >
-              </el-input>
-            </el-form-item>
-            <el-form-item label="场地：" prop="site">
-              <el-cascader
-                placeholder="搜索"
-                :options="options"
-                :show-all-levels="false"
-                v-model="ruleform.site"
-                @change="getSite"
-                clearable
-                filterable
-              ></el-cascader>
-              
-            </el-form-item>
-            <el-form-item label="选择日期：" prop="date">
-              <el-date-picker
-                clearable
-                v-model="ruleform.date"
-                align="right"
-                type="date"
-                placeholder="选择日期"
-                :picker-options="pickerOptions"
-                value-format="yyyy-MM-dd"
-              ></el-date-picker>
-            </el-form-item>
-            <el-form-item label="选择时间：" prop="time">
-              <el-time-picker
-                is-range
-                v-model="ruleform.time"
-                range-separator="至"
-                start-placeholder="开始时间"
-                end-placeholder="结束时间"
-                placeholder="选择时间范围"
-                @change="getTime"
-                value-format="HH:mm"
-              ></el-time-picker>
-            </el-form-item>
-            <el-form-item label="活动描述：" prop="description">
-              <el-input
-                clearable
-                class="input"
-                type="textarea"
-                :rows="4"
-                placeholder="请输入内容"
-                v-model="ruleform.description"
-              >
-              </el-input>
-            </el-form-item>
-            <el-form-item label="人数：" prop="people">
-              <el-input-number
-                v-model="ruleform.people"
-                @change="handleChange"
-                :min="1"
-                :max="200"
-                label="描述文字"
-              >
-              </el-input-number>
-            </el-form-item>
-            <el-form-item label="特殊需求：" prop="special">
-              <el-input
-                clearable
-                class="input"
-                type="textarea"
-                :rows="2"
-                placeholder="请输入内容"
-                v-model="ruleform.special"
-              >
-              </el-input>
-            </el-form-item>
-            <el-form-item align="center">
-              <el-button type="primary" @click="submitForm('applyform')"
-                >提交</el-button
-              >
-              <router-link to="/OrgFrame/Appointment" tag="el-button"
-                >取消</router-link
-              >
-            </el-form-item>
-          </el-form>
-        </div>
-      </el-card>
+  <el-card class="maincard">
+    <div slot="header" class="clearfix">
+      <span><b>使用场地申请</b></span>
     </div>
-  </div>
+    <el-row>
+      <el-col :span="12">
+      <el-form
+        ref="applyform"
+        :rules="rules"
+        :model="ruleform"
+        label-width="100px"
+      >
+        <el-form-item label="活动名称：" prop="name">
+          <el-input
+            class="titlename"
+            type="text"
+            placeholder="请输入内容"
+            v-model="ruleform.name"
+            maxlength="20"
+            show-word-limit
+            clearable
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item label="场地：" prop="site">
+          <el-cascader
+            placeholder="搜索"
+            :options="options"
+            :show-all-levels="false"
+            v-model="ruleform.site"
+            @change="getSite"
+            clearable
+            filterable
+          ></el-cascader>
+        </el-form-item>
+        <el-form-item label="选择日期：" prop="date">
+          <el-date-picker
+            clearable
+            v-model="ruleform.date"
+            align="right"
+            type="date"
+            placeholder="选择日期"
+            :picker-options="pickerOptions"
+            value-format="yyyy-MM-dd"
+          ></el-date-picker>
+        </el-form-item>
+        <el-form-item label="选择时间：" prop="time">
+          <el-time-picker
+            is-range
+            v-model="ruleform.time"
+            range-separator="至"
+            start-placeholder="开始时间"
+            end-placeholder="结束时间"
+            placeholder="选择时间范围"
+            @change="getTime"
+            value-format="HH:mm"
+          ></el-time-picker>
+        </el-form-item>
+        <el-form-item label="活动描述：" prop="description">
+          <el-input
+            clearable
+            class="input"
+            type="textarea"
+            :rows="4"
+            placeholder="请输入内容"
+            v-model="ruleform.description"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item label="人数：" prop="people">
+          <el-input-number
+            v-model="ruleform.people"
+            @change="handleChange"
+            :min="1"
+            :max="200"
+            label="描述文字"
+          >
+          </el-input-number>
+        </el-form-item>
+        <el-form-item label="特殊需求：" prop="special">
+          <el-input
+            clearable
+            class="input"
+            type="textarea"
+            :rows="2"
+            placeholder="请输入内容"
+            v-model="ruleform.special"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item align="center">
+          <el-button type="primary" @click="submitForm('applyform')"
+            >提交</el-button
+          >
+          <router-link to="/OrgFrame/Appointment" tag="el-button"
+            >取消</router-link
+          >
+        </el-form-item>
+      </el-form>
+      </el-col>
+      <el-col :span="12">
+      </el-col>
+    </el-row>
+  </el-card>
 </template>
 
 <script scoped>
@@ -125,7 +124,23 @@ export default {
         ],
         date: [{ required: true, message: "请选择活动日期", trigger: "blur" }],
         time: [
-          { required: true, message: "请选择日期时间段", trigger: "blur" },
+          {
+            required: true,
+            trigger: "blur",
+            validator: (rule, value, callback) => {
+              if (
+                (this.ruleform.time[1][0] - this.ruleform.time[0][0]) * 600 +
+                  (this.ruleform.time[1][1] - this.ruleform.time[0][1]) * 60 +
+                  (this.ruleform.time[1][3] - this.ruleform.time[0][3]) * 10 +
+                  (this.ruleform.time[1][4] - this.ruleform.time[0][4]) * 1 <
+                30
+              ) {
+                callback(new Error("时长不超过30分钟"));
+              } else {
+                callback();
+              }
+            },
+          },
         ],
         description: [
           { required: true, message: "请输入活动描述", trigger: "blur" },
@@ -439,7 +454,10 @@ export default {
         site: [],
         date: "",
         time: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
-        name: (typeof(this.$route.query.activityName)==undefined)?"":this.$route.query.activityName,
+        name:
+          typeof this.$route.query.activityName == undefined
+            ? ""
+            : this.$route.query.activityName,
         description: "",
         special: "",
         doration: 0,
@@ -482,9 +500,9 @@ export default {
             },
           });
         } else {
-          console.log("ID",this.$route.query.activityID);
-          console.log("name",this.$route.query.activityName);
-          console.log("ground",this.$route.query.groundID);
+          console.log("ID", this.$route.query.activityID);
+          console.log("name", this.$route.query.activityName);
+          console.log("ground", this.$route.query.groundID);
           console.log("error submit!!");
           return false;
         }
@@ -493,13 +511,24 @@ export default {
     searchSite() {
       console.log("name", this.$route.query.groundID);
       console.log(this.options);
-      if (typeof (this.$route.query.groundID) != undefined) {
+      if (typeof this.$route.query.groundID != undefined) {
         for (var i = 0; i < this.options.length; i++) {
           for (var j = 0; j < this.options[i].children.length; j++) {
-            for (var k = 0; k < this.options[i].children[j].children.length; k++) {
-              if (this.$route.query.groundID == this.options[i].children[j].children[k].value) {
+            for (
+              var k = 0;
+              k < this.options[i].children[j].children.length;
+              k++
+            ) {
+              if (
+                this.$route.query.groundID ==
+                this.options[i].children[j].children[k].value
+              ) {
                 console.log("sure", this.$route.query.groundID);
-                this.ruleform.site = [this.options[i].value, this.options[i].children[j].value, this.options[i].children[j].children[k].value];
+                this.ruleform.site = [
+                  this.options[i].value,
+                  this.options[i].children[j].value,
+                  this.options[i].children[j].children[k].value,
+                ];
                 return;
               }
             }
@@ -508,47 +537,35 @@ export default {
       } else {
         console.log("sure", this.$route.query.groundID);
       }
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
-.logoImage {
-  height: 25%;
-  width: 25%;
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
 }
-.maintitle {
-  text-align: center;
-  font-size: 27px;
+.clearfix:after {
+  clear: both;
 }
-.page {
+.clearfix {
+  font-size: 18px;
+}
+
+.maincard {
+  border-radius: 15px;
   height: 100%;
-  width: 100%;
-  margin: 0;
-  display: flex;
-  background-color: rgb(236, 233, 233);
-  background: rgba(240, 235, 235, 0.5);
-  justify-content: center;
-  align-items: center;
+  overflow: auto;
 }
-.background {
-  margin: 0;
-  height: 98%;
-  width: 99%;
-  background-color: rgb(255, 255, 255);
-  background: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-  position: relative;
-}
-.el-card {
-  height: 100%;
-}
-#content {
+/* #content {
   position: absolute;
   left: 350px;
   top: 90px;
-}
+} */
 .titlename {
   width: 100%;
 }
