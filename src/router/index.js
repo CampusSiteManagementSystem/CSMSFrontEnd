@@ -42,6 +42,15 @@ const routes = [
                 }
             },
             {
+                path: "ModifyPassword",
+                name: "StuModifyPassword",
+                component: () =>
+                    import('../page/Shared/ModifyPassword.vue'),
+                meta: {
+                    title: '修改密码'
+                }
+            },
+            {
                 path: "Main",
                 name: "StudentFrameMain",
                 component: () =>
@@ -198,6 +207,15 @@ const routes = [
                 import('../page/SystemAdmin/SystemAdminHomePage.vue')
         },
         {
+            path: "ModifyPassword",
+            name: "SysAdminModifyPassword",
+            component: () =>
+                import('../page/Shared/ModifyPassword.vue'),
+            meta: {
+                title: '修改密码'
+            }
+        },
+        {
             path: 'CheckSite',
             name: 'OrgCheckSite',
             meta: {
@@ -309,7 +327,16 @@ const routes = [
                 },
                 component: () =>
                     import('../page/Shared/ShowPlaceDetail.vue')
-            }, {
+            },             
+            {
+                path: "ModifyPassword",
+                name: "OrgModifyPassword",
+                component: () =>
+                    import('../page/Shared/ModifyPassword.vue'),
+                meta: {
+                    title: '修改密码'
+                }
+            },{
                 path: "Main",
                 name: "OrganizationFrameMain",
                 meta: {
@@ -463,6 +490,15 @@ const routes = [
                     import('../page/Grandsman/GroundsmanAccountModify.vue'),
                 meta: {
                     title: '个人信息'
+                }
+            },
+            {
+                path: "ModifyPassword",
+                name: "GroundsmanModifyPassword",
+                component: () =>
+                    import('../page/Shared/ModifyPassword.vue'),
+                meta: {
+                    title: '修改密码'
                 }
             },
             {
