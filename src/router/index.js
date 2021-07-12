@@ -75,7 +75,7 @@ const routes = [
                     title: '活动详情'
                 }
             }, {
-                path: "ViewActivities",
+                path: "ViewActivities/:ID",
                 name: "ViewActivities",
                 component: () =>
                     import ('../page/Shared/check_activity.vue'),
@@ -254,10 +254,10 @@ const routes = [
             component: () =>
                 import('../page/Organization/OrganizationMain.vue')
         }, {
-            path: 'CheckActivity',
-            name: 'CreditActivityWindow',
+            path: 'ViewActivities/:ID',
+            name: 'ViewActivities',
             meta: {
-                title: '所有活动'
+                title: '查看活动'
             },
             component: () =>
                 import('../page/Shared/check_activity.vue')
