@@ -38,11 +38,7 @@
               >
             </template>
           </el-table-column>
-
           <el-table-column prop="details" label="房间号"> </el-table-column>
-          <!-- <el-table-column prop="building" label="楼号"> </el-table-column>
-          <el-table-column prop="floor" label="层号"> </el-table-column>
-          <el-table-column prop="room" label="房间号"> </el-table-column> -->
           <el-table-column prop="capacity" label="可容纳人数">
           </el-table-column>
           <el-table-column prop="description" label="详情"> </el-table-column>
