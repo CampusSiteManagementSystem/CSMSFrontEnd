@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="18">
           <div>
-            <h2>查看活动</h2>
+            <h2>{{(this.$route.params.ID == 'AllActivities') ? '全部活动' : this.$route.params.ID+'举办的活动'}}</h2>
           </div>
         </el-col>
         <el-col :span="6">
@@ -159,10 +159,10 @@ export default {
   },
   mounted() {
     var axios = require('axios');
-            
+    var url = (this.$route.params.ID == 'AllActivities') ? 'http://139.196.114.7/api/activities?notHeld=false' : ('http://139.196.114.7/api/activities?notHeld=false&accountNumber=' + this.$route.params);
     var config = {
         method: 'get',
-        url: 'http://139.196.114.7/api/activities?notHeld=false',
+        url: url,
         headers: { }
     };
                 

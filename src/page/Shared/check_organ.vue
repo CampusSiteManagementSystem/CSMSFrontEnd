@@ -24,9 +24,9 @@
         stripe
       >
         <el-table-column prop="name" label="组织名称"> </el-table-column>
-        <el-table-column prop="description" label="组织描述" width="450">
+        <el-table-column prop="detailInfo" label="组织描述" width="450">
         </el-table-column>
-        <el-table-column prop="manager" label="负责人"> </el-table-column>
+        <el-table-column prop="functionary" label="负责人"> </el-table-column>
         <el-table-column
           prop="telephone"
           label="联系方式"
@@ -36,7 +36,7 @@
         </el-table-column>
         <el-table-column prop="type" label="组织类型" align="center">
           <template slot-scope="scope">
-            {{ scope.row.type == 1 ? "班级" : "社团" }}
+            {{ scope.row.type == '1' ? "班级" : "社团" }}
           </template>
         </el-table-column>
         <el-table-column width="100" label="操作">
@@ -63,14 +63,14 @@
             </div>
           </el-col>
           <el-col :span="16">
-            <p><b>组织账号：</b>{{ orgSelected.accountNum }}</p>
+            <p><b>组织账号：</b>{{ orgSelected.accountNumber }}</p>
             <p>
-              <b>组织类型：</b>{{ orgSelected.type == 1 ? "班级" : "社团" }}
+              <b>组织类型：</b>{{ orgSelected.type == '1' ? "班级" : "社团" }}
             </p>
-            <p><b>邮箱：</b>{{ orgSelected.email }}</p>
-            <p><b>负责人：</b>{{ orgSelected.manager }}</p>
+            <p><b>邮箱：</b>{{ orgSelected.emailAddress }}</p>
+            <p><b>负责人：</b>{{ orgSelected.functionary }}</p>
             <p><b>联系电话：</b>{{ orgSelected.telephone }}</p>
-            <p><b>组织简介：</b>{{ orgSelected.description }}</p>
+            <p><b>组织简介：</b>{{ orgSelected.detailInfo }}</p>
             <router-link
               :to="{
                 name: 'ViewActivities',
@@ -127,66 +127,54 @@ export default {
       matchList: [],
       dialogVisible: false,
       orgSelected: {
-        accountNum: "",
-        name: "",
-        type: 0,
-        description: "",
-        manager: "",
-        telephone: "",
-        email: "",
+        accountNumber:"asdfng ",
+        name:"string",
+        credit:100,
+        detailInfo:"string",
+        emailAddress:"string",
+        joinDate:"2021-07-06T06:40:42",
+        functionary:"string",
+        telephone:"string",
+        type:"0",
+        state:"0"
       },
       //表格的返回值
-      tableData: [
-        {
-          accountNum: "1950668",
-          name: "数据库小组1",
-          type: 1,
-          description: "2021春数据库课程设计小组",
-          manager: "李俊杰",
-          telephone: "12322233333",
-          email: "1950668@tongji.edu.cn",
-        },
-        {
-          accountNum: "1956545",
-          name: "数据库小组2",
-          type: 1,
-          description: "2021春数据库课程设计小组",
-          manager: "李俊杰",
-          telephone: "12322233333",
-          email: "1950668@tongji.edu.cn",
-        },
-        {
-          accountNum: "2034534",
-          name: "数据库小组3",
-          type: 1,
-          description: "2021春数据库课程设计小组",
-          manager: "李俊杰",
-          telephone: "12322233333",
-          email: "1950668@tongji.edu.cn",
-        },
-        {
-          accountNum: "2156666",
-          name: "数据库小组4",
-          type: 1,
-          description: "2021春数据库课程设计小组",
-          manager: "李俊杰",
-          telephone: "12322233333",
-          email: "1950668@tongji.edu.cn",
-        },
-        {
-          accountNum: "1920001",
-          name: "数据库小组5",
-          type: 1,
-          description: "2021春数据库课程设计小组",
-          manager: "李俊杰",
-          telephone: "12322233333",
-          email: "1950668@tongji.edu.cn",
-        },
-      ],
+      tableData: [],
     };
   },
-  created() {
-    this.matchList = this.tableData;
+  mounted() {
+    var axios = require('axios');
+    var config = {
+      method: 'get',
+      url: 'http://139.196.114.7/api/Organizations',
+      headers: { }
+    };
+                
+    axios(config)
+    .then(response => {
+      this.tableData = [];
+      for (let org of response.data){
+        this.tableData.push(org);
+      }
+      this.matchList = this.tableData;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+                
+    axios(config)
+        .then(response => {
+        this.tableData = [];
+        for (let key of Object.keys(response.data)){
+          for (let a of response.data[key]){
+            this.tableData.push(a);
+          }
+        }
+        this.matchList = this.tableData;
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
   },
 
   methods: {
