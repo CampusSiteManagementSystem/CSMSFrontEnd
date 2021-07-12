@@ -1,4 +1,6 @@
 <template>
+<transition name="el-fade-in-linear">
+  <el-collapse-transition>
   <div class="maindiv">
     <el-card class="maincard">
       <div class="maintitle">活动反馈</div>
@@ -48,10 +50,12 @@
       </el-table>
     </el-card>
   </div>
+   </el-collapse-transition>
+    </transition>
 </template>
 
 
-<style>
+<style scpoed>
 html,
 body,
 #app,

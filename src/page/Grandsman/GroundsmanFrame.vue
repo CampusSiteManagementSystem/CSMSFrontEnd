@@ -148,9 +148,7 @@ body,
   height: 40px;
   width: 40px;
 } */
-.el-card {
-  border-radius: 15px;
-}
+
 /* 面包屑导航 */
 .el-breadcrumb {
   /* background-color: thistle; */

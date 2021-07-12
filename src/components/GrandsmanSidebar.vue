@@ -57,7 +57,7 @@ export default {
 };
 </script>
 
-<style>
+<style scpoed>
   .logoImage {
     height: 90%;
     width: 90%;

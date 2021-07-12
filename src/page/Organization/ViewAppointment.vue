@@ -298,12 +298,11 @@
 export default {
   data() {
     return {
-      tableData: [
-        {
+      tableData: [{
           date: "2016-05-02",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄",
-          ID: "1111111111111",
+          ID: "11111",
           people: 40,
           require: "无",
           details: "听数据库开会",
@@ -313,7 +312,7 @@ export default {
           date: "2016-05-04",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1517 弄",
-          ID: "11111111111111",
+          ID: "11112",
           people: 40,
           require: "无",
           details: "听数据库开会",
@@ -323,7 +322,7 @@ export default {
           date: "2016-05-01",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1519 弄",
-          ID: "11111111111111",
+          ID: "11113",
           people: 40,
           require: "无",
           details: "听数据库开会",
@@ -333,7 +332,7 @@ export default {
           date: "2016-05-03",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11111121111111111111111",
+          ID: "11114",
           people: 40,
           require: "无",
           details: "听数据库开会",
@@ -343,7 +342,7 @@ export default {
           date: "2016-05-03",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11111121111111111111111",
+          ID: "11115",
           people: 4,
           require: "无",
           details: "听数据库开会",
@@ -353,7 +352,7 @@ export default {
           date: "2016-05-03",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11111121111111111111111",
+          ID: "11116",
           people: 40,
           require: "无",
           details: "听数据库开会",
@@ -363,7 +362,7 @@ export default {
           date: "2016-05-03",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11111121111111111111111",
+          ID: "11117",
           people: 40,
           require: "无",
           details: "听数据库开会",
@@ -373,7 +372,7 @@ export default {
           date: "2016-05-15",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11111121111111111111111",
+          ID: "11118",
           people: 40,
           require: "无",
           details: "听数据库开会",
@@ -383,7 +382,7 @@ export default {
           date: "2016-06-03",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11111121111111111111111",
+          ID: "11119",
           people: 40,
           require: "无",
           details: "听数据库开会",
@@ -393,7 +392,7 @@ export default {
           date: "2016-05-03",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11111121111111111111111",
+          ID: "11120",
           people: 40,
           require: "无",
           details: "听数据库开会",
@@ -403,7 +402,7 @@ export default {
           date: "2016-05-03",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11111121111111111111111",
+          ID: "11121",
           people: 40,
           require: "无",
           details: "听数据库开会",
@@ -426,11 +425,19 @@ export default {
     handleDelete1(index, row) {
       console.log(index, row);
       this.$confirm("此操作将永久删除该活动信息, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
         .then(() => {
+          for (var i = 0; i < this.tableData.length; i++) {
+            if (
+              this.tableData[i].ID == row.ID
+            ) {
+              this.tableData.splice(i, 1);
+              break;
+            }
+          }
           this.$message({
             type: "success",
             message: "删除成功!",
@@ -446,11 +453,19 @@ export default {
     handleDelete2(index, row) {
       console.log(index, row);
       this.$confirm("此操作将永久删除该活动信息, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
         .then(() => {
+          for (var i = 0; i < this.tableData.length; i++) {
+            if (
+              this.tableData[i].ID == row.ID
+            ) {
+              this.tableData.splice(i, 1);
+              break;
+            }
+          }
           this.$message({
             type: "success",
             message: "删除成功!",
@@ -475,15 +490,30 @@ export default {
     },
     handleCurrentChange2(val) {
       this.currentRow = val;
-      this.$router.push("/OrgFrame/Pending");
+      this.$router.push({
+        name: 'PendingWindow',
+        params: {
+          activityID: val.ID
+        }
+      });
     },
     handleCurrentChange3(val) {
       this.currentRow = val;
-      this.$router.push("/OrgFrame/RecordDetails");
+      this.$router.push({
+        name: 'RecordWindow',
+        params: {
+          activityID: val.ID
+        }
+      });
     },
     handleCurrentChange4(val) {
       this.currentRow = val;
-      this.$router.push("/OrgFrame/Rejected");
+      this.$router.push({
+        name: 'RejectedWindow',
+        query: {
+          activityID: val.ID
+        }
+      });
     },
   },
 };

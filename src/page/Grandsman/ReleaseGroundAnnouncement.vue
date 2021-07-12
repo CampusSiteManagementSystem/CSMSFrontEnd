@@ -29,7 +29,7 @@
 
 
 
-<style>
+<style scpoed>
 html,
 body,
 #app,
@@ -62,12 +62,7 @@ body,
 .groundinfo {
   text-align: center;
 }
-/* .el-card {
-  height: 99.6%;
-} */
-/* .el-input {
-  height: 50%;
-} */
+
 </style>
 
 

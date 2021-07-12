@@ -2,17 +2,26 @@
     <div class="page">
         <div class="background">
             <div style="height: 300px;" class="progress">
-  <el-steps direction="vertical" :active="3" finish-status="success">
-    <el-step title="申请预约">
-        <template slot="description">
-                  <p>活动名称：{{formInline.area}}</p>
-                  <p>活动时间：{{formInline.time}}</p>
-        </template>
-    </el-step>
-    <el-step title="待审核" description="审核已经结束"></el-step>
-    <el-step title="已完成" description="审核已经完成"></el-step>
-  </el-steps>
-</div>
+                <el-steps direction="vertical" :active="3" finish-status="success">
+                    <el-step title="申请预约">
+                        <template slot="description">
+                            <p>活动名称：{{formInline.area}}</p>
+                            <p>活动时间：{{formInline.time}}</p>
+                        </template>
+                    </el-step>
+                    <el-step title="待审核">
+                    <template slot="description">
+                        <p>审核管理员ID：2333</p>
+                        <p>审核时间：{{formInline.time}}</p>
+                    </template>
+                    </el-step>
+                    <el-step title="已完成">
+                        <template slot="description">
+                            <p>审核结果：已通过</p>
+                        </template>
+                    </el-step>
+                </el-steps>
+            </div>
             <i class="el-icon-success"></i>
             <span id="applytitle">审核通过</span>
             <div id="content">

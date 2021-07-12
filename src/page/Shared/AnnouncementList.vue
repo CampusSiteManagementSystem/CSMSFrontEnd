@@ -100,7 +100,7 @@ export default {
 };
 </script>
 
-<style>
+<style scpoed>
 html,
 body,
 #app,

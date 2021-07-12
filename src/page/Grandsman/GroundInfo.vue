@@ -58,7 +58,7 @@
 
 
 
-<style>
+<style scpoed>
 html,
 body,
 #app,

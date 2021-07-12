@@ -331,7 +331,7 @@ export default {
 };
 </script>
 
-<style>
+<style scpoed>
 .upper-card,
 .lower-card {
   overflow: auto;
