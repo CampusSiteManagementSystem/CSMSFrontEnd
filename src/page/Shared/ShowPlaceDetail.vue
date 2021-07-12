@@ -27,7 +27,7 @@
           height="450"
           stripe
         >
-          <el-table-column prop="groundID" label="场地编号"> </el-table-column>
+          <el-table-column prop="groundId" label="场地编号"> </el-table-column>
 
           <el-table-column label="类型" width="auto">
             <template slot-scope="scope">
@@ -38,11 +38,7 @@
               >
             </template>
           </el-table-column>
-
-          <el-table-column prop="details" label="房间号"> </el-table-column>
-          <!-- <el-table-column prop="building" label="楼号"> </el-table-column>
-          <el-table-column prop="floor" label="层号"> </el-table-column>
-          <el-table-column prop="room" label="房间号"> </el-table-column> -->
+          <el-table-column prop="name" label="场地名称"> </el-table-column>
           <el-table-column prop="capacity" label="可容纳人数">
           </el-table-column>
           <el-table-column prop="description" label="详情"> </el-table-column>
@@ -109,123 +105,73 @@
 </template>
 
 <script>
+import { GETGrounds } from "../../API/http";
 export default {
   data() {
-    const item = {
-      groundID: "123123",
-      type: "室外",
-      building: "F",
-      floor: "4",
-      room: "402",
-      capacity: 100,
-      description: "F楼402大教室",
-      details: this.building + this.room,
-    };
-    // const places = [
-    //   {
-    //     // eslint-disable-line no-unused-vars
-    //     value: "indoor",
-    //     label: "室内",
-    //     children: [
-    //       {
-    //         value: "F",
-    //         label: "F",
-    //         children: [
-    //           {
-    //             value: "F1",
-    //             label: "F1",
-    //           },
-    //           {
-    //             value: "F2",
-    //             label: "F2",
-    //           },
-    //           {
-    //             value: "F3",
-    //             label: "F3",
-    //           },
-    //           {
-    //             value: "F4",
-    //             label: "F4",
-    //           },
-    //         ],
-    //       },
-    //     ],
-    //   },
-    //   {
-    //     value: "outdoor",
-    //     label: "室外",
-    //     children: [
-    //       {
-    //         value: "basketballPlace",
-    //         label: "篮球场",
-    //         children: [
-    //           {
-    //             value: "basketballPlace1",
-    //             label: "篮球场1",
-    //           },
-    //           {
-    //             value: "basketballPlace2",
-    //             label: "篮球场2",
-    //           },
-    //         ],
-    //       },
-    //       {
-    //         value: "footballPlace",
-    //         label: "足球场",
-    //         children: [
-    //           {
-    //             value: "footballPlace1",
-    //             label: "足球场1",
-    //           },
-    //           {
-    //             value: "footballPlace2",
-    //             label: "足球场2",
-    //           },
-    //         ],
-    //       },
-    //     ],
-    //   },
-    // ];
+    // const item = {
+    //   groundId: "123123",
+    //   type: "室外",
+    //   building: "F",
+    //   floor: "4",
+    //   room: "402",
+    //   capacity: 100,
+    //   description: "F楼402大教室",
+    //  name:"F402",
+    // };
 
     return {
-      tableData: Array(20).fill(item),
+      // tableData: Array(20).fill(item),
+      tableData: [],
       // options: places,
       othertype: !this.membertype,
       matchList: [],
       toMatch: "",
-      item: item,
+      // item: item,
       childPage: false,
-      // baseUrl,
-      // baseImgPath,
-      // city: {},
-      // offset: 0,
-      // limit: 20,
-      // count: 0,
-      // // tableData: [],
-      // currentPage: 1,
-      // selectTable: {},
-      // dialogFormVisible: false,
-      // categoryOptions: [],
-      // selectedCategory: [],
-      // address: {},
+      axiosdata: null,
     };
   },
   created() {
     this.matchList = this.tableData;
   },
+  computed: {
+   
+  },
   mounted() {
     console.log("run mounted");
-    // console.log("mounted membertype student");
-    // console.log(this.membertype);
-    // console.log(this.othertype);
+    const that = this;
+
+    GETGrounds()
+      .then((data) => {
+        that.axiosdata = data;
+        that.tableData = that.dealWith(that.axiosdata);
+
+        console.log(that.axiosdata[0]);
+      })
+      .catch((err) => {
+        that.data = err;
+      });
+
+    
+    // this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
     this.item.details = this.item.building + this.item.room;
-    // console.log("mounted detail", this.item);
-        this.childPage = this.$route.name=="StuShowPlaceDetail" ? false : true;
+    this.childPage =
+      this.$route.name == "StuShowPlaceDetail" ||
+      this.$route.name == "OrgCheckSite"
+        ? false
+        : true;
   },
   updated() {
-      console.log("run updated");
-      this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
-    },
+    this.childPage =
+      this.$route.name == "StuShowPlaceDetail" ||
+      this.$route.name == "OrgCheckSite"
+        ? false
+        : true;
+  },
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    $route: "handleEdit", //getOrderInfo为自定义方法
+  },
   methods: {
     search: function () {
       if (this.toMatch == "") {
@@ -233,29 +179,66 @@ export default {
       } else {
         this.matchList = [];
         for (var i = 0; i < this.tableData.length; i++) {
-          if (this.tableData[i].details.search(this.toMatch) != -1) {
+          if (this.tableData[i].name.search(this.toMatch) != -1) {
             this.matchList.push(this.tableData[i]);
           }
         }
       }
     },
     handleEdit() {
-      this.childPage = !this.childPage;
+      console.log("handleedit");
+      this.childPage =
+        this.$route.name == "StuShowPlaceDetail" ||
+        this.$route.name == "OrgCheckSite"
+          ? false
+          : true;
     },
-    mounted() {
-      console.log("run mounted");
-      this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
-    },
-    // mounted(){
+     dealWith(data) {
+      //         accountNumber: "1000003"
+      // area: 200
+      // computerNum: null
+      // description: "这是一个用于学生上课的地方"
+      // empty: null
+      // floor: null
+      // groundId: "1000003"
+      // latitude: null
+      // longitude: null
+      // name: "G302"
+      // roomNo: null
+      // seatNum: null
+      // type: "室内"
 
-    // },
+      for (var i = 0; i < data.length; i++) {
+        var temp = {
+          groundId: "123123",
+          name:"F202",
+          type: "室外",
+          capacity: 100,
+          description: "F楼402大教室",
+        };
+        temp.groundId=data[i].groundId;
+        temp.name=data[i].name;
+        temp.description=data[i].description;
+        temp.type=data[i].type;
+        temp.capacity=data[i].area;
+        this.tableData.push(temp);
+      }
+
+      //  groundID: "123123",
+      //       type: "室外",
+      //       building: "F",
+      //       floor: "4",
+      //       room: "402",
+      //       capacity: 100,
+      //       description: "F楼402大教室",
+      //       details: this.building + this.room,
+    },
+
+
     // beforeUpdate() {
 
     // }
-    updated() {
-      console.log("run mounted");
-      this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
-    },
+
     // handleEdit() {},
     // handleEdit(index, row) {
 

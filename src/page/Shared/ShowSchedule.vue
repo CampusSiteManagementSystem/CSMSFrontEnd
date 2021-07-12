@@ -18,13 +18,16 @@
     <el-row :gutter="10" type="flex">
       <div class="grid-content">
         <el-card class="box-card">
-          <PicCard :buttonshow="othertype" :groundID="this.$route.params.groundID" />
+          <PicCard
+            :buttonshow="othertype"
+            :groundID="this.$route.params.groundID"
+          />
         </el-card>
       </div>
     </el-row>
     <el-row :gutter="10" type="flex">
       <el-card class="box-card">
-        <CourseTable />
+        <CourseTable :groundID="this.$route.params.groundID"/>
       </el-card>
     </el-row>
   </div>
@@ -70,6 +73,7 @@ export default {
       // }
     },
   },
+   
   props: {
     membertype: {
       //true代表学生，false代表组织
@@ -101,5 +105,4 @@ export default {
   height: 100%;
   border-radius: 15px;
 }
-
 </style>

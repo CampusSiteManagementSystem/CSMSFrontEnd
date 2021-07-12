@@ -27,7 +27,7 @@
               v-for="item in timeTable"
               class="left-text"
               v-bind:key="item.id"
-              :style="{ height: courseHeight + 'px' }"
+              :style="{ height: courseHeight + 'px' ,width:courseHeight*3+'px'}"
             >
               {{ item }}
             </div>
@@ -116,9 +116,11 @@ export default {
   data() {
     return {
       selectedCourseIndex: 0,
+      axiosdata: null,
     };
   },
   props: {
+    groundId:String,
     width: {
       type: Number,
       default: 1200,
@@ -139,9 +141,9 @@ export default {
         },
         {
           day: "2",
-          length: "2",
+          length: "2.5",
           name: "数据库",
-          startTime: "1",
+          startTime: "1.5",
           type: "一般课",
         },
         {
@@ -177,7 +179,8 @@ export default {
     },
     timeTable: {
       type: Array,
-      default: () => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      // default: () => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      default: () => ["8:00-9:00", "9:00-10:00", "9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00","13:00-14:00","14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00","19:00-20:00","20:00-21:00","21:00-22:00"],
     },
   },
   computed: {
@@ -193,12 +196,14 @@ export default {
   },
   created() {},
   mounted() {
-    console.log("11111");
+    
+    
     var axios = require("axios");
+    const that = this;
 
     var config = {
       method: "get",
-     
+
       url: "http://139.196.114.7/api/OccupyTimes/",
       params: {
         groundId: 1000007,
@@ -210,14 +215,81 @@ export default {
 
     axios(config)
       .then(function (response) {
-        console.log ("response.data",response.data);
-        console.log("JSON.stringify(response.data)",JSON.stringify(response.data));
+        that.axiosdata = response.data;
+        console.log("3response.data", response.data);
+        that.transportData();
+        // console.log(
+        //   "JSON.stringify(response.data)",
+        //   JSON.stringify(response.data)
+        // );
       })
       .catch(function (error) {
         console.log(error);
       });
   },
-  methods: {},
+  methods: {
+    getStartTime(time){
+      // time="2021-07-12T05:42:48.883Z";
+      console.log("time",time);
+      
+      
+     
+       var date =new Date( Date.parse(time.replace('T',' ').toString()));
+       date.getHours();
+
+      console.log("Date",date,date.getHours(),date.getMinutes(),(date.getHours()-7)+date.getMinutes()/60);
+      return (date.getHours()-7)+date.getMinutes()/60;
+
+    },
+    getLength(minutes){
+      // console.log(minutes);
+      // console.log(minutes/60);
+      return minutes/60;
+
+    },
+    transportData() {
+      console.log("1axiosdata", this.axiosdata);
+      for (var i = 0; i < this.axiosdata.length; i++) {
+        var temp = {
+          day: "1",
+          length: "3",
+          name: "普通物理",
+          startTime: "3",
+          type: "一般课",
+        };
+        temp.day=this.axiosdata[i].day;
+        temp.length=this.getLength(this.axiosdata[i].duration);
+        console.log(temp.length)
+        if(temp.length<=0.5)continue;
+        temp.name=this.axiosdata[i].name;
+        temp.startTime=this.getStartTime(this.axiosdata[i].startTime);
+        temp.type=this.axiosdata[i].type;
+        this.usualCourses.push(temp);
+      
+
+      }
+      console.log("2usualCourses", this.usualCourses);
+      //       axiosdata:[
+      //   {
+      //     "name": "string",
+      //     "day": 0,
+      //     "groundId": "string",
+      //     "startTime": "2021-07-12T05:42:48.883Z",
+      //     "duration": 0,
+      //     "description": "string",
+      //     "type": "string"
+      //   }
+      // ]
+      //       usualCourses:[
+      //         {
+      //           day: "1",
+      //           length: "3",
+      //           name: "普通物理",
+      //           startTime: "3",
+      //           type: "一般课",
+      //         },
+    },
+  },
 };
 </script>
  
@@ -261,6 +333,7 @@ export default {
 .period {
   background-color: #e7e8e8;
   color: rgb(0, 0, 0);
+  
 }
 .small-text {
   font-size: 22px;
