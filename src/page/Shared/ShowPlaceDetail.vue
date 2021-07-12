@@ -28,7 +28,6 @@
           stripe
         >
           <el-table-column prop="groundID" label="场地编号"> </el-table-column>
-          <!-- <el-table-column prop="type" label="是否室内"> </el-table-column> -->
 
           <el-table-column label="类型" width="auto">
             <template slot-scope="scope">
@@ -221,11 +220,11 @@ export default {
     // console.log(this.othertype);
     this.item.details = this.item.building + this.item.room;
     // console.log("mounted detail", this.item);
-        this.childPage = this.$route.meta.title == "场地细节" ? false : true;
+        this.childPage = this.$route.name=="StuShowPlaceDetail" ? false : true;
   },
   updated() {
       console.log("run updated");
-      this.childPage = this.$route.meta.title == "场地细节" ? false : true;
+      this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
     },
   methods: {
     search: function () {
@@ -245,7 +244,7 @@ export default {
     },
     mounted() {
       console.log("run mounted");
-      this.childPage = this.$route.meta.name == "场地细节" ? false : true;
+      this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
     },
     // mounted(){
 
@@ -255,7 +254,7 @@ export default {
     // }
     updated() {
       console.log("run mounted");
-      this.childPage = this.$route.meta.name == "场地细节" ? false : true;
+      this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
     },
     // handleEdit() {},
     // handleEdit(index, row) {

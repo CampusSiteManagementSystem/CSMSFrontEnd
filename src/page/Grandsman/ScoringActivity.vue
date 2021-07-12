@@ -120,6 +120,7 @@ body,
   font-weight: 600;
 }
 .maincard{
+  border-radius: 15px;
   height: 100%;
 }
 

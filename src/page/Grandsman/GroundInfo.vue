@@ -1,5 +1,5 @@
 <template>
-  <el-card class="main-card">
+  <el-card class="maincard">
     <el-row class="upper-row">
       <div class="block">
         <el-image :src="groundinfo.imgsrc">
@@ -71,19 +71,9 @@ body,
   height: 100%;
 }
 
-/* .el-header {
-  background-color: white;
-}
-.el-aside {
-  background-color: white;
-}
-.el-main {
-  background-color: rgb(237, 241, 245);
+.maincard{
+  border-radius: 15px;
   height: 100%;
-} */
-
-.main-card {
-  height: 10px;
   overflow: auto;
 }
 

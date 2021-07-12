@@ -1,10 +1,11 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-      <div class="maintitle" style="text-align:left;">待评分活动</div>
-      <el-divider></el-divider>
+      <div slot="header" class="clearfix">
+        <span><b>待评分活动</b></span>
+      </div>
       <el-table
-        height="475"
+        height="520"
         ref="filterTable"
         :data="tableData"
         style="width: 100%"
@@ -41,7 +42,10 @@
         <el-table-column label="操作" width="100">
           <template slot-scope="scope">
             <router-link
-              :to="{ name: 'ScoringActivity', params: { ID: scope.row.activityID } }"
+              :to="{
+                name: 'ScoringActivity',
+                params: { ID: scope.row.activityID },
+              }"
             >
               <el-button @click="handleClick(scope.row)" type="text"
                 >查看详情</el-button
@@ -56,45 +60,29 @@
 
 
 <style scpoed>
-html,
-body,
-#app,
-.el-container {
-  /*设置内部填充为0，几个布局元素之间没有间距*/
-  padding: 0px;
-  /*外部间距也是如此设置*/
-  margin: 0px;
-  /*统一设置高度为100%*/
-  height: 100%;
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
 }
 
-/* .el-header {
-  background-color: white;
+.clearfix:after {
+  clear: both;
 }
-.el-aside {
-  background-color: white;
-}
-.el-main {
-  background-color: rgb(237, 241, 245);
-  height: 100%;
-} */
-.maintitle {
-  font-size: 22px;
-  text-align: left;
-  font-weight: bold;
-  padding: 5px;
+.clearfix {
+  font-size: 20px;
 }
 .groundinfo {
   text-align: right;
 }
-.el-card {
+.maincard {
+  border-radius: 15px;
   height: 100%;
 }
 .maindiv {
   /* background-color: floralwhite; */
   height: 100%;
 }
-
 </style>
 
 
