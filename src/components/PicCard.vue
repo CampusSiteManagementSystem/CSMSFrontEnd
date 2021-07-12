@@ -5,59 +5,38 @@
         ><div>
           <img src="../assets/Indoor.jpg" class="image" /></div
       ></el-col>
-      <el-col :span="16" >
-        <!-- <div slot="header" class="clearfix"> -->
-          <div>
-            <h3>场地详情 </h3>
-          </div>
-        <el-row >
-          
-          
-              <p >场地名称：{{ building }}{{ room }}</p>
-              <p >场地类型：{{ placeType }}</p>
-              <p v-for="(value, key) in utils" :key="value">
-                {{ key }}:{{ value }}
-              </p>
-              <!-- <p class="">活动日期：{{ date }}</p>
-            <p class="">活动时间：{{ startTime }}</p> -->
-            
-              </el-row>
-              <el-row style="float:right">
-              <time class="time"
-                >{{ currentDate }}
-              <router-link :to="{
-                name: 'ApplySiteWindow',
-                query: { groundID: groundID },
-              }"
-              v-show="buttonshow">
-                <el-button type="text" @click.stop="handleApply()">预约</el-button></router-link
-                ></time
-              ><el-button
-                icon="el-icon-star-off"
-                class="button"
-                circle=""
-                size="mini"
-              ></el-button>
-              
-            
-          
+      <el-col :span="16">
+        <div>
+          <h3>场地详情</h3>
+        </div>
+        <el-row>
+          <p>场地名称：{{ building }}{{ room }}</p>
+          <p>场地类型：{{ placeType }}</p>
+          <p v-for="(value, key) in utils" :key="value">
+            {{ key }}:{{ value }}
+          </p>
         </el-row>
-
-        <!-- <p style="text-align: center; font-size: x-large">{{ room }}</p>
-        <p style="text-align: center; font-size: small">{{ building }}</p>
-        <span>{{ placeType }}</span>
-        <p v-for="(value, key) in utils" :key="value">{{ key }}:{{ value }}</p>
-        <time class="time"
-          >{{ currentDate }}
-          <router-link to="/ApplySite" v-show="buttonshow"
-            ><el-button type="text">预约</el-button></router-link
-          ></time
-        ><el-button
-          icon="el-icon-star-off"
-          class="button"
-          circle=""
-          size="mini"
-        ></el-button> -->
+        <el-row style="float: right">
+          <time class="time"
+            >{{ currentDate }}
+            <router-link
+              :to="{
+                name: 'ApplySiteWindow',
+                query: { groundId: groundId },
+              }"
+              v-show="buttonshow"
+            >
+              <el-button type="text" @click.stop="handleApply()"
+                >预约</el-button
+              ></router-link
+            ></time
+          ><el-button
+            icon="el-icon-star-off"
+            class="button"
+            circle=""
+            size="mini"
+          ></el-button>
+        </el-row>
       </el-col>
     </el-row>
   </div>
@@ -114,22 +93,22 @@ export default {
   },
   mounted() {
     console.log("PICCARD buttonshow", this.$props.buttonshow);
-    console.log("PICCARD groundID", this.$props.groundID);
+    console.log("PICCARD groundId", this.$props.groundId);
   },
   props: {
     buttonshow: {
       type: Boolean,
       default: false,
     },
-    groundID:{
+    groundId: {
       type: String,
       default: "",
     },
   },
   methods: {
-    handleApply(){
-      console.log("PICCARD groundID", this.$props.groundID);
-    }
-  }
+    handleApply() {
+      console.log("PICCARD groundId", this.$props.groundId);
+    },
+  },
 };
 </script>

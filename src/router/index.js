@@ -69,7 +69,7 @@ const routes = [
         },
 
         {
-            path: "ShowSchedule/:groundID",
+            path: "ShowSchedule/:groundId",
             name: "ShowScheduleforStuFav",
             props: {
                 membertype: true,
@@ -138,7 +138,7 @@ const routes = [
                 title: '场地列表'
             },
             children: [{
-                path: "ShowSchedule/:groundID",
+                path: "ShowSchedule/:groundId",
                 name: "ShowScheduleforStu",
                 props: {
                     membertype: true,
@@ -325,7 +325,7 @@ const routes = [
             component: () =>
                 import('../page/Shared/ShowPlaceDetail.vue'),
             children: [{
-                path: 'ShowSchedule/:groundID',
+                path: 'ShowSchedule/:groundId',
                 name: 'ShowScheduleforOrg',
                 meta: {
                     title: '场地使用详情'
@@ -609,7 +609,7 @@ const routes = [
                 import('../page/Grandsman/GroundInfo'),
         },
         {
-            path: "ShowSchedule/:groundID",
+            path: "ShowSchedule/:groundId",
             name: "ShowScheduleforStu",
             props: {
                 membertype: true,
