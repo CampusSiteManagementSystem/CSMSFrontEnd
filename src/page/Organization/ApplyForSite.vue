@@ -136,7 +136,11 @@ export default {
                 30
               ) {
                 callback(new Error("时长不超过30分钟"));
-              } else {
+              } else if(this.ruleform.time[1][0]=='2'&&this.ruleform.time[1][1]>='2'){
+                callback(new Error("场地晚间22点之后关闭申请"));
+              }else if(this.ruleform.time[0][0]<'8'){
+                callback(new Error("场地8点之前关闭申请"));
+              }else {
                 callback();
               }
             },

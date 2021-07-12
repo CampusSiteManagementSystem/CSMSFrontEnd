@@ -34,6 +34,7 @@
 </template>
 
 <script>
+
 import CourseTable from "../../components/CourseTable.vue";
 import PicCard from "../../components/PicCard.vue";
 export default {
