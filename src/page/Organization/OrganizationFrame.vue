@@ -62,7 +62,7 @@
               <span slot="title">查看</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/OrgFrame/ViewActivities/AllActivities">
+              <el-menu-item index="/OrgFrame/CheckActivity/AllActivities">
                 <i class="el-icon-date"></i>
                 查看活动
               </el-menu-item>

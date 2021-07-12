@@ -34,7 +34,6 @@
                 clearable
                 filterable
               ></el-cascader>
-              
             </el-form-item>
             <el-form-item label="选择日期：" prop="date">
               <el-date-picker
@@ -125,7 +124,23 @@ export default {
         ],
         date: [{ required: true, message: "请选择活动日期", trigger: "blur" }],
         time: [
-          { required: true, message: "请选择日期时间段", trigger: "blur" },
+          {
+            required: true,
+            trigger: "blur",
+            validator: (rule, value, callback) => {
+              if (
+                (this.ruleform.time[1][0] - this.ruleform.time[0][0]) * 600 +
+                  (this.ruleform.time[1][1] - this.ruleform.time[0][1]) * 60 +
+                  (this.ruleform.time[1][3] - this.ruleform.time[0][3]) * 10 +
+                  (this.ruleform.time[1][4] - this.ruleform.time[0][4]) * 1 <
+                30
+              ) {
+                callback(new Error("时长不超过30分钟"));
+              } else {
+                callback();
+              }
+            },
+          },
         ],
         description: [
           { required: true, message: "请输入活动描述", trigger: "blur" },
@@ -439,7 +454,10 @@ export default {
         site: [],
         date: "",
         time: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
-        name: (typeof(this.$route.query.activityName)==undefined)?"":this.$route.query.activityName,
+        name:
+          typeof this.$route.query.activityName == undefined
+            ? ""
+            : this.$route.query.activityName,
         description: "",
         special: "",
         doration: 0,
@@ -482,9 +500,9 @@ export default {
             },
           });
         } else {
-          console.log("ID",this.$route.query.activityID);
-          console.log("name",this.$route.query.activityName);
-          console.log("ground",this.$route.query.groundID);
+          console.log("ID", this.$route.query.activityID);
+          console.log("name", this.$route.query.activityName);
+          console.log("ground", this.$route.query.groundID);
           console.log("error submit!!");
           return false;
         }
@@ -493,13 +511,24 @@ export default {
     searchSite() {
       console.log("name", this.$route.query.groundID);
       console.log(this.options);
-      if (typeof (this.$route.query.groundID) != undefined) {
+      if (typeof this.$route.query.groundID != undefined) {
         for (var i = 0; i < this.options.length; i++) {
           for (var j = 0; j < this.options[i].children.length; j++) {
-            for (var k = 0; k < this.options[i].children[j].children.length; k++) {
-              if (this.$route.query.groundID == this.options[i].children[j].children[k].value) {
+            for (
+              var k = 0;
+              k < this.options[i].children[j].children.length;
+              k++
+            ) {
+              if (
+                this.$route.query.groundID ==
+                this.options[i].children[j].children[k].value
+              ) {
                 console.log("sure", this.$route.query.groundID);
-                this.ruleform.site = [this.options[i].value, this.options[i].children[j].value, this.options[i].children[j].children[k].value];
+                this.ruleform.site = [
+                  this.options[i].value,
+                  this.options[i].children[j].value,
+                  this.options[i].children[j].children[k].value,
+                ];
                 return;
               }
             }
@@ -508,7 +537,7 @@ export default {
       } else {
         console.log("sure", this.$route.query.groundID);
       }
-    }
+    },
   },
 };
 </script>
