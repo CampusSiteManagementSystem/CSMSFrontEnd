@@ -46,17 +46,22 @@
           </div> -->
           <!-- <el-divider content-position="center">详细信息</el-divider> -->
 
-          <el-form ref="form" label-width="80px">
+          <el-form
+            :model="ruleForm"
+            :rules="rules"
+            ref="ruleForm"
+            label-width="80px"
+          >
             <el-form-item label="评分">
               <el-input-number
-              size="small"
-              v-model="score"
-              :step="1"
-              :max="5"
-              :min="-5"
-            ></el-input-number>
+                size="small"
+                v-model="score"
+                :step="1"
+                :max="5"
+                :min="-5"
+              ></el-input-number>
             </el-form-item>
-            <el-form-item label="评分理由">
+            <el-form-item label="评分理由" prop="reason">
               <el-input
                 type="textarea"
                 :autosize="{ minRows: 5, maxRows: 10 }"
@@ -119,14 +124,13 @@ body,
   font-size: 20px;
   font-weight: 600;
 }
-.maincard{
+.maincard {
   height: 100%;
 }
 
 .detailinfo {
   padding-left: 15px;
 }
-
 </style>
 
 
@@ -136,6 +140,14 @@ export default {
   name: "creditscoring",
   data() {
     return {
+      ruleForm: {
+        reason: "",
+      },
+      rules: {
+        reason: [
+          { required: true, message: "请输入评分理由", trigger: "blur" },
+        ],
+      },
       activityName: "数据库会议",
       date: "2021-6-1",
       startTime: 13154112315,

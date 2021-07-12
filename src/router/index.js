@@ -235,13 +235,13 @@ const routes = [
                 import('../page/SystemAdmin/SystemAdminGroupVerify.vue')
         },
         {
-            path: "Announcement",
+            path: "SystemAnnouncement",
             name: "AnnouncementforSystem",
             meta: {
                 title: "发布公告",
             },
             component: () =>
-                import('../page/Shared/AnnouncementList.vue')
+                import('../page/SystemAdmin/SystemAnnouncement.vue')
         }
         ]
     },

@@ -1,7 +1,12 @@
 <template>
   <el-card class="maincard">
     <div class="maintitle">发布系统公告</div>
-    <el-form ref="ruleform" :rules="rules" :model="ruleform" label-width="100px">
+    <el-form
+      ref="ruleform"
+      :rules="rules"
+      :model="ruleform"
+      label-width="100px"
+    >
       <el-form-item label="选择日期：" prop="date">
         <el-date-picker
           v-model="ruleform.date"
@@ -23,7 +28,7 @@
           show-word-limit
         ></el-input>
       </el-form-item>
-      <el-form-item style="float:right">
+      <el-form-item style="float: right">
         <el-button type="primary" @click="publish">发布</el-button>
         <el-button @click="back">取消</el-button>
       </el-form-item>
@@ -67,14 +72,17 @@ export default {
   data() {
     return {
       rules: {
-        date: [{ required: true, message: "请选择活动日期", trigger: "blur" }],
+        date: [
+          { required: true, message: "请选择公告发布日期", trigger: "blur" },
+        ],
         time: [
-          { required: true, message: "请选择日期时间段", trigger: "blur" },
+          { required: true, message: "请选择公告发布时间段", trigger: "blur" },
         ],
         content: [
-          { required: true, message: "请输入活动描述", trigger: "blur" },
-        ]
+          { required: true, message: "请输入公告内容", trigger: "blur" },
+        ],
       },
+
       ruleform: {
         date: "",
         time: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
