@@ -128,7 +128,7 @@ const routes = [
                 component: () =>
                     import('../page/Shared/ShowPlaceDetail.vue'),
                 meta: {
-                    title: '场地详情'
+                    title: '场地列表'
                 },
                 children: [
                     {

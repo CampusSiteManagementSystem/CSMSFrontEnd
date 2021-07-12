@@ -215,17 +215,16 @@ export default {
   },
   mounted() {
     console.log("run mounted");
-    // console.log("mounted membertype student");
-    // console.log(this.membertype);
-    // console.log(this.othertype);
     this.item.details = this.item.building + this.item.room;
-    // console.log("mounted detail", this.item);
-        this.childPage = this.$route.name=="StuShowPlaceDetail" ? false : true;
+    this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
   },
   updated() {
-      console.log("run updated");
-      this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
-    },
+    this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
+  },
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    $route: "handleEdit", //getOrderInfo为自定义方法
+  },
   methods: {
     search: function () {
       if (this.toMatch == "") {
@@ -240,22 +239,17 @@ export default {
       }
     },
     handleEdit() {
-      this.childPage = !this.childPage;
-    },
-    mounted() {
-      console.log("run mounted");
+      console.log("handleedit");
       this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
     },
+
     // mounted(){
 
-    // },
+    // },F
     // beforeUpdate() {
 
     // }
-    updated() {
-      console.log("run mounted");
-      this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
-    },
+
     // handleEdit() {},
     // handleEdit(index, row) {
 
