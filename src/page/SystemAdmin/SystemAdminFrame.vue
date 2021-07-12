@@ -1,6 +1,6 @@
 <template>
   <el-container style="border: 1px solid #eee; height: 100%">
-    <el-header style="height: 8%; background-color: white">
+    <el-header class="header" style="height: 8%; ">
       <el-row class="header-row">
         <el-col :span="18" class="header-row-col1"
           ><el-row class="headerrow" type="flex" justify="left" align="middle">
@@ -27,7 +27,16 @@
                 src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
               ></el-avatar
             ></el-button>
-            <el-button type="text" @click="handleClick">场地管理员</el-button>
+              <el-dropdown trigger="click" @command="handleCommand">
+              <span class="el-dropdown-link" trigger="click">
+                系统管理员<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="accountInfo">账号信息</el-dropdown-item>
+                <el-dropdown-item command="modifyPassword">修改密码</el-dropdown-item>
+                <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </el-row></el-col
         >
       </el-row>
@@ -55,7 +64,7 @@
             <i class="el-icon-edit"></i>
             <span style="font-size: 14px">维护用户信息</span>
           </el-menu-item>
-          <el-menu-item index="/SysAdminFrame/Announcement">
+          <el-menu-item index="/SysAdminFrame/SystemAnnouncement">
             <i class="el-icon-document"></i>
             <span style="font-size: 14px">发布系统公告</span>
           </el-menu-item>
@@ -64,7 +73,9 @@
 
       <el-main style="height: 100%; overflow: auto">
         <keep-alive>
-          <router-view></router-view>
+          <transition name="fade-transform" mode="out-in">
+            <router-view style="height: 100%"></router-view>
+          </transition>
         </keep-alive>
       </el-main>
     </el-container>
@@ -89,6 +100,10 @@ body,
   overflow: auto;
   /* background-color: wheat; */
   background-color: rgb(237, 241, 245);
+}
+.header{
+  background-color:white;
+  padding-left: 16px;
 }
 .header-row {
   height: 100%;
@@ -156,12 +171,36 @@ export default {
     },
 
     handleClick() {
-      this.$router.push("/OrgFrame/OrgAccountModify");
+      this.$router.push("/SysAdminFrame/AccountModify");
     },
     /**
      * @description 获取路由数组
      * @params val 路由参数
      */
+
+    handleCommand(command) {
+      switch(command) {
+        case 'accountInfo':
+          this.$router.push({ path: "/SysAdminFrame/AccountModify" });
+          break;
+        case 'modifyPassword':
+          this.$router.push({ path: "/SysAdminFrame/ModifyPassword" });
+          break;
+        default:
+          this.confirmLogout();
+      }
+    },
+    
+    confirmLogout() {
+      this.$confirm('确认退出登录?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$router.push({ path: "/" });
+      })
+    },
+
     getBreadList(val) {
       // 过滤路由matched对象
       console.log("val.matched", val.matched);

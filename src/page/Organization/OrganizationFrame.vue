@@ -1,6 +1,6 @@
 <template>
   <el-container style="border: 1px solid #eee; height: 100%">
-    <el-header style="height: 8%; background-color: white">
+    <el-header class="header" style="height: 8%;">
       <el-row class="header-row">
         <el-col :span="18" class="header-row-col1"
           ><el-row class="headerrow" type="flex" justify="left" align="middle">
@@ -116,7 +116,9 @@
         style="height: 100%; overflow: auto; background: rgb(237, 241, 245)"
       >
         <keep-alive>
-          <router-view style="height: 100%"></router-view>
+          <transition name="fade-transform" mode="out-in">
+            <router-view style="height: 100%"></router-view>
+          </transition>
         </keep-alive>
       </el-main>
     </el-container>
@@ -209,7 +211,10 @@ body,
   height: 100%;
   overflow: hidden;
 }
-
+.header{
+  background-color:white;
+  padding-left: 16px;
+}
 .el-main {
   overflow: auto;
   /* background-color: wheat; */

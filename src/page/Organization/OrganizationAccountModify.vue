@@ -17,6 +17,7 @@
           </div>
         </el-col>
         <el-col :span="12">
+          
           <div>
             <h3>组织信息</h3>
           </div>
