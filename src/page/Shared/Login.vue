@@ -136,6 +136,11 @@ export default {
       });
     },
   },
+  watch: {
+    '$route'() {
+      this.$router.go(0);
+    }
+  },
 };
 </script>
 
