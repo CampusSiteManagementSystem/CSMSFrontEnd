@@ -34,6 +34,7 @@
                 clearable
                 filterable
               ></el-cascader>
+              
             </el-form-item>
             <el-form-item label="选择日期：" prop="date">
               <el-date-picker
@@ -91,7 +92,7 @@
               </el-input>
             </el-form-item>
             <el-form-item align="center">
-              <el-button type="primary" @click="submitForm('ruleform')"
+              <el-button type="primary" @click="submitForm('applyform')"
                 >提交</el-button
               >
               <router-link to="/OrgFrame/Main" tag="el-button"
@@ -107,6 +108,9 @@
 
 <script scoped>
 export default {
+  mounted() {
+    this.searchSite();
+  },
   data() {
     return {
       rules: {
@@ -132,17 +136,6 @@ export default {
         people: [
           { required: true, message: "请选择活动人数", trigger: "blur" },
         ],
-      },
-      ruleform: {
-        id: "222222",
-        site: [],
-        date: "",
-        time: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
-        name: "",
-        description: "",
-        special: "",
-        doration: 0,
-        people: 1,
       },
       pickerOptions: {
         disabledDate(time) {
@@ -229,7 +222,7 @@ export default {
                   label: "Layout 布局",
                 },
                 {
-                  value: "color",
+                  value: "123123",
                   label: "Color 色彩",
                 },
                 {
@@ -441,6 +434,17 @@ export default {
           ],
         },
       ],
+      ruleform: {
+        id: "222222",
+        site: [],
+        date: "",
+        time: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
+        name: (typeof(this.$route.query.activityName)==undefined)?"":this.$route.query.activityName,
+        description: "",
+        special: "",
+        doration: 0,
+        people: 1,
+      },
     };
   },
   methods: {
@@ -450,6 +454,8 @@ export default {
     getSite(value) {
       JSON.parse(JSON.stringify(value));
       console.log(this.ruleform.site);
+      console.log(this.options);
+      //console.log("name",this.$route.params.ID);
     },
     getTime(value) {
       JSON.parse(JSON.stringify(value));
@@ -476,11 +482,33 @@ export default {
             },
           });
         } else {
+          console.log("ID",this.$route.query.activityID);
+          console.log("name",this.$route.query.activityName);
+          console.log("ground",this.$route.query.groundID);
           console.log("error submit!!");
           return false;
         }
       });
     },
+    searchSite() {
+      console.log("name", this.$route.query.groundID);
+      console.log(this.options);
+      if (typeof (this.$route.query.groundID) != undefined) {
+        for (var i = 0; i < this.options.length; i++) {
+          for (var j = 0; j < this.options[i].children.length; j++) {
+            for (var k = 0; k < this.options[i].children[j].children.length; k++) {
+              if (this.$route.query.groundID == this.options[i].children[j].children[k].value) {
+                console.log("sure", this.$route.query.groundID);
+                this.ruleform.site = [this.options[i].value, this.options[i].children[j].value, this.options[i].children[j].children[k].value];
+                return;
+              }
+            }
+          }
+        }
+      } else {
+        console.log("sure", this.$route.query.groundID);
+      }
+    }
   },
 };
 </script>

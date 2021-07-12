@@ -37,6 +37,7 @@
               ></router-link
             >
           </div>
+          
           <el-table
             :data="systemAnnouncement"
             style="width: 100%"
