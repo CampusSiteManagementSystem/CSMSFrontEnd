@@ -214,6 +214,15 @@ const routes = [
                     import ('../page/SystemAdmin/SystemAdminAccountModify.vue')
             },
             {
+                path: "AddUser",
+                name: "SystemAdminAddUser",
+                meta: {
+                    title: "查看信息",
+                },
+                component: () =>
+                    import ('../page/SystemAdmin/AddUser.vue')
+            },
+            {
                 path: "SystemAnnouncement",
                 name: "SystemAdminAnnoucement",
                 meta: {
