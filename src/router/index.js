@@ -57,7 +57,22 @@ const routes = [
                     import('../page/Student/StudentFavorite.vue'),
                 meta: {
                     title: '收藏'
-                }
+                },
+                children: [
+                    {
+                        path: "ShowSchedule/:groundID",
+                        name: "ShowScheduleforStuFav",
+                        props: {
+                            membertype: true,
+                        },
+                        component: () =>
+                            import('../page/Shared/ShowSchedule.vue'),
+                        meta: {
+                            title: '场地详情'
+                        }
+                    },]
+
+            
             }, {
                 path: "ViewSites",
                 name: "ViewSites",
