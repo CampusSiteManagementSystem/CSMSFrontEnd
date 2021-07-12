@@ -67,7 +67,7 @@
                 <template slot-scope="scope">
                   <router-link :to="{
                 name: 'FeedBackWindow',
-                params: { ID: scope.row.ID },
+                query: { activityID: scope.row.ID },
               }">
                     <el-button size="mini" type="primary" @click="handleFeedback(scope.$index, scope.row)">反馈
                     </el-button>
@@ -141,7 +141,7 @@
                 <template slot-scope="scope">
                   <router-link :to="{
                 name: 'FeedBackWindow',
-                params: { ID: scope.row.ID },
+                query: { activityID: scope.row.ID },
               }">
                     <el-button size="mini" type="success" @click="handleRenew(scope.$index, scope.row)">修改反馈</el-button>
                   </router-link>
@@ -297,12 +297,22 @@ export default {
       },
       handleCurrentChange1(val) {
         this.currentRow = val;
-        this.$router.push('/OrgFrame/FeedBack')
+        this.$router.push({
+        name: 'FeedBackWindow',
+        query: {
+          activityID: val.ID
+        }
+      });
       },
-            handleCurrentChange2(val) {
+      handleCurrentChange2(val) {
         this.currentRow = val;
-        this.$router.push('/OrgFrame/FeedBack')
-      },
+        this.$router.push({
+        name: 'FeedBackWindow',
+        query: {
+          activityID: val.ID
+        }
+      });
+      }
     }
 }
 </script>

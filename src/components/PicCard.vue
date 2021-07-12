@@ -27,10 +27,10 @@
                 >{{ currentDate }}
               <router-link :to="{
                 name: 'ApplySiteWindow',
-                params: { groundID: groundID },
+                query: { groundID: groundID },
               }"
               v-show="buttonshow">
-                <el-button type="text">预约</el-button></router-link
+                <el-button type="text" @click.stop="handleApply()">预约</el-button></router-link
                 ></time
               ><el-button
                 icon="el-icon-star-off"
@@ -126,5 +126,10 @@ export default {
       default: "",
     },
   },
+  methods: {
+    handleApply(){
+      console.log("PICCARD groundID", this.$props.groundID);
+    }
+  }
 };
 </script>

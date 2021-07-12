@@ -1,14 +1,15 @@
 <template>
   <div>
     <el-card class="mycard">
-      <el-row>
+      <el-row :gutter="1" type="flex" align="middle">
         <el-col :span="16">
           <div class="maintitle">维护用户信息</div>
         </el-col>
-        <el-col :span="3"> 
-          <el-button size="small" @click="addUser()">添加用户</el-button>
+        <el-col :span="3">
+          <el-button size="medium" @click="addUser()" type="primary" plain
+            >添加用户</el-button
+          >
         </el-col>
-
         <el-col :span="5">
           <el-input
             clearable
@@ -39,12 +40,9 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="medium" @click="handleChange()"
-              >编辑信息</el-button
-            >
-
+            <el-button size="small" @click="handleChange()">编辑信息</el-button>
             <el-button
-              size="medium"
+              size="small"
               type="danger"
               @click="userdelete(scope.$index, scope.row)"
               >删除</el-button
@@ -126,6 +124,10 @@ export default {
   methods: {
     handleChange() {
       this.$router.push({ path: "AccountModify" });
+    },
+
+    addUser() {
+      this.$router.push({ path: "AddUser" });
     },
 
     userdelete(index, row) {
