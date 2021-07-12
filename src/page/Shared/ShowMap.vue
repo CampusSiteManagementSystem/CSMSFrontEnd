@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="map">
+        <div id="map">
       <input
         id="satellite-v9"
         type="radio"
@@ -315,7 +315,7 @@ export default {
 
           // popup.setLngLat(coordinates).setHTML(vm.$el.innerHTML).addTo(map);
           popup.setLngLat(coordinates).setDOMContent(vm.$el).addTo(map);
-          
+
           // popup.style(mapboxgl-popup-content);
           // popup.style{
 

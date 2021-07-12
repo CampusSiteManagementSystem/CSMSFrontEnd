@@ -1,12 +1,9 @@
 <template>
   <div class="maindiv">
     <el-card class="mycard">
-      <div>
-        <h2>组织注册</h2>
-      </div>
-
+      <h3>组织注册</h3>
       <el-row>
-        <el-col :span="20"
+        <el-col :span="23" :offset="1"
           ><div class="info">
             <p>组织信息:</p>
             <p>组织名称:</p>
@@ -18,32 +15,28 @@
       <el-row>
         <el-col :span="20"
           ><div class="status">
-            <p>审核意见</p>
+            <h3>审核意见</h3>
+            <el-col :span="2" :offset="1">
             <el-radio v-model="radio" label="1">通过</el-radio>
+            </el-col>
+            <el-col :span="2">
             <el-radio v-model="radio" label="2">不通过</el-radio>
-
-            <br />
-            <p>审核说明</p>
-            <el-input
-              type="textarea"
-              :rows="5"
-              placeholder="请输入内容"
-              v-model="textarea"
-            >
-            </el-input></div
-        ></el-col>
+            </el-col>
+          </div></el-col
+        >
       </el-row>
 
-      <div class="submit">
-         <router-link
-              to="/SysAdminFrame/GroupVerifyList"
-              tag="el-button"
-              type="primary"
-              >返回</router-link
-            >
-        <el-button type="primary" @click="success">提交</el-button>
-       
-      </div>
+      <el-row>
+        <div class="submit">
+          <router-link
+            to="/SysAdminFrame/GroupVerifyList"
+            tag="el-button"
+            type="primary"
+            >返回</router-link
+          >
+          <el-button type="primary" @click="success">提交</el-button>
+        </div>
+      </el-row>
     </el-card>
   </div>
 </template>
@@ -51,7 +44,7 @@
 <style scoped>
 html,
 body,
-.myard {
+.mycard {
   height: 100%;
   border-radius: 12px;
 }
@@ -60,13 +53,13 @@ body,
 }
 
 .submit {
-  margin: 1cm 1cm 1cm 17cm;
+  /* margin: 1cm 1cm 1cm 17cm; */
+  float: right;
 }
 
 p {
   color: rgb(0, 0, 0);
   position: relative;
-  /* left: 20px; */
 }
 </style>
 
@@ -90,10 +83,6 @@ export default {
           });
         },
       });
-    },
-
-    returnback() {
-      this.$router.push({ path: "SystemAdminAccountModify" });
     },
   },
 };

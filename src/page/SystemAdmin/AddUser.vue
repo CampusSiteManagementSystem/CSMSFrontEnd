@@ -2,24 +2,10 @@
   <div class="page">
     <el-card class="infoMain">
       <div>
-        <h2>用户信息</h2>
+        <h2>添加用户</h2>
       </div>
       <el-row>
-        <el-col :span="12">
-          <div>
-            <h3>用户头像</h3>
-          </div>
-          <div class="image">
-            <img
-              src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-              class="pic"
-            />
-          </div>
-          <div class="modify">
-            <el-button type="primary" @click="success">更改照片</el-button>
-          </div>
-        </el-col>
-        <el-col :span="12">
+        <el-col :span="18" :offset="3">
           <div>
             <h3>用户信息</h3>
           </div>
@@ -35,23 +21,14 @@
               </el-table-column>
               <el-table-column prop="content" label="内容">
                 <template slot-scope="scope">
-                  <span v-if="scope.row.change == 'false' || isSet == false">{{
-                    scope.row.content
-                  }}</span>
-                  <span v-else>
-                    <el-input
-                      size="medium"
-                      v-model="scope.row.content"
-                    ></el-input>
-                  </span>
+                  <el-input
+                    size="medium"
+                    v-model="scope.row.content"
+                  ></el-input>
                 </template>
               </el-table-column>
             </el-table>
-            <div v-if="isSet == false" class="modify">
-              <el-button type="primary" @click="returnback">取消</el-button>
-              <el-button type="primary" @click="edit">编辑</el-button>
-            </div>
-            <div v-else class="modify">
+            <div class="modify" style="float: right">
               <el-button type="primary" @click="returnback">取消</el-button>
               <el-button type="primary" @click="success">提交</el-button>
             </div>
@@ -98,43 +75,33 @@ export default {
     return {
       tableData: [
         {
-          title: "账号",
-          content: "1850668",
-          change: "false",
-        },
-        {
           title: "名称",
-          content: "公关部",
+          content: "",
           change: "true",
         },
         {
           title: "负责人",
-          content: "他",
+          content: "",
           change: "true",
         },
         {
-          title: "信用分",
-          content: "90",
-          change: "false",
-        },
-        {
           title: "联系方式",
-          content: "14515485465",
+          content: "",
           change: "true",
         },
         {
           title: "邮箱",
-          content: "987654321@qq.com",
+          content: "",
           change: "true",
         },
         {
           title: "详细信息",
-          content: "很好！",
+          content: "",
           change: "true",
         },
         {
           title: "组织状态",
-          content: "已审核",
+          content: "",
           change: "true",
         },
       ],
@@ -146,20 +113,13 @@ export default {
     returnback() {
       this.$router.push({ path: "MaintainUserInfo" });
     },
-    columnStyle({
-      row,
-      column,
-      rowIndex,
-      columnIndex
-    }) {
+    columnStyle({ row, column, rowIndex, columnIndex }) {
       console.log(row, column, rowIndex, columnIndex, "row");
       if (columnIndex == 0) {
-        return 'background:#EFFBEF; font-weight: 700;'
+        return "background:#EFFBEF; font-weight: 700;";
       }
     },
-    edit() {
-      this.isSet = true;
-    },
+
     success() {
       this.isSet = false;
       this.$alert("提交成功！", {
@@ -171,6 +131,8 @@ export default {
           });
         },
       });
+
+      this.$router.push({ path: "/SysAdminFrame/MaintainUserInfo" });
     },
   },
 };

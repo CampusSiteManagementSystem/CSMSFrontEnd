@@ -64,7 +64,7 @@
             <i class="el-icon-edit"></i>
             <span style="font-size: 14px">维护用户信息</span>
           </el-menu-item>
-          <el-menu-item index="/SysAdminFrame/Announcement">
+          <el-menu-item index="/SysAdminFrame/SystemAnnouncement">
             <i class="el-icon-document"></i>
             <span style="font-size: 14px">发布系统公告</span>
           </el-menu-item>
@@ -171,7 +171,7 @@ export default {
     },
 
     handleClick() {
-      this.$router.push("/OrgFrame/OrgAccountModify");
+      this.$router.push("/SysAdminFrame/AccountModify");
     },
     /**
      * @description 获取路由数组
