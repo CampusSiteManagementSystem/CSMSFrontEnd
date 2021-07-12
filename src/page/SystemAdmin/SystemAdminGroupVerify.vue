@@ -84,10 +84,6 @@ export default {
         },
       });
     },
-
-    returnback() {
-      this.$router.push({ path: "SystemAdminAccountModify" });
-    },
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card style="border-radius: 12px">
-      <div class="main-title">审核组织注册</div>
+      <div class="maintitle">审核组织注册</div>
       <div>
         <el-table
           :data="tableData"
@@ -43,9 +43,13 @@
 </template>
 
 <style scoped>
-/* .el-card {
-  height: 100%;
-} */
+.maintitle {
+  font-size: 22px;
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
+  margin-bottom: 30px;
+}
 </style>
 
 

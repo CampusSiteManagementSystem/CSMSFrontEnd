@@ -2,11 +2,14 @@
   <div>
     <el-card class="mycard">
       <el-row>
-        <el-col :span="18">
-          <div class="main-title">维护用户信息</div>
+        <el-col :span="16">
+          <div class="maintitle">维护用户信息</div>
+        </el-col>
+        <el-col :span="3"> 
+          <el-button size="small" @click="addUser()">添加用户</el-button>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="5">
           <el-input
             clearable
             v-model="toMatch"
@@ -17,7 +20,7 @@
       </el-row>
 
       <el-table
-        :data="tableData"
+        :data="matchList"
         max-height="480"
         stripe
         style="width: 100%"
@@ -36,13 +39,16 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <router-link
-              to="/SysAdminFrame/AccountModify"
-              tag="el-button"
-              type="primary"
-              >编辑信息</router-link
+            <el-button size="medium" @click="handleChange()"
+              >编辑信息</el-button
             >
-          <el-button type="danger" @click="userdelete(scope.$index, scope.row)">删除</el-button>
+
+            <el-button
+              size="medium"
+              type="danger"
+              @click="userdelete(scope.$index, scope.row)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -57,6 +63,14 @@ body,
   /* height: 100%; */
   border-radius: 12px;
 }
+
+.maintitle {
+  font-size: 22px;
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
+  margin-bottom: 30px;
+}
 </style>
 
 <script>
@@ -64,6 +78,7 @@ export default {
   data() {
     return {
       toMatch: "",
+      matchList: [],
       tableData: [
         {
           id: "0000",
@@ -103,21 +118,26 @@ export default {
       ],
     };
   },
+
+  created() {
+    this.matchList = this.tableData;
+  },
+
   methods: {
-    handleContentChange() {},
+    handleChange() {
+      this.$router.push({ path: "AccountModify" });
+    },
 
     userdelete(index, row) {
       console.log(index, row);
       this.$confirm("此操作将永久删除该用户, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning",
-        })
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
         .then(() => {
           for (var i = 0; i < this.tableData.length; i++) {
-            if (
-              this.tableData[i].id == row.id
-            ) {
+            if (this.tableData[i].id == row.id) {
               this.tableData.splice(i, 1);
               break;
             }
@@ -135,14 +155,13 @@ export default {
         });
     },
 
-
     search: function () {
       if (this.toMatch == "") {
         this.matchList = this.tableData;
       } else {
         this.matchList = [];
         for (var i = 0; i < this.tableData.length; i++) {
-          if (this.tableData[i].details.search(this.toMatch) != -1) {
+          if (this.tableData[i].id.search(this.toMatch) != -1) {
             this.matchList.push(this.tableData[i]);
           }
         }

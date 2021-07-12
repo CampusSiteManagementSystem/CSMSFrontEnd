@@ -13,7 +13,7 @@
         ></el-date-picker>
       </el-form-item>
 
-      <el-form-item label="公告内容" prop="content">
+      <el-form-item label="公告内容：" prop="content">
         <el-input
           type="textarea"
           :autosize="{ minRows: 8, maxRows: 10 }"
@@ -23,7 +23,7 @@
           show-word-limit
         ></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item style="float:right">
         <el-button type="primary" @click="publish">发布</el-button>
         <el-button @click="back">取消</el-button>
       </el-form-item>
