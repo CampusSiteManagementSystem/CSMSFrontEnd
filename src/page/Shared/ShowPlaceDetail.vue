@@ -153,10 +153,20 @@ export default {
       });
 
     
-    this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
+    // this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
+    this.item.details = this.item.building + this.item.room;
+    this.childPage =
+      this.$route.name == "StuShowPlaceDetail" ||
+      this.$route.name == "OrgCheckSite"
+        ? false
+        : true;
   },
   updated() {
-    this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
+    this.childPage =
+      this.$route.name == "StuShowPlaceDetail" ||
+      this.$route.name == "OrgCheckSite"
+        ? false
+        : true;
   },
   watch: {
     // 如果路由有变化，会再次执行该方法
@@ -177,7 +187,11 @@ export default {
     },
     handleEdit() {
       console.log("handleedit");
-      this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
+      this.childPage =
+        this.$route.name == "StuShowPlaceDetail" ||
+        this.$route.name == "OrgCheckSite"
+          ? false
+          : true;
     },
      dealWith(data) {
       //         accountNumber: "1000003"

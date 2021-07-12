@@ -41,7 +41,7 @@
           <el-table
             :data="systemAnnouncement"
             style="width: 100%"
-            height="131px"
+            height="129px"
             :show-header="false"
             @row-click="onRowClick"
           >
@@ -66,7 +66,7 @@
           <el-table
             :data="appointment"
             style="width: 100%"
-            height="251px"
+            height="249px"
             :show-header="false"
             @row-click="onReviewRowClick"
           >
@@ -84,7 +84,7 @@
           <el-table
             :data="busyground"
             style="width: 100%"
-            height="252px"
+            height="249px"
             :show-header="false"
             @row-click="onOccupyRowClick"
           >
