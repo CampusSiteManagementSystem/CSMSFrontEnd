@@ -9,6 +9,7 @@
         </el-col>
         <el-col :span="6">
           <el-input
+            clearable
             v-model="toMatch"
             placeholder="输入组织名称以搜索"
             @input="search"

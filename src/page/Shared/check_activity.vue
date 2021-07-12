@@ -9,13 +9,14 @@
         </el-col>
         <el-col :span="6">
           <el-input
+            clearable
             v-model="toMatch"
             placeholder="输入活动名称以搜索"
             @input="search"
           ></el-input>
         </el-col>
       </el-row>
-      <el-tabs v-model="activeTab">
+      <el-tabs v-model="activeTab" :before-leave='leaveTab'>
         <el-tab-pane label="未举办" name="pane1">
           <el-table
             :header-row-style="{ height: '10px' }"
@@ -133,9 +134,11 @@ body,
 export default {
   data() {
     return {
+      nextTab:"",
       errored: false,
       toMatch: "",
-      tableData: [],
+      tableData1: [],
+      tableData2: [],
       matchList: [],
       siteSelected:{
         id:"",
@@ -171,10 +174,11 @@ export default {
         this.tableData = [];
         for (let key of Object.keys(response.data)){
           for (let a of response.data[key]){
-            this.tableData.push(a);
+            this.tableData1.push(a);
+            this.tableData2.push(a);
           }
         }
-        this.matchList = this.tableData;
+        this.matchList = this.tableData1;
     })
     .catch(function (error) {
         console.log(error);
@@ -185,17 +189,45 @@ export default {
       this.siteSelected = row;
       this.dialogVisible = true;
     },
+    leaveTab(activeName, oldActiveName) {
+      console.log(activeName, oldActiveName);
+    if(activeName =="pane1")
+    {
+      this.nextTab="pane1";
+      this.search();
+      this.nextTab="";
+    }
+    else{
+      this.nextTab="pane2";
+      this.search();
+      this.nextTab="";
+    }
+    },
     search: function () {
-      if (this.toMatch == "") {
-        this.matchList = this.tableData;
-      } else {
-        this.matchList = [];
-        for (var i = 0; i < this.tableData.length; i++) {
-          if (this.tableData[i].name.search(this.toMatch) != -1) {
-            this.matchList.push(this.tableData[i]);
+      if ((this.activeTab == "pane1"&&this.nextTab == "")||(this.nextTab == "pane1")) {
+        if (this.toMatch == "") {
+          this.matchList = this.tableData1;
+        } else {
+          this.matchList = [];
+          for (var i = 0; i < this.tableData1.length; i++) {
+            if (this.tableData1[i].name.search(this.toMatch) != -1) {
+              this.matchList.push(this.tableData1[i]);
+            }
+          }
+        }
+      } else if ((this.activeTab == "pane2"&&this.nextTab == "")||(this.nextTab == "pane2")) {
+        if (this.toMatch == "") {
+          this.matchList = this.tableData2;
+        } else {
+          this.matchList = [];
+          for (var j = 0; j < this.tableData2.length; j++) {
+            if (this.tableData2[j].name.search(this.toMatch) != -1) {
+              this.matchList.push(this.tableData2[j]);
+            }
           }
         }
       }
+           console.log(this.nextTab);
     },
   },
 };
