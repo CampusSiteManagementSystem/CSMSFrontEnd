@@ -1,8 +1,10 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-      <div class="maintitle">活动反馈</div>
-      <!-- <p class="groundinfo">{{ num }}个活动</p> -->
+      <div slot="header" class="clearfix">
+            <span><b>活动反馈</b></span>
+          </div>
+      
       <el-table
         height="520"
         ref="filterTable"
@@ -63,12 +65,21 @@ body,
   /*统一设置高度为100%*/
   height: 100%;
 }
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
 
-.maintitle {
-  font-size: 22px;
-  text-align: left;
-  font-weight: bold;
-  padding: 5px;
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  font-size: 20px;
+}
+.maincard{
+  border-radius: 15px;
+  height: 100%;
 }
 .groundinfo {
   text-align: right;

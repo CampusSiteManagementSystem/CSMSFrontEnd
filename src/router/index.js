@@ -233,8 +233,8 @@ const routes = [
             component: () =>
                 import('../page/Organization/OrganizationAccountModify.vue')
         }, {
-            path: 'CheckOrgan',
-            name: 'CreditOrganWindow',
+            path: 'GroupVerifyList',
+            name: 'SystemAdminGroupVerify',
             meta: {
                 title: "审核注册",
             },
@@ -269,13 +269,22 @@ const routes = [
                 import('../page/SystemAdmin/SystemAdminGroupVerify.vue')
         },
         {
-            path: "Announcement",
+            path: "AddUser",
+            name: "SystemAdminAddUser",
+            meta: {
+                title: "添加用户",
+            },
+            component: () =>
+                import('../page/SystemAdmin/AddUser.vue')
+        },
+        {
+            path: "SystemAnnouncement",
             name: "AnnouncementforSystem",
             meta: {
                 title: "发布公告",
             },
             component: () =>
-                import('../page/Shared/AnnouncementList.vue')
+                import('../page/SystemAdmin/SystemAnnouncement.vue')
         }
         ]
     },
