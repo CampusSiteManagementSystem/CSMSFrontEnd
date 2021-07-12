@@ -35,27 +35,25 @@
                 stripe
                 style="width: 100%"
                 height="136"
+                @row-click="onRowClick"
                 :show-header="false"
                 @row-click="onRowClick"
               >
-                <el-table-column prop="title" label="活动名" width="auto">
-                </el-table-column>
-                <el-table-column prop="date" label="发起人" width="auto">
-                </el-table-column>
+                <el-table-column prop="title" width="auto"> </el-table-column>
+                <el-table-column prop="time" width="auto"> </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane label="活动公告">
+            <el-tab-pane label="场地公告">
               <el-table
-                :data="activityAnnouncement"
+                :data="groundAnnouncement"
                 stripe
                 style="width: 100%"
                 height="136"
+                @row-click="onRowClick"
                 :show-header="false"
               >
-                <el-table-column prop="title" label="活动名" width="auto">
-                </el-table-column>
-                <el-table-column prop="date" label="发起人" width="auto">
-                </el-table-column>
+                <el-table-column prop="title" width="auto"> </el-table-column>
+                <el-table-column prop="time" width="auto"> </el-table-column>
               </el-table>
             </el-tab-pane>
           </el-tabs>
@@ -108,8 +106,7 @@
         </el-card>
       </el-col>
     </el-row>
-
-    <el-dialog :visible.sync="dialogVisible" width="50%" class="dialog">
+        <el-dialog :visible.sync="dialogVisible" width="50%" class="dialog">
       <span slot="title">
         <h3>{{ dialogTitle }}</h3>
       </span>
@@ -122,19 +119,32 @@
         >
       </span>
     </el-dialog>
-
   </div>
 </template>
 
 <script>
 export default {
   data() {
+    const groundItem = {
+      title: "关于图书馆暂停开放的通知",
+      time: "2021-6-25 15:30",
+      ground: "15335",
+      content:
+        "因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。",
+    };
+    const systemItem = {
+      title: "关于系统停机维护的通知",
+      time: "2021-7-5 15:30",
+      accountNum: "14335",
+      content:
+        "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
+    };
     return {
-
       dialogTitle: "",
       dialogContent: "",
       dialogVisible: false,
-
+      groundAnnouncement: Array(20).fill(groundItem),
+      systemAnnouncement: Array(20).fill(systemItem),
       //第一块卡片信息
       studentInfo: {
         image:
@@ -150,67 +160,6 @@ export default {
         semester: "2",
         week: "14",
       },
-      //第二块卡片信息
-      systemAnnouncement: [
-        //从服务器获取
-        {
-          title: "5月29日10:00-18:00停机维护",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "翟晨浩爬",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "5月29日10:00-18:00停机维护1",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "翟晨浩爬2",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "5月29日10:00-18:00停机维护3",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "翟晨浩爬4",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "5月29日10:00-18:00停机维护5",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "翟晨浩爬6",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "5月29日10:00-18:00停机维护8",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-        {
-          title: "翟晨浩爬7",
-          date: "2018-9-10",
-          time: "12:00",
-        },
-      ],
-      activityAnnouncement: [
-        {
-          title: "emmmmmm",
-          date: "2021-9-10",
-          time: "13:00",
-        },
-      ],
       //第三块卡片信息
       groupInfo: [
         {
@@ -270,15 +219,14 @@ export default {
 
     onRowClick(row) {
       this.dialogTitle = row.title;
-      this.dialogContent = row.title;
+      this.dialogContent = row.content;
       this.dialogVisible = true;
     },
-
   },
 };
 </script>
 
-<style scoped>
+<style>
 .upper-card,
 .lower-card {
   overflow: auto;
@@ -315,7 +263,15 @@ export default {
 .lower-card {
   height: 340px;
 }
-
+.el-dialog {
+  border-radius: 12px;
+}
+.dialog {
+  backdrop-filter: blur(10px);
+}
+.content {
+  height: 320px;
+}
 .name {
   font-size: 25px;
   font-weight: 550;

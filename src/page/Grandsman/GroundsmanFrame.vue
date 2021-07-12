@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100%">
-    <el-header style="height: 8%; background-color: white">
+    <el-header class="header" style="height: 8%; ">
       <el-row class="header-row">
         <el-col :span="18" class="header-row-col1"
           ><el-row class="headerrow" type="flex" justify="left" align="middle">
@@ -32,8 +32,12 @@
                 管理员<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="accountInfo">账号信息</el-dropdown-item>
-                <el-dropdown-item command="modifyPassword">修改密码</el-dropdown-item>
+                <el-dropdown-item command="accountInfo"
+                  >账号信息</el-dropdown-item
+                >
+                <el-dropdown-item command="modifyPassword"
+                  >修改密码</el-dropdown-item
+                >
                 <el-dropdown-item command="logout">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -83,7 +87,9 @@
       <!-- <el-button @click="test"> test</el-button> -->
       <el-main>
         <keep-alive>
-          <router-view style="height: 100%"></router-view>
+          <transition name="fade-transform" mode="out-in">
+            <router-view style="height: 100%"></router-view>
+          </transition>
         </keep-alive>
       </el-main>
     </el-container>
@@ -110,6 +116,10 @@ body,
   overflow: auto;
   /* background-color: wheat; */
   background-color: rgb(237, 241, 245);
+}
+.header{
+  background-color:white;
+  padding-left: 16px;
 }
 .header-row {
   height: 100%;
@@ -182,17 +192,26 @@ export default {
     },
 
     handleCommand(command) {
-      switch(command) {
-        case 'accountInfo':
+      switch (command) {
+        case "accountInfo":
           this.$router.push({ path: "/GroundsAdmin/AccountModify" });
           break;
-        case 'modifyPassword':
+        case "modifyPassword":
           this.$router.push({ path: "/GroundsAdmin/ModifyPassword" });
           break;
         default:
-          this.$router.push({ path: "/" });
-          this.$router.go(1);
+          this.confirmLogout();
       }
+    },
+
+    confirmLogout() {
+      this.$confirm('确认退出登录?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$router.push({ path: "/" });
+      })
     },
 
     clickAccountInfo() {

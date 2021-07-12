@@ -25,6 +25,7 @@
           </div>
           <div id="content">
             <el-table
+              :cell-style="columnStyle"
               :show-header="false"
               :data="tableData"
               border
@@ -149,7 +150,17 @@ export default {
     returnback() {
       this.$router.push({ path: "MaintainUserInfo" });
     },
-
+    columnStyle({
+      row,
+      column,
+      rowIndex,
+      columnIndex
+    }) {
+      console.log(row, column, rowIndex, columnIndex, "row");
+      if (columnIndex == 0) {
+        return 'background:#EFFBEF; font-weight: 700;'
+      }
+    },
     edit() {
       this.isSet = true;
     },

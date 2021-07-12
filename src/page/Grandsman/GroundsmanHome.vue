@@ -1,6 +1,4 @@
 <template>
-<transition name="el-fade-in-linear">
-  <el-collapse-transition>
   <div>
     <!-- 第一行布局 -->
     <el-row class="upperrow">
@@ -34,9 +32,11 @@
         <el-card class="upper-card">
           <div slot="header" class="clearfix">
             <span>系统公告</span>
-            <router-link to="/GroundsAdmin/Announcement"><el-button style="float: right; padding: 3px 0" type="text"
-              >查看更多</el-button
-            ></router-link>
+            <router-link to="/GroundsAdmin/Announcement"
+              ><el-button style="float: right; padding: 3px 0" type="text"
+                >查看更多</el-button
+              ></router-link
+            >
           </div>
           
           <el-table
@@ -61,9 +61,9 @@
           <div slot="header" class="clearfix">
             <span><b>待审核预约</b></span>
             <router-link to="/GroundsAdmin/ReviewActivityList">
-            <el-button style="float: right; padding: 3px 0" type="text"
-              >查看更多</el-button
-            >
+              <el-button style="float: right; padding: 3px 0" type="text"
+                >查看更多</el-button
+              >
             </router-link>
           </div>
           <el-table
@@ -77,7 +77,6 @@
             <el-table-column prop="ground" label="日期"> </el-table-column>
             <el-table-column prop="datetime" label="日期"> </el-table-column>
           </el-table>
-         
         </el-card>
         <!-- </el-collapse-transition> -->
       </el-col>
@@ -131,8 +130,7 @@
       </span>
     </el-dialog>
   </div>
- </el-collapse-transition>
-    </transition></template>
+</template>
 
 <style scpoed>
 html,
@@ -150,7 +148,7 @@ body,
 .name {
   font-size: 30px;
   font-weight: 550;
-  line-height:20px
+  line-height: 20px;
 }
 .other-info {
   font-size: 15px;
@@ -172,7 +170,6 @@ body,
   padding: 5px;
 }
 
-
 /* 系统公告卡片 */
 
 .text {
@@ -191,7 +188,6 @@ body,
 .clearfix:after {
   clear: both;
 }
-
 
 .upper-row-col1 {
   height: 100%;
@@ -222,7 +218,7 @@ body,
 .dialog {
   backdrop-filter: blur(10px);
 }
-.content{
+.content {
   height: 320px;
 }
 .upper-card {
@@ -232,7 +228,7 @@ body,
   height: 350px;
 }
 .upper-card,
-.lower-card{
+.lower-card {
   overflow: auto;
   border-radius: 15px;
 }
@@ -280,12 +276,42 @@ export default {
       systemAnnouncement: Array(20).fill(systemItem),
 
       appointment: [
-        { activityID:'0001', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 19:00" },
-        { activityID:'0002', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 20:00" },
-        { activityID:'0003', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 21:00" },
-        { activityID:'0004', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 22:00" },
-        { activityID:'0005', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 23:00" },
-        { activityID:'0006', title: "数据库会议", ground: "广楼101", datetime: "2021-6-2 00:00" },
+        {
+          activityID: "0001",
+          title: "数据库会议",
+          ground: "广楼101",
+          datetime: "2021-6-1 19:00",
+        },
+        {
+          activityID: "0002",
+          title: "数据库会议",
+          ground: "广楼101",
+          datetime: "2021-6-1 20:00",
+        },
+        {
+          activityID: "0003",
+          title: "数据库会议",
+          ground: "广楼101",
+          datetime: "2021-6-1 21:00",
+        },
+        {
+          activityID: "0004",
+          title: "数据库会议",
+          ground: "广楼101",
+          datetime: "2021-6-1 22:00",
+        },
+        {
+          activityID: "0005",
+          title: "数据库会议",
+          ground: "广楼101",
+          datetime: "2021-6-1 23:00",
+        },
+        {
+          activityID: "0006",
+          title: "数据库会议",
+          ground: "广楼101",
+          datetime: "2021-6-2 00:00",
+        },
       ],
       busyground: [
         {
@@ -365,7 +391,7 @@ export default {
     },
     onReviewRowClick(row) {
       this.$router.push("/GroundsAdmin/ActivityInfo/" + row.activityID);
-    }
+    },
   },
 };
 </script>

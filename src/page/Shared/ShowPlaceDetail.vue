@@ -10,6 +10,7 @@
           </el-col>
           <el-col :span="6">
             <el-input
+              clearable
               v-model="toMatch"
               placeholder="请输入关键字搜索"
               @input="search"
@@ -196,10 +197,11 @@ export default {
       // address: {},
     };
   },
-   created() {
+  
+  created() {
     this.matchList = this.tableData;
-    
   },
+
   mounted(){
     console.log("mounted membertype student");
      console.log(this.membertype);

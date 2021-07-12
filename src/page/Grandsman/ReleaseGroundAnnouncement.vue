@@ -4,6 +4,7 @@
         <el-form ref="form" :model="form" label-width="80px">
            <el-form-item label="场地" prop="site" required>
               <el-cascader
+                clearable
                 v-model="form.site"
                 :options="options"
                 @change="handleChange"
