@@ -319,7 +319,7 @@ const routes = [
                 component: () =>
                     import('../page/Organization/OrganizationMain.vue')
             }, {
-                path: 'CheckActivity',
+                path: 'CheckActivity/:ID',
                 name: 'CreditActivityWindow',
                 meta: {
                     title: '所有活动'
