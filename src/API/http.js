@@ -14,5 +14,8 @@ export const GETCreditRecords = param => Get('/api/creditrecords', param)
 export const POSTCreditRecords = param => Post('/api/creditrecords', param)
 export const GETCreditRecordsID = ID => GetID('/api/creditrecords/', ID)
 
-// IndooeGround
-export const GETIndooeGrounds = param => Get('/api/IndooeGrounds', param)
+// IndoorGrounds
+export const GETIndoorGrounds = param => Get('/api/IndoorGrounds', param)
+//Grounds
+export const GETGrounds = param => Get('/api/Grounds', param)
+export const GETGroundsID = ID => Get('/api/Grounds/',ID)
