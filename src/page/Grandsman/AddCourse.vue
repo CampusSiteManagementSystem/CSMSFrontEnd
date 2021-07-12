@@ -376,22 +376,18 @@ export default {
   font-size: 18px;
 }
 
-/* .el-input {
-  height: 50%;
-} */
+
 .detailinfo {
   padding: 15px;
 }
-/* .el-col {
-  padding: 5px;
-  height: 100%;
-} */
+
 .upperCol {
-  height: 48%;
+  /* height: 48%; */
+  padding-bottom: 15px;
 }
-.lowerCol {
+/* .lowerCol {
   height: 50%;
-}
+} */
 .mainRow {
   height: 100%;
 }
