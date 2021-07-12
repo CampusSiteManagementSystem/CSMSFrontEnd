@@ -197,10 +197,11 @@ export default {
       // address: {},
     };
   },
-   created() {
+  
+  created() {
     this.matchList = this.tableData;
-    
   },
+
   mounted(){
     console.log("mounted membertype student");
      console.log(this.membertype);

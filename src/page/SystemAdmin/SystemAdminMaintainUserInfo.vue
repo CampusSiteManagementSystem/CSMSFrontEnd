@@ -1,12 +1,16 @@
 <template>
   <div>
     <el-card class="mycard">
-      <el-row>
-        <el-col :span="18">
-        <div class="main-title">维护用户信息</div>
+      <el-row :gutter="1" type="flex" align="middle">
+        <el-col :span="16">
+          <div class="maintitle">维护用户信息</div>
         </el-col>
-
-        <el-col :span="6">
+        <el-col :span="3">
+          <el-button size="medium" @click="addUser()" type="primary" plain
+            >添加用户</el-button
+          >
+        </el-col>
+        <el-col :span="5">
           <el-input
             clearable
             v-model="toMatch"
@@ -16,7 +20,14 @@
         </el-col>
       </el-row>
 
-      <el-table :data="tableData" max-height="480" stripe style="width: 100%">
+      <el-table
+        :data="matchList"
+        max-height="480"
+        stripe
+        style="width: 100%"
+        :header-row-style="{ height: '20px' }"
+        :cell-style="{ padding: '5px' }"
+      >
         <el-table-column label="ID">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
@@ -28,12 +39,13 @@
           </template>
         </el-table-column>
         <el-table-column label="操作">
-          <template>
-            <router-link
-              to="/SysAdminFrame/AccountModify"
-              tag="el-button"
-              type="primary"
-              >编辑信息</router-link
+          <template slot-scope="scope">
+            <el-button size="small" @click="handleChange()">编辑信息</el-button>
+            <el-button
+              size="small"
+              type="danger"
+              @click="userdelete(scope.$index, scope.row)"
+              >删除</el-button
             >
           </template>
         </el-table-column>
@@ -46,8 +58,16 @@
 html,
 body,
 .mycard {
-  height: 100%;
+  /* height: 100%; */
   border-radius: 12px;
+}
+
+.maintitle {
+  font-size: 22px;
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
+  margin-bottom: 30px;
 }
 </style>
 
@@ -56,6 +76,7 @@ export default {
   data() {
     return {
       toMatch: "",
+      matchList: [],
       tableData: [
         {
           id: "0000",
@@ -95,8 +116,46 @@ export default {
       ],
     };
   },
+
+  created() {
+    this.matchList = this.tableData;
+  },
+
   methods: {
-    handleContentChange() {},
+    handleChange() {
+      this.$router.push({ path: "AccountModify" });
+    },
+
+    addUser() {
+      this.$router.push({ path: "AddUser" });
+    },
+
+    userdelete(index, row) {
+      console.log(index, row);
+      this.$confirm("此操作将永久删除该用户, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          for (var i = 0; i < this.tableData.length; i++) {
+            if (this.tableData[i].id == row.id) {
+              this.tableData.splice(i, 1);
+              break;
+            }
+          }
+          this.$message({
+            type: "success",
+            message: "删除成功!",
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+    },
 
     search: function () {
       if (this.toMatch == "") {
@@ -104,7 +163,7 @@ export default {
       } else {
         this.matchList = [];
         for (var i = 0; i < this.tableData.length; i++) {
-          if (this.tableData[i].details.search(this.toMatch) != -1) {
+          if (this.tableData[i].id.search(this.toMatch) != -1) {
             this.matchList.push(this.tableData[i]);
           }
         }

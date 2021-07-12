@@ -187,6 +187,15 @@ const routes = [
                     import ('../page/SystemAdmin/SystemAdminGroupVerifyList.vue')
             },
             {
+                path: "GroupVerify",
+                name: "SystemAdminGroupVerify",
+                meta: {
+                    title: "组织注册",
+                },
+                component: () =>
+                    import ('../page/SystemAdmin/SystemAdminGroupVerify.vue')
+            },
+            {
                 path: "MaintainUserInfo",
                 name: "SystemAdminMaintainUserInfo",
                 meta: {
@@ -205,23 +214,23 @@ const routes = [
                     import ('../page/SystemAdmin/SystemAdminAccountModify.vue')
             },
             {
-                path: "GroupVerify",
-                name: "SystemAdminGroupVerify",
+                path: "AddUser",
+                name: "SystemAdminAddUser",
                 meta: {
-                    title: "审核组织",
+                    title: "查看信息",
                 },
                 component: () =>
-                    import ('../page/SystemAdmin/SystemAdminGroupVerify.vue')
+                    import ('../page/SystemAdmin/AddUser.vue')
             },
             {
-                path: "Announcement",
-                name: "AnnouncementforSystem",
+                path: "SystemAnnouncement",
+                name: "SystemAdminAnnoucement",
                 meta: {
                     title: "发布公告",
                 },
                 component: () =>
-                    import ('../page/Shared/AnnouncementList.vue')
-            }
+                    import ('../page/SystemAdmin/SystemAnnouncement.vue')
+            },
         ]
     },
     // 组织页面

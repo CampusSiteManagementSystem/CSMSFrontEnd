@@ -1,5 +1,4 @@
 ﻿<template>
- <transition name="el-fade-in-linear">
   <div>
     <el-card>
       <div slot="header" class="clearfix">
@@ -65,7 +64,6 @@
       </el-table>
     </el-card>
   </div>
- </transition>
 </template>
 
 <script>
