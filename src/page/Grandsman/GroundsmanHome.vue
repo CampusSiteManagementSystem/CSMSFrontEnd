@@ -1,9 +1,10 @@
 <template>
   <div>
     <!-- 第一行布局 -->
-    <el-row class="upperrow">
+    <el-row class="upper-row">
       <el-col :span="10" class="upper-row-col1">
         <el-card class="upper-card">
+          <el-row>
           <el-col :span="8" class="person-info-card-photo-col">
             <div>
               <el-avatar :size="130" :src="personinfo.photosrc"></el-avatar>
@@ -23,16 +24,20 @@
             <div class="date">{{ personinfo.date }}</div>
             <div class="other-info">祝您工作愉快！</div>
           </el-col>
+          </el-row>
         </el-card>
       </el-col>
       <el-col :span="14" class="upper-row-col2">
         <el-card class="upper-card">
           <div slot="header" class="clearfix">
-            <span>系统公告</span>
-            <router-link to="/GroundsAdmin/Announcement"><el-button style="float: right; padding: 3px 0" type="text"
-              >查看更多</el-button
-            ></router-link>
+            <span><b>系统公告</b></span>
+            <router-link to="/GroundsAdmin/Announcement"
+              ><el-button style="float: right; padding: 3px 0" type="text"
+                >查看更多</el-button
+              ></router-link
+            >
           </div>
+          
           <el-table
             :data="systemAnnouncement"
             style="width: 100%"
@@ -40,22 +45,22 @@
             :show-header="false"
             @row-click="onRowClick"
           >
-            <el-table-column prop="title" label="内容"> </el-table-column>
-            <el-table-column prop="time" label="日期"> </el-table-column>
+            <el-table-column prop="title" width="auto"> </el-table-column>
+            <el-table-column prop="time" width="auto"> </el-table-column>
           </el-table>
         </el-card>
       </el-col>
     </el-row>
     <!-- 第二行布局 -->
-    <el-row class="lowerrow">
-      <el-col :span="14" class="appointment-col">
+    <el-row class="lower-row">
+      <el-col :span="14" class="lower-row-col1">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
-            <span>待审核预约</span>
+            <span><b>待审核预约</b></span>
             <router-link to="/GroundsAdmin/ReviewActivityList">
-            <el-button style="float: right; padding: 3px 0" type="text"
-              >查看更多</el-button
-            >
+              <el-button style="float: right; padding: 3px 0" type="text"
+                >查看更多</el-button
+              >
             </router-link>
           </div>
           <el-table
@@ -69,18 +74,12 @@
             <el-table-column prop="ground" label="日期"> </el-table-column>
             <el-table-column prop="datetime" label="日期"> </el-table-column>
           </el-table>
-         
         </el-card>
       </el-col>
-      <el-col :span="10" class="ground-col">
+      <el-col :span="10" class="lower-row-col2">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
-            <span>占用中的场地</span>
-            <!-- <router-link to="/groundinfo"
-              ><el-button style="float: right; padding: 3px 0" type="text"
-                >操作按钮</el-button
-              ></router-link
-            > -->
+            <span><b>占用中的场地</b></span>
           </div>
           <el-table
             :data="busyground"
@@ -93,16 +92,6 @@
             <el-table-column prop="activityName" label="活动名称">
             </el-table-column>
           </el-table>
-          <!-- <div
-                v-for="(item, index) in busyground"
-                :key="index"
-                class="text item"
-              >
-                <div class="busyground-groundname">{{ item.groundname }}</div>
-                <div class="busyground-activityname">
-                  {{ item.activityname }}
-                </div> 
-              </div>-->
         </el-card>
       </el-col>
     </el-row>
@@ -122,23 +111,23 @@
   </div>
 </template>
 
-<style>
-html,
-body,
-#app,
-.el-container {
-  /*设置内部填充为0，几个布局元素之间没有间距*/
-  padding: 0px;
-  /*外部间距也是如此设置*/
-  margin: 0px;
-  /*统一设置高度为100%*/
-  height: 100%;
+<style scpoed>
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
 }
 
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  font-size: 18px;
+}
 .name {
   font-size: 30px;
   font-weight: 550;
-  line-height:20px
+  line-height: 20px;
 }
 .other-info {
   font-size: 15px;
@@ -151,19 +140,13 @@ body,
   font-weight: 700;
 }
 
-
-
-
-.appointment-col {
-  /* background-color: thistle; */
+.lower-row-col1,
+.lower-row-col2,
+.upper-row-col1,
+.upper-row-col2 {
+  height: 100%;
   padding: 5px;
 }
-.ground-col {
-  /* background-color: rgb(19, 179, 201); */
-  padding: 5px;
-}
-
-
 /* 系统公告卡片 */
 
 .text {
@@ -183,37 +166,21 @@ body,
   clear: both;
 }
 
-
-.upper-row-col1 {
-  height: 100%;
-  padding: 5px;
-}
-.upper-row-col2 {
-  height: 100%;
-  padding: 5px;
-}
-
-.upperrow {
+/* .upperrow {
   padding: 5px;
   height: 40%;
 }
 .lowerrow {
   padding: 5px;
   height: 60%;
-}
-.appointment-col {
-  height: 100%;
-}
-.ground-col {
-  height: 100%;
-}
+} */
 .el-dialog {
   border-radius: 12px;
 }
 .dialog {
   backdrop-filter: blur(10px);
 }
-.content{
+.content {
   height: 320px;
 }
 .upper-card {
@@ -222,7 +189,11 @@ body,
 .lower-card {
   height: 350px;
 }
-
+.upper-card,
+.lower-card {
+  overflow: auto;
+  border-radius: 15px;
+}
 </style>
 
 
@@ -267,12 +238,42 @@ export default {
       systemAnnouncement: Array(20).fill(systemItem),
 
       appointment: [
-        { activityID:'0001', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 19:00" },
-        { activityID:'0002', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 20:00" },
-        { activityID:'0003', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 21:00" },
-        { activityID:'0004', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 22:00" },
-        { activityID:'0005', title: "数据库会议", ground: "广楼101", datetime: "2021-6-1 23:00" },
-        { activityID:'0006', title: "数据库会议", ground: "广楼101", datetime: "2021-6-2 00:00" },
+        {
+          activityID: "0001",
+          title: "数据库会议",
+          ground: "广楼101",
+          datetime: "2021-6-1 19:00",
+        },
+        {
+          activityID: "0002",
+          title: "数据库会议",
+          ground: "广楼101",
+          datetime: "2021-6-1 20:00",
+        },
+        {
+          activityID: "0003",
+          title: "数据库会议",
+          ground: "广楼101",
+          datetime: "2021-6-1 21:00",
+        },
+        {
+          activityID: "0004",
+          title: "数据库会议",
+          ground: "广楼101",
+          datetime: "2021-6-1 22:00",
+        },
+        {
+          activityID: "0005",
+          title: "数据库会议",
+          ground: "广楼101",
+          datetime: "2021-6-1 23:00",
+        },
+        {
+          activityID: "0006",
+          title: "数据库会议",
+          ground: "广楼101",
+          datetime: "2021-6-2 00:00",
+        },
       ],
       busyground: [
         {
@@ -352,7 +353,7 @@ export default {
     },
     onReviewRowClick(row) {
       this.$router.push("/GroundsAdmin/ActivityInfo/" + row.activityID);
-    }
+    },
   },
 };
 </script>

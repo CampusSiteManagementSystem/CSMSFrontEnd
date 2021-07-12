@@ -9,11 +9,15 @@
                   <p>活动时间：{{formInline.time}}</p>
         </template>
     </el-step>
-    <el-step title="待审核" description="审核已经结束"></el-step>
+    <el-step title="待审核">
+                <template slot="description">
+                  <p>审核管理员ID：2333</p>
+                  <p>审核时间：{{formInline.time}}</p>
+        </template>
+    </el-step>
     <el-step title="被驳回">
         <template slot="description">
                   <p>审核结果：不通过</p>
-                  <p>驳回原因：该睡觉了</p>
         </template>
     </el-step>
   </el-steps>
@@ -79,6 +83,7 @@ export default {
                 this.checked2=false;
             }
             else{
+                console.log("PICCARD activityID", this.$route.query.activityID);
                 this.checked1=false;
                 this.checked2=true;
             }

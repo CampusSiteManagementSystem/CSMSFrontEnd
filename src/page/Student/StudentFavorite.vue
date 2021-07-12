@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card>
+    <el-card v-if="!childPage">
       <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="20">
@@ -10,6 +10,7 @@
           </el-col>
           <el-col :span="4">
             <el-input
+              clearable
               v-model="toMatch"
               placeholder="请输入关键字搜索"
               @input="search"
@@ -47,13 +48,13 @@
           <template slot-scope="scope">
             <router-link
               :to="{
-                name: 'ShowScheduleforStu',
+                name: 'ShowScheduleforStuFav',
                 params: { groundID: scope.row.groundID },
               }"
+              @click.native="handleEdit"
             >
               <el-button
                 size="small"
-                @click="handleEdit(scope.$index, scope.row)"
                 round
                 >查看</el-button
               >
@@ -62,6 +63,11 @@
         </el-table-column>
       </el-table>
     </el-card>
+    <keep-alive v-else>
+      <transition name="fade-transform" mode="out-in">
+        <router-view style="height: 100%"></router-view>
+      </transition>
+    </keep-alive>
   </div>
 </template>
 
@@ -72,6 +78,7 @@ export default {
   },
   data() {
     return {
+      childPage:false,
       favoriteList: [
         {
           groundID: 123,
@@ -118,7 +125,18 @@ export default {
         }
       }
     },
+    handleEdit(){
+      this.childPage = !this.childPage;
+
+    }
   },
+  mounted() {
+        this.childPage = this.$route.meta.title == "收藏" ? false : true;
+  },
+  updated() {
+     
+      this.childPage = this.$route.meta.title == "收藏" ? false : true;
+    },
 };
 </script>
 

@@ -3,6 +3,9 @@
     <el-row class="mainRow">
       <el-col :span="24" class="upperCol">
         <el-card class="upperCard">
+          <div slot="header" class="clearfix">
+            <span><b>新建课程</b></span>
+          </div>
           <el-form
             :model="ruleForm"
             :rules="rules"
@@ -11,10 +14,11 @@
             class="demo-ruleForm"
           >
             <el-form-item label="课程名称" prop="name">
-              <el-input v-model="ruleForm.name"></el-input>
+              <el-input clearable v-model="ruleForm.name"></el-input>
             </el-form-item>
             <el-form-item label="上课场地" prop="site" required>
               <el-cascader
+                clearable
                 v-model="ruleForm.site"
                 :options="options"
                 @change="handleChange"
@@ -24,6 +28,7 @@
               <el-col :span="11">
                 <el-form-item prop="date1">
                   <el-date-picker
+                    clearable
                     type="date"
                     placeholder="选择日期"
                     v-model="ruleForm.date1"
@@ -35,6 +40,7 @@
               <el-col :span="11">
                 <el-form-item prop="date2">
                   <el-time-picker
+                    clearable
                     placeholder="选择时间"
                     v-model="ruleForm.date2"
                     style="width: 100%"
@@ -44,6 +50,7 @@
             </el-form-item>
             <el-form-item label="持续时间" prop="during">
               <el-input
+                clearable
                 v-model.number="ruleForm.during"
                 type="text"
                 placeholder="单位：分钟"
@@ -61,10 +68,11 @@
       <el-col :span="24" class="lowerCol">
         <div class="maindiv">
           <el-card class="lowerCard">
-            <h2 class="maintitle">场地课程表</h2>
-            <!-- <p class="groundinfo">{{ num }}个活动</p> -->
+            <div slot="header" class="clearfix">
+            <span  ><b>场地课程表</b></span>
+          </div>
             <el-table
-              height="475"
+              height="219"
               ref="filterTable"
               :data="tableData"
               style="width: 100%"
@@ -88,21 +96,6 @@
               </el-table-column>
               <el-table-column prop="courseDuring" label="持续时间">
               </el-table-column>
-
-              <!-- <el-table-column label="操作" width="100">
-                <template slot-scope="scope">
-                  <router-link
-                    :to="{
-                      name: 'ScoringActivity',
-                      params: { ID: scope.row.activityID },
-                    }"
-                  >
-                    <el-button @click="handleClick(scope.row)" type="text"
-                      >查看详情</el-button
-                    >
-                  </router-link>
-                </template>
-              </el-table-column> -->
             </el-table>
           </el-card>
         </div>
@@ -369,23 +362,18 @@ export default {
 };
 </script>
 
-<style>
-html,
-body,
-#app,
-/* .el-container {
-  padding: 0px;
-  margin: 0px;
-  height: 100%;
-} */
+<style scpoed>
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
 
-/* .el-main {
-  background-color: rgb(237, 241, 245);
-  height: 100%;
-} */
-.maintitle {
-  text-align: left;
-  font-size: 17px;
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  font-size: 18px;
 }
 
 /* .el-input {
@@ -408,10 +396,14 @@ body,
   height: 100%;
 }
 .lowerCard {
-  height: 300px;
+  height: 320px;
 }
 .upperCard {
   height: 280px;
+}
+.upperCard,
+.lowerCard{
   overflow: auto;
+  border-radius: 15px;
 }
 </style>

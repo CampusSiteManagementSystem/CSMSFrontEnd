@@ -103,11 +103,23 @@ export default {
       },
       rules: {
         accountNumber: [
-          { required: true, message: "请输入账号", trigger: "blur" },
-          { type: "number", message: "账号只能由数字构成", trigger: "blur" },
+          {
+            required: true,
+            message: "请输入账号",
+            trigger: "blur",
+          },
+          {
+            type: "number",
+            message: "账号只能由数字构成",
+            trigger: "blur",
+          },
         ],
         password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
+          {
+            required: true,
+            message: "请输入密码",
+            trigger: "blur",
+          },
           {
             pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,10}$/,
             message:
@@ -120,27 +132,43 @@ export default {
     };
   },
   methods: {
-    //formName
-    submitForm: function (formName) {
-      // DELETEActivitiesID(1000010)
-      // .then(res => {console.log(res)})
-      // .catch(err => {console.log(err)})
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            //提交表单到后台验证身份，并路由到指定页面
-            if (this.identity === 1) {
-              this.$router.push("/StuFrame/Main");
-            } else if (this.identity === 2) {
-              this.$router.push("/GroundsAdmin/Main");
-            } else if (this.identity === 3) {
-              this.$router.push("/OrgFrame/Main");
-            } else if (this.identity === 4) {
-              this.$router.push("/SysAdminFrame");
-            }
-          } else {
-            this.$refs[formName].clearValidate();
+    open() {
+      this.$alert("该组织账号还未授权！", "账号未授权", {
+        confirmButtonText: "确定",
+        callback: (action) => {
+          if (action === "confirm") {
+            this.$message({
+              type: "info",
+              message: "账号未授权",
+            });
           }
-        });
+        },
+      });
+    },
+    submitForm: function (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          //提交表单到后台验证身份，并路由到指定页面
+          if (this.identity === 1) {
+            this.$router.push("/StuFrame/Main");
+          } else if (this.identity === 2) {
+            this.$router.push("/GroundsAdmin/Main");
+          } else if (this.identity === 3) {
+            if (this.form.accountNumber == "12345678") {
+              this.open();
+            } else {
+              this.$router.push("/OrgFrame/Main");
+            }
+          } else if (this.identity === 4) {
+            this.$router.push("/SysAdminFrame");
+          }
+        }
+      });
+    },
+    watch: {
+      $route() {
+        this.$router.go(0);
+      },
     },
   },
 };

@@ -1,19 +1,25 @@
 <template>
   <div>
     <el-card style="border-radius: 12px">
-      <div class="main-title">审核组织注册</div>
+      <div class="maintitle">审核组织注册</div>
       <div>
-        <el-table :data="tableData" max-height="480" stripe style="width: 100%">
-          <el-table-column label="日期">
+        <el-table
+          :data="tableData"
+          max-height="480"
+          stripe
+          style="width: 100%"
+          :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}"
+        >
+          <el-table-column label="负责人">
             <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.date }}</span>
+              <span style="margin-left: 10px">{{ scope.row.person }}</span>
             </template>
           </el-table-column>
           <el-table-column label="组织">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
                 <p>组织: {{ scope.row.name }}</p>
-                <p>注册时间: {{ scope.row.date }}</p>
+                <p>申请人: {{ scope.row.person }}</p>
                 <div slot="reference" class="name-wrapper">
                   <el-tag size="medium">{{ scope.row.name }}</el-tag>
                 </div>
@@ -37,9 +43,12 @@
 </template>
 
 <style scoped>
-
-.el-card {
-  height: 100%;
+.maintitle {
+  font-size: 22px;
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
+  margin-bottom: 30px;
 }
 </style>
 
@@ -50,35 +59,35 @@ export default {
     return {
       tableData: [
         {
-          date: "2016-05-02",
+          person: "呵呵",
           name: "公关部",
         },
         {
-          date: "2016-05-04",
+          person: "呵呵",
           name: "学生综合素质发展中心",
         },
         {
-          date: "2016-05-01",
+          person: "呵呵",
           name: "社发管",
         },
         {
-          date: "2016-05-03",
+          person: "嘿嘿",
           name: "钢琴协会",
         },
         {
-          date: "2016-05-02",
+          person: "呵呵",
           name: "公关部",
         },
         {
-          date: "2016-05-04",
+          person: "嘻嘻",
           name: "学生综合素质发展中心",
         },
         {
-          date: "2016-05-01",
+          person: "哈哈",
           name: "社发管",
         },
         {
-          date: "2016-05-03",
+          person: "haha",
           name: "钢琴协会",
         },
       ],

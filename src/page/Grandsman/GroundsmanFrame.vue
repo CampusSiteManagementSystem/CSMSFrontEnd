@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100%">
-    <el-header style="height: 8%; background-color: white">
+    <el-header class="header" style="height: 8%; ">
       <el-row class="header-row">
         <el-col :span="18" class="header-row-col1"
           ><el-row class="headerrow" type="flex" justify="left" align="middle">
@@ -22,12 +22,25 @@
           </el-row></el-col
         ><el-col :span="6" class="header-row-col2">
           <el-row class="headerrow" type="flex" justify="end" align="middle">
-            <el-button type="text" @click="handleClick"
+            <el-button type="text" @click="clickAccountInfo"
               ><el-avatar
                 src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
               ></el-avatar
             ></el-button>
-            <el-button type="text" @click="handleClick">管理员</el-button>
+            <el-dropdown trigger="click" @command="handleCommand">
+              <span class="el-dropdown-link" trigger="click">
+                管理员<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="accountInfo"
+                  >账号信息</el-dropdown-item
+                >
+                <el-dropdown-item command="modifyPassword"
+                  >修改密码</el-dropdown-item
+                >
+                <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </el-row></el-col
         >
       </el-row>
@@ -74,7 +87,9 @@
       <!-- <el-button @click="test"> test</el-button> -->
       <el-main>
         <keep-alive>
-          <router-view style="height: 100%"></router-view>
+          <transition name="fade-transform" mode="out-in">
+            <router-view style="height: 100%"></router-view>
+          </transition>
         </keep-alive>
       </el-main>
     </el-container>
@@ -101,6 +116,10 @@ body,
   overflow: auto;
   /* background-color: wheat; */
   background-color: rgb(237, 241, 245);
+}
+.header{
+  background-color:white;
+  padding-left: 16px;
 }
 .header-row {
   height: 100%;
@@ -139,9 +158,7 @@ body,
   height: 40px;
   width: 40px;
 } */
-.el-card {
-  border-radius: 15px;
-}
+
 /* 面包屑导航 */
 .el-breadcrumb {
   /* background-color: thistle; */
@@ -174,7 +191,30 @@ export default {
       this.isCollapse = !this.isCollapse;
     },
 
-    handleClick() {
+    handleCommand(command) {
+      switch (command) {
+        case "accountInfo":
+          this.$router.push({ path: "/GroundsAdmin/AccountModify" });
+          break;
+        case "modifyPassword":
+          this.$router.push({ path: "/GroundsAdmin/ModifyPassword" });
+          break;
+        default:
+          this.confirmLogout();
+      }
+    },
+
+    confirmLogout() {
+      this.$confirm('确认退出登录?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$router.push({ path: "/" });
+      })
+    },
+
+    clickAccountInfo() {
       this.$router.push({ path: "/GroundsAdmin/AccountModify" });
     },
     /**

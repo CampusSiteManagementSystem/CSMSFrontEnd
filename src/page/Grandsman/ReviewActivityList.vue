@@ -145,7 +145,7 @@ export default {
   };
 </script>
 
-<style>
+<style scpoed>
 html,
 body,
 #app,
@@ -155,35 +155,20 @@ body,
   height: 100%;
 }
 
-/* .el-header {
-  background-color: white;
-}
-.el-aside {
-  background-color: white;
-}
-.el-main {
-  background-color: rgb(237, 241, 245);
-  height: 100%;
-} */
 .maintitle {
-  font-size: 22px;
+  font-size: 20px;
   text-align: left;
   font-weight: bold;
   padding: 5px;
   margin-bottom: 8px;
 }
-/* .el-card {
-  height: 100%;
-}
-.el-input {
-  height: 50%;
-} */
+
 .detailinfo {
   padding: 15px;
 }
-/* .el-col {
-  padding: 5px;
+.maincard{
+  border-radius: 15px;
   height: 100%;
-} */
+}
 
 </style>

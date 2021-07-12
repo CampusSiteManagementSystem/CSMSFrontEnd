@@ -41,6 +41,15 @@ const routes = [
                 }
             },
             {
+                path: "ModifyPassword",
+                name: "StuModifyPassword",
+                component: () =>
+                    import ('../page/Shared/ModifyPassword.vue'),
+                meta: {
+                    title: '修改密码'
+                }
+            },
+            {
                 path: "Main",
                 name: "StudentFrameMain",
                 component: () =>
@@ -57,7 +66,21 @@ const routes = [
                 meta: {
                     title: '收藏'
                 }
-            }, {
+            },
+
+            {
+                path: "ShowSchedule/:groundID",
+                name: "ShowScheduleforStuFav",
+                props: {
+                    membertype: true,
+                },
+                component: () =>
+                    import ('../page/Shared/ShowSchedule.vue'),
+                meta: {
+                    title: '场地详情'
+                }
+            },
+            {
                 path: "ViewSites",
                 name: "ViewSites",
                 component: () =>
@@ -74,7 +97,7 @@ const routes = [
                     title: '活动详情'
                 }
             }, {
-                path: "ViewActivities",
+                path: "ViewActivities/:ID",
                 name: "ViewActivities",
                 component: () =>
                     import ('../page/Shared/check_activity.vue'),
@@ -104,14 +127,6 @@ const routes = [
                 }
             },
             {
-                path: "Favorite",
-                name: "StudentFrameFavorite",
-                component: () =>
-                    import ('../page/Student/StudentFavorite.vue'),
-                meta: {
-                    title: '收藏'
-                }
-            }, {
                 path: "ShowPlaceDetail",
                 name: "StuShowPlaceDetail",
                 props: {
@@ -120,8 +135,21 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/ShowPlaceDetail.vue'),
                 meta: {
-                    title: '场地细节'
-                }
+                    title: '场地列表'
+                },
+                children: [{
+                    path: "ShowSchedule/:groundID",
+                    name: "ShowScheduleforStu",
+                    props: {
+                        membertype: true,
+                    },
+                    component: () =>
+                        import ('../page/Shared/ShowSchedule.vue'),
+                    meta: {
+                        title: '场地详情'
+                    }
+                }, ]
+
             }, {
                 path: "ViewOrgs",
                 name: "ViewOrgs",
@@ -139,18 +167,18 @@ const routes = [
                     title: '查看场地'
                 }
             },
-            {
-                path: "ShowSchedule/:groundID",
-                name: "ShowScheduleforStu",
-                props: {
-                    membertype: true,
-                },
-                component: () =>
-                    import ('../page/Shared/ShowSchedule.vue'),
-                meta: {
-                    title: '场地详情'
-                }
-            }
+            // {
+            //     path: "ShowSchedule/:groundID",
+            //     name: "ShowScheduleforStu",
+            //     props: {
+            //         membertype: true,
+            //     },
+            //     component: () =>
+            //         import('../page/Shared/ShowSchedule.vue'),
+            //     meta: {
+            //         title: '场地详情'
+            //     }
+            // }
         ]
     },
     //系统管理员！！！！！！！！
@@ -177,8 +205,52 @@ const routes = [
                     import ('../page/SystemAdmin/SystemAdminHomePage.vue')
             },
             {
-                path: "GroupVerifyList",
-                name: "SystemAdminGroupVerifyList",
+                path: "ModifyPassword",
+                name: "SysAdminModifyPassword",
+                component: () =>
+                    import ('../page/Shared/ModifyPassword.vue'),
+                meta: {
+                    title: '修改密码'
+                }
+            },
+            {
+                path: 'CheckSite',
+                name: 'OrgCheckSite',
+                meta: {
+                    title: '所有场地'
+                },
+                props: {
+                    membertype: false
+                },
+                component: () =>
+                    import ('../page/Shared/ShowPlaceDetail.vue')
+            }, {
+                path: "Main",
+                name: "OrganizationFrameMain",
+                meta: {
+                    title: '组织主页'
+                },
+                component: () =>
+                    import ('../page/Organization/OrganizationMain.vue')
+            }, {
+                path: 'ViewActivities/:ID',
+                name: 'ViewActivities',
+                meta: {
+                    title: '查看活动'
+                },
+                component: () =>
+                    import ('../page/Shared/check_activity.vue')
+            }, {
+                path: "OrgAccountModify",
+                name: "OrganizationAccountModify",
+                meta: {
+                    title: '组织详细信息'
+                },
+                component: () =>
+                    import ('../page/Organization/OrganizationAccountModify.vue')
+            }, {
+                path: 'GroupVerifyList',
+                name: 'SystemAdminGroupVerify',
                 meta: {
                     title: "审核注册",
                 },
@@ -213,13 +285,22 @@ const routes = [
                     import ('../page/SystemAdmin/SystemAdminGroupVerify.vue')
             },
             {
-                path: "Announcement",
+                path: "AddUser",
+                name: "SystemAdminAddUser",
+                meta: {
+                    title: "添加用户",
+                },
+                component: () =>
+                    import ('../page/SystemAdmin/AddUser.vue')
+            },
+            {
+                path: "SystemAnnouncement",
                 name: "AnnouncementforSystem",
                 meta: {
                     title: "发布公告",
                 },
                 component: () =>
-                    import ('../page/Shared/AnnouncementList.vue')
+                    import ('../page/SystemAdmin/SystemAnnouncement.vue')
             }
         ]
     },
@@ -243,6 +324,15 @@ const routes = [
                 },
                 component: () =>
                     import ('../page/Shared/ShowPlaceDetail.vue')
+            },
+            {
+                path: "ModifyPassword",
+                name: "OrgModifyPassword",
+                component: () =>
+                    import ('../page/Shared/ModifyPassword.vue'),
+                meta: {
+                    title: '修改密码'
+                }
             }, {
                 path: "Main",
                 name: "OrganizationFrameMain",
@@ -252,7 +342,7 @@ const routes = [
                 component: () =>
                     import ('../page/Organization/OrganizationMain.vue')
             }, {
-                path: 'CheckActivity',
+                path: 'CheckActivity/:ID',
                 name: 'CreditActivityWindow',
                 meta: {
                     title: '所有活动'
@@ -396,6 +486,15 @@ const routes = [
                     import ('../page/Grandsman/GroundsmanAccountModify.vue'),
                 meta: {
                     title: '个人信息'
+                }
+            },
+            {
+                path: "ModifyPassword",
+                name: "GroundsmanModifyPassword",
+                component: () =>
+                    import ('../page/Shared/ModifyPassword.vue'),
+                meta: {
+                    title: '修改密码'
                 }
             },
             {

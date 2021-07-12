@@ -84,7 +84,7 @@ export default {
       participantnum: 40,
       description: "进行专业方向介绍，开展防范电信诈骗教育",
       additionalrequest: "无",
-      state: 0,
+      state: 1,
       comment: "",
       form: {
         state: "",
@@ -136,9 +136,7 @@ export default {
   padding: 5px;
   margin-bottom: 20px;
 }
-.bg-purple {
-  background: #f5f5f5;
-}
+
 .grid-content {
   border-radius: 6px;
   min-height: 36px;
@@ -146,6 +144,10 @@ export default {
 .info-card {
   height: 320px;
   border-radius: 12px;
-  background: white;
+  /* background: white; */
+}
+.maincard{
+  border-radius: 15px;
+  height: 100%;
 }
 </style>
