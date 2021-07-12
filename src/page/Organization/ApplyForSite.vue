@@ -7,7 +7,7 @@
         </div>
         <div id="content">
           <el-form
-            ref="ruleform"
+            ref="applyform"
             :rules="rules"
             :model="ruleform"
             label-width="100px"
@@ -20,6 +20,7 @@
                 v-model="ruleform.name"
                 maxlength="20"
                 show-word-limit
+                clearable
               >
               </el-input>
             </el-form-item>
@@ -36,6 +37,7 @@
             </el-form-item>
             <el-form-item label="选择日期：" prop="date">
               <el-date-picker
+                clearable
                 v-model="ruleform.date"
                 align="right"
                 type="date"
@@ -58,6 +60,7 @@
             </el-form-item>
             <el-form-item label="活动描述：" prop="description">
               <el-input
+                clearable
                 class="input"
                 type="textarea"
                 :rows="4"
@@ -78,6 +81,7 @@
             </el-form-item>
             <el-form-item label="特殊需求：" prop="special">
               <el-input
+                clearable
                 class="input"
                 type="textarea"
                 :rows="2"

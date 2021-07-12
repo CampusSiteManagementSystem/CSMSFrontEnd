@@ -196,9 +196,18 @@ export default {
           this.$router.push({ path: "/GroundsAdmin/ModifyPassword" });
           break;
         default:
-          this.$router.push({ path: "/" });
-          this.$router.go(1);
+          this.confirmLogout();
       }
+    },
+
+    confirmLogout() {
+      this.$confirm('确认退出登录?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$router.push({ path: "/" });
+      })
     },
 
     clickAccountInfo() {

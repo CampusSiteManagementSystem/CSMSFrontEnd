@@ -8,6 +8,7 @@
 
         <el-col :span="6">
           <el-input
+            clearable
             v-model="toMatch"
             placeholder="请输入用户ID搜索"
             @input="search"
