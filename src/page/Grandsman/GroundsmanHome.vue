@@ -38,6 +38,7 @@
               >查看更多</el-button
             ></router-link>
           </div>
+          
           <el-table
             :data="systemAnnouncement"
             style="width: 100%"

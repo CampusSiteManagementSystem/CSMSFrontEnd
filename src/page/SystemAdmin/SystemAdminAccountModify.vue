@@ -34,7 +34,9 @@
               </el-table-column>
               <el-table-column prop="content" label="内容">
                 <template slot-scope="scope">
-                  <span v-if="isSet == false">{{ scope.row.content }}</span>
+                  <span v-if="scope.row.change == 'false' || isSet == false">{{
+                    scope.row.content
+                  }}</span>
                   <span v-else>
                     <el-input
                       size="medium"
@@ -101,26 +103,42 @@ export default {
         {
           title: "账号",
           content: "1850668",
+          change: "false",
         },
         {
           title: "名称",
-          content: "王某",
+          content: "公关部",
+          change: "true",
         },
         {
-          title: "身份",
-          content: "学生",
+          title: "负责人",
+          content: "他",
+          change: "true",
         },
         {
           title: "信用分",
           content: "90",
-        },
-        {
-          title: "学院",
-          content: "软件学院",
+          change: "false",
         },
         {
           title: "联系方式",
           content: "14515485465",
+          change: "true",
+        },
+        {
+          title: "邮箱",
+          content: "987654321@qq.com",
+          change: "true",
+        },
+        {
+          title: "详细信息",
+          content: "很好！",
+          change: "true",
+        },
+        {
+          title: "组织状态",
+          content: "已审核",
+          change: "true",
         },
       ],
       isSet: false,

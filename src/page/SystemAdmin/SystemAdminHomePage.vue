@@ -36,6 +36,7 @@
                 style="width: 100%"
                 height="136"
                 :show-header="false"
+                @row-click="onRowClick"
               >
                 <el-table-column prop="title" label="活动名" width="auto">
                 </el-table-column>
@@ -107,6 +108,21 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <el-dialog :visible.sync="dialogVisible" width="50%" class="dialog">
+      <span slot="title">
+        <h3>{{ dialogTitle }}</h3>
+      </span>
+      <div class="content">
+        <span>{{ dialogContent }}</span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false"
+          >确定</el-button
+        >
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -114,6 +130,11 @@
 export default {
   data() {
     return {
+
+      dialogTitle: "",
+      dialogContent: "",
+      dialogVisible: false,
+
       //第一块卡片信息
       studentInfo: {
         image:
@@ -246,6 +267,13 @@ export default {
     showAnnouncement() {
       this.$router.push("/StuFrame/Announcement");
     },
+
+    onRowClick(row) {
+      this.dialogTitle = row.title;
+      this.dialogContent = row.title;
+      this.dialogVisible = true;
+    },
+
   },
 };
 </script>
@@ -303,4 +331,12 @@ export default {
   line-height: 40px;
   font-weight: 600;
 }
+
+.el-dialog {
+  border-radius: 12px;
+}
+.dialog {
+  backdrop-filter: blur(10px);
+}
+
 </style>

@@ -27,7 +27,7 @@
                 src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
               ></el-avatar
             ></el-button>
-            <el-button type="text" @click="handleClick">场地管理员</el-button>
+            <el-button type="text" @click="handleClick">组织管理员</el-button>
           </el-row></el-col
         >
       </el-row>
@@ -55,7 +55,7 @@
             <i class="el-icon-edit"></i>
             <span style="font-size: 14px">维护用户信息</span>
           </el-menu-item>
-          <el-menu-item index="/SysAdminFrame/Announcement">
+          <el-menu-item index="/SysAdminFrame/SystemAnnouncement">
             <i class="el-icon-document"></i>
             <span style="font-size: 14px">发布系统公告</span>
           </el-menu-item>
@@ -156,7 +156,7 @@ export default {
     },
 
     handleClick() {
-      this.$router.push("/OrgFrame/OrgAccountModify");
+      this.$router.push("/SysAdminFrame/AccountModify");
     },
     /**
      * @description 获取路由数组
