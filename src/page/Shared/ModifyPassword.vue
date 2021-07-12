@@ -75,7 +75,7 @@
                 @click="submitForm('RegisterForm')"
                 size="medium"
                 type="primary"
-                >找回</el-button
+                >确认修改</el-button
               >
             </el-row>
           </el-form>

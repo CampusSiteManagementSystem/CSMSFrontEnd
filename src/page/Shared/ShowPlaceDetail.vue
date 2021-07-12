@@ -39,7 +39,7 @@
             </template>
           </el-table-column>
           <el-table-column prop="name" label="场地名称"> </el-table-column>
-          <el-table-column prop="capacity" label="可容纳人数">
+          <el-table-column prop="capacity" label="容量">
           </el-table-column>
           <el-table-column prop="description" label="详情"> </el-table-column>
           <el-table-column label="操作" width="200">
@@ -58,8 +58,8 @@
               <router-link
                 v-show="membertype"
                 :to="{
-                  name: 'ShowScheduleforStuChild',
-                  params: { groundID: scope.row.groundId, membertype: true },
+                  name: 'ShowScheduleforStu',
+                  params: { groundId: scope.row.groundId, membertype: true },
                 }"
                 size="mini"
                 type="success"
@@ -72,7 +72,7 @@
                 v-show="othertype"
                 :to="{
                   name: 'ShowScheduleforOrg',
-                  params: { groundID: scope.row.groundId, membertype: false },
+                  params: { groundId: scope.row.groundId, membertype: false },
                 }"
                 size="mini"
                 type="success"
