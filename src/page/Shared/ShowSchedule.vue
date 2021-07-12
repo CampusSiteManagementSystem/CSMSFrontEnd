@@ -20,20 +20,21 @@
         <el-card class="box-card">
           <PicCard
             :buttonshow="othertype"
-            :groundID="this.$route.params.groundID"
+            :groundId="this.$route.params.groundId"
           />
         </el-card>
       </div>
     </el-row>
     <el-row :gutter="10" type="flex">
       <el-card class="box-card">
-        <CourseTable :groundID="this.$route.params.groundID"/>
+        <CourseTable :groundId="this.$route.params.groundId"/>
       </el-card>
     </el-row>
   </div>
 </template>
 
 <script>
+
 import CourseTable from "../../components/CourseTable.vue";
 import PicCard from "../../components/PicCard.vue";
 export default {
@@ -55,7 +56,7 @@ export default {
     desideType() {
       console.log("membertype", this.membertype);
       console.log("othertype", this.othertype);
-      console.log("groundID", this.$route.params.groundID);
+      console.log("groundId", this.$route.params.groundId);
 
       // console.log(this.$route.params.user);
 

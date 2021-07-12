@@ -26,6 +26,7 @@ export const POSTFeedbackRecords = param => Post('/api/FeedbackRecords', param);
 
 // IndoorGrounds
 export const GETIndoorGrounds = param => Get('/api/IndoorGrounds', param)
+export const GETIndoorGroundsID = ID => GetID('/api/IndoorGrounds/', ID)
 //Grounds
 export const GETGrounds = param => Get('/api/Grounds', param)
 export const GETGroundsID = ID => Get('/api/Grounds/',ID)
