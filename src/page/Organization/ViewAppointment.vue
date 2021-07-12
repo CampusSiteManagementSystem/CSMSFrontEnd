@@ -68,7 +68,7 @@
                 <template slot-scope="scope">
                 <router-link :to="{
                 name: 'ApplySiteWindow',
-                params: { ID: scope.row.ID },
+                query: { activityID: scope.row.ID },
               }">
                   <el-button size="mini">更改预约</el-button>
                 </router-link>
@@ -139,9 +139,9 @@
                 <template slot-scope="scope">
                 <router-link :to="{
                 name: 'ApplySiteWindow',
-                params: { ID: scope.row.ID },
+                query: { activityID: scope.row.ID },
               }">
-                  <el-button size="mini">更改预约</el-button>
+                  <el-button size="mini" @click.stop="handleEdit(scope.$index, scope.row)">更改预约</el-button>
                 </router-link>
                   <el-button size="mini" type="danger" class="modify" @click.stop="handleDelete2(scope.$index, scope.row)">删除预约
                   </el-button>
@@ -211,7 +211,7 @@
                 <template slot-scope="scope">
               <router-link :to="{
                 name: 'FeedBackWindow',
-                params: { ID: scope.row.ID },
+                query: { activityID: scope.row.ID },
               }">
                     <el-button size="mini" type="primary" @click.stop="handleFeedback(scope.$index, scope.row)">反馈
                     </el-button>
@@ -280,7 +280,10 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <router-link to="/OrgFrame/ApplySite">
+                  <router-link :to="{
+                    name: 'ApplySiteWindow',
+                    query: { activityName: scope.row.name },
+                  }">
                     <el-button size="mini" type="success" @click.stop="handleRenew(scope.$index, scope.row)">重新申请
                     </el-button>
                   </router-link>
@@ -421,6 +424,9 @@ export default {
     },
     formatter(row) {
       return row.address;
+    },
+    handleEdit(index, row){
+      console.log(index, row);
     },
     handleDelete1(index, row) {
       console.log(index, row);
