@@ -126,6 +126,15 @@ export default {
       }
     },
   },
+  mounted() {
+    
+   
+        this.childPage = this.$route.meta.title == "收藏" ? false : true;
+  },
+  updated() {
+     
+      this.childPage = this.$route.meta.title == "收藏" ? false : true;
+    },
 };
 </script>
 
