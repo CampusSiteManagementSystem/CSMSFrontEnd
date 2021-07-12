@@ -1,6 +1,4 @@
 ﻿<template>
-<!-- <transition name="el-zoom-in-top"> -->
-   <transition name="el-fade-in-linear">
   <div>
     <el-row class="upper-row">
       <el-col :span="10" class="upper-row-col1"
@@ -148,9 +146,6 @@
       </span>
     </el-dialog>
   </div>
-<!-- </transition> -->
-   </transition>
-
 </template>
 
 <script>

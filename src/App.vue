@@ -10,6 +10,8 @@ export default {
 </script>
 
 <style scpoed>
+@import "./css/transition.css";
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -64,7 +64,9 @@
 
       <el-main style="height: 100%; overflow: auto">
         <keep-alive>
-          <router-view></router-view>
+          <transition name="fade-transform" mode="out-in">
+            <router-view style="height: 100%"></router-view>
+          </transition>
         </keep-alive>
       </el-main>
     </el-container>

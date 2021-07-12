@@ -10,6 +10,7 @@
           </el-col>
           <el-col :span="6">
             <el-input
+              clearable
               v-model="toMatch"
               placeholder="请输入关键字搜索"
               @input="search"
