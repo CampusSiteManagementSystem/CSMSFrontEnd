@@ -621,6 +621,11 @@ const routes = [
 
     },
     {
+        path: "/test",
+        component: () =>
+            import ("../test.vue")
+    },
+    {
         path: "/error",
         component: () =>
             import ('../page/Shared/404.vue')
