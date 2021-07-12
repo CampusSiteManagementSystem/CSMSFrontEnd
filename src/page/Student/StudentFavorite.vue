@@ -51,10 +51,10 @@
                 name: 'ShowScheduleforStuFav',
                 params: { groundID: scope.row.groundID },
               }"
+              @click.native="handleEdit"
             >
               <el-button
                 size="small"
-                @click.native="handleEdit"
                 round
                 >查看</el-button
               >
@@ -131,8 +131,6 @@ export default {
     }
   },
   mounted() {
-    
-   
         this.childPage = this.$route.meta.title == "收藏" ? false : true;
   },
   updated() {

@@ -124,7 +124,8 @@ body,
   font-size: 20px;
   font-weight: 600;
 }
-.maincard {
+.maincard{
+  border-radius: 15px;
   height: 100%;
 }
 

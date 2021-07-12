@@ -67,7 +67,7 @@
             <i class="el-icon-location"></i>
             <span style="font-size: 14px">查找地点</span>
           </el-menu-item>
-          <el-menu-item index="/StuFrame/ViewActivities">
+          <el-menu-item index="/StuFrame/ViewActivities/AllActivities">
             <i class="el-icon-s-claim"></i>
             <span style="font-size: 14px">查找活动</span>
           </el-menu-item>

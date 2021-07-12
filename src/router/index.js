@@ -90,7 +90,7 @@ const routes = [
                     title: '活动详情'
                 }
             }, {
-                path: "ViewActivities",
+                path: "ViewActivities/:ID",
                 name: "ViewActivities",
                 component: () =>
                     import('../page/Shared/check_activity.vue'),
@@ -199,8 +199,43 @@ const routes = [
                 import('../page/SystemAdmin/SystemAdminHomePage.vue')
         },
         {
-            path: "GroupVerifyList",
-            name: "SystemAdminGroupVerifyList",
+            path: 'CheckSite',
+            name: 'OrgCheckSite',
+            meta: {
+                title: '所有场地'
+            },
+            props: {
+                membertype: false
+            },
+            component: () =>
+                import('../page/Shared/ShowPlaceDetail.vue')
+        }, {
+            path: "Main",
+            name: "OrganizationFrameMain",
+            meta: {
+                title: '组织主页'
+            },
+            component: () =>
+                import('../page/Organization/OrganizationMain.vue')
+        }, {
+            path: 'ViewActivities/:ID',
+            name: 'ViewActivities',
+            meta: {
+                title: '查看活动'
+            },
+            component: () =>
+                import('../page/Shared/check_activity.vue')
+        }, {
+            path: "OrgAccountModify",
+            name: "OrganizationAccountModify",
+            meta: {
+                title: '组织详细信息'
+            },
+            component: () =>
+                import('../page/Organization/OrganizationAccountModify.vue')
+        }, {
+            path: 'CheckOrgan',
+            name: 'CreditOrganWindow',
             meta: {
                 title: "审核注册",
             },

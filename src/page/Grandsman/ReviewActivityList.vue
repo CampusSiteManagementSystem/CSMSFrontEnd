@@ -156,7 +156,7 @@ body,
 }
 
 .maintitle {
-  font-size: 22px;
+  font-size: 20px;
   text-align: left;
   font-weight: bold;
   padding: 5px;
@@ -166,6 +166,9 @@ body,
 .detailinfo {
   padding: 15px;
 }
-
+.maincard{
+  border-radius: 15px;
+  height: 100%;
+}
 
 </style>

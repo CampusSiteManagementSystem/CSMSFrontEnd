@@ -30,7 +30,7 @@
       <el-col :span="14" class="upper-row-col2">
         <el-card class="upper-card">
           <div slot="header" class="clearfix">
-            <span>系统公告</span>
+            <span><b>系统公告</b></span>
             <router-link to="/GroundsAdmin/Announcement"
               ><el-button style="float: right; padding: 3px 0" type="text"
                 >查看更多</el-button
@@ -112,6 +112,18 @@
 </template>
 
 <style scpoed>
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  font-size: 18px;
+}
 .name {
   font-size: 30px;
   font-weight: 550;

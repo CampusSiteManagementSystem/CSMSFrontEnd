@@ -32,21 +32,18 @@
 
 
 <style scpoed>
-html,
-body,
-#app,
-.el-container {
-  /*设置内部填充为0，几个布局元素之间没有间距*/
-  padding: 0px;
-  /*外部间距也是如此设置*/
-  margin: 0px;
-  /*统一设置高度为100%*/
-  height: 100%;
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
 }
 
-/* .el-header {
-  background-color: white;
-} */
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  font-size: 18px;
+}
 .info-row {
   height: 250px;
 }

@@ -71,7 +71,7 @@
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
             <span><b>未来活动</b></span>
-            <router-link to="/StuFrame/ViewActivities">
+            <router-link to="/StuFrame/ViewActivities/AllActivities">
               <el-button style="float: right; padding: 3px 0" type="text"
                 >查看更多</el-button
               >
