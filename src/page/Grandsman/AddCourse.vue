@@ -13,10 +13,11 @@
             class="demo-ruleForm"
           >
             <el-form-item label="课程名称" prop="name">
-              <el-input v-model="ruleForm.name"></el-input>
+              <el-input clearable v-model="ruleForm.name"></el-input>
             </el-form-item>
             <el-form-item label="上课场地" prop="site" required>
               <el-cascader
+                clearable
                 v-model="ruleForm.site"
                 :options="options"
                 @change="handleChange"
@@ -26,6 +27,7 @@
               <el-col :span="11">
                 <el-form-item prop="date1">
                   <el-date-picker
+                    clearable
                     type="date"
                     placeholder="选择日期"
                     v-model="ruleForm.date1"
@@ -37,6 +39,7 @@
               <el-col :span="11">
                 <el-form-item prop="date2">
                   <el-time-picker
+                    clearable
                     placeholder="选择时间"
                     v-model="ruleForm.date2"
                     style="width: 100%"
@@ -46,6 +49,7 @@
             </el-form-item>
             <el-form-item label="持续时间" prop="during">
               <el-input
+                clearable
                 v-model.number="ruleForm.during"
                 type="text"
                 placeholder="单位：分钟"

@@ -11,6 +11,7 @@
           </el-col>
           <el-col :span="4">
             <el-input
+              clearable
               v-model="toMatch"
               placeholder="请输入关键字搜索"
               @input="search"
