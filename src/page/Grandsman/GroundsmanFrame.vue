@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100%">
-    <el-header style="height: 8%; background-color: white">
+    <el-header class="header" style="height: 8%; ">
       <el-row class="header-row">
         <el-col :span="18" class="header-row-col1"
           ><el-row class="headerrow" type="flex" justify="left" align="middle">
@@ -116,6 +116,10 @@ body,
   overflow: auto;
   /* background-color: wheat; */
   background-color: rgb(237, 241, 245);
+}
+.header{
+  background-color:white;
+  padding-left: 16px;
 }
 .header-row {
   height: 100%;
