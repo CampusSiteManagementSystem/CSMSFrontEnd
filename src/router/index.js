@@ -186,73 +186,10 @@ const routes = [
         component: () =>
             import('../page/SystemAdmin/SystemAdminFrame.vue'),
         children: [{
-                path: "SysAdminHomePage",
-                name: "SystemAdminHomePage",
-                component: () =>
-                    import('../page/SystemAdmin/SystemAdminHomePage.vue')
-            },
-            {
-                path: "GroupVerifyList",
-                name: "SystemAdminGroupVerifyList",
-                meta: {
-                    title: "审核注册",
-                },
-                component: () =>
-                    import ('../page/SystemAdmin/SystemAdminGroupVerifyList.vue')
-            },
-            {
-                path: "GroupVerify",
-                name: "SystemAdminGroupVerify",
-                meta: {
-                    title: "组织注册",
-                },
-                component: () =>
-                    import ('../page/SystemAdmin/SystemAdminGroupVerify.vue')
-            },
-            {
-                path: "MaintainUserInfo",
-                name: "SystemAdminMaintainUserInfo",
-                meta: {
-                    title: "维护信息",
-                },
-                component: () =>
-                    import ('../page/SystemAdmin/SystemAdminMaintainUserInfo.vue')
-            },
-            {
-                path: "AccountModify",
-                name: "SystemAdminAccountModify",
-                meta: {
-                    title: "查看信息",
-                },
-                component: () =>
-                    import ('../page/SystemAdmin/SystemAdminAccountModify.vue')
-            },
-            {
-                path: "AddUser",
-                name: "SystemAdminAddUser",
-                meta: {
-                    title: "查看信息",
-                },
-                component: () =>
-                    import ('../page/SystemAdmin/AddUser.vue')
-            },
-            {
-                path: "SystemAnnouncement",
-                name: "SystemAdminAnnoucement",
-                meta: {
-                    title: "发布公告",
-                },
-                component: () =>
-                    import ('../page/SystemAdmin/SystemAnnouncement.vue')
-            },
-        ]
-    },
-    // 组织页面
-    {
-        path: '/OrgFrame',
-        name: 'OrgFrame',
-        meta: {
-            title: '组织'
+            path: "SysAdminHomePage",
+            name: "SystemAdminHomePage",
+            component: () =>
+                import('../page/SystemAdmin/SystemAdminHomePage.vue')
         },
         {
             path: "GroupVerifyList",
