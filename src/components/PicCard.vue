@@ -10,7 +10,7 @@
           <h3>场地详情</h3>
         </div>
         <el-row>
-          <p>场地名称：{{ building }}{{ room }}</p>
+          <p>场地名称：{{ positionName }}{{roomNo}}</p>
           <p>场地类型：{{ placeType }}</p>
           <p v-for="(value, key) in utils" :key="value">
             {{ key }}:{{ value }}
