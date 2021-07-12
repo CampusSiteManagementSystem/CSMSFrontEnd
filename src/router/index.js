@@ -139,7 +139,7 @@ const routes = [
             },
             children: [{
                 path: "ShowSchedule/:groundID",
-                name: "ShowScheduleforStu",
+                name: "ShowScheduleforStuChild",
                 props: {
                     membertype: true,
                 },
@@ -167,18 +167,6 @@ const routes = [
                 title: '查看场地'
             }
         },
-            // {
-            //     path: "ShowSchedule/:groundID",
-            //     name: "ShowScheduleforStu",
-            //     props: {
-            //         membertype: true,
-            //     },
-            //     component: () =>
-            //         import('../page/Shared/ShowSchedule.vue'),
-            //     meta: {
-            //         title: '场地详情'
-            //     }
-            // }
         ]
     },
     //系统管理员！！！！！！！！

@@ -113,6 +113,9 @@ body,
 
 
 <script>
+// import store from 
+
+// store.state.id
 export default {
   name: "creditscoring",
   data() {

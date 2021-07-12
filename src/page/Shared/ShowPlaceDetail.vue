@@ -58,8 +58,8 @@
               <router-link
                 v-show="membertype"
                 :to="{
-                  name: 'ShowScheduleforStu',
-                  params: { groundID: scope.row.groundID, membertype: true },
+                  name: 'ShowScheduleforStuChild',
+                  params: { groundID: scope.row.groundId, membertype: true },
                 }"
                 size="mini"
                 type="success"
@@ -72,7 +72,7 @@
                 v-show="othertype"
                 :to="{
                   name: 'ShowScheduleforOrg',
-                  params: { groundID: scope.row.groundID, membertype: false },
+                  params: { groundID: scope.row.groundId, membertype: false },
                 }"
                 size="mini"
                 type="success"
@@ -108,17 +108,6 @@
 import { GETGrounds } from "../../API/http";
 export default {
   data() {
-    // const item = {
-    //   groundId: "123123",
-    //   type: "室外",
-    //   building: "F",
-    //   floor: "4",
-    //   room: "402",
-    //   capacity: 100,
-    //   description: "F楼402大教室",
-    //  name:"F402",
-    // };
-
     return {
       // tableData: Array(20).fill(item),
       tableData: [],
@@ -134,9 +123,7 @@ export default {
   created() {
     this.matchList = this.tableData;
   },
-  computed: {
-   
-  },
+  computed: {},
   mounted() {
     console.log("run mounted");
     const that = this;
@@ -145,16 +132,14 @@ export default {
       .then((data) => {
         that.axiosdata = data;
         that.tableData = that.dealWith(that.axiosdata);
-
         console.log(that.axiosdata[0]);
       })
       .catch((err) => {
         that.data = err;
       });
 
-    
     // this.childPage = this.$route.name == "StuShowPlaceDetail" ? false : true;
-    this.item.details = this.item.building + this.item.room;
+    // this.item.details = this.item.building + this.item.room;
     this.childPage =
       this.$route.name == "StuShowPlaceDetail" ||
       this.$route.name == "OrgCheckSite"
@@ -187,72 +172,30 @@ export default {
     },
     handleEdit() {
       console.log("handleedit");
+      console.log(this.$route);
       this.childPage =
         this.$route.name == "StuShowPlaceDetail" ||
         this.$route.name == "OrgCheckSite"
           ? false
           : true;
     },
-     dealWith(data) {
-      //         accountNumber: "1000003"
-      // area: 200
-      // computerNum: null
-      // description: "这是一个用于学生上课的地方"
-      // empty: null
-      // floor: null
-      // groundId: "1000003"
-      // latitude: null
-      // longitude: null
-      // name: "G302"
-      // roomNo: null
-      // seatNum: null
-      // type: "室内"
-
+    dealWith(data) {
       for (var i = 0; i < data.length; i++) {
         var temp = {
           groundId: "123123",
-          name:"F202",
+          name: "F202",
           type: "室外",
           capacity: 100,
           description: "F楼402大教室",
         };
-        temp.groundId=data[i].groundId;
-        temp.name=data[i].name;
-        temp.description=data[i].description;
-        temp.type=data[i].type;
-        temp.capacity=data[i].area;
+        temp.groundId = data[i].groundId;
+        temp.name = data[i].name;
+        temp.description = data[i].description;
+        temp.type = data[i].type;
+        temp.capacity = data[i].area;
         this.tableData.push(temp);
       }
-
-      //  groundID: "123123",
-      //       type: "室外",
-      //       building: "F",
-      //       floor: "4",
-      //       room: "402",
-      //       capacity: 100,
-      //       description: "F楼402大教室",
-      //       details: this.building + this.room,
     },
-
-
-    // beforeUpdate() {
-
-    // }
-
-    // handleEdit() {},
-    // handleEdit(index, row) {
-
-    //   this.selectTable = row;
-    //   this.address.address = row.address;
-    //   this.dialogFormVisible = true;
-    //   this.selectedCategory = row.category.split("/");
-    //   if (!this.categoryOptions.length) {
-    //     this.getCategory();
-    //   }
-    // },
-    // addFood(index, row) {
-    //   this.$router.push({ path: "addGoods", query: { restaurant_id: row.id } });
-    // },
   },
   props: {
     membertype: {
