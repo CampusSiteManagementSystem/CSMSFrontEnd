@@ -27,7 +27,7 @@
     </el-row>
     <el-row :gutter="10" type="flex">
       <el-card class="box-card">
-        <CourseTable />
+        <CourseTable :groundID="this.$route.params.groundID"/>
       </el-card>
     </el-row>
   </div>

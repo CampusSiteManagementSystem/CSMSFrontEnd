@@ -120,6 +120,7 @@ export default {
     };
   },
   props: {
+    groundId:String,
     width: {
       type: Number,
       default: 1200,

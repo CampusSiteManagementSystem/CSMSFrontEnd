@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { POSTCreditRecords } from "./API/http";
+import {GETIndooeGrounds} from "./API/http";
 export default {
   data() {
     return {
@@ -15,11 +15,7 @@ export default {
   },
   methods: {
     test() {
-      POSTCreditRecords({
-        reason: "string",
-        score: 0,
-        id: "1000020",
-      })
+      GETIndooeGrounds()
         .then((data) => {
           this.res = data;
         })
