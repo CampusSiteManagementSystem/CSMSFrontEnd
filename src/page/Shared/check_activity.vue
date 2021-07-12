@@ -174,12 +174,11 @@ export default {
             this.tableData.push(a);
           }
         }
+        this.matchList = this.tableData;
     })
     .catch(function (error) {
         console.log(error);
     });
-    console.log(this.tableData);
-    this.matchList = this.tableData;
   },
   methods: {
     viewInfo(row) {
