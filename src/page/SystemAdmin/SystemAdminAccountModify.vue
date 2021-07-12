@@ -24,29 +24,66 @@
             <h3>用户信息</h3>
           </div>
           <div id="content">
-            <el-table
-              :cell-style="columnStyle"
-              :show-header="false"
-              :data="tableData"
-              border
-              style="width: 80%; margin-top: 20px"
+            <el-form
+              ref="ruleForm"
+              :rules="rules"
+              :model="ruleForm"
+              label-width="100px"
+              :hide-required-asterisk="true"
             >
-              <el-table-column width="180" prop="title" label="标题">
-              </el-table-column>
-              <el-table-column prop="content" label="内容">
-                <template slot-scope="scope">
-                  <span v-if="scope.row.change == 'false' || isSet == false">{{
-                    scope.row.content
-                  }}</span>
-                  <span v-else>
-                    <el-input
-                      size="medium"
-                      v-model="scope.row.content"
-                    ></el-input>
-                  </span>
-                </template>
-              </el-table-column>
-            </el-table>
+              <el-form-item label="账号：" prop="account">
+                <el-input v-model="ruleForm.account" :readonly="true"></el-input>
+              </el-form-item>
+              <el-form-item label="名称：" prop="name">
+                <div v-if="isSet == false">
+                  <el-input v-model="ruleForm.name" :readonly="true"></el-input>
+                </div>
+                <div v-else>
+                  <el-input v-model="ruleForm.name"></el-input>
+                </div>
+              </el-form-item>
+              <el-form-item label="负责人：" prop="user">
+                <div v-if="isSet == false">
+                  <el-input v-model="ruleForm.user" :readonly="true"></el-input>
+                </div>
+                <div v-else>
+                  <el-input v-model="ruleForm.user"></el-input>
+                </div>
+              </el-form-item>
+              <el-form-item label="信用分：" prop="credit">
+                <el-input v-model="ruleForm.credit" :readonly="true"></el-input>
+              </el-form-item>
+              <el-form-item label="联系方式：" prop="telephone">
+                <div v-if="isSet == false">
+                  <el-input
+                    v-model="ruleForm.telephone"
+                    :readonly="true"
+                  ></el-input>
+                </div>
+                <div v-else>
+                  <el-input v-model="ruleForm.telephone"></el-input>
+                </div>
+              </el-form-item>
+              <el-form-item label="详细信息：" prop="content">
+                <div v-if="isSet == false">
+                  <el-input
+                    v-model="ruleForm.content"
+                    :readonly="true"
+                  ></el-input>
+                </div>
+                <div v-else>
+                  <el-input v-model="ruleForm.content"></el-input>
+                </div>
+              </el-form-item>
+              <el-form-item label="组织状态：" prop="state">
+                <div v-if="isSet == false">
+                  <el-input v-model="ruleForm.state" :readonly="true"></el-input>
+                </div>
+                <div v-else>
+                  <el-input v-model="ruleForm.state"></el-input>
+                </div>
+              </el-form-item>
+            </el-form>
             <div v-if="isSet == false" class="modify">
               <el-button type="primary" @click="returnback">取消</el-button>
               <el-button type="primary" @click="edit">编辑</el-button>
@@ -89,55 +126,44 @@ p {
 }
 </style>
 
-
-
-
 <script>
 export default {
   data() {
     return {
-      tableData: [
-        {
-          title: "账号",
-          content: "1850668",
-          change: "false",
-        },
-        {
-          title: "名称",
-          content: "公关部",
-          change: "true",
-        },
-        {
-          title: "负责人",
-          content: "他",
-          change: "true",
-        },
-        {
-          title: "信用分",
-          content: "90",
-          change: "false",
-        },
-        {
-          title: "联系方式",
-          content: "14515485465",
-          change: "true",
-        },
-        {
-          title: "邮箱",
-          content: "987654321@qq.com",
-          change: "true",
-        },
-        {
-          title: "详细信息",
-          content: "很好！",
-          change: "true",
-        },
-        {
-          title: "组织状态",
-          content: "已审核",
-          change: "true",
-        },
-      ],
+      ruleForm: {
+        account: "123456",
+        name: "软件学院",
+        user: "王某",
+        credit: "90",
+        telephone: "123456789",
+        content: "很好",
+        state: "已审核",
+      },
+
+      rules: {
+        name: [
+          { required: true, message: "请输入组织名称", trigger: "blur" },
+          { min: 3, max: 8, message: "长度在 3 到 8 个字符", trigger: "blur" },
+        ],
+        user: [
+          { required: true, message: "请输入负责人名称", trigger: "blur" },
+        ],
+        telephone: [
+          {
+            required: true,
+            message: "请输入联系电话",
+            trigger: "blur",
+          },
+          {
+            pattern: /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/,
+            message: "请正确输入联系电话，为11位数字",
+            trigger: "change",
+          },
+        ],
+        content: [{ required: true, message: "请输入介绍", trigger: "blur" }],
+        state: [{ required: true, message: "请输入审核状态", trigger: "blur" }],
+      },
+
       isSet: false,
     };
   },
@@ -146,17 +172,12 @@ export default {
     returnback() {
       this.$router.push({ path: "MaintainUserInfo" });
     },
-    columnStyle({
-      row,
-      column,
-      rowIndex,
-      columnIndex
-    }) {
-      console.log(row, column, rowIndex, columnIndex, "row");
-      if (columnIndex == 0) {
-        return 'background:#EFFBEF; font-weight: 700;'
-      }
-    },
+    // columnStyle({ row, column, rowIndex, columnIndex }) {
+    //   console.log(row, column, rowIndex, columnIndex, "row");
+    //   if (columnIndex == 0) {
+    //     return "background:#EFFBEF; font-weight: 700;";
+    //   }
+    // },
     edit() {
       this.isSet = true;
     },
