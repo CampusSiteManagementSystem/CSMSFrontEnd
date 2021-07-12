@@ -75,7 +75,7 @@
             <router-link
               :to="{
                 name: 'ViewActivities',
-                params: { ID: orgSelected.accountNum },
+                params: { ID: orgSelected.accountNumber },
               }"
             >
               <el-button type="text">查看此组织举办的活动</el-button>
