@@ -92,9 +92,11 @@
 </template>
 
 <script>
+//import { DELETEActivitiesID } from "../../API/http";
 export default {
   data() {
     return {
+      res: null,
       form: {
         accountNumber: "",
         password: "",
@@ -108,7 +110,8 @@ export default {
           { required: true, message: "请输入密码", trigger: "blur" },
           {
             pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,10}$/,
-            message: "必须包含大小写字母和数字的组合，可以使用特殊字符，长度在8-10之间",
+            message:
+              "必须包含大小写字母和数字的组合，可以使用特殊字符，长度在8-10之间",
             trigger: "blur",
           },
         ],
@@ -117,23 +120,27 @@ export default {
     };
   },
   methods: {
+    //formName
     submitForm: function (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          //提交表单到后台验证身份，并路由到指定页面
-          if (this.identity === 1) {
-            this.$router.push("/StuFrame/Main");
-          } else if (this.identity === 2) {
-            this.$router.push("/GroundsAdmin/Main");
-          } else if (this.identity === 3) {
-            this.$router.push("/OrgFrame/Main");
-          } else if (this.identity === 4) {
-            this.$router.push("/SysAdminFrame");
+      // DELETEActivitiesID(1000010)
+      // .then(res => {console.log(res)})
+      // .catch(err => {console.log(err)})
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            //提交表单到后台验证身份，并路由到指定页面
+            if (this.identity === 1) {
+              this.$router.push("/StuFrame/Main");
+            } else if (this.identity === 2) {
+              this.$router.push("/GroundsAdmin/Main");
+            } else if (this.identity === 3) {
+              this.$router.push("/OrgFrame/Main");
+            } else if (this.identity === 4) {
+              this.$router.push("/SysAdminFrame");
+            }
+          } else {
+            this.$refs[formName].clearValidate();
           }
-        } else {
-          this.$refs[formName].clearValidate();
-        }
-      });
+        });
     },
   },
 };

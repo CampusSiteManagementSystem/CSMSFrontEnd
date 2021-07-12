@@ -9,19 +9,19 @@ const routes = [
         path: '/',
         name: 'Login',
         component: () =>
-            import('../page/Shared/Login.vue')
+            import ('../page/Shared/Login.vue')
     },
     {
         path: '/Register',
         name: 'Register',
         component: () =>
-            import('../page/Shared/Register.vue')
+            import ('../page/Shared/Register.vue')
     },
     {
         path: '/ForgetPassword',
         name: 'ForgetPassword',
         component: () =>
-            import('../page/Shared/ForgetPassword.vue')
+            import ('../page/Shared/ForgetPassword.vue')
     },
     //学生页面
     {
@@ -31,8 +31,7 @@ const routes = [
         meta: {
             title: '学生'
         },
-        children: [
-            {
+        children: [{
                 path: "AccountModify",
                 name: "StuAccountModify",
                 component: () =>
@@ -160,7 +159,7 @@ const routes = [
         path: "/SystemAdminHomePage",
         name: "SystemAdminHomePage",
         component: () =>
-            import('../page/SystemAdmin/SystemAdminHomePage.vue')
+            import ('../page/SystemAdmin/SystemAdminHomePage.vue')
     },
     //这两个中间要删了
     {
@@ -170,12 +169,12 @@ const routes = [
             title: "系统管理员",
         },
         component: () =>
-            import('../page/SystemAdmin/SystemAdminFrame.vue'),
+            import ('../page/SystemAdmin/SystemAdminFrame.vue'),
         children: [{
                 path: "SysAdminHomePage",
                 name: "SystemAdminHomePage",
                 component: () =>
-                    import('../page/SystemAdmin/SystemAdminHomePage.vue')
+                    import ('../page/SystemAdmin/SystemAdminHomePage.vue')
             },
             {
                 path: "GroupVerifyList",
@@ -232,301 +231,306 @@ const routes = [
             title: '组织'
         },
         component: () =>
-            import('../page/Organization/OrganizationFrame.vue'),
-        children: [            
-        {
-            path: 'CheckSite',
-            name: 'OrgCheckSite',
-            meta: {
-                title: '所有场地'
+            import ('../page/Organization/OrganizationFrame.vue'),
+        children: [{
+                path: 'CheckSite',
+                name: 'OrgCheckSite',
+                meta: {
+                    title: '所有场地'
+                },
+                props: {
+                    membertype: false
+                },
+                component: () =>
+                    import ('../page/Shared/ShowPlaceDetail.vue')
+            }, {
+                path: "Main",
+                name: "OrganizationFrameMain",
+                meta: {
+                    title: '组织主页'
+                },
+                component: () =>
+                    import ('../page/Organization/OrganizationMain.vue')
+            }, {
+                path: 'CheckActivity',
+                name: 'CreditActivityWindow',
+                meta: {
+                    title: '所有活动'
+                },
+                component: () =>
+                    import ('../page/Shared/check_activity.vue')
+            }, {
+                path: "OrgAccountModify",
+                name: "OrganizationAccountModify",
+                meta: {
+                    title: '组织详细信息'
+                },
+                component: () =>
+                    import ('../page/Organization/OrganizationAccountModify.vue')
+            }, {
+                path: 'CheckOrgan',
+                name: 'CreditOrganWindow',
+                meta: {
+                    title: '所有组织'
+                },
+                component: () =>
+                    import ('../page/Shared/check_organ.vue')
+            }, {
+                path: 'CreditScore',
+                name: 'CreditScoreWindow',
+                meta: {
+                    title: '信用分记录'
+                },
+                component: () =>
+                    import ('../page/Organization/ViewCreditScore.vue')
+            }, {
+                path: 'Appointment',
+                name: 'AppointmentWindow',
+                meta: {
+                    title: '预约记录'
+                },
+                component: () =>
+                    import ('../page/Organization/ViewAppointment.vue')
+            }, {
+                path: "OrgFavorite",
+                name: "FavoriteWindow",
+                meta: {
+                    title: '收藏'
+                },
+                component: () =>
+                    import ('../page/Organization/OrganizationFavorite.vue')
             },
-            props: {
-                membertype: false
+            {
+                path: "Announcement",
+                name: "AnnouncementforOrg",
+                meta: {
+                    title: '公告'
+                },
+                component: () =>
+                    import ('../page/Shared/AnnouncementList.vue')
             },
-            component: () =>
-                import('../page/Shared/ShowPlaceDetail.vue')
-        }, {
-            path: "Main",
-            name: "OrganizationFrameMain",
-            meta: {
-                title: '组织主页'
+            {
+                path: 'FinishActivity',
+                name: 'FinishWindow',
+                meta: {
+                    title: '活动反馈'
+                },
+                component: () =>
+                    import ('../page/Organization/ViewFinishActivity.vue')
+            }, {
+                path: 'RecordDetails',
+                name: 'RecordWindow',
+                meta: {
+                    title: '已通过'
+                },
+                component: () =>
+                    import ('../page/Organization/RecordDetails.vue')
+            }, {
+                path: 'Pending',
+                name: 'PendingWindow',
+                meta: {
+                    title: '待审核'
+                },
+                component: () =>
+                    import ('../page/Organization/PendingReview.vue')
+            }, {
+                path: 'Rejected',
+                name: 'RejectedWindow',
+                meta: {
+                    title: '被驳回'
+                },
+                component: () =>
+                    import ('../page/Organization/AppointmentRejected.vue')
+            }, {
+                path: 'FeedBack',
+                name: 'FeedBackWindow',
+                meta: {
+                    title: '场地反馈'
+                },
+                component: () =>
+                    import ('../page/Organization/SiteFeedback.vue')
+            }, {
+                path: 'ApplySite',
+                name: 'ApplySiteWindow',
+                meta: {
+                    title: '预约场地'
+                },
+                component: () =>
+                    import ('../page/Organization/ApplyForSite.vue')
             },
-            component: () =>
-                import('../page/Organization/OrganizationMain.vue')
-        }, {
-            path: 'CheckActivity',
-            name: 'CreditActivityWindow',
-            meta: {
-                title: '所有活动'
-            },
-            component: () =>
-                import('../page/Shared/check_activity.vue')
-        }, {
-            path: "OrgAccountModify",
-            name: "OrganizationAccountModify",
-            meta: {
-                title: '组织详细信息'
-            },
-            component: () =>
-                import('../page/Organization/OrganizationAccountModify.vue')
-        }, {
-            path: 'CheckOrgan',
-            name: 'CreditOrganWindow',
-            meta: {
-                title: '所有组织'
-            },
-            component: () =>
-                import('../page/Shared/check_organ.vue')
-        }, {
-            path: 'CreditScore',
-            name: 'CreditScoreWindow',
-            meta: {
-                title: '信用分记录'
-            },
-            component: () =>
-                import('../page/Organization/ViewCreditScore.vue')
-        }, {
-            path: 'Appointment',
-            name: 'AppointmentWindow',
-            meta: {
-                title: '预约记录'
-            },
-            component: () =>
-                import('../page/Organization/ViewAppointment.vue')
-        }, {
-            path: "OrgFavorite",
-            name: "FavoriteWindow",
-            meta: {
-                title: '收藏'
-            },
-            component: () =>
-                import('../page/Organization/OrganizationFavorite.vue')
-        },
-        {
-            path: "Announcement",
-            name: "AnnouncementforOrg",
-            meta: {
-                title: '公告'
-            },
-            component: () =>
-                import('../page/Shared/AnnouncementList.vue')
-        },
-        {
-            path: 'FinishActivity',
-            name: 'FinishWindow',
-            meta: {
-                title: '活动反馈'
-            },
-            component: () =>
-                import('../page/Organization/ViewFinishActivity.vue')
-        }, {
-            path: 'RecordDetails',
-            name: 'RecordWindow',
-            meta: {
-                title: '已通过'
-            },
-            component: () =>
-                import('../page/Organization/RecordDetails.vue')
-        }, {
-            path: 'Pending',
-            name: 'PendingWindow',
-            meta: {
-                title: '待审核'
-            },
-            component: () =>
-                import('../page/Organization/PendingReview.vue')
-        }, {
-            path: 'Rejected',
-            name: 'RejectedWindow',
-            meta: {
-                title: '被驳回'
-            },
-            component: () =>
-                import('../page/Organization/AppointmentRejected.vue')
-        }, {
-            path: 'FeedBack',
-            name: 'FeedBackWindow',
-            meta: {
-                title: '场地反馈'
-            },
-            component: () =>
-                import('../page/Organization/SiteFeedback.vue')
-        }, {
-            path: 'ApplySite',
-            name: 'ApplySiteWindow',
-            meta: {
-                title: '预约场地'
-            },
-            component: () =>
-                import('../page/Organization/ApplyForSite.vue')
-        },
 
-        {
-            path: 'ShowMap',
-            name: 'ShowMapforOrg',
-            meta: {
-                title: '组织详细信息'
-            },
-            props: {
-                membertype: false,
-            },
-            component: () =>
-                import('../page/Shared/ShowMap.vue')
-        }, {
-            path: 'ShowSchedule/:groundID',
-            name: 'ShowScheduleforOrg',
-            meta: {
-                title: '场地使用详情'
-            },
-            props: {
-                membertype: false,
-            },
-            component: () =>
-                import('../page/Shared/ShowSchedule.vue')
-        }
+            {
+                path: 'ShowMap',
+                name: 'ShowMapforOrg',
+                meta: {
+                    title: '组织详细信息'
+                },
+                props: {
+                    membertype: false,
+                },
+                component: () =>
+                    import ('../page/Shared/ShowMap.vue')
+            }, {
+                path: 'ShowSchedule/:groundID',
+                name: 'ShowScheduleforOrg',
+                meta: {
+                    title: '场地使用详情'
+                },
+                props: {
+                    membertype: false,
+                },
+                component: () =>
+                    import ('../page/Shared/ShowSchedule.vue')
+            }
         ]
     },
     //场地管理员
     {
         path: '/GroundsAdmin',
         component: () =>
-            import('../page/Grandsman/GroundsmanFrame'),
-        children: [
-        {
-            path: "AccountModify",
-            name: "GroundsmanAccountModify",
-            component: () =>
-                import ('../page/Grandsman/GroundsmanAccountModify.vue'),
-            meta: {
-                title: '个人信息'
+            import ('../page/Grandsman/GroundsmanFrame'),
+        children: [{
+                path: "AccountModify",
+                name: "GroundsmanAccountModify",
+                component: () =>
+                    import ('../page/Grandsman/GroundsmanAccountModify.vue'),
+                meta: {
+                    title: '个人信息'
+                }
+            },
+            {
+                path: "Main",
+                name: "GroundAdminMain",
+                meta: {
+                    title: "场地管理员",
+                },
+                component: () =>
+                    import ('../page/Grandsman/GroundsmanHome.vue')
+            },
+            {
+                path: "ScoringActivityList",
+                name: "ScoringActivityList",
+                meta: {
+                    title: "活动评价列表",
+                },
+                component: () =>
+                    import ('../page/Grandsman/ScoringActivityList.vue'),
+            },
+            {
+                path: "Announcement",
+                name: "AnnouncementforGround",
+                meta: {
+                    title: "公告",
+                },
+                component: () =>
+                    import ('../page/Shared/AnnouncementList.vue'),
+            },
+            {
+                path: "ScoringActivity/:ID",
+                name: "ScoringActivity",
+                meta: {
+                    title: "活动评价",
+                },
+                component: () =>
+                    import ('../page/Grandsman/ScoringActivity'),
+            },
+            {
+                path: "ReleaseGroundAnnouncement",
+                name: "ReleaseGroundAnnouncement",
+                meta: {
+                    title: "发布场地公告",
+                },
+                component: () =>
+                    import ('../page/Grandsman/ReleaseGroundAnnouncement'),
+            },
+            {
+                path: "ReviewActivityList",
+                name: "ReviewActivityList",
+                meta: {
+                    title: "活动审核列表",
+                },
+                component: () =>
+                    import ('../page/Grandsman/ReviewActivityList'),
+            },
+            {
+                path: "GroundList",
+                name: "GroundList",
+                meta: {
+                    title: "所有场地",
+                },
+                component: () =>
+                    import ('../page/Grandsman/GroundList'),
+            },
+            {
+                path: "ActivityInfo/:ID",
+                name: "OrgActivityInfo",
+                meta: {
+                    title: "审批活动",
+                },
+                component: () =>
+                    import ('../page/Grandsman/ActivityInfo'),
+            },
+            {
+                path: "FeedbackActivityList",
+                name: "FeedbackActivityList",
+                meta: {
+                    title: "活动反馈列表",
+                },
+                component: () =>
+                    import ('../page/Grandsman/FeedbackActivityList'),
+            },
+            {
+                path: "FeedbackInfo/:ID",
+                name: "FeedbackInfo",
+                meta: {
+                    title: "反馈详情",
+                },
+                component: () =>
+                    import ('../page/Grandsman/FeedbackInfo'),
+            },
+            {
+                path: "AddCourse",
+                name: "AddCourse",
+                meta: {
+                    title: "导入课表",
+                },
+                component: () =>
+                    import ('../page/Grandsman/AddCourse'),
+            },
+            {
+                path: "GroundInfo/:ID",
+                name: "GroundInfo",
+                meta: {
+                    title: "场地信息",
+                },
+                component: () =>
+                    import ('../page/Grandsman/GroundInfo'),
+            },
+            {
+                path: "ShowSchedule/:groundID",
+                name: "ShowScheduleforStu",
+                props: {
+                    membertype: true,
+                },
+                component: () =>
+                    import ('../page/Shared/ShowSchedule.vue'),
+                meta: {
+                    title: '场地详情'
+                }
             }
-        },
-        {
-            path: "Main",
-            name: "GroundAdminMain",
-            meta: {
-                title: "场地管理员",
-            },
-            component: () =>
-                import('../page/Grandsman/GroundsmanHome.vue')
-        },
-        {
-            path: "ScoringActivityList",
-            name: "ScoringActivityList",
-            meta: {
-                title: "活动评价列表",
-            },
-            component: () =>
-                import('../page/Grandsman/ScoringActivityList.vue'),
-        },
-        {
-            path: "Announcement",
-            name: "AnnouncementforGround",
-            meta: {
-                title: "公告",
-            },
-            component: () =>
-                import('../page/Shared/AnnouncementList.vue'),
-        },
-        {
-            path: "ScoringActivity/:ID",
-            name: "ScoringActivity",
-            meta: {
-                title: "活动评价",
-            },
-            component: () =>
-                import('../page/Grandsman/ScoringActivity'),
-        },
-        {
-            path: "ReleaseGroundAnnouncement",
-            name: "ReleaseGroundAnnouncement",
-            meta: {
-                title: "发布场地公告",
-            },
-            component: () =>
-                import('../page/Grandsman/ReleaseGroundAnnouncement'),
-        },
-        {
-            path: "ReviewActivityList",
-            name: "ReviewActivityList",
-            meta: {
-                title: "活动审核列表",
-            },
-            component: () =>
-                import('../page/Grandsman/ReviewActivityList'),
-        },
-        {
-            path: "GroundList",
-            name: "GroundList",
-            meta: {
-                title: "所有场地",
-            },
-            component: () =>
-                import('../page/Grandsman/GroundList'),
-        },
-        {
-            path: "ActivityInfo/:ID",
-            name: "OrgActivityInfo",
-            meta: {
-                title: "审批活动",
-            },
-            component: () =>
-                import('../page/Grandsman/ActivityInfo'),
-        },
-        {
-            path: "FeedbackActivityList",
-            name: "FeedbackActivityList",
-            meta: {
-                title: "活动反馈列表",
-            },
-            component: () =>
-                import('../page/Grandsman/FeedbackActivityList'),
-        },
-        {
-            path: "FeedbackInfo/:ID",
-            name: "FeedbackInfo",
-            meta: {
-                title: "反馈详情",
-            },
-            component: () =>
-                import('../page/Grandsman/FeedbackInfo'),
-        },
-        {
-            path: "AddCourse",
-            name: "AddCourse",
-            meta: {
-                title: "导入课表",
-            },
-            component: () =>
-                import('../page/Grandsman/AddCourse'),
-        },
-        {
-            path: "GroundInfo/:ID",
-            name: "GroundInfo",
-            meta: {
-                title: "场地信息",
-            },
-            component: () =>
-                import('../page/Grandsman/GroundInfo'),
-        },
-        {
-            path: "ShowSchedule/:groundID",
-            name: "ShowScheduleforStu",
-            props: {
-                membertype: true,
-            },
-            component: () =>
-                import ('../page/Shared/ShowSchedule.vue'),
-            meta: {
-                title: '场地详情'
-            }
-        }
         ]
+
+    },
+    {
+        path: "/error",
+        component: () =>
+            import ('../page/Shared/404.vue')
     },
     {
         path: "*",
+        name: "404page",
         component: () =>
-            import('../page/Shared/404.vue')
+            import ('../page/Shared/404.vue')
     }
 ]
 
