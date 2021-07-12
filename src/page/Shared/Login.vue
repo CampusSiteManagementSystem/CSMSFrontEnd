@@ -100,12 +100,22 @@ export default {
         password: "",
       },
       rules: {
-        accountNumber: [
-          { required: true, message: "请输入账号", trigger: "blur" },
-          { type: "number", message: "账号只能由数字构成", trigger: "blur" },
+        accountNumber: [{
+            required: true,
+            message: "请输入账号",
+            trigger: "blur"
+          },
+          {
+            type: "number",
+            message: "账号只能由数字构成",
+            trigger: "blur"
+          },
         ],
-        password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
+        password: [{
+            required: true,
+            message: "请输入密码",
+            trigger: "blur"
+          },
           {
             pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,10}$/,
             message: "必须包含大小写字母和数字的组合，可以使用特殊字符，长度在8-10之间",
@@ -117,6 +127,19 @@ export default {
     };
   },
   methods: {
+    open() {
+      this.$alert('该组织账号还未授权！', '账号未授权', {
+        confirmButtonText: '确定',
+        callback: action => {
+          if (action === "confirm") {
+            this.$message({
+              type: 'info',
+              message: '账号未授权'
+            });
+          }
+        }
+      });
+    },
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -126,7 +149,11 @@ export default {
           } else if (this.identity === 2) {
             this.$router.push("/GroundsAdmin/Main");
           } else if (this.identity === 3) {
-            this.$router.push("/OrgFrame/Main");
+            if (this.form.accountNumber == "12345678") {
+              this.open();
+            } else {
+              this.$router.push("/OrgFrame/Main");
+            }
           } else if (this.identity === 4) {
             this.$router.push("/SysAdminFrame");
           }
