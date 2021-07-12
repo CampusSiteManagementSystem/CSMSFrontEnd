@@ -136,7 +136,6 @@ export default {
           name: "普通物理",
           startTime: "3",
           type: "一般课",
-          
         },
         {
           day: "2",
@@ -144,7 +143,6 @@ export default {
           name: "数据库",
           startTime: "1",
           type: "一般课",
-         
         },
         {
           day: "2",
@@ -152,7 +150,6 @@ export default {
           name: "数据库",
           startTime: "3",
           type: "一般课",
-          
         },
         {
           day: "2",
@@ -160,7 +157,6 @@ export default {
           name: "数据库",
           startTime: "9",
           type: "一般课",
-          
         },
         {
           day: "2",
@@ -168,7 +164,6 @@ export default {
           name: "数据库",
           startTime: "8",
           type: "一般课",
-         
         },
       ],
     },
@@ -197,7 +192,31 @@ export default {
     },
   },
   created() {},
-  mounted() {},
+  mounted() {
+    console.log("11111");
+    var axios = require("axios");
+
+    var config = {
+      method: "get",
+     
+      url: "http://139.196.114.7/api/OccupyTimes/",
+      params: {
+        groundId: 1000007,
+        time: "2021-07-10T00:00:00.00",
+      },
+      headers: {},
+    };
+    console.log(config);
+
+    axios(config)
+      .then(function (response) {
+        console.log ("response.data",response.data);
+        console.log("JSON.stringify(response.data)",JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
   methods: {},
 };
 </script>

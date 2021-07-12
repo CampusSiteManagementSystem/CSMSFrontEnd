@@ -480,6 +480,7 @@ export default {
       isShow: true,
       isCanvas: false,
       downType: true, // false为 pdf , true为图片
+      htmlTitle:"场地使用凭证",
 
       tableData: [
         {

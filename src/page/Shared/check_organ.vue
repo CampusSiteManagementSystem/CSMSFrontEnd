@@ -72,6 +72,14 @@
             <p><b>负责人：</b>{{ orgSelected.manager }}</p>
             <p><b>联系电话：</b>{{ orgSelected.telephone }}</p>
             <p><b>组织简介：</b>{{ orgSelected.description }}</p>
+            <router-link
+              :to="{
+                name: 'ViewActivities',
+                params: { ID: orgSelected.accountNum },
+              }"
+            >
+              <el-button type="text">查看此组织举办的活动</el-button>
+            </router-link>
           </el-col>
         </el-row>
       </div>

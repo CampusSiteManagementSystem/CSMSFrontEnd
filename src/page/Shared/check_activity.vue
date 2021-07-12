@@ -22,17 +22,17 @@
             :header-row-style="{ height: '10px' }"
             :cell-style="{ padding: '5px' }"
             :data="matchList"
-            :default-sort="{ prop: 'time', order: 'ascending' }"
+            :default-sort="{ prop: 'startTime', order: 'ascending' }"
             height="450"
             stripe
           >
             <el-table-column prop="name" label="活动名称"> </el-table-column>
             <el-table-column prop="description" label="描述" width="450">
             </el-table-column>
-            <el-table-column prop="host" label="举办组织"> </el-table-column>
-            <el-table-column prop="time" label="时间" width="250" sortable>
+            <el-table-column prop="organizationName" label="举办组织"> </el-table-column>
+            <el-table-column prop="startTime" label="时间" width="250" sortable>
             </el-table-column>
-            <el-table-column prop="location" label="地点"> </el-table-column>
+            <el-table-column prop="groundName" label="地点"> </el-table-column>
             <el-table-column fixed="right" width="100" label="操作">
               <template slot-scope="scope">
                 <el-button
@@ -51,17 +51,17 @@
             :header-row-style="{ height: '10px' }"
             :cell-style="{ padding: '5px' }"
             :data="matchList"
-            :default-sort="{ prop: 'time', order: 'ascending' }"
+            :default-sort="{ prop: 'startTime', order: 'ascending' }"
             height="450"
             stripe
           >
             <el-table-column prop="name" label="活动名称"> </el-table-column>
             <el-table-column prop="description" label="描述" width="450">
             </el-table-column>
-            <el-table-column prop="host" label="举办组织"> </el-table-column>
-            <el-table-column prop="time" label="时间" width="250" sortable>
+            <el-table-column prop="organizationName" label="举办组织"> </el-table-column>
+            <el-table-column prop="startTime" label="时间" width="250" sortable>
             </el-table-column>
-            <el-table-column prop="location" label="地点"> </el-table-column>
+            <el-table-column prop="groundName" label="地点"> </el-table-column>
             <el-table-column fixed="right" width="100" label="操作">
               <template slot-scope="scope">
                 <el-button
@@ -85,10 +85,11 @@
     >
       <div class="content">
         <p><b>活动名称：</b>{{ siteSelected.name }}</p>
-        <p><b>举办组织：</b>{{ siteSelected.host }}</p>
-        <p><b>活动时间：</b>{{ siteSelected.time }}</p>
-        <p><b>活动地点：</b>{{ siteSelected.location }}</p>
-        <p><b>参与人数：</b>{{ siteSelected.participantnum }}</p>
+        <p><b>举办组织：</b>{{ siteSelected.organizationName }}</p>
+        <p><b>开始时间：</b>{{ siteSelected.startTime }}</p>
+        <p><b>活动时长：</b>{{ siteSelected.duration }}分钟</p>
+        <p><b>活动地点：</b>{{ siteSelected.groundName }}</p>
+        <p><b>参与人数：</b>{{ siteSelected.participantNum }}</p>
         <p><b>活动描述：</b>{{ siteSelected.description }}</p>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -134,127 +135,54 @@ export default {
   data() {
     return {
       nextTab:"",
+      errored: false,
       toMatch: "",
+      tableData1: [],
+      tableData2: [],
       matchList: [],
-      siteSelected: {
-        id: 65535,
-        name: "批评大会",
-        description: "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-        host: "德育办公室",
-        time: "2021-5-28 14:30",
-        location: "129礼堂",
-        participantnum: 0,
+      siteSelected:{
+        id:"",
+        name:"",
+        accountNumber:"",
+        organizationName:"",
+        activityDate:"",
+        startTime:"",
+        participantNum:0,
+        description:"",
+        additionalRequest:"",
+        duration:0,
+        activityState:"",
+        groundId:"",
+        groundName:"",
+        isGroundIndoor:true
       },
       dialogVisible: false,
       activeTab: "pane1",
-      tableData1: [
-        {
-          id: 65535,
-          name: "批评大会1",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:30",
-          location: "129礼堂",
-          participantnum: 10,
-        },
-        {
-          id: 65536,
-          name: "批评大会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:31",
-          location: "129礼堂",
-          participantnum: 20,
-        },
-        {
-          id: 65537,
-          name: "新闻发布会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:32",
-          location: "129礼堂",
-          participantnum: 30,
-        },
-        {
-          id: 65538,
-          name: "批评大会1",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:33",
-          location: "129礼堂",
-          participantnum: 40,
-        },
-        {
-          id: 65539,
-          name: "批评大会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:34",
-          location: "129礼堂",
-          participantnum: 50,
-        },
-      ],
-      tableData2: [
-        {
-          id: 65535,
-          name: "批评大会2",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:30",
-          location: "129礼堂",
-          participantnum: 10,
-        },
-        {
-          id: 65536,
-          name: "批评大会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:31",
-          location: "129礼堂",
-          participantnum: 20,
-        },
-        {
-          id: 65537,
-          name: "新闻发布会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:32",
-          location: "129礼堂",
-          participantnum: 30,
-        },
-        {
-          id: 65538,
-          name: "批评大会2",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:33",
-          location: "129礼堂",
-          participantnum: 40,
-        },
-        {
-          id: 65539,
-          name: "批评大会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:34",
-          location: "129礼堂",
-          participantnum: 50,
-        },
-      ],
     };
   },
-  created() {
-    this.matchList = this.tableData1;
+  mounted() {
+    var axios = require('axios');
+            
+    var config = {
+        method: 'get',
+        url: 'http://139.196.114.7/api/activities?notHeld=false',
+        headers: { }
+    };
+                
+    axios(config)
+        .then(response => {
+        this.tableData = [];
+        for (let key of Object.keys(response.data)){
+          for (let a of response.data[key]){
+            this.tableData1.push(a);
+            this.tableData2.push(a);
+          }
+        }
+        this.matchList = this.tableData1;
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
   },
   methods: {
     viewInfo(row) {
