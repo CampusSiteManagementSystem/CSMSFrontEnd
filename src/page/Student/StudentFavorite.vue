@@ -54,7 +54,7 @@
             >
               <el-button
                 size="small"
-                @click="handleEdit(scope.$index, scope.row)"
+                @click.native="handleEdit"
                 round
                 >查看</el-button
               >
@@ -125,6 +125,10 @@ export default {
         }
       }
     },
+    handleEdit(){
+      this.childPage = !this.childPage;
+
+    }
   },
   mounted() {
     
