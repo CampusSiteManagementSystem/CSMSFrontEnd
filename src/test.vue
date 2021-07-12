@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {GETGrounds} from "./API/http";
+import { POSTFeedbackRecords } from "./API/http";
 export default {
   data() {
     return {
@@ -15,7 +15,11 @@ export default {
   },
   methods: {
     test() {
-      GETGrounds()
+      POSTFeedbackRecords({
+        activityId: "string",
+        accountNumber: "string",
+        state: "string",
+      })
         .then((data) => {
           this.res = data;
         })
