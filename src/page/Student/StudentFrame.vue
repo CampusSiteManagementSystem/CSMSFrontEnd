@@ -63,7 +63,7 @@
             <i class="el-icon-map-location"></i>
             <span style="font-size: 14px">查看地图</span>
           </el-menu-item>
-          <el-menu-item index="/StuFrame/ShowPlaceDetail">
+          <el-menu-item index="/StuFrame/ViewSites">
             <i class="el-icon-location"></i>
             <span style="font-size: 14px">查找地点</span>
           </el-menu-item>
@@ -227,17 +227,17 @@ export default {
      */
     getBreadList(val) {
       // 过滤路由matched对象
-      console.log("val.matched", val.matched);
+      // console.log("val.matched", val.matched);
       if (val.matched) {
         let matched = val.matched.filter(
           (item) => item.meta && item.meta.title
         );
-        console.log("matched", matched);
+        // console.log("matched", matched);
         // 拿到过滤好的路由v-for遍历出来
         this.breadList = matched;
       }
       this.breadList = val.matched;
-      console.log("this.breadList", this.breadList);
+      // console.log("this.breadList", this.breadList);
     },
   },
   watch: {
@@ -245,7 +245,7 @@ export default {
     $route(val) {
       // 调用获取路由数组方法
       this.getBreadList(val);
-      console.log("调用获取路由数组方法", this.getBreadList(val));
+      // console.log("调用获取路由数组方法", this.getBreadList(val));
     },
   },
 };
