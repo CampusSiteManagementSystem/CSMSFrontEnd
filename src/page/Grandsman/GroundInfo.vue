@@ -21,17 +21,17 @@
     </el-row>
     <el-divider content-position="center">详细信息</el-divider>
     <el-row class="lower-row">
-      <el-form v-if="editstate" ref="form" :model="form" label-width="80px">
-        <el-form-item label="座位数">
-          <el-input v-model="groundinfo.seatnum"></el-input>
+      <el-form v-if="editstate" ref="ruleForm" :model="ruleForm" :rules="rules" label-width="80px">
+        <el-form-item label="座位数" prop="seatnum">
+          <el-input v-model="groundinfo.seatnum "></el-input>
         </el-form-item>
-        <el-form-item label="电脑数">
+        <el-form-item label="电脑数" prop="computernum">
           <el-input v-model="groundinfo.computernum"></el-input>
         </el-form-item>
-        <el-form-item label="楼层">
+        <el-form-item label="楼层" prop="floor">
           <el-input v-model="groundinfo.floor"></el-input>
         </el-form-item>
-        <el-form-item label="面积">
+        <el-form-item label="面积" prop="area">
           <el-input v-model="groundinfo.area"></el-input>
         </el-form-item>
         <el-form-item>
@@ -119,6 +119,27 @@ export default {
   name: "groundinfo",
   data() {
     return {
+      ruleForm: {
+          seatnum: '',
+          computernum:'',
+          area:'',
+          floor:'',
+        },
+            rules: {
+          seatnum: [
+            { required: true, message: '请输入座椅数量', trigger: 'blur' },
+          ],
+            computernum: [
+            { required: true, message: '请输入电脑数量', trigger: 'blur' },
+          ],
+            floor: [
+            { required: true, message: '请输入层数', trigger: 'blur' },
+          ],
+            area: [
+            { required: true, message: '请输入面积', trigger: 'blur' },
+          ],
+
+        },
       editstate: false,
       groundinfo: {
         seatnum: 10,

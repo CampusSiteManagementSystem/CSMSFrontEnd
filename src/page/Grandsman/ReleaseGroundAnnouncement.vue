@@ -1,9 +1,7 @@
 <template>
   <el-card class="maincard">
-    <div slot="header" class="clearfix">
-      <span><b>发布场地公告</b></span>
-    </div>
-    <el-form ref="form" :model="form" label-width="80px">
+    <div class="maintitle">发布场地公告</div>
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px">
       <el-form-item label="场地" prop="site" required>
         <el-cascader
           clearable
@@ -12,7 +10,7 @@
           @change="handleChange"
         ></el-cascader>
       </el-form-item>
-      <el-form-item label="公告内容">
+      <el-form-item label="公告内容" prop="content">
         <el-input
           type="textarea"
           :autosize="{ minRows: 8, maxRows: 10 }"
@@ -75,6 +73,14 @@ export default {
       form: {
         site: [],
         content: "",
+      },
+      ruleForm: {
+        content: "",
+      },
+      rules: {
+        content: [
+          { required: true, message: "请输入公告内容", trigger: "blur" },
+        ],
       },
       groundTable: [
         {

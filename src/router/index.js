@@ -42,6 +42,15 @@ const routes = [
                 }
             },
             {
+                path: "ModifyPassword",
+                name: "StuModifyPassword",
+                component: () =>
+                    import('../page/Shared/ModifyPassword.vue'),
+                meta: {
+                    title: '修改密码'
+                }
+            },
+            {
                 path: "Main",
                 name: "StudentFrameMain",
                 component: () =>
@@ -57,23 +66,22 @@ const routes = [
                     import('../page/Student/StudentFavorite.vue'),
                 meta: {
                     title: '收藏'
-                },
-                children: [
-                    {
-                        path: "ShowSchedule/:groundID",
-                        name: "ShowScheduleforStuFav",
-                        props: {
-                            membertype: true,
-                        },
-                        component: () =>
-                            import('../page/Shared/ShowSchedule.vue'),
-                        meta: {
-                            title: '场地详情'
-                        }
-                    },]
+                }
+            },
 
-            
-            }, {
+            {
+                path: "ShowSchedule/:groundID",
+                name: "ShowScheduleforStuFav",
+                props: {
+                    membertype: true,
+                },
+                component: () =>
+                    import('../page/Shared/ShowSchedule.vue'),
+                meta: {
+                    title: '场地详情'
+                }
+            },
+            {
                 path: "ViewSites",
                 name: "ViewSites",
                 component: () =>
@@ -199,6 +207,15 @@ const routes = [
                 import('../page/SystemAdmin/SystemAdminHomePage.vue')
         },
         {
+            path: "ModifyPassword",
+            name: "SysAdminModifyPassword",
+            component: () =>
+                import('../page/Shared/ModifyPassword.vue'),
+            meta: {
+                title: '修改密码'
+            }
+        },
+        {
             path: 'CheckSite',
             name: 'OrgCheckSite',
             meta: {
@@ -234,8 +251,8 @@ const routes = [
             component: () =>
                 import('../page/Organization/OrganizationAccountModify.vue')
         }, {
-            path: 'CheckOrgan',
-            name: 'CreditOrganWindow',
+            path: 'GroupVerifyList',
+            name: 'SystemAdminGroupVerify',
             meta: {
                 title: "审核注册",
             },
@@ -270,13 +287,22 @@ const routes = [
                 import('../page/SystemAdmin/SystemAdminGroupVerify.vue')
         },
         {
-            path: "Announcement",
+            path: "AddUser",
+            name: "SystemAdminAddUser",
+            meta: {
+                title: "添加用户",
+            },
+            component: () =>
+                import('../page/SystemAdmin/AddUser.vue')
+        },
+        {
+            path: "SystemAnnouncement",
             name: "AnnouncementforSystem",
             meta: {
                 title: "发布公告",
             },
             component: () =>
-                import('../page/Shared/AnnouncementList.vue')
+                import('../page/SystemAdmin/SystemAnnouncement.vue')
         }
         ]
     },
@@ -301,7 +327,16 @@ const routes = [
                 },
                 component: () =>
                     import('../page/Shared/ShowPlaceDetail.vue')
-            }, {
+            },             
+            {
+                path: "ModifyPassword",
+                name: "OrgModifyPassword",
+                component: () =>
+                    import('../page/Shared/ModifyPassword.vue'),
+                meta: {
+                    title: '修改密码'
+                }
+            },{
                 path: "Main",
                 name: "OrganizationFrameMain",
                 meta: {
@@ -310,7 +345,7 @@ const routes = [
                 component: () =>
                     import('../page/Organization/OrganizationMain.vue')
             }, {
-                path: 'CheckActivity',
+                path: 'ViewActivities/:ID',
                 name: 'CreditActivityWindow',
                 meta: {
                     title: '所有活动'
@@ -455,6 +490,15 @@ const routes = [
                     import('../page/Grandsman/GroundsmanAccountModify.vue'),
                 meta: {
                     title: '个人信息'
+                }
+            },
+            {
+                path: "ModifyPassword",
+                name: "GroundsmanModifyPassword",
+                component: () =>
+                    import('../page/Shared/ModifyPassword.vue'),
+                meta: {
+                    title: '修改密码'
                 }
             },
             {
