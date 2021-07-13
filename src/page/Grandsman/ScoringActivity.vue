@@ -10,17 +10,19 @@
           <el-divider></el-divider> -->
         <div class="detailinfo">
           <el-col :span="12">
-            <p class="">活动名称：{{ activityName }}</p>
-            <p class="">主办组织：{{ groupName }}</p>
-            <p class="">活动日期：{{ date }}</p>
-            <p class="">活动时间：{{ startTime }}</p>
+            <p class=""><b>活动名称：</b>{{ activityName }}</p>
+            <p class=""><b>主办组织：</b>{{ groupName }}</p>
+            <p class=""><b>活动日期：</b>{{ date }}</p>
+            <p class=""><b>活动时间：</b>{{ startTime }}</p>
           </el-col>
           <el-col :span="12">
-            <p class="">参与人数：{{ participantNum }}</p>
+            <p class=""><b>活动时长：</b>{{ duration }}分钟</p>
+            <p class=""><b>参与人数：</b>{{ participantNum }}</p>
             <p class="">
-              场地名称：{{ indoorOrOutdoor ? building + roomNo : groundName }}
+              <b>场地名称：</b
+              >{{ indoorOrOutdoor ? building + roomNo : groundName }}
             </p>
-            <p class="">活动描述：{{ description }}</p>
+            <p class=""><b>活动描述：</b>{{ description }}</p>
           </el-col>
         </div>
         <!-- <el-divider content-position="center">详细信息</el-divider> -->
@@ -124,7 +126,7 @@ body,
   font-size: 20px;
   font-weight: 600;
 }
-.maincard{
+.maincard {
   border-radius: 15px;
   height: 100%;
 }
@@ -137,6 +139,10 @@ body,
 
 
 <script>
+import { GETActivitiesID } from "../../API/http";
+// import { GETOrganizationsID } from "../../API/http";
+
+// import store from "../../state/state.js"
 export default {
   name: "creditscoring",
   data() {
@@ -164,13 +170,48 @@ export default {
       reason: "乱扔垃圾",
       score: -2,
       groupName: "数据库小组",
-      indoorOrOutdoor: false,
-      building: null,
-      roomNo: null,
       groundName: "操场",
     };
   },
+  mounted() {
+    const that = this;
+    GETActivitiesID(that.$route.params.ID)
+      .then((data) => {
+        // return new Promise(function (resolve) {
+          // console.log("run GETActivities");
+          // console.log(data);
+          that.axiosdata = data;
+          that.dealWithActivitiy(that.axiosdata);
+          console.log(that.axiosdata);
+          // resolve(data.accountNumber);
+        // });
+      })
+      // .then((accountNumber) => {
+      //   GETOrganizationsID(accountNumber).then((data) => {
+      //     that.credit = data.credit;
+      //     that.email = data.emailAddress;
+      //   });
+      // })
+      .catch((err) => {
+        console.log(err);
+        this.$message("场地数据请求错误");
+      });
+  },
   methods: {
+    dealWithActivitiy(data) {
+      this.activityName = data.name;
+      this.accountNumber = data.accountNumber;
+      this.groupName = data.organizationName;
+      this.data = data.activityDate.substr(0, data.activityDate.search("T"));
+      this.startTime = data.activityDate.slice(
+        data.activityDate.search("T") + 1
+      );
+      this.participantNum = data.participantNum;
+      this.description = data.description;
+      this.additionalRequest = data.additionalRequest;
+      this.duration = data.duration;
+      // this.state = data.activityState; 是否评分还没有
+    },
     cancle() {
       this.$router.push({
         path: "/GroundsAdmin/ScoringActivityList",

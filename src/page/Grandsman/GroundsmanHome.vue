@@ -380,7 +380,6 @@ export default {
         temp.content = data[i].content.slice(data[i].content.search("##") + 2);
         this.systemAnnouncement.push(temp);
       }
-      console.log(this.systemAnnouncement);
     },
     onRowClick(row) {
       this.dialogTitle = row.title;
