@@ -73,7 +73,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row class="lowerrow">
+    <el-row class="lower-row">
       <el-col :span="15" class="lower-row-col1">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
@@ -105,7 +105,7 @@
       </el-col>
       <el-col :span="9" class="lower-row-col2">
         <el-card class="lower-card">
-          <div slot="header" class="clearfix">
+          <div slot="header" class="clearfix" style="height:10%">
             <span><b>最近一周场地使用情况</b></span>
             <router-link to="/StuFrame/ShowPlaceDetail">
               <el-button style="float: right; padding: 3px 0" type="text"
@@ -116,9 +116,8 @@
           <el-table
             :data="occupation"
             stripe
-            style="width: 100%"
+            style="width: 100% ;height:90%;"
             @row-click="onOccupyRowClick"
-            height="241"
             :show-header="false"
           >
             <el-table-column prop="position" label="地点" width="auto">
@@ -285,12 +284,13 @@ export default {
 .lower-card {
   overflow: auto;
   border-radius: 15px;
+  height: 100%;
 }
-.upperrow {
+.upper-row {
   padding: 5px;
   height: 40%;
 }
-.lowerrow {
+.lower-row {
   padding: 5px;
   height: 60%;
 }
@@ -320,12 +320,14 @@ export default {
   clear: both;
 }
 
-.upper-card {
+/* .upper-card {
+  height: 40%;
   height: 230px;
 }
 .lower-card {
+  height: 60%;
   height: 340px;
-}
+} */
 
 .name {
   font-size: 30px;
