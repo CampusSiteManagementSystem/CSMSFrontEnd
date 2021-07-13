@@ -1,6 +1,6 @@
 <template>
   <el-container style="border: 1px solid #eee; height: 100%;" >
-    <el-header class="header" style="height: 8%">
+    <el-header style="height: 8%" class="header">
       <el-row class="header-row">
         <el-col :span="20" class="header-row-col1"
           ><el-row class="headerrow" type="flex" justify="left" align="middle">
