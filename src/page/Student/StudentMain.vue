@@ -232,15 +232,6 @@ export default {
       //第一块卡片信息
       StuID: store.state.ID,
       StuInfo: {
-        academy: 2,
-        category: null,
-        eMailAddress: null,
-        gender: null,
-        grade: null,
-        header: null,
-        major: null,
-        name: null,
-        nation: null,
       },
       semesterInfo: {
         //get semester from backend
@@ -263,48 +254,7 @@ export default {
       //第三块卡片信息
       futureActivity: [],
       //第四片卡片信息
-      occupation: [
-        {
-          groundID: "12201",
-          position: "F201",
-          activityName: "数据结构",
-        },
-        {
-          groundID: "21404",
-          position: "G404",
-          activityName: "数据库",
-        },
-        {
-          groundID: "35130",
-          position: "F201",
-          activityName: "数据结构1",
-        },
-        {
-          groundID: "35404",
-          position: "G404",
-          activityName: "数据库2",
-        },
-        {
-          groundID: "21404",
-          position: "F201",
-          activityName: "数据结构3",
-        },
-        {
-          groundID: "21404",
-          position: "G404",
-          activityName: "数据库4",
-        },
-        {
-          groundID: "21404",
-          position: "F201",
-          activityName: "数据结构5",
-        },
-        {
-          groundID: "21404",
-          position: "G404",
-          activityName: "数据库6",
-        },
-      ],
+      occupation: [],
     };
   },
   methods: {
