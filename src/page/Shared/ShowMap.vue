@@ -1,6 +1,6 @@
 <template>
   <div>
-        <div id="map">
+    <div id="map">
       <input
         id="satellite-v9"
         type="radio"
@@ -18,6 +18,7 @@
 </template>
  
 <script>
+import { GETPositions } from "../../API/http";
 import PopMeg from "../../components/PopMeg.vue";
 import Vue from "vue";
 export default {
@@ -25,12 +26,16 @@ export default {
     return {
       router: this.$router,
       testValue: 1,
+      axiosdata: {},
+      features: [],
     };
   },
   components: { PopMeg },
   created() {},
   mounted() {
+    // await this.fetchData()
     this.initmap();
+    this.fetchData();
     // console.log(this.$router);
   },
   props: {
@@ -48,7 +53,7 @@ export default {
       const tempTest = this.$router;
       const membertype = this.$props.membertype;
       console.log("membertype", membertype);
-      console.log("tempTest", tempTest);
+      // console.log("tempTest", tempTest);
       const bounds = [
         // Southwest coordinates
         [121.2, 31.28], // Northeast coordinates
@@ -74,7 +79,8 @@ export default {
         console.log("点击");
         console.log(e.lngLat);
       });
-
+      const mapFeature=this.features;
+      // console.log("mapFeature",mapFeature);
       map.on("load", function () {
         //on设置监听，以及触发时的回调，这是加载时的触发的生成3d地图的例子
         map.flyTo({
@@ -88,112 +94,8 @@ export default {
           type: "geojson",
           data: {
             type: "FeatureCollection",
-            features: [
-              {
-                type: "Feature",
-                properties: {
-                  description: "<p>A<p>",
-                },
-                geometry: {
-                  type: "Point",
-                  coordinates: [121.20930082610175, 31.28776901297887],
-                },
-              },
-              {
-                type: "Feature",
-                properties: {
-                  description: "<p>b<p>",
-                },
-                geometry: {
-                  type: "Point",
-                  coordinates: [121.20971183397609, 31.288292855533584],
-                },
-              },
-              {
-                type: "Feature",
-                properties: {
-                  description: "<p>C<p>",
-                },
-                geometry: {
-                  type: "Point",
-                  coordinates: [121.21004743281384, 31.288682727520325],
-                },
-              },
-              {
-                type: "Feature",
-                properties: {
-                  description: "<p>d<p>",
-                },
-                geometry: {
-                  type: "Point",
-                  coordinates: [121.210884396462, 31.286795530585977],
-                },
-              },
-              {
-                type: "Feature",
-                properties: {
-                  description: "<p>e<p>",
-                },
-                geometry: {
-                  type: "Point",
-                  coordinates: [121.21180057090044, 31.286258932693897],
-                },
-              },
-              {
-                type: "Feature",
-                properties: {
-                  description: "<p>f<p>",
-                },
-                geometry: {
-                  type: "Point",
-                  coordinates: [121.21153992286924, 31.287643967187805],
-                },
-              },
-              {
-                type: "Feature",
-                properties: {
-                  description: "<p>g<p>",
-                },
-                geometry: {
-                  type: "Point",
-                  coordinates: [121.21217036943085, 31.286829176173484],
-                },
-              },
-              {
-                type: "Feature",
-                properties: {
-                  description: "<p>h<p>",
-                },
-                geometry: {
-                  type: "Point",
-                  coordinates: [121.21241653841332, 31.287270436244754],
-                },
-              },
-              {
-                type: "Feature",
-                properties: {
-                  description: "<p>篮球场<p>",
-                },
-                geometry: {
-                  type: "Point",
-                  coordinates: [121.21034516337954, 31.28949089126165],
-                },
-              },
-              // {
-              //   type: "Feature",
-              //   properties: {
-              //     isIndoor: true,
-              //     building: "F",
-              //     floor: "2",
-              //     room: "202",
-              //     description: "<p>aaa<p>",
-              //   },
-              //   geometry: {
-              //     type: "Point",
-              //     coordinates: [121.21, 31.29],
-              //   },
-              // },
-            ],
+             features:mapFeature,
+            
           },
         });
         // Add a layer showing the places.
@@ -288,10 +190,10 @@ export default {
           const p = Vue.extend(PopMeg);
           let vm = new p({
             propsData: {
-              building: "a",
+              building: description,
               all: 13,
               freeRoom: 13,
-              description: "1212",
+              description: description,
               router: tempTest,
               membertype: membertype,
             }, //传参
@@ -366,6 +268,40 @@ export default {
       //     );
       //   }
       // });
+    },
+    fetchData() {
+      const that = this;
+      GETPositions()
+        .then((data) => {
+          // console.log(data);
+
+          that.axiosdata = data;
+          // console.log("that.axiosdata", that.axiosdata);
+          for (var i = 0; i < data.length; i++) {
+            var temp = {
+              type: "Feature",
+              properties: {
+                description: "<p>A<p>",
+              },
+              geometry: {
+                type: "Point",
+                coordinates: [121.20930082610175, 31.28776901297887],
+              },
+            };
+            temp.properties.description = data[i].positionName ;
+            temp.geometry.coordinates = [
+              parseFloat(data[i].longitude),
+              parseFloat(data[i].latitude),
+            ];
+
+            that.features.push(temp);
+          }
+
+          // console.log("that.features", that.features);
+        })
+        .catch((err) => {
+          this.data = err;
+        });
     },
   },
 };

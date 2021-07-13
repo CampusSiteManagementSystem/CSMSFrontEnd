@@ -48,6 +48,7 @@
             class="button"
             circle=""
             size="mini"
+            @click="likes"
           ></el-button>
         </el-row>
       </el-col>
@@ -87,6 +88,11 @@ import {
   GETIndoorGroundsID,
   GETOutdoorGroundsID,
   GETGroundsID,
+  // POSTOrgFavorites,
+  // POSTStuFavorites,
+//   DELETEOrgFavorites,
+//  DELETEStuFavorites,
+  
 } from "../API/http";
 export default {
   name: "PicCard",
@@ -180,6 +186,17 @@ export default {
           });
       }
     },
+    likes(){
+
+//       if(buttonshow)//组织
+//       {
+// // export const POSTOrgFavorites = param => Post('/api/OrgFavorites', param); 
+//       }else{
+
+//       }
+      
+
+    }
   },
 };
 </script>

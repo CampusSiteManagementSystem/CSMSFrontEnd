@@ -7,25 +7,23 @@
           <el-row>
             <el-col :span="9">
               <div>
-                <el-avatar :size="130" :src="studentInfo.image"></el-avatar>
+                <el-avatar :size="130" :src="StuInfo.image"></el-avatar>
               </div>
             </el-col>
             <el-col :span="15">
-              <div class="name">{{ studentInfo.username }}</div>
+              <div class="name">{{ StuInfo.name }}</div>
               <div class="other-info">
-                <br />学号：{{ studentInfo.studentID }}<br />学院专业：<el-tag
-                  type="success"
-                >
-                  {{ studentInfo.academy }}
+                <br />学号：{{ StuID }}<br />学院专业：<el-tag type="success">
+                  {{ StuInfo.academy }}
                 </el-tag>
                 <el-tag type="warning">
-                  {{ studentInfo.major }}
+                  {{ StuInfo.major }}
                 </el-tag>
               </div>
               <div class="date">
                 {{ semesterInfo.fromYear }}-{{ semesterInfo.toYear }}年度第{{
                   semesterInfo.semester
-                }}学期第{{ semesterInfo.week }}周
+                }}学期第{{ semesterInfo.week }}周（数据库没有，要删了）
               </div>
               <div class="other-info">祝您学习愉快！</div>
             </el-col>
@@ -42,11 +40,13 @@
                 stripe
                 style="width: 100%"
                 height="136"
-                @row-click="onRowClick"
+                @row-click="onRowClick1"
                 :show-header="false"
               >
-                <el-table-column prop="title" width="auto"> </el-table-column>
-                <el-table-column prop="time" width="auto"> </el-table-column>
+                <el-table-column prop="accountNumber" width="auto">
+                </el-table-column>
+                <el-table-column prop="systemAnnouncementTime" width="auto">
+                </el-table-column>
               </el-table>
             </el-tab-pane>
             <el-tab-pane label="场地公告">
@@ -55,11 +55,18 @@
                 stripe
                 style="width: 100%"
                 height="136"
-                @row-click="onRowClick"
+                @row-click="onRowClick2"
                 :show-header="false"
               >
-                <el-table-column prop="title" width="auto"> </el-table-column>
-                <el-table-column prop="time" width="auto"> </el-table-column>
+                <el-table-column prop="groundId" width="auto">
+                </el-table-column>
+                <el-table-column prop="groundName" width="auto">
+                </el-table-column>
+                <el-table-column
+                  prop="maintenanceAnnouncementTime"
+                  width="auto"
+                >
+                </el-table-column>
               </el-table>
             </el-tab-pane>
           </el-tabs>
@@ -87,11 +94,11 @@
           >
             <el-table-column prop="name" label="活动名称" width="auto">
             </el-table-column>
-            <el-table-column prop="host" label="发起组织" width="auto">
+            <el-table-column prop="organizationName" label="发起组织" width="auto">
             </el-table-column>
-            <el-table-column prop="time" label="时间" width="auto">
+            <el-table-column prop="startTime" label="时间" width="auto">
             </el-table-column>
-            <el-table-column prop="location" label="地点" width="auto">
+            <el-table-column prop="groundName" label="地点" width="auto">
             </el-table-column>
           </el-table>
         </el-card>
@@ -143,10 +150,11 @@
     >
       <div class="content">
         <p><b>活动名称：</b>{{ activitySelected.name }}</p>
-        <p><b>举办组织：</b>{{ activitySelected.host }}</p>
-        <p><b>活动时间：</b>{{ activitySelected.time }}</p>
-        <p><b>活动地点：</b>{{ activitySelected.location }}</p>
-        <p><b>参与人数：</b>{{ activitySelected.participantnum }}</p>
+        <p><b>举办组织：</b>{{ activitySelected.organizationName }}</p>
+        <p><b>活动时间：</b>{{ activitySelected.startTime }}</p>
+        <p><b>活动地点：</b>{{ activitySelected.groundName }}</p>
+        <p><b>预计持续时间：</b>{{ activitySelected.duration }}</p>
+        <p><b>参与人数：</b>{{ activitySelected.participantNum }}</p>
         <p><b>活动描述：</b>{{ activitySelected.description }}</p>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -159,36 +167,83 @@
 </template>
 
 <script>
+import store from "../../state/state";
+import {
+  GETMaintenanceAnnouncements,
+  GETSystemAnnouncements,
+  GETStudentsID,
+  GETActivities,
+  GETOccupyTimes
+} from "../../API/http";
 export default {
+  created() {
+    //获取场地公告
+    GETMaintenanceAnnouncements()
+      .then((data) => {
+        //console.log(data);
+        this.groundAnnouncement = data;
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("场地公告数据请求错误");
+      });
+    //获取系统公告
+    GETSystemAnnouncements()
+      .then((data) => {
+        //console.log(data);
+        this.systemAnnouncement = data;
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("系统公告数据请求错误");
+      });
+    //获取学生信息
+    GETStudentsID(this.StuID)
+      .then((data) => {
+        this.StuInfo = data;
+        //console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("学生信息请求错误");
+      });
+    //未来活动
+    GETActivities()
+      .then((data) => {
+        //console.log(data);
+        this.futureActivity= data["审核中"]//未举办
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("未来活动数据请求错误");
+      });
+      //场地占用情况
+      GETOccupyTimes()
+      .then((data) => {
+        console.log(data);
+      })
+      .then(err=>{
+        console.log(err);
+        this.$message("场地占用数据请求错误");
+      })
+  },
   data() {
-    const groundItem = {
-      title: "关于图书馆暂停开放的通知",
-      time: "2021-6-25 15:30",
-      ground: "15335",
-      content:
-        "因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。",
-    };
-    const systemItem = {
-      title: "关于系统停机维护的通知",
-      time: "2021-7-5 15:30",
-      accountNum: "14335",
-      content:
-        "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
-    };
-
     return {
       //第一块卡片信息
-      studentInfo: {
-        image:
-          "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        username: "hhh",
-        studentID: "1850668",
-        academy: "软件学院",
-        major: "UI工程",
+      StuID: store.state.ID,
+      StuInfo: {
+        academy: 2,
+        category: null,
+        eMailAddress: null,
+        gender: null,
+        grade: null,
+        header: null,
+        major: null,
+        name: null,
+        nation: null,
       },
       semesterInfo: {
         //get semester from backend
-
         fromYear: "2020",
         toYear: "2021",
         semester: "2",
@@ -201,71 +256,12 @@ export default {
       dialogContent: "",
       dialogVisible: false,
       activityVisible: false,
-      activitySelected: {
-        id: 65535,
-        name: "批评大会",
-        description: "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-        host: "德育办公室",
-        time: "2021-5-28 14:30",
-        location: "129礼堂",
-        participantnum: 0,
-      },
-      groundAnnouncement: Array(20).fill(groundItem),
-      systemAnnouncement: Array(20).fill(systemItem),
+      activitySelected: {},
+      groundAnnouncement: [],
+      systemAnnouncement: [],
 
       //第三块卡片信息
-      futureActivity: [
-        {
-          id: 65535,
-          name: "批评大会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:30",
-          location: "129礼堂",
-          participantnum: 10,
-        },
-        {
-          id: 65536,
-          name: "批评大会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:31",
-          location: "129礼堂",
-          participantnum: 20,
-        },
-        {
-          id: 65537,
-          name: "新闻发布会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:32",
-          location: "129礼堂",
-          participantnum: 30,
-        },
-        {
-          id: 65538,
-          name: "批评大会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:33",
-          location: "129礼堂",
-          participantnum: 40,
-        },
-        {
-          id: 65539,
-          name: "批评大会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:34",
-          location: "129礼堂",
-          participantnum: 50,
-        },
-      ],
+      futureActivity: [],
       //第四片卡片信息
       occupation: [
         {
@@ -315,8 +311,12 @@ export default {
     showAnnouncement() {
       this.$router.push("/StuFrame/Announcement");
     },
-    onRowClick(row) {
-      this.dialogTitle = row.title;
+    onRowClick1(row) {
+      this.dialogTitle = row.groundName;
+      this.dialogContent = row.content;
+      this.dialogVisible = true;
+    },
+    onRowClick2(row) {
       this.dialogContent = row.content;
       this.dialogVisible = true;
     },
@@ -325,7 +325,7 @@ export default {
       this.activityVisible = true;
     },
     onOccupyRowClick(row) {
-      this.$router.push("/StuFrame/ShowSchedule/" + row.groundID);
+      this.$router.push("/StuFrame/ShowSchedule/" + row.groundId);
     },
   },
 };
