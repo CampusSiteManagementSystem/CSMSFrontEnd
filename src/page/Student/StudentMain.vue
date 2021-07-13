@@ -13,9 +13,7 @@
             <el-col :span="15">
               <div class="name">{{ StuInfo.name }}</div>
               <div class="other-info">
-                <br />学号：{{ StuID }}<br />学院专业：<el-tag
-                  type="success"
-                >
+                <br />学号：{{ StuID }}<br />学院专业：<el-tag type="success">
                   {{ StuInfo.academy }}
                 </el-tag>
                 <el-tag type="warning">
@@ -25,7 +23,7 @@
               <div class="date">
                 {{ semesterInfo.fromYear }}-{{ semesterInfo.toYear }}年度第{{
                   semesterInfo.semester
-                }}学期第{{ semesterInfo.week }}周
+                }}学期第{{ semesterInfo.week }}周（数据库没有，要删了）
               </div>
               <div class="other-info">祝您学习愉快！</div>
             </el-col>
@@ -96,11 +94,11 @@
           >
             <el-table-column prop="name" label="活动名称" width="auto">
             </el-table-column>
-            <el-table-column prop="host" label="发起组织" width="auto">
+            <el-table-column prop="organizationName" label="发起组织" width="auto">
             </el-table-column>
-            <el-table-column prop="time" label="时间" width="auto">
+            <el-table-column prop="startTime" label="时间" width="auto">
             </el-table-column>
-            <el-table-column prop="location" label="地点" width="auto">
+            <el-table-column prop="groundName" label="地点" width="auto">
             </el-table-column>
           </el-table>
         </el-card>
@@ -108,7 +106,7 @@
       <el-col :span="9" class="lower-row-col2">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
-            <span><b>占用中的场地</b></span>
+            <span><b>最近一周场地使用情况</b></span>
             <router-link to="/StuFrame/ShowPlaceDetail">
               <el-button style="float: right; padding: 3px 0" type="text"
                 >查看更多</el-button
@@ -152,10 +150,11 @@
     >
       <div class="content">
         <p><b>活动名称：</b>{{ activitySelected.name }}</p>
-        <p><b>举办组织：</b>{{ activitySelected.host }}</p>
-        <p><b>活动时间：</b>{{ activitySelected.time }}</p>
-        <p><b>活动地点：</b>{{ activitySelected.location }}</p>
-        <p><b>参与人数：</b>{{ activitySelected.participantnum }}</p>
+        <p><b>举办组织：</b>{{ activitySelected.organizationName }}</p>
+        <p><b>活动时间：</b>{{ activitySelected.startTime }}</p>
+        <p><b>活动地点：</b>{{ activitySelected.groundName }}</p>
+        <p><b>预计持续时间：</b>{{ activitySelected.duration }}</p>
+        <p><b>参与人数：</b>{{ activitySelected.participantNum }}</p>
         <p><b>活动描述：</b>{{ activitySelected.description }}</p>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -173,6 +172,8 @@ import {
   GETMaintenanceAnnouncements,
   GETSystemAnnouncements,
   GETStudentsID,
+  GETActivities,
+  GETOccupyTimes
 } from "../../API/http";
 export default {
   created() {
@@ -200,28 +201,38 @@ export default {
     GETStudentsID(this.StuID)
       .then((data) => {
         this.StuInfo = data;
-        console.log(data);
+        //console.log(data);
       })
       .catch((err) => {
         console.log(err);
         this.$message("学生信息请求错误");
       });
+    //未来活动
+    GETActivities()
+      .then((data) => {
+        //console.log(data);
+        this.futureActivity= data["审核中"]//未举办
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("未来活动数据请求错误");
+      });
+      //场地占用情况
+      GETOccupyTimes()
+      .then((data) => {
+        //console.log(data);
+        this.occupation=data;
+      })
+      .catch(err=>{
+        console.log(err);
+        this.$message("场地占用数据请求错误");
+      })
   },
   data() {
     return {
       //第一块卡片信息
       StuID: store.state.ID,
-      StuInfo: {
-        academy: 2,
-        category: null,
-        eMailAddress: null,
-        gender: null,
-        grade: null,
-        header: null,
-        major: null,
-        name: null,
-        nation: null,
-      },
+      StuInfo: {},
       semesterInfo: {
         //get semester from backend
         fromYear: "2020",
@@ -230,120 +241,19 @@ export default {
         week: "14",
       },
       //第二块卡片信息
-
       //弹出式公告
       dialogTitle: "",
       dialogContent: "",
       dialogVisible: false,
       activityVisible: false,
-      activitySelected: {
-        id: 65535,
-        name: "批评大会",
-        description: "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-        host: "德育办公室",
-        time: "2021-5-28 14:30",
-        location: "129礼堂",
-        participantnum: 0,
-      },
+      activitySelected: {},
       groundAnnouncement: [],
       systemAnnouncement: [],
 
       //第三块卡片信息
-      futureActivity: [
-        {
-          id: 65535,
-          name: "批评大会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:30",
-          location: "129礼堂",
-          participantnum: 10,
-        },
-        {
-          id: 65536,
-          name: "批评大会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:31",
-          location: "129礼堂",
-          participantnum: 20,
-        },
-        {
-          id: 65537,
-          name: "新闻发布会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:32",
-          location: "129礼堂",
-          participantnum: 30,
-        },
-        {
-          id: 65538,
-          name: "批评大会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:33",
-          location: "129礼堂",
-          participantnum: 40,
-        },
-        {
-          id: 65539,
-          name: "批评大会",
-          description:
-            "某同学在知乎上批评学校，给学校的招生和声誉造成恶劣影响。",
-          host: "德育办公室",
-          time: "2021-5-28 14:34",
-          location: "129礼堂",
-          participantnum: 50,
-        },
-      ],
+      futureActivity: [],
       //第四片卡片信息
-      occupation: [
-        {
-          groundID: "12201",
-          position: "F201",
-          activityName: "数据结构",
-        },
-        {
-          groundID: "21404",
-          position: "G404",
-          activityName: "数据库",
-        },
-        {
-          groundID: "35130",
-          position: "F201",
-          activityName: "数据结构1",
-        },
-        {
-          groundID: "35404",
-          position: "G404",
-          activityName: "数据库2",
-        },
-        {
-          groundID: "21404",
-          position: "F201",
-          activityName: "数据结构3",
-        },
-        {
-          groundID: "21404",
-          position: "G404",
-          activityName: "数据库4",
-        },
-        {
-          groundID: "21404",
-          position: "F201",
-          activityName: "数据结构5",
-        },
-        {
-          groundID: "21404",
-          position: "G404",
-          activityName: "数据库6",
-        },
-      ],
+      occupation: [],
     };
   },
   methods: {

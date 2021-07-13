@@ -71,45 +71,64 @@ p {
 }
 </style>
 
-
-
-
 <script>
+
+import {GETStudentsID} from "../../API/http"
+import store from "../../state/state";
+
 export default {
+  created() {
+    GETStudentsID(this.StuID)
+    .then(data =>{
+      this.tableData[0].content=this.StuID;
+      this.tableData[1].content=data.name;
+      this.tableData[2].content=data.gender===1?'女':'男';
+      this.tableData[3].content=data.nation;
+      this.tableData[4].content=data.grade;
+      this.tableData[5].content=data.eMailAddress;
+      this.tableData[6].content=data.academy;
+      this.tableData[7].content=data.major;
+    })
+    .catch((err) => {
+      console.log(err);
+      this.$message("学生信息获取错误");
+    })
+  },
   data() {
     return {
+      StuID: store.state.ID,
       tableData: [{
         change: 'false',
         title: '账号',
-        content: '1850668',
+        content: '',
       }, {
         change: 'false',
         title: '姓名',
-        content: '张三',
+        content: '',
       }, {
         change: 'false',
         title: '性别',
-        content: '男',
+        content: '',
       }, {
         change: 'false',
         title: '国籍',
-        content: '中国',
+        content: '',
       }, {
         change: 'false',
         title: '年级',
-        content: '2',
+        content: '',
       }, {
         change: 'true',
         title: '邮箱地址',
-        content: 'zhangsan@gmail.com',
+        content: '',
       }, {
         change: 'true',
         title: '学院',
-        content: '软件学院',
+        content: '',
       }, {
         change: 'true',
         title: '专业',
-        content: '文档工程',
+        content: '',
       }],
       radio: "1",
       textarea: "",
@@ -124,7 +143,9 @@ export default {
       rowIndex,
       columnIndex
     }) {
-      console.log(row, column, rowIndex, columnIndex, "row");
+      row;
+      column;
+      //console.log(row, column, rowIndex, columnIndex, "row");
       if (columnIndex == 0 && rowIndex < 5) { //第三第四列的背景色就改变了2和3都是列数的下标
         return 'background:#FBFBEF; font-weight: 700;'
       } else if (columnIndex == 0) {
