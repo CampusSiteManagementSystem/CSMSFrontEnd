@@ -1,20 +1,6 @@
 <template>
   <div class="main">
-    <!-- <el-row :gutter="10" type="flex">
-      <el-col :xs="24" :sm="24" :md="10" :lg="10">
-        <div class="grid-content">
-          <el-card class="box-card">
-            <PicCard :buttonshow="othertype" />
-          </el-card></div
-      ></el-col>
-      <el-col :xs="24" :sm="24" :md="14" :lg="14">
-        <el-card class="box-card">
-          <CourseTable />
-        </el-card>
-      </el-col>
-    </el-row> -->
-    <!-- <el-page-header @back="goBack" content="详情页面">
-</el-page-header> -->
+
     <el-row :gutter="10" type="flex">
       <div class="grid-content">
         <el-card class="box-card">
