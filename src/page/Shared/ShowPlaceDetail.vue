@@ -120,19 +120,19 @@ export default {
       axiosdata: null,
     };
   },
-  created() {
-    this.matchList = this.tableData;
-  },
+  // created() {
+  //   this.matchList = this.tableData;
+  // },
   computed: {},
   mounted() {
-    console.log("run mounted");
     const that = this;
 
     GETGrounds()
       .then((data) => {
         that.axiosdata = data;
         that.tableData = that.dealWith(that.axiosdata);
-        console.log(that.axiosdata[0]);
+        //console.log(that.axiosdata[0]);
+        this.matchList = this.tableData;
       })
       .catch((err) => {
         that.data = err;

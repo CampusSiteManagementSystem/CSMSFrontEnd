@@ -5,25 +5,25 @@
       <el-col :span="10" class="upper-row-col1">
         <el-card class="upper-card">
           <el-row>
-          <el-col :span="8" class="person-info-card-photo-col">
-            <div>
-              <el-avatar :size="130" :src="personinfo.photosrc"></el-avatar>
-            </div>
-          </el-col>
-          <el-col :span="16">
-            <div class="name">{{ personinfo.name }}</div>
-            <div class="other-info">
-              <br />工号：1956666<br />管理场地：<el-tag
-                v-for="(ground, i) in personinfo.grounds"
-                :key="i"
-                :type="personinfo.type[i % 5]"
-              >
-                {{ ground }}
-              </el-tag>
-            </div>
-            <div class="date">{{ personinfo.date }}</div>
-            <div class="other-info">祝您工作愉快！</div>
-          </el-col>
+            <el-col :span="8" class="person-info-card-photo-col">
+              <div>
+                <el-avatar :size="130" :src="personinfo.photosrc"></el-avatar>
+              </div>
+            </el-col>
+            <el-col :span="16">
+              <div class="name">{{ personinfo.name }}</div>
+              <div class="other-info">
+                <br />工号：1956666<br />管理场地：<el-tag
+                  v-for="(ground, i) in personinfo.grounds"
+                  :key="i"
+                  :type="personinfo.type[i % 5]"
+                >
+                  {{ ground }}
+                </el-tag>
+              </div>
+              <div class="date">{{ personinfo.date }}</div>
+              <div class="other-info">祝您工作愉快！</div>
+            </el-col>
           </el-row>
         </el-card>
       </el-col>
@@ -37,7 +37,7 @@
               ></router-link
             >
           </div>
-          
+
           <el-table
             :data="systemAnnouncement"
             style="width: 100%"
@@ -199,9 +199,27 @@
 
 
 <script>
+import { GETMaintenanceAnnouncements } from "../../API/http";
 export default {
   name: "GrandsmanHome",
+
+  mounted() {
+    const that = this;
+
+    GETMaintenanceAnnouncements()
+      .then((data) => {
+        that.axiosdata = data;
+        // that.tableData = that.dealWith(that.axiosdata);
+        console.log(that.axiosdata[0]);
+      })
+      .catch((err) => {
+        that.data = err;
+      });
+
+  },
+
   data() {
+    
     const systemItem = {
       title: "关于系统停机维护的通知",
       time: "2021-7-5 15:30",
@@ -211,6 +229,7 @@ export default {
     };
 
     return {
+      axiosdata: null,
       personinfo: {
         photosrc:
           "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { POSTFeedbackRecords } from "./API/http";
+import { POSTOrganizations } from "./API/http";
 export default {
   data() {
     return {
@@ -15,10 +15,10 @@ export default {
   },
   methods: {
     test() {
-      POSTFeedbackRecords({
-        activityId: "string",
-        accountNumber: "string",
-        state: "string",
+      POSTOrganizations({
+        accountNumber: "pupupu",
+        secretPassword: "Pu12345",
+        eMailAddress: "9876@qq.com",
       })
         .then((data) => {
           this.res = data;
