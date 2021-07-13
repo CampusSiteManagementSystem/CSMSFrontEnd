@@ -87,7 +87,7 @@ body,
   clear: both;
 }
 .clearfix {
-  font-size: 20px;
+  font-size: 18px;
 }
 .maincard {
   border-radius: 15px;

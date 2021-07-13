@@ -46,7 +46,7 @@
             @row-click="onRowClick"
           >
             <el-table-column prop="title" width="auto"> </el-table-column>
-            <el-table-column prop="time" width="auto"> </el-table-column>
+            <el-table-column prop="systemAnnouncementDate" width="auto"> </el-table-column>
           </el-table>
         </el-card>
       </el-col>
@@ -199,34 +199,34 @@
 
 
 <script>
-import { GETMaintenanceAnnouncements } from "../../API/http";
+import { GETSystemAnnouncements } from "../../API/http";
+import store from "../../state/state.js"
 export default {
   name: "GrandsmanHome",
 
   mounted() {
     const that = this;
-
-    GETMaintenanceAnnouncements()
+    console.log("run mounted");
+    // console.log(this.testtitle.substr(0,this.testtitle.search("##")));
+    GETSystemAnnouncements()
       .then((data) => {
+        console.log("run GETSystemAnnouncements");
         that.axiosdata = data;
-        // that.tableData = that.dealWith(that.axiosdata);
-        console.log(that.axiosdata[0]);
+        that.dealWithAnnouncements(that.axiosdata);
       })
       .catch((err) => {
         that.data = err;
       });
-
   },
 
   data() {
-    
-    const systemItem = {
-      title: "关于系统停机维护的通知",
-      time: "2021-7-5 15:30",
-      accountNum: "14335",
-      content:
-        "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
-    };
+    // const systemItem = {
+    //   title: "关于系统停机维护的通知",
+    //   time: "2021-7-5 15:30",
+    //   accountNum: "14335",
+    //   content:
+    //     "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
+    // };
 
     return {
       axiosdata: null,
@@ -234,7 +234,8 @@ export default {
         photosrc:
           "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
         name: "老王",
-        id: 1956666,
+        // id: state.ID,
+        id:store.state.ID,
         grounds: ["复楼", "诚楼"],
         type: ["", "success", "info", "warning", "danger"],
         date: "2020-2021学年第2学期第13周",
@@ -254,8 +255,8 @@ export default {
         location: "129礼堂",
         participantnum: 0,
       },
-      systemAnnouncement: Array(20).fill(systemItem),
-
+      // systemAnnouncement: Array(20).fill(systemItem),
+      systemAnnouncement: [],
       appointment: [
         {
           activityID: "0001",
@@ -362,6 +363,26 @@ export default {
     };
   },
   methods: {
+    dealWithAnnouncements(data) {
+      console.log("run dealwith");
+      for (var i = 0; i < data.length; i++) {
+        var temp = {
+          accountNumber: "123123",
+          title: "关于饮水机的公告##C楼饮水机坏了，望周知",
+          systemAnnouncementDate: "2020-05-17T00:00:00",
+          content: "C楼饮水机坏了，望周知",
+        };
+        temp.accountNumber = data[i].accountNumber;
+        temp.systemAnnouncementDate = data[i].systemAnnouncementDate.replace(
+          "T",
+          " "
+        );
+        temp.title = data[i].content.substr(0, data[i].content.search("##"));
+        temp.content = data[i].content.slice(data[i].content.search("##") + 2);
+        this.systemAnnouncement.push(temp);
+      }
+      console.log(this.systemAnnouncement);
+    },
     onRowClick(row) {
       this.dialogTitle = row.title;
       this.dialogContent = row.content;
