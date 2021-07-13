@@ -35,7 +35,7 @@
         <el-table-column
           prop="activityState"
           label="活动状态"
-          column-key="feedbackTag"
+          column-key="activityState"
           :filters="[
             { text: '审核中', value: '审核中' },
             { text: '待举办', value: '待举办' },
@@ -174,7 +174,6 @@ export default {
           this.tableData.push(temp);
         }
       }
-      console.log(this.tableData);
     },
 
     onSubmit() {
