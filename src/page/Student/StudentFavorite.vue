@@ -22,12 +22,12 @@
       <el-table :data="matchList" style="width: 100%" stripe>
         <el-table-column
           label="场地编号"
-          prop="groundID"
+          prop="groundId"
           width="auto"
         ></el-table-column>
         <el-table-column
           label="地点"
-          prop="position"
+          prop="groundName"
           width="auto"
         ></el-table-column>
 
@@ -35,8 +35,10 @@
           <template slot-scope="scope">
             <el-tag
               size="medium"
-              :type="scope.row.isBusy ? 'danger' : 'success'"
-              >{{ scope.row.isBusy ? "占用" : "空闲" }}</el-tag
+              :type="
+                scope.row.groundState == '空闲' ? 'successdanger' : 'danger'
+              "
+              >{{ scope.row.groundState }}</el-tag
             >
           </template>
         </el-table-column>
@@ -49,16 +51,21 @@
             <router-link
               :to="{
                 name: 'ShowScheduleforStuFav',
-                params: { groundID: scope.row.groundID },
+                params: { groundId: scope.row.groundId },
               }"
+              style="padding-right: 5px"
               @click.native="handleEdit"
             >
-              <el-button
-                size="small"
-                round
-                >查看</el-button
-              >
+              <el-button size="small" round>查看</el-button>
             </router-link>
+            <el-button
+              @click.native.prevent="deleteRow(scope.$index, matchList)"
+              circle
+              type="danger"
+              icon="el-icon-delete"
+              size="small"
+            >
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -72,39 +79,18 @@
 </template>
 
 <script>
+import {
+  GETStuFavoritesID,
+  //   DELETEOrgFavorites,
+   DELETEStuFavorites,
+} from "../../API/http";
+import store from "../../state/state";
 export default {
-  created() {
-    this.matchList = this.favoriteList;
-  },
   data() {
     return {
-      childPage:false,
-      favoriteList: [
-        {
-          groundID: 123,
-          isBusy: true,
-          position: "F201",
-          type: "室内",
-        },
-        {
-          groundID: 124,
-          isBusy: false,
-          position: "篮球场",
-          type: "室外",
-        },
-        {
-          groundID: 125,
-          isBusy: true,
-          position: "G201",
-          type: "室内",
-        },
-        {
-          groundID: 126,
-          isBusy: true,
-          position: "A201",
-          type: "室内",
-        },
-      ],
+      id: store.state.ID,
+      childPage: false,
+      favoriteList: "",
       matchList: [],
       toMatch: "",
     };
@@ -117,7 +103,7 @@ export default {
         this.matchList = [];
         for (var i = 0; i < this.favoriteList.length; i++) {
           if (
-            this.favoriteList[i].position.search(this.toMatch) != -1 ||
+            this.favoriteList[i].groundName.search(this.toMatch) != -1 ||
             this.favoriteList[i].type.search(this.toMatch) != -1
           ) {
             this.matchList.push(this.favoriteList[i]);
@@ -125,18 +111,55 @@ export default {
         }
       }
     },
-    handleEdit(){
+    handleEdit() {
       this.childPage = !this.childPage;
+    },
+    fetchData() {
+      const that = this;
+      GETStuFavoritesID(that.id)
+        .then((data) => {
+          that.favoriteList = data;
+          this.matchList = this.favoriteList;
+        })
+        .catch((err) => {
+          this.data = err;
+        });
+    },
+    deleteRow(index, rows) {
+      var tempRow=rows[index];
+      rows.splice(index, 1);
+      console.log(tempRow)
+      const that=this;
 
-    }
+
+
+      DELETEStuFavorites({accountNumber:that.id,
+      groundId:tempRow.groundId
+      })
+        .then((data) => {
+          console.log("data",data);
+          this.fetchData();
+        })
+        .catch((err) => {
+          this.data = err;
+        });
+
+      
+
+
+
+
+     
+    },
   },
   mounted() {
-        this.childPage = this.$route.meta.title == "收藏" ? false : true;
+    this.fetchData();
+
+    this.childPage = this.$route.meta.title == "收藏" ? false : true;
   },
   updated() {
-     
-      this.childPage = this.$route.meta.title == "收藏" ? false : true;
-    },
+    this.childPage = this.$route.meta.title == "收藏" ? false : true;
+  },
 };
 </script>
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "../state/state"
-import router from "../router/index"
+//import router from "../router/index"
 import { Message } from 'element-ui';
 //import QS from 'qs'
 
@@ -24,6 +24,9 @@ axios.interceptors.request.use(
         // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断 
         const token = store.state.token;
         token && (config.headers.Authorization = token);
+        // if(cookie.get('user_token')){
+        // 	config.headers['token'] = cookie.get('user_token');
+        // }
         return config;
     },
     error => {
@@ -55,7 +58,7 @@ axios.interceptors.response.use(
                 // 在登录成功后返回当前页面，这一步需要在登录页操作。
                 case 404:
                     Message.error("网络请求不存在")
-                    router.replace('/error')
+                        //router.replace('/error')
                     break;
                 default:
                     Message({

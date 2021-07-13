@@ -79,7 +79,7 @@ export default {
         console.log("点击");
         console.log(e.lngLat);
       });
-      const mapFeature=this.features;
+      const mapFeature = this.features;
       // console.log("mapFeature",mapFeature);
       map.on("load", function () {
         //on设置监听，以及触发时的回调，这是加载时的触发的生成3d地图的例子
@@ -94,8 +94,7 @@ export default {
           type: "geojson",
           data: {
             type: "FeatureCollection",
-             features:mapFeature,
-            
+            features: mapFeature,
           },
         });
         // Add a layer showing the places.
@@ -182,16 +181,10 @@ export default {
           // Populate the popup and set its coordinates
           // based on the feature found.
           //填充弹出窗口，并根据找到的特性设置其坐标。
-         
-    
 
           const p = Vue.extend(PopMeg);
           let vm = new p({
             propsData: {
-            
-
-
-
               building: properties.description,
               all: properties.count,
               freeRoom: properties.empty,
@@ -216,7 +209,7 @@ export default {
           //     description: "1212",
           //   },
           // }).$mount('#base-detail');
-          console.log(vm.$el);
+          // console.log(vm.$el);
 
           // popup.setLngLat(coordinates).setHTML(vm.$el.innerHTML).addTo(map);
           popup.setLngLat(coordinates).setDOMContent(vm.$el).addTo(map);
@@ -285,18 +278,17 @@ export default {
               type: "Feature",
               properties: {
                 description: "A楼",
-                count:13,
-                empty:1,
-                    
+                count: 13,
+                empty: 1,
               },
               geometry: {
                 type: "Point",
                 coordinates: [121.20930082610175, 31.28776901297887],
               },
             };
-            temp.properties.description = data[i].positionName ;
-            temp.properties.count = data[i].count ;
-            temp.properties.empty = data[i].empty ;
+            temp.properties.description = data[i].positionName;
+            temp.properties.count = data[i].count;
+            temp.properties.empty = data[i].empty;
             temp.geometry.coordinates = [
               parseFloat(data[i].longitude),
               parseFloat(data[i].latitude),

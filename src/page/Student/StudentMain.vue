@@ -31,7 +31,7 @@
         </el-card>
       </el-col>
       <el-col :span="14" class="upper-row-col2">
-        <el-card class="upper-card">
+        <el-card class="upper-card" ref="upperCardRef">
           <el-tabs>
             <!-- addable="true" @tab-add="showAnnouncement" -->
             <el-tab-pane label="系统公告">
@@ -39,7 +39,8 @@
                 :data="systemAnnouncement"
                 stripe
                 style="width: 100%"
-                height="136"
+                
+                :height="upperTableHeight"
                 @row-click="onRowClick1"
                 :show-header="false"
               >
@@ -54,7 +55,7 @@
                 :data="groundAnnouncement"
                 stripe
                 style="width: 100%"
-                height="136"
+                :height="upperTableHeight"
                 @row-click="onRowClick2"
                 :show-header="false"
               >
@@ -88,7 +89,7 @@
             :data="futureActivity"
             stripe
             style="width: 100%"
-            height="241"
+            :height="lowerTableHeight"
             @row-click="onActivityRowClick"
             :show-header="false"
           >
@@ -104,7 +105,7 @@
         </el-card>
       </el-col>
       <el-col :span="9" class="lower-row-col2">
-        <el-card class="lower-card">
+        <el-card class="lower-card" ref="lowerCardRef">
           <div slot="header" class="clearfix" style="height:10%">
             <span><b>最近一周场地使用情况</b></span>
             <router-link to="/StuFrame/ShowPlaceDetail">
@@ -116,7 +117,8 @@
           <el-table
             :data="occupation"
             stripe
-            style="width: 100% ;height:90%;"
+            style="width: 100% ;"
+            :height="lowerTableHeight"
             @row-click="onOccupyRowClick"
             :show-header="false"
           >
@@ -164,6 +166,7 @@
     </el-dialog>
   </div>
 </template>
+
 
 <script>
 import store from "../../state/state";
@@ -227,8 +230,14 @@ export default {
         this.$message("场地占用数据请求错误");
       })
   },
+  mounted () {
+    this.upperTableHeight=this.$refs.upperCardRef.$el.clientHeight-95;
+    this.lowerTableHeight=this.$refs.lowerCardRef.$el.clientHeight-100;
+  },
   data() {
     return {
+      upperTableHeight:null,
+      lowerTableHeight:null,
       //第一块卡片信息
       StuID: store.state.ID,
       StuInfo: {},

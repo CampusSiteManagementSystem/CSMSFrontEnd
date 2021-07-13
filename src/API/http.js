@@ -110,12 +110,12 @@ export const PUTSystemAdministratorsID = (ID, param) => PutID('/api/SystemAdmini
 //SystemAnnouncements
 export const GETSystemAnnouncements = param => Get('/api/SystemAnnouncements', param); //ok
 export const POSTSystemAnnouncements = param => Post('/api/SystemAnnouncements', param); //ok
-    //{id},{systemAnnouncementDate},{systemAnnouncementTime}?
-export const PUTSystemAnnouncements = param => Put('/api/SystemAnnouncements', param);//ok
-export const DELETESystemAnnouncements = param => Delete('/api/SystemAnnouncements', param);//ok
+//{id},{systemAnnouncementDate},{systemAnnouncementTime}?
+export const PUTSystemAnnouncements = param => Put('/api/SystemAnnouncements', param); //ok
+export const DELETESystemAnnouncements = param => Delete('/api/SystemAnnouncements', param); //ok
 
 //Positions（未完成）
-export const GETPositions = param => Get('/api/Positions', param);//wy测试ok
+export const GETPositions = param => Get('/api/Positions', param); //wy测试ok
 
-
-
+//login
+export const Login = param => Get('/api/Login', param);

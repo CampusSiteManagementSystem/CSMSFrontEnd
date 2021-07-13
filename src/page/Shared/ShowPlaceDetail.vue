@@ -39,8 +39,7 @@
             </template>
           </el-table-column>
           <el-table-column prop="name" label="场地名称"> </el-table-column>
-          <el-table-column prop="capacity" label="容量">
-          </el-table-column>
+          <el-table-column prop="capacity" label="容量"> </el-table-column>
           <el-table-column prop="description" label="详情"> </el-table-column>
           <el-table-column label="操作" width="200">
             <template slot-scope="scope">
@@ -59,7 +58,11 @@
                 v-show="membertype"
                 :to="{
                   name: 'ShowScheduleforStu',
-                  params: { groundId: scope.row.groundId,placeType: scope.row.type,membertype: true },
+                  params: {
+                    groundId: scope.row.groundId,
+                    placeType: scope.row.type,
+                    membertype: true,
+                  },
                 }"
                 size="mini"
                 type="success"
@@ -72,7 +75,11 @@
                 v-show="othertype"
                 :to="{
                   name: 'ShowScheduleforOrg',
-                  params: { groundId: scope.row.groundId,placeType: scope.row.type, membertype: false },
+                  params: {
+                    groundId: scope.row.groundId,
+                    placeType: scope.row.type,
+                    membertype: false,
+                  },
                 }"
                 size="mini"
                 type="success"
@@ -112,20 +119,17 @@ import { GETGrounds } from "../../API/http";
 export default {
   data() {
     return {
-      // tableData: Array(20).fill(item),
       tableData: [],
-      // options: places,
-      othertype: !this.membertype,
+
       matchList: [],
       toMatch: "",
-      // item: item,
+
       childPage: false,
       axiosdata: null,
+      othertype: !this.membertype,
     };
   },
-  created() {
-    this.matchList = this.tableData;
-  },
+
   computed: {},
   mounted() {
     const that = this;
@@ -133,9 +137,26 @@ export default {
     GETGrounds()
       .then((data) => {
         that.axiosdata = data;
-        that.tableData = that.dealWith(that.axiosdata);
-        //console.log(that.axiosdata[0]);
-        // that.matchList = that.tableData;
+        for (var i = 0; i < data.length; i++) {
+          var temp = {
+            groundId: "123123",
+            name: "F202",
+            type: "室外",
+            capacity: 100,
+            description: "F楼402大教室",
+          };
+          temp.groundId = data[i].groundId;
+          temp.name = data[i].name;
+          temp.description = data[i].description;
+          temp.type = data[i].type;
+          temp.capacity = data[i].area;
+          that.tableData.push(temp);
+          that.matchList = that.tableData;
+          if (that.$route.params.building != "") {
+            that.toMatch = that.$route.params.building;
+            that.search();
+          }
+        }
       })
       .catch((err) => {
         that.data = err;
@@ -167,12 +188,16 @@ export default {
       } else {
         this.matchList = [];
         for (var i = 0; i < this.tableData.length; i++) {
-          if (this.tableData[i].name.search(this.toMatch) != -1) {
+          if (
+            this.tableData[i].name.search(this.toMatch) != -1 ||
+            this.tableData[i].type.search(this.toMatch) != -1
+          ) {
             this.matchList.push(this.tableData[i]);
           }
         }
       }
     },
+
     handleEdit() {
       console.log("handleedit");
       console.log(this.$route);
@@ -181,23 +206,6 @@ export default {
         this.$route.name == "OrgCheckSite"
           ? false
           : true;
-    },
-    dealWith(data) {
-      for (var i = 0; i < data.length; i++) {
-        var temp = {
-          groundId: "123123",
-          name: "F202",
-          type: "室外",
-          capacity: 100,
-          description: "F楼402大教室",
-        };
-        temp.groundId = data[i].groundId;
-        temp.name = data[i].name;
-        temp.description = data[i].description;
-        temp.type = data[i].type;
-        temp.capacity = data[i].area;
-        this.tableData.push(temp);
-      }
     },
   },
   props: {
