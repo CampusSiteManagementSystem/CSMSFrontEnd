@@ -53,10 +53,19 @@
                 name: 'ShowScheduleforStuFav',
                 params: { groundId: scope.row.groundId },
               }"
+              style="padding-right: 5px"
               @click.native="handleEdit"
             >
               <el-button size="small" round>查看</el-button>
             </router-link>
+            <el-button
+              @click.native.prevent="deleteRow(scope.$index, matchList)"
+              circle
+              type="danger"
+              icon="el-icon-delete"
+              size="small"
+            >
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -73,7 +82,7 @@
 import {
   GETStuFavoritesID,
   //   DELETEOrgFavorites,
-  //  DELETEStuFavorites,
+   DELETEStuFavorites,
 } from "../../API/http";
 import store from "../../state/state";
 export default {
@@ -115,6 +124,32 @@ export default {
         .catch((err) => {
           this.data = err;
         });
+    },
+    deleteRow(index, rows) {
+      var tempRow=rows[index];
+      rows.splice(index, 1);
+      console.log(tempRow)
+      const that=this;
+
+
+
+      DELETEStuFavorites({accountNumber:that.id,
+      groundId:tempRow.groundId
+      })
+        .then((data) => {
+          console.log("data",data);
+          this.fetchData();
+        })
+        .catch((err) => {
+          this.data = err;
+        });
+
+      
+
+
+
+
+     
     },
   },
   mounted() {
