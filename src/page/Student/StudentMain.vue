@@ -7,19 +7,19 @@
           <el-row>
             <el-col :span="9">
               <div>
-                <el-avatar :size="130" :src="studentInfo.image"></el-avatar>
+                <el-avatar :size="130" :src="StuInfo.image"></el-avatar>
               </div>
             </el-col>
             <el-col :span="15">
-              <div class="name">{{ studentInfo.username }}</div>
+              <div class="name">{{ StuInfo.name }}</div>
               <div class="other-info">
-                <br />学号：{{ studentInfo.studentID }}<br />学院专业：<el-tag
+                <br />学号：{{ StuID }}<br />学院专业：<el-tag
                   type="success"
                 >
-                  {{ studentInfo.academy }}
+                  {{ StuInfo.academy }}
                 </el-tag>
                 <el-tag type="warning">
-                  {{ studentInfo.major }}
+                  {{ StuInfo.major }}
                 </el-tag>
               </div>
               <div class="date">
@@ -45,8 +45,10 @@
                 @row-click="onRowClick1"
                 :show-header="false"
               >
-                <el-table-column prop="accountNumber" width="auto"> </el-table-column>
-                <el-table-column prop="systemAnnouncementTime" width="auto"> </el-table-column>
+                <el-table-column prop="accountNumber" width="auto">
+                </el-table-column>
+                <el-table-column prop="systemAnnouncementTime" width="auto">
+                </el-table-column>
               </el-table>
             </el-tab-pane>
             <el-tab-pane label="场地公告">
@@ -166,9 +168,11 @@
 </template>
 
 <script>
+import store from "../../state/state";
 import {
   GETMaintenanceAnnouncements,
   GETSystemAnnouncements,
+  GETStudentsID,
 } from "../../API/http";
 export default {
   created() {
@@ -186,27 +190,40 @@ export default {
     GETSystemAnnouncements()
       .then((data) => {
         //console.log(data);
-        this.systemAnnouncement=data;
+        this.systemAnnouncement = data;
       })
       .catch((err) => {
         console.log(err);
         this.$message("系统公告数据请求错误");
       });
+    //获取学生信息
+    GETStudentsID(this.StuID)
+      .then((data) => {
+        this.StuInfo = data;
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("学生信息请求错误");
+      });
   },
   data() {
     return {
       //第一块卡片信息
-      studentInfo: {
-        image:
-          "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        username: "hhh",
-        studentID: "1850668",
-        academy: "软件学院",
-        major: "UI工程",
+      StuID: store.state.ID,
+      StuInfo: {
+        academy: 2,
+        category: null,
+        eMailAddress: null,
+        gender: null,
+        grade: null,
+        header: null,
+        major: null,
+        name: null,
+        nation: null,
       },
       semesterInfo: {
         //get semester from backend
-
         fromYear: "2020",
         toYear: "2021",
         semester: "2",
