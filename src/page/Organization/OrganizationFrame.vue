@@ -130,7 +130,7 @@ export default {
         hour: false
       },
       nowWeek: '',
-      nowDate: '1123',
+      nowDate: '',
       nowTime: '',
       weeks: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
       clock: null,
