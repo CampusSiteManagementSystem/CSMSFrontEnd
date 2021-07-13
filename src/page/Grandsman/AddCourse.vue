@@ -119,6 +119,8 @@ export default {
     return {
       tableData: Array(20).fill(course),
 
+      groundTable: [],
+
       ruleForm: {
         site: [],
         name: "",
@@ -324,6 +326,28 @@ export default {
       },
     };
   },
+
+  mounted() {
+    var axios = require('axios');
+    var config = {
+      method: 'get',
+      url: 'http://139.196.114.7/api/Grounds',
+      //url: 'http://139.196.114.7/api/Grounds?accountNumber=thisNum',
+      headers: { }
+    };
+                
+    axios(config)
+    .then(response => {
+      this.groundTable = [];
+      for (let gnd of response.data){
+        this.groundTable.push(gnd);
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  },
+
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {

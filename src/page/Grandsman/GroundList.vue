@@ -25,27 +25,27 @@
       >
         <el-table-column prop="name" label="场地名称" min-width="25%">
         </el-table-column>
-        <el-table-column prop="id" label="场地ID" min-width="12.5%">
+        <el-table-column prop="groundId" label="场地ID" min-width="12.5%">
         </el-table-column>
         <el-table-column prop="area" label="区域" min-width="15%">
         </el-table-column>
         <el-table-column
-          prop="class"
+          prop="type"
           label="类别"
           min-width="8%"
-          column-key="class"
+          column-key="type"
           :filters="[
-            { text: '室内', value: 0 },
-            { text: '室外', value: 1 },
+            { text: '室内', value: '室内' },
+            { text: '室外', value: '室外' },
           ]"
           :filter-method="filterTag"
           filter-placement="bottom-end"
         >
           <template slot-scope="scope">
             <el-tag
-              :type="scope.row.class === 0 ? 'primary' : 'success'"
+              :type="scope.row.type === '室内' ? 'primary' : 'success'"
               disable-transitions
-              >{{ scope.row.class === 0 ? "室内" : "室外" }}</el-tag
+              >{{ scope.row.type }}</el-tag
             >
           </template>
         </el-table-column>
@@ -54,7 +54,7 @@
         <el-table-column min-width="12%">
           <template slot-scope="scope">
             <router-link
-              :to="{ name: 'GroundInfo', params: { ID: scope.row.id } }"
+              :to="{ name: 'GroundInfo', params: { ID: scope.row.groundId } }"
               ><el-button type="text">编辑信息</el-button></router-link
             >
           </template>
@@ -69,22 +69,38 @@ export default {
   name: "GroundList",
   components: {},
   data() {
-    const ground = {
-      id: "6553",
-      name: "济事楼434",
-      area: "济事楼",
-      class: 0,
-      description: "暂无描述",
-    };
     return {
       toMatch: "",
       matchList: [],
-      groundTable: Array(20).fill(ground),
+      groundTable: [],
     };
   },
   created(){
     this.search();
   },
+
+  mounted() {
+    var axios = require('axios');
+    var config = {
+      method: 'get',
+      url: 'http://139.196.114.7/api/Grounds',
+      //url: 'http://139.196.114.7/api/Grounds?accountNumber=thisNum',
+      headers: { }
+    };
+                
+    axios(config)
+    .then(response => {
+      this.groundTable = [];
+      for (let gnd of response.data){
+        this.groundTable.push(gnd);
+      }
+      this.matchList = this.groundTable;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  },
+
   methods: {
     filterTag(value, row, column) {
       const property = column["property"];
