@@ -47,11 +47,16 @@ export const GETIndoorGroundsID = ID => GetID('/api/IndoorGrounds/', ID)//ok
 
 
 //Grounds
+
 export const GETGrounds = param => Get('/api/Grounds', param)//ok
-export const GETGroundsID = ID => Get('/api/Grounds/',ID)//ok
+export const GETGroundsID = ID =>  GetID('/api/Grounds/',ID)//ok
 // export const POSTGrounds = param => Post('/api/Grounds', param); 
 // export const PUTGroundsID = (ID, param) => PutID('/api/Grounds/', ID, param); 
 // export const DELETEGroundsID = ID => DeleteID('/api/Grounds/', ID);
+
+//OutdoorGrounds
+export const GETOutdoorGrounds = param => Get('/api/OutdoorGrounds', param)
+export const GETOutdoorGroundsID = ID => GetID('/api/OutdoorGrounds/', ID)
 
 //Groundsmen
 // export const GETGroundsmen = param => Get('/api/Groundsmen', param);
@@ -105,4 +110,5 @@ export const POSTSystemAnnouncements = param => Post('/api/SystemAnnouncements',
     //{id},{systemAnnouncementDate},{systemAnnouncementTime}?
 export const PUTSystemAnnouncementsID = (ID, param) => PutID('/api/SystemAnnouncements/', ID, param); 
 export const DELETESystemAnnouncementsID = ID => DeleteID('/api/SystemAnnouncements/', ID);
+
 

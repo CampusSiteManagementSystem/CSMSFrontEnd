@@ -9,10 +9,23 @@
         <div>
           <h3>场地详情</h3>
         </div>
-        <el-row>
-          <p>场地名称：{{ positionName }}{{roomNo}}</p>
-          <p>场地类型：{{ placeType }}</p>
-          <p v-for="(value, key) in utils" :key="value">
+
+        <el-row v-if="placeType == '室内'" :gutter="20">
+          <el-col :span="12">
+            <p>场地名称:{{ indoorGround.楼号 }}{{ indoorGround.房间号 }}</p>
+
+            <div v-for="(value, key, index) in indoorGround" :key="key">
+              <p v-if="index < 3">{{ key }}:{{ value }}</p>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div v-for="(value, key, index) in indoorGround" :key="key">
+              <p v-if="index >=3">{{ key }}:{{ value }}</p>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row v-else>
+          <p v-for="(value, key) in outdoorGround" :key="key">
             {{ key }}:{{ value }}
           </p>
         </el-row>
@@ -53,11 +66,6 @@
   line-height: 12px;
 }
 
-/* .button {
-  margin: 10px, 10px, 10px, 10px;
-  float: right;
-} */
-
 .image {
   width: 100%;
   display: block;
@@ -75,50 +83,44 @@
 </style>
 
 <script>
-import { GETIndoorGroundsID } from "../API/http";
+import {
+  GETIndoorGroundsID,
+  GETOutdoorGroundsID,
+  GETGroundsID,
+} from "../API/http";
 export default {
   name: "PicCard",
   data() {
-    // const utils = {
-    //   电脑数量: 100,
-    //   桌子数量: 13,
-    // };
     return {
-      axiosdata:"",
-      computerNum: 1,
-floor: 2,
-positionName: "G楼",
-roomNo: 201,
-seatNum: 500,
-utils:null,
+      axiosdata: "",
+      placeType: "",
+      groundTemp: "",
+      indoorGround: {
+        楼号: "",
+        层号: "",
+        房间号: "",
+        座位数量: "",
+        电脑数量: "",
+        场地大小: "",
+        详细描述: "",
+      },
+      outdoorGround: {
+        场地名称: "",
+        场地大小: "0",
+        详细描述: "",
+      },
 
-
-
-
-      // utils: utils,
       currentDate: new Date(),
-      // building: "F",
-      // floor: "层号",
-      // room: "202",
-      placeType: "室内场地",
     };
   },
+  watch: {
+    // $route: "fetchData",
+  },
   mounted() {
-    const that=this;
-
-
-   
-
-     GETIndoorGroundsID(that.$props.groundId)
-        .then((data) => {
-          that.axiosdata = data;
-          // console.log(that.$props.groundId,that.axiosdata)
-        })
-        .catch((err) => {
-          this.data = err;
-        });
-    console.log("PICCARD buttonshow", this.$props.buttonshow);
-    console.log("PICCARD groundId", this.$props.groundId);
+    this.fetchData();
+    // console.log("PICCARD buttonshow", this.$props.buttonshow);
+    // console.log("PICCARD groundId", this.$props.groundId);
+    // console.log("PICCARD placeType", this.$props.placeType);
   },
   props: {
     buttonshow: {
@@ -134,25 +136,50 @@ utils:null,
     handleApply() {
       console.log("PICCARD groundId", this.$props.groundId);
     },
-//     dealWithaxiosdata(){
-//        computerNum: 1,
-// floor: 2,
-// positionName: "G楼",
-// roomNo: 201,
-// seatNum: 500,
+    fetchData: async function () {
+      const that = this;
 
+      await GETGroundsID(that.$props.groundId)
+        .then((data) => {
+          console.log(data);
 
+          that.groundTemp = data;
+          that.placeType = data.type;
+        })
+        .catch((err) => {
+          this.data = err;
+        });
+      console.log("that.placeType", that.placeType);
+      if (that.placeType == "室内") {
+        that.indoorGround.场地大小 = that.groundTemp.area;
+        that.indoorGround.详细描述 = that.groundTemp.description;
 
-
-//       // utils: utils,
-//       currentDate: new Date(),
-//       // building: "F",
-//       // floor: "层号",
-//       // room: "202",
-//       placeType: "室内场地",
-
-
-//     }
+        GETIndoorGroundsID(that.$props.groundId)
+          .then((data) => {
+            that.axiosdata = data;
+            that.indoorGround.楼号 = data.positionName;
+            that.indoorGround.层号 = data.floor;
+            that.indoorGround.房间号 = data.roomNo;
+            that.indoorGround.座位数量 = data.seatNum;
+            that.indoorGround.电脑数量 = data.computerNum;
+          })
+          .catch((err) => {
+            this.data = err;
+          });
+      } else {
+        GETOutdoorGroundsID(that.$props.groundId)
+          .then((data) => {
+            that.axiosdata = data;
+            console.log(that.$props.groundId, that.axiosdata);
+            that.outdoorGround.场地名称 = data.positionName;
+            that.outdoorGround.场地大小 = data.area;
+            that.outdoorGround.详细描述 = data.description;
+          })
+          .catch((err) => {
+            this.data = err;
+          });
+      }
+    },
   },
 };
 </script>
