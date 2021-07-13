@@ -44,9 +44,9 @@
                 @row-click="onRowClick1"
                 :show-header="false"
               >
-                <el-table-column prop="accountNumber" width="auto">
+                <el-table-column prop="title" width="auto">
                 </el-table-column>
-                <el-table-column prop="systemAnnouncementTime" width="auto">
+                <el-table-column prop="systemAnnouncementDate" width="auto">
                 </el-table-column>
               </el-table>
             </el-tab-pane>
@@ -59,12 +59,12 @@
                 @row-click="onRowClick2"
                 :show-header="false"
               >
-                <el-table-column prop="groundId" width="auto">
+                <el-table-column prop="title" width="auto">
                 </el-table-column>
                 <el-table-column prop="groundName" width="auto">
                 </el-table-column>
                 <el-table-column
-                  prop="maintenanceAnnouncementTime"
+                  prop="maintenanceAnnouncementDate"
                   width="auto"
                 >
                 </el-table-column>
@@ -182,8 +182,26 @@ export default {
     //获取场地公告
     GETMaintenanceAnnouncements()
       .then((data) => {
-        //console.log(data);
-        this.groundAnnouncement = data;
+        console.log(data);
+        for (var i = 0; i < data.length; i++) {
+        var temp = {
+          groundId: "123123",
+          groundName:"",
+          title: "关于饮水机的公告##C楼饮水机坏了，望周知",
+          maintenanceAnnouncementDate: "2020-05-17T00:00:00",
+          content: "C楼饮水机坏了，望周知",
+        };
+        temp.groundName = data[i].groundName;
+        temp.groundId = data[i].groundId;
+        temp.maintenanceAnnouncementDate = data[i].maintenanceAnnouncementDate.replace(
+          "T",
+          " "
+        );
+        temp.title = data[i].content.substr(0, data[i].content.search("##"));
+        temp.content = data[i].content.slice(data[i].content.search("##") + 2);
+        this.groundAnnouncement.push(temp);
+      console.log(temp);
+      }
       })
       .catch((err) => {
         console.log(err);
@@ -192,8 +210,22 @@ export default {
     //获取系统公告
     GETSystemAnnouncements()
       .then((data) => {
-        //console.log(data);
-        this.systemAnnouncement = data;
+        for (var i = 0; i < data.length; i++) {
+        var temp = {
+          accountNumber: "123123",
+          title: "关于饮水机的公告##C楼饮水机坏了，望周知",
+          systemAnnouncementDate: "2020-05-17T00:00:00",
+          content: "C楼饮水机坏了，望周知",
+        };
+        temp.accountNumber = data[i].accountNumber;
+        temp.systemAnnouncementDate = data[i].systemAnnouncementDate.replace(
+          "T",
+          " "
+        );
+        temp.title = data[i].content.substr(0, data[i].content.search("##"));
+        temp.content = data[i].content.slice(data[i].content.search("##") + 2);
+        this.systemAnnouncement.push(temp);
+      }
       })
       .catch((err) => {
         console.log(err);
@@ -269,11 +301,12 @@ export default {
       this.$router.push("/StuFrame/Announcement");
     },
     onRowClick1(row) {
-      this.dialogTitle = row.groundName;
+      this.dialogTitle = row.title;
       this.dialogContent = row.content;
       this.dialogVisible = true;
     },
     onRowClick2(row) {
+      this.dialogTitle = row.groundName+" "+row.title;
       this.dialogContent = row.content;
       this.dialogVisible = true;
     },
