@@ -21,60 +21,58 @@ export const DELETEDefaultOccupyTime = param => Delete('/api/DefaultOccupyTimes'
 
 // ExamineAndApproves
 export const GETExamineAndApproves = param => Get('/api/ExamineAndApproves', param);//ok
-export const POSTExamineAndApproves = param => Post('/api/ExamineAndApproves', param);
+export const POSTExamineAndApproves = param => Post('/api/ExamineAndApproves', param);//ok
 export const GETExamineAndApprovesID = ID => GetID('/api/ExamineAndApproves/', ID)//ok
 export const PUTExamineAndApprovesID = (ID, param) => PutID('/api/ExamineAndApproves/', ID, param);//参数如何传递
 export const DELETEExamineAndApprovesID = ID => DeleteID('/api/ExamineAndApproves/', ID);//ok
 
 //FeedbackRecords
 export const GETFeedbackRecords = param => Get('/api/FeedbackRecords', param);//ok
-export const POSTFeedbackRecords = param => Post('/api/FeedbackRecords', param);
 
+export const POSTFeedbackRecords = param => Post('/api/FeedbackRecords', param);//NOOK
 
-// 未测试
-export const GETFeedbackRecordsID = ID => GetID('/api/FeedbackRecords/', ID)
-export const PUTFeedbackRecordsID = (ID, param) => PutID('/api/FeedbackRecords/', ID, param); 
-export const DELETEFeedbackRecordsID = ID => DeleteID('/api/FeedbackRecords/', ID);
+export const GETFeedbackRecordsID = ID => GetID('/api/FeedbackRecords/', ID)//ok
+// export const PUTFeedbackRecordsID = (ID, param) => PutID('/api/FeedbackRecords/', ID, param); 
+export const DELETEFeedbackRecordsID = ID => DeleteID('/api/FeedbackRecords/', ID);//ok
 
 
 
 // IndoorGrounds
 export const GETIndoorGrounds = param => Get('/api/IndoorGrounds', param)//ok
-export const GETIndoorGroundsID = ID => GetID('/api/IndoorGrounds/', ID)//ok
-      //
-export const POSTIndoorGrounds = param => Post('/api/IndoorGrounds', param);
-export const PUTIndoorGroundsID = (ID, param) => PutID('/api/IndoorGrounds/', ID, param); 
-export const DELETEIndoorGroundsID = ID => DeleteID('/api/IndoorGrounds/', ID);
+export const GETIndoorGroundsID = ID => GetID('/api/IndoorGrounds/', ID)//ok   
+// export const POSTIndoorGrounds = param => Post('/api/IndoorGrounds', param);
+// export const PUTIndoorGroundsID = (ID, param) => PutID('/api/IndoorGrounds/', ID, param); 
+// export const DELETEIndoorGroundsID = ID => DeleteID('/api/IndoorGrounds/', ID);
 
 
 
 //Grounds
 export const GETGrounds = param => Get('/api/Grounds', param)//ok
 export const GETGroundsID = ID => Get('/api/Grounds/',ID)//ok
-       //
-export const POSTGrounds = param => Post('/api/Grounds', param); 
-export const PUTGroundsID = (ID, param) => PutID('/api/Grounds/', ID, param); 
-export const DELETEGroundsID = ID => DeleteID('/api/Grounds/', ID);
+// export const POSTGrounds = param => Post('/api/Grounds', param); 
+// export const PUTGroundsID = (ID, param) => PutID('/api/Grounds/', ID, param); 
+// export const DELETEGroundsID = ID => DeleteID('/api/Grounds/', ID);
 
 //Groundsmen
-export const GETGroundsmen = param => Get('/api/Groundsmen', param);
-export const GETGroundsmenID = ID => GetID('/api/Groundsmen/', ID);
-export const PUTGroundsmenID = (ID, param) => PutID('/api/Groundsmen/', ID, param); 
-export const DELETEGroundsmenID = ID => DeleteID('/api/Groundsmen/', ID);
+// export const GETGroundsmen = param => Get('/api/Groundsmen', param);
+export const GETGroundsmenID = ID => GetID('/api/Groundsmen/', ID);//ok
+// export const PUTGroundsmenID = (ID, param) => PutID('/api/Groundsmen/', ID, param); 
+// export const DELETEGroundsmenID = ID => DeleteID('/api/Groundsmen/', ID);
+
 
 //MaintenanceAnnouncements
-export const GETMaintenanceAnnouncements = param => Get('/api/MaintenanceAnnouncements', param);
-export const POSTMaintenanceAnnouncements = param => Post('/api/MaintenanceAnnouncements', param); 
+export const GETMaintenanceAnnouncements = param => Get('/api/MaintenanceAnnouncements', param);//ok
+export const POSTMaintenanceAnnouncements = param => Post('/api/MaintenanceAnnouncements', param); //ok
+
 
 //OccupyTimes
-export const GETOccupyTimes = param => Get('/api/OccupyTimes', param);
+export const GETOccupyTimes = param => Get('/api/OccupyTimes', param);//ok 但是现在表是空的
 
 
 //Organizations
-export const GETOrganizations = param => Get('/api/Organizations', param);
-export const PUTOrganizations = param => Put('/api/Organizations', param);
-export const POSTOrganizations = param => Post('/api/Organizations', param); 
-      //accountnumber?
+export const GETOrganizations = param => Get('/api/Organizations', param);//ok
+export const PUTOrganizations = param => Put('/api/Organizations', param);//ok
+export const POSTOrganizations = param => Post('/api/Organizations', param); //ok
 export const GETOrganizationsID = ID => GetID('/api/Organizations/', ID);
 export const PUTOrganizationsID = (ID, param) => PutID('/api/Organizations/', ID, param); 
 
