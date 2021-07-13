@@ -106,7 +106,7 @@
       <el-col :span="9" class="lower-row-col2">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
-            <span><b>占用中的场地</b></span>
+            <span><b>最近一周场地使用情况</b></span>
             <router-link to="/StuFrame/ShowPlaceDetail">
               <el-button style="float: right; padding: 3px 0" type="text"
                 >查看更多</el-button
@@ -220,9 +220,10 @@ export default {
       //场地占用情况
       GETOccupyTimes()
       .then((data) => {
-        console.log(data);
+        //console.log(data);
+        this.occupation=data;
       })
-      .then(err=>{
+      .catch(err=>{
         console.log(err);
         this.$message("场地占用数据请求错误");
       })
