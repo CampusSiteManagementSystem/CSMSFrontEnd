@@ -185,7 +185,7 @@ export default {
     //获取系统公告
     GETSystemAnnouncements()
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         this.systemAnnouncement=data;
       })
       .catch((err) => {
