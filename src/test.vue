@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { DELETESystemAnnouncementsID  } from "./API/http";
+import { DELETESystemAnnouncements  } from "./API/http";
 export default {
   data() {
     return {
@@ -15,10 +15,10 @@ export default {
   },
   methods: {
     test() {
-      DELETESystemAnnouncementsID ({
+      DELETESystemAnnouncements ({
         accountNumber: "1000001",
-        systemAnnouncementDate: "2021-07-12T09:36:24",
-        systemAnnouncementTime: "2021-07-12T09:36:24",
+        systemAnnouncementDate: "2020-05-17T00:00:00",
+        systemAnnouncementTime: "2020-05-17T08:00:00",
       })
         .then((data) => {
           this.res = data;

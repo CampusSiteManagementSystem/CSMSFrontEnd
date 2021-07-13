@@ -112,7 +112,7 @@ export const GETSystemAnnouncements = param => Get('/api/SystemAnnouncements', p
 export const POSTSystemAnnouncements = param => Post('/api/SystemAnnouncements', param); //ok
     //{id},{systemAnnouncementDate},{systemAnnouncementTime}?
 export const PUTSystemAnnouncements = param => Put('/api/SystemAnnouncements', param);//ok
-export const DELETESystemAnnouncementsID = ID => DeleteID('/api/SystemAnnouncements/', ID);//参数修改 未测试
+export const DELETESystemAnnouncements = param => Delete('/api/SystemAnnouncements', param);//ok
 
 //Positions（未完成）
 export const GETPositions = param => Get('/api/Positions', param);//wy测试ok
