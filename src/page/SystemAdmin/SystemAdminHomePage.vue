@@ -3,17 +3,18 @@
     <el-row class="upper-row">
       <el-col :span="10" class="upper-row-col1"
         ><!--左上角的两块-->
+
         <el-card class="upper-card">
           <el-row>
             <el-col :span="9">
               <div>
-                <el-avatar :size="130" :src="studentInfo.image"></el-avatar>
+                <el-avatar :size="130" :src="sysInfo.image"></el-avatar>
               </div>
             </el-col>
             <el-col :span="15">
-              <div class="name">{{ studentInfo.username }}</div>
+              <div class="name">{{ 系统管理员 }}</div>
               <div class="other-info">
-                <br />账号：{{ studentInfo.adminID }}<br />
+                <br />账号：{{ sysInfo.accountNumber }}<br />
               </div>
               <div class="date">
                 {{ semesterInfo.fromYear }}-{{ semesterInfo.toYear }}年度第{{
@@ -39,7 +40,8 @@
                 :show-header="false"
               >
                 <el-table-column prop="title" width="auto"> </el-table-column>
-                <el-table-column prop="time" width="auto"> </el-table-column>
+                <el-table-column prop="systemAnnouncementDate" width="auto">
+                </el-table-column>
               </el-table>
             </el-tab-pane>
             <el-tab-pane label="场地公告">
@@ -52,7 +54,11 @@
                 :show-header="false"
               >
                 <el-table-column prop="title" width="auto"> </el-table-column>
-                <el-table-column prop="time" width="auto"> </el-table-column>
+                <el-table-column
+                  prop="maintenanceAnnouncementDate"
+                  width="auto"
+                >
+                </el-table-column>
               </el-table>
             </el-tab-pane>
           </el-tabs>
@@ -77,11 +83,11 @@
             height="241"
             :show-header="false"
           >
-            <el-table-column prop="applyTime" label="申请时间" width="auto">
+            <el-table-column prop="joinDate" label="申请时间" width="auto">
             </el-table-column>
-            <el-table-column prop="applyUser" label="申请人" width="auto">
+            <el-table-column prop="functionary" label="申请人" width="auto">
             </el-table-column>
-            <el-table-column prop="organization" label="组织" width="auto">
+            <el-table-column prop="name" label="组织" width="auto">
             </el-table-column>
           </el-table>
         </el-card>
@@ -89,23 +95,29 @@
       <el-col :span="9" class="lower-row-col2">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
-            <span>用户信息</span>
+            <span>学生信息</span>
             <router-link to="/SysAdminFrame/MaintainUserInfo">
               <el-button style="float: right; padding: 3px 0" type="text"
                 >查看更多</el-button
               >
             </router-link>
           </div>
-          <el-table :data="userInfo" stripe style="width: 100%" height="241" :show-header="false">
-            <el-table-column prop="userid" label="ID" width="auto">
+          <el-table
+            :data="userInfo"
+            stripe
+            style="width: 100%"
+            height="241"
+            :show-header="false"
+          >
+            <el-table-column prop="accountNumber" label="ID" width="auto">
             </el-table-column>
-            <el-table-column prop="account" label="账号" width="auto">
+            <el-table-column prop="name" label="账号" width="auto">
             </el-table-column>
           </el-table>
         </el-card>
       </el-col>
     </el-row>
-        <el-dialog :visible.sync="dialogVisible" width="50%" class="dialog">
+    <el-dialog :visible.sync="dialogVisible" width="50%" class="dialog">
       <span slot="title">
         <h3>{{ dialogTitle }}</h3>
       </span>
@@ -121,97 +133,165 @@
   </div>
 </template>
 
+
 <script>
+// import store from "../../state/state";
+import {
+  GETMaintenanceAnnouncements,
+  GETSystemAnnouncements,
+  GETOrganizations,
+  GETStudents,
+  PUTSystemAdministratorsID,
+
+  // GETStudentsID,
+  // GETActivities,
+  // GETOccupyTimes
+} from "../../API/http";
 export default {
+  created() {
+    //获取场地公告
+    GETMaintenanceAnnouncements()
+      .then((data) => {
+        console.log(data);
+        this.axiosdata = data;
+        this.dealWithmaintenanceAnnouncements(this.axiosdata);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("场地公告数据请求错误");
+      });
+
+    //获取系统公告
+    GETSystemAnnouncements()
+      .then((data) => {
+        console.log("data");
+        this.axiosdata = data;
+        this.dealWithAnnouncements(this.axiosdata);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("系统公告数据请求错误");
+      });
+
+    //获取组织注册信息
+    GETOrganizations()
+    .then((data) => {
+        this.groupInfo = data;
+        console.log(">>>>>>",data);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("组织注册信息请求错误");
+      });
+
+    //获取学生信息
+    GETStudents()
+    .then((data) => {
+        this.userInfo = data;
+        console.log(">>>>>>",data);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("学生信息请求错误");
+      });
+
+    //获取管理员信息
+    PUTSystemAdministratorsID();
+  },
   data() {
-    const groundItem = {
-      title: "关于图书馆暂停开放的通知",
-      time: "2021-6-25 15:30",
-      ground: "15335",
-      content:
-        "因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。",
-    };
-    const systemItem = {
-      title: "关于系统停机维护的通知",
-      time: "2021-7-5 15:30",
-      accountNum: "14335",
-      content:
-        "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
-    };
     return {
       dialogTitle: "",
       dialogContent: "",
       dialogVisible: false,
-      groundAnnouncement: Array(20).fill(groundItem),
-      systemAnnouncement: Array(20).fill(systemItem),
-      //第一块卡片信息
-      studentInfo: {
-        image:
-          "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        username: "系统管理员",
-        adminID: "50003",
-      },
-      semesterInfo: {
-        //get semester from backend
+      groundAnnouncement: [],
+      systemAnnouncement: [],
 
+      axiosdata: null,
+
+      //第一块卡片信息
+      // SysID=store.stats.ID,
+      sysInfo: {},
+      semesterInfo: {
         fromYear: "2020",
         toYear: "2021",
         semester: "2",
         week: "14",
       },
       //第三块卡片信息
-      groupInfo: [
-        {
-          applyTime: "2021-9-10",
-          applyUser:"张某",
-          organization:"游泳协会",
-        },
-        {
-          applyTime: "2021-8-11",
-          applyUser:"贺某",
-          organization:"跑步协会",
-        },
-         {
-          applyTime: "2021-9-10",
-          applyUser:"张某",
-          organization:"羽毛球协会",
-        },
-         {
-          applyTime: "2021-9-10",
-          applyUser:"张某",
-          organization:"乒乓球协会",
-        },
-      ],
+      groupInfo: [],
       //第四片卡片信息
       userInfo: [
         {
-          userid:"123",
-          account:"你",
+          userid: "123",
+          account: "你",
         },
         {
-          userid:"456",
-          account:"我",
+          userid: "456",
+          account: "我",
         },
         {
-           userid:"789",
-          account:"他",
+          userid: "789",
+          account: "他",
         },
         {
-           userid:"321",
-          account:"她",
+          userid: "321",
+          account: "她",
         },
         {
-          userid:"654",
-          account:"它",
+          userid: "654",
+          account: "它",
         },
         {
-           userid:"987",
-          account:"嗨",
-        }
+          userid: "987",
+          account: "嗨",
+        },
       ],
     };
   },
   methods: {
+    dealWithAnnouncements(data) {
+      console.log("run dealwith");
+      for (var i = 0; i < data.length; i++) {
+        var temp = {
+          accountNumber: "123123",
+          title: "关于饮水机的公告##C楼饮水机坏了，望周知",
+          systemAnnouncementDate: "2020-05-17T00:00:00",
+          content: "C楼饮水机坏了，望周知",
+        };
+        temp.accountNumber = data[i].accountNumber;
+        temp.systemAnnouncementDate = data[i].systemAnnouncementDate.replace(
+          "T",
+          " "
+        );
+        temp.title = data[i].content.substr(0, data[i].content.search("##"));
+        temp.content = data[i].content.slice(data[i].content.search("##") + 2);
+        this.systemAnnouncement.push(temp);
+      }
+      console.log(this.systemAnnouncement);
+    },
+
+    dealWithmaintenanceAnnouncements(data) {
+      console.log("run dealwith");
+      for (var i = 0; i < data.length; i++) {
+        var temp = {
+          groundName: "123123",
+          groundId: "1000001",
+          title: "关于饮水机的公告##C楼饮水机坏了，望周知",
+          maintenanceAnnouncementDate: "2020-05-17T00:00:00",
+          content: "C楼饮水机坏了，望周知",
+        };
+        temp.groundName = data[i].groundName;
+        temp.groundId = data[i].groundId;
+        temp.maintenanceAnnouncementDate = data[
+          i
+        ].maintenanceAnnouncementDate.replace("T", " ");
+        temp.title = data[i].content.substr(0, data[i].content.search("##"));
+        temp.content = data[i].content.slice(data[i].content.search("##") + 2);
+        this.groundAnnouncement.push(temp);
+      }
+      console.log(this.groundAnnouncement);
+    },
+
     showAnnouncement() {
       this.$router.push("/StuFrame/Announcement");
     },
@@ -293,5 +373,4 @@ export default {
 .dialog {
   backdrop-filter: blur(10px);
 }
-
 </style>

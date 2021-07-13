@@ -7,7 +7,7 @@
           <el-table
             :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}"
             :data="systemTableData"
-            :default-sort="{ prop: 'time', order: 'descending' }"
+            :default-sort="{ prop: 'systemAnnouncementDate', order: 'descending' }"
             :show-header="false"
             style="width: 100%"
             max-height="480"
@@ -20,7 +20,7 @@
                 }}</el-button>
               </template>
             </el-table-column>
-            <el-table-column prop="time" sortable label="时间" min-width="25%">
+            <el-table-column prop="systemAnnouncementDate" sortable label="时间" min-width="25%">
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -28,7 +28,7 @@
           <el-table
             :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}"
             :data="groundTableData"
-            :default-sort="{ prop: 'time', order: 'descending' }"
+            :default-sort="{ prop: 'maintenanceAnnouncementDate', order: 'descending' }"
             :show-header="false"
             style="width: 100%"
             max-height="480"
@@ -41,7 +41,7 @@
                 }}</el-button>
               </template>
             </el-table-column>
-            <el-table-column prop="time" sortable label="时间" min-width="25%">
+            <el-table-column prop="maintenanceAnnouncementDate" sortable label="时间" min-width="25%">
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -64,38 +64,86 @@
   </div>
 </template>
 <script>
+import { GETMaintenanceAnnouncements, GETSystemAnnouncements } from "../../API/http";
+
 export default {
   name: "AnnouncementList",
   data() {
-    const groundItem = {
-      title: "关于图书馆暂停开放的通知",
-      time: "2021-6-25 15:30",
-      ground: "15335",
-      content:
-        "因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。",
-    };
-    const systemItem = {
-      title: "关于系统停机维护的通知",
-      time: "2021-7-5 15:30",
-      accountNum: "14335",
-      content:
-        "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
-    };
     return {
       title: "",
       content: "",
       dialogVisible: false,
       activeTab: "pane1",
-      groundTableData: Array(20).fill(groundItem),
-      systemTableData: Array(20).fill(systemItem),
+      data: [],
+      groundTableData: [],
+      systemTableData: [],
     };
   },
+  mounted() {
+    GETMaintenanceAnnouncements()
+      .then((data) => {
+        this.groundTableData = this.dealWithMaintenanceAnnouncements(data);
+      })
+      .catch((err) => {
+        this.data = err;
+      });
+      
+    GETSystemAnnouncements()
+      .then((data) => {
+        this.systemTableData = this.dealWithSystemAnnouncements(data);
+      })
+      .catch((err) => {
+        this.data = err;
+      });
+  },
+
   methods: {
     viewInfo(row) {
       this.dialogVisible = true;
       this.title = row.title;
       this.content = row.content;
-    }
+    },
+    dealWithMaintenanceAnnouncements(data) {
+      var gAnnouncement = [];
+      console.log("run dealwith");
+      for (var i = 0; i < data.length; i++) {
+        var temp =   {
+          groundId: "1000003",
+          groundName: "G302",
+          maintenanceAnnouncementDate: "2021-07-13T09:54:53",
+          title: "",
+          content: "",
+        };
+        temp.groundId = data[i].groundId;
+        temp.groundName = data[i].groundName;
+        temp.maintenanceAnnouncementDate = data[i].maintenanceAnnouncementDate.replace("T", " ");
+        temp.title = data[i].content.substr(0, data[i].content.search("##"));
+        temp.content = data[i].content.slice(data[i].content.search("##") + 2);
+        gAnnouncement.push(temp);
+      }
+        return gAnnouncement;
+    },
+    dealWithSystemAnnouncements(data) {
+      var sysAnnouncement = [];
+      console.log("run dealwith");
+      for (var i = 0; i < data.length; i++) {
+        var temp = {
+          accountNumber: "",
+          title: "",
+          systemAnnouncementDate: "",
+          content: "",
+        };
+        temp.accountNumber = data[i].accountNumber;
+        temp.systemAnnouncementDate = data[i].systemAnnouncementDate.replace(
+          "T",
+          " "
+        );
+        temp.title = data[i].content.substr(0, data[i].content.search("##"));
+        temp.content = data[i].content.slice(data[i].content.search("##") + 2);
+        sysAnnouncement.push(temp);
+      }
+      return sysAnnouncement;
+    },
   }
 };
 </script>
