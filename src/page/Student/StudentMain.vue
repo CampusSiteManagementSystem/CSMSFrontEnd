@@ -7,19 +7,19 @@
           <el-row>
             <el-col :span="9">
               <div>
-                <el-avatar :size="130" :src="studentInfo.image"></el-avatar>
+                <el-avatar :size="130" :src="StuInfo.image"></el-avatar>
               </div>
             </el-col>
             <el-col :span="15">
-              <div class="name">{{ studentInfo.username }}</div>
+              <div class="name">{{ StuInfo.name }}</div>
               <div class="other-info">
-                <br />学号：{{ studentInfo.studentID }}<br />学院专业：<el-tag
+                <br />学号：{{ StuID }}<br />学院专业：<el-tag
                   type="success"
                 >
-                  {{ studentInfo.academy }}
+                  {{ StuInfo.academy }}
                 </el-tag>
                 <el-tag type="warning">
-                  {{ studentInfo.major }}
+                  {{ StuInfo.major }}
                 </el-tag>
               </div>
               <div class="date">
@@ -42,11 +42,13 @@
                 stripe
                 style="width: 100%"
                 height="136"
-                @row-click="onRowClick"
+                @row-click="onRowClick1"
                 :show-header="false"
               >
-                <el-table-column prop="title" width="auto"> </el-table-column>
-                <el-table-column prop="time" width="auto"> </el-table-column>
+                <el-table-column prop="accountNumber" width="auto">
+                </el-table-column>
+                <el-table-column prop="systemAnnouncementTime" width="auto">
+                </el-table-column>
               </el-table>
             </el-tab-pane>
             <el-tab-pane label="场地公告">
@@ -55,12 +57,18 @@
                 stripe
                 style="width: 100%"
                 height="136"
-                @row-click="onRowClick"
+                @row-click="onRowClick2"
                 :show-header="false"
               >
-                <el-table-column prop="groundId" width="auto"> </el-table-column>
-                <el-table-column prop="groundName" width="auto"> </el-table-column>
-                <el-table-column prop="maintenanceAnnouncementTime" width="auto"> </el-table-column>
+                <el-table-column prop="groundId" width="auto">
+                </el-table-column>
+                <el-table-column prop="groundName" width="auto">
+                </el-table-column>
+                <el-table-column
+                  prop="maintenanceAnnouncementTime"
+                  width="auto"
+                >
+                </el-table-column>
               </el-table>
             </el-tab-pane>
           </el-tabs>
@@ -160,46 +168,62 @@
 </template>
 
 <script>
-import {GETMaintenanceAnnouncements} from "../../API/http"
+import store from "../../state/state";
+import {
+  GETMaintenanceAnnouncements,
+  GETSystemAnnouncements,
+  GETStudentsID,
+} from "../../API/http";
 export default {
-  created(){
+  created() {
+    //获取场地公告
     GETMaintenanceAnnouncements()
-    .then(data=>{
-      console.log(data);
-      this.groundAnnouncement=data;
-    }).catch(err=>{
-      console.log(err);
-    })
+      .then((data) => {
+        //console.log(data);
+        this.groundAnnouncement = data;
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("场地公告数据请求错误");
+      });
+    //获取系统公告
+    GETSystemAnnouncements()
+      .then((data) => {
+        //console.log(data);
+        this.systemAnnouncement = data;
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("系统公告数据请求错误");
+      });
+    //获取学生信息
+    GETStudentsID(this.StuID)
+      .then((data) => {
+        this.StuInfo = data;
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("学生信息请求错误");
+      });
   },
   data() {
-    // const groundItem = {
-    //   title: "关于图书馆暂停开放的通知",
-    //   time: "2021-6-25 15:30",
-    //   ground: "15335",
-    //   content:
-    //     "因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。",
-    // };
-    const systemItem = {
-      title: "关于系统停机维护的通知",
-      time: "2021-7-5 15:30",
-      accountNum: "14335",
-      content:
-        "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
-    };
-
     return {
       //第一块卡片信息
-      studentInfo: {
-        image:
-          "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        username: "hhh",
-        studentID: "1850668",
-        academy: "软件学院",
-        major: "UI工程",
+      StuID: store.state.ID,
+      StuInfo: {
+        academy: 2,
+        category: null,
+        eMailAddress: null,
+        gender: null,
+        grade: null,
+        header: null,
+        major: null,
+        name: null,
+        nation: null,
       },
       semesterInfo: {
         //get semester from backend
-
         fromYear: "2020",
         toYear: "2021",
         semester: "2",
@@ -222,7 +246,7 @@ export default {
         participantnum: 0,
       },
       groundAnnouncement: [],
-      systemAnnouncement: Array(20).fill(systemItem),
+      systemAnnouncement: [],
 
       //第三块卡片信息
       futureActivity: [
@@ -326,8 +350,12 @@ export default {
     showAnnouncement() {
       this.$router.push("/StuFrame/Announcement");
     },
-    onRowClick(row) {
+    onRowClick1(row) {
       this.dialogTitle = row.groundName;
+      this.dialogContent = row.content;
+      this.dialogVisible = true;
+    },
+    onRowClick2(row) {
       this.dialogContent = row.content;
       this.dialogVisible = true;
     },
