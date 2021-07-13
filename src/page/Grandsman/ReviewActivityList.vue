@@ -120,30 +120,6 @@ export default {
       components: {
     },
     data() {
-      // const item1 = {
-      //   activityID: '16472',
-      //   organization: '软件学院',
-      //   activity: '年级大会',
-      //   ground: '济事楼434',
-      //   time: '2021-6-26 15:30',
-      //   state: 0
-      // };
-      // const item2 = {
-      //   activityID: '16472',
-      //   organization: '软件学院',
-      //   activity: '年级大会',
-      //   ground: '济事楼432',
-      //   time: '2021-6-25 15:30',
-      //   state: 1
-      // };
-      // const item3 = {
-      //   activityID: '16472',
-      //   organization: '软件学院',
-      //   activity: '年级大会',
-      //   ground: '济事楼432',
-      //   time: '2021-6-24 15:30',
-      //   state: 2
-      // };
       return {
         axiosdata:null,
         activeTab: 'panel1',
@@ -151,7 +127,7 @@ export default {
         tagType: {
         '审核中': "warning",
         '待举办': "danger",
-        '待反馈': "",
+        '待反馈': "primary",
         '已反馈': "success",
         '被驳回': "info",
       },

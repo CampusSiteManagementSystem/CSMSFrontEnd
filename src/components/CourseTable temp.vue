@@ -17,7 +17,7 @@
           </el-date-picker>
         </el-col>
       </el-row>
-    <!-- </div>
+    </div>
     <el-scrollbar style="height: 100%">
       <div class="course-table-content">
         <div
@@ -74,7 +74,7 @@
           </div>
         </div>
       </div>
-    </el-scrollbar> -->
+    </el-scrollbar>
 
     <!-- <el-dialog
       title="我的实践课"

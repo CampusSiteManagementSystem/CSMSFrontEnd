@@ -37,7 +37,8 @@
       <el-table-column prop="mon" label="周六"> </el-table-column>
       <el-table-column prop="mon" label="周日"> </el-table-column>
     </el-table>
-    <div style="margin-top: -900px; margin-left: 200px" >
+    <!-- <div style="margin-top: -900px; margin-left: 200px" > -->
+      <div >
       <div v-for="(item, index) in usualCourses" v-bind:key="item.id">
         <div
           class="flex-item kcb-item"
