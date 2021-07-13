@@ -37,18 +37,20 @@ export default {
 
       // console.log("111111");
       // this.$router.push({path:'/2'});
-      console.log("111111");
-      console.log(this.$props.building);
-      console.log(this.$props.router);
+      // console.log("111111");
+      // console.log(this.$props.building);
+      // console.log(this.$props.router);
 
-      console.log("111111");
+      // console.log(this.building);
+      // var build=this.building.split("楼")[0];
+      // console.log(build);
       if (this.$props.membertype) {
         //stu
         this.$props.router.push({
           name: "StuShowPlaceDetail",
           params: {
-            key: "key",
-            msgKey: this.msg,
+            building: this.building.split("楼")[0],
+            // msgKey: this.msg,
           },
           /*query: {  
                 key: 'key',   
@@ -60,8 +62,8 @@ export default {
           name: "OrgCheckSite",
           // name: '/CheckSite',
           params: {
-            key: "key",
-            msgKey: this.msg,
+             building: this.building.split("楼")[0],
+            
           },
           /*query: {  
                 key: 'key',   
