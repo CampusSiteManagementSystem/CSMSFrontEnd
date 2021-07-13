@@ -21,7 +21,7 @@
           <PicCard
             :buttonshow="othertype"
             :groundId="this.$route.params.groundId"
-            :placeType="this.$route.params.placeType"
+            
           />
         </el-card>
       </div>
@@ -55,9 +55,9 @@ export default {
   },
   methods: {
     desideType() {
-      console.log("membertype", this.membertype);
-      console.log("othertype", this.othertype);
-      console.log("groundId", this.$route.params.groundId);
+      // console.log("membertype", this.membertype);
+      // console.log("othertype", this.othertype);
+      // console.log("groundId", this.$route.params.groundId);
 
       // console.log(this.$route.params.user);
 
