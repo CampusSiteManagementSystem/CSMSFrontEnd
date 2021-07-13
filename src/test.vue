@@ -16,9 +16,12 @@ export default {
   methods: {
     test() {
       POSTFeedbackRecords({
-        activityId: "string",
-        accountNumber: "string",
-        state: "string",
+        feedbackDate: "2021-05-18T00:00:00",
+        feedbackTime: "2021-05-18T19:50:00",
+        content: "还可以",
+        score: 85,
+        id: "1000004",
+        groundName: "B301",
       })
         .then((data) => {
           this.res = data;
