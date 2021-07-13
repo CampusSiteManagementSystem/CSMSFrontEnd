@@ -11,9 +11,9 @@
               </div>
             </el-col>
             <el-col :span="15">
-              <div class="name">{{ orgnizationInfo.username }}</div>
+              <div class="name">{{ orgnizationInfo.name }}</div>
               <div class="other-info">
-                <br />ID：{{ orgnizationInfo.orgnizationID }}<br />负责人：{{
+                <br />ID：{{ orgnizationInfo.accountNumber }}<br />负责人：{{
                   orgnizationInfo.functionary
                 }}<br />组织类型：<el-tag type="success">
                   {{ orgnizationInfo.type }}
@@ -42,7 +42,7 @@
                 :show-header="false"
               >
                 <el-table-column prop="title" width="auto"> </el-table-column>
-                <el-table-column prop="time" width="auto"> </el-table-column>
+                <el-table-column prop="systemAnnouncementDate" width="auto"> </el-table-column>
               </el-table>
             </el-tab-pane>
             <el-tab-pane label="场地公告">
@@ -55,7 +55,7 @@
                 :show-header="false"
               >
                 <el-table-column prop="title" width="auto"> </el-table-column>
-                <el-table-column prop="time" width="auto"> </el-table-column>
+                <el-table-column prop="maintenanceAnnouncementDate" width="auto"> </el-table-column>
               </el-table>
             </el-tab-pane>
           </el-tabs>
@@ -67,7 +67,7 @@
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
             <span><b>未来活动</b></span>
-            <router-link to="/StuFrame/ViewActivities/AllActivities">
+            <router-link to="/OrgFrame/CheckActivity/AllActivities">
               <el-button style="float: right; padding: 3px 0" type="text"
                 >查看更多</el-button
               >
@@ -149,33 +149,69 @@
 </template>
 
 <script>
+import {
+  GETOrganizationsID,
+  GETSystemAnnouncements,
+  GETMaintenanceAnnouncements,
+  GETActivities,
+  } from "../../API/http"
+import store from "../../state/state";
 export default {
-  
+  created() {
+    GETOrganizationsID(this.OrgID)
+    .then(data =>{
+      //console.log("12345698",data);
+      this.orgnizationInfo = data;
+    })
+    .catch((err) => {
+      console.log(err);
+      this.$message("组织信息获取错误");
+    });//获取组织信息
+    GETSystemAnnouncements()
+      .then((data) => {
+        this.systemData = data;
+        this.dealWithSystemAnnouncements(this.systemData);
+      })
+      .catch((err) => {
+        this.data = err;
+      });
+    GETMaintenanceAnnouncements()
+      .then((data) => {
+        this.maintenanceData = data;
+        this.dealWithMaintenanceAnnouncements(this.maintenanceData);
+      })
+      .catch((err) => {
+        this.data = err;
+      });
+    GETActivities()
+      .then((data) => {
+        console.log("12345698",data);
+        //this.futureActivity=data["待举办"];
+      })
+      .catch((err) => {
+        this.data = err;
+      });
+  },
   data() {
-    const groundItem = {
-      title: "关于图书馆暂停开放的通知",
-      time: "2021-6-25 15:30",
-      ground: "15335",
-      content:
-        "因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。",
-    };
-    const systemItem = {
-      title: "关于系统停机维护的通知",
-      time: "2021-7-5 15:30",
-      accountNum: "14335",
-      content:
-        "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
-    };
+    // const groundItem = {
+    //   title: "关于图书馆暂停开放的通知",
+    //   time: "2021-6-25 15:30",
+    //   ground: "15335",
+    //   content:
+    //     "因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。",
+    // };
+    // const systemItem = {
+    //   title: "关于系统停机维护的通知",
+    //   time: "2021-7-5 15:30",
+    //   accountNum: "14335",
+    //   content:
+    //     "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
+    // };
     return {
+      systemData: null,
+      maintenanceData:null,
       //第一块卡片信息
-      orgnizationInfo: {
-        image:
-          "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        username: "数据库爱好者",
-        orgnizationID: "1850668",
-        type: "学生社团",
-        functionary: "小王",
-      },
+      orgnizationInfo: {},
       semesterInfo: {
         //get semester from backend
 
@@ -185,7 +221,7 @@ export default {
         week: "14",
       },
       //第二块卡片信息
-
+      OrgID:store.state.ID,
       //弹出式公告
       dialogTitle: "",
       dialogContent: "",
@@ -200,8 +236,8 @@ export default {
         location: "129礼堂",
         participantnum: 0,
       },
-      groundAnnouncement: Array(20).fill(groundItem),
-      systemAnnouncement: Array(20).fill(systemItem),
+      groundAnnouncement: [],
+      systemAnnouncement: [],
 
       //第三块卡片信息
       futureActivity: [
@@ -302,6 +338,48 @@ export default {
     };
   },
   methods: {
+    dealWithSystemAnnouncements(data) {
+      console.log("run dealwith");
+      for (var i = 0; i < data.length; i++) {
+        var temp = {
+          accountNumber: "",
+          title: "",
+          systemAnnouncementDate: "",
+          content: "",
+        };
+        temp.accountNumber = data[i].accountNumber;
+        temp.systemAnnouncementDate = data[i].systemAnnouncementDate.replace(
+          "T",
+          " "
+        );
+        temp.title = data[i].content.substr(0, data[i].content.search("##"));
+        temp.content = data[i].content.slice(data[i].content.search("##") + 2);
+        this.systemAnnouncement.push(temp);
+      }
+      console.log(this.systemAnnouncement);
+    },
+    dealWithMaintenanceAnnouncements(data) {
+      console.log("run dealwith");
+      for (var i = 0; i < data.length; i++) {
+        var temp = {
+          groundId: "",
+          groundName:"",
+          title: "",
+          maintenanceAnnouncementDate: "",
+          content: "",
+        };
+        temp.groundName= data[i].groundName;
+        temp.groundId = data[i].groundId;
+        temp.maintenanceAnnouncementDate = data[i].maintenanceAnnouncementDate.replace(
+          "T",
+          " "
+        );
+        temp.title = data[i].content.substr(0, data[i].content.search("##"));
+        temp.content = data[i].content.slice(data[i].content.search("##") + 2);
+        this.groundAnnouncement.push(temp);
+      }
+      console.log(this.groundAnnouncement);
+    },
     showAnnouncement() {
       this.$router.push("/OrgFrame/Announcement");
     },
