@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { POSTOrganizations } from "./API/http";
+import { DELETEStuFavorites } from "./API/http";
 export default {
   data() {
     return {
@@ -15,10 +15,9 @@ export default {
   },
   methods: {
     test() {
-      POSTOrganizations({
-        accountNumber: "pupupu",
-        secretPassword: "Pu12345",
-        eMailAddress: "9876@qq.com",
+      DELETEStuFavorites({
+        accountNumber:"1000001",
+        groundId:"1000007"
       })
         .then((data) => {
           this.res = data;

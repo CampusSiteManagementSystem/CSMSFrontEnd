@@ -3,6 +3,11 @@
  */
 import { Get, Post, DeleteID, PutID, GetID,Delete,Put} from './config'
 
+
+//只有id可以直接传入 例如"1000007"  其他必须作为对象传入 例如{"accountNumber:1000001"}
+
+
+
 /*Activities*/
 export const GETActivities = param => Get('/api/Activities', param); //ok
 export const POSTActivities = param => Post('/api/Activities', param); //ok
@@ -23,13 +28,13 @@ export const DELETEDefaultOccupyTime = param => Delete('/api/DefaultOccupyTimes'
 export const GETExamineAndApproves = param => Get('/api/ExamineAndApproves', param);//ok
 export const POSTExamineAndApproves = param => Post('/api/ExamineAndApproves', param);//ok
 export const GETExamineAndApprovesID = ID => GetID('/api/ExamineAndApproves/', ID)//ok
-export const PUTExamineAndApprovesID = (ID, param) => PutID('/api/ExamineAndApproves/', ID, param);//参数如何传递
+export const PUTExamineAndApprovesID = (ID, param) => PutID('/api/ExamineAndApproves/', ID, param);//ok
 export const DELETEExamineAndApprovesID = ID => DeleteID('/api/ExamineAndApproves/', ID);//ok
 
 //FeedbackRecords
 export const GETFeedbackRecords = param => Get('/api/FeedbackRecords', param);//ok
 
-export const POSTFeedbackRecords = param => Post('/api/FeedbackRecords', param);//NOOK
+export const POSTFeedbackRecords = param => Post('/api/FeedbackRecords', param);//ok
 
 export const GETFeedbackRecordsID = ID => GetID('/api/FeedbackRecords/', ID)//ok
 // export const PUTFeedbackRecordsID = (ID, param) => PutID('/api/FeedbackRecords/', ID, param); 
@@ -49,7 +54,11 @@ export const GETIndoorGroundsID = ID => GetID('/api/IndoorGrounds/', ID)//ok
 //Grounds
 
 export const GETGrounds = param => Get('/api/Grounds', param)//ok
+<<<<<<< Updated upstream
 export const GETGroundsID = ID =>  GetID('/api/Grounds/',ID)//ok
+=======
+export const GETGroundsID = ID => GetID('/api/Grounds/',ID)//ok
+>>>>>>> Stashed changes
 // export const POSTGrounds = param => Post('/api/Grounds', param); 
 // export const PUTGroundsID = (ID, param) => PutID('/api/Grounds/', ID, param); 
 // export const DELETEGroundsID = ID => DeleteID('/api/Grounds/', ID);
@@ -78,37 +87,40 @@ export const GETOccupyTimes = param => Get('/api/OccupyTimes', param);//ok 但�
 export const GETOrganizations = param => Get('/api/Organizations', param);//ok
 export const PUTOrganizations = param => Put('/api/Organizations', param);//ok
 export const POSTOrganizations = param => Post('/api/Organizations', param); //ok
-export const GETOrganizationsID = ID => GetID('/api/Organizations/', ID);
-export const PUTOrganizationsID = (ID, param) => PutID('/api/Organizations/', ID, param); 
+export const GETOrganizationsID = ID => GetID('/api/Organizations/', ID);//ok
+export const PUTOrganizationsID = (ID, param) => PutID('/api/Organizations/', ID, param); //ok
 
 
 //OrgFavorites
-export const GETOrgFavorites = param => Get('/api/OrgFavorites', param);
-export const POSTOrgFavorites = param => Post('/api/OrgFavorites', param); 
-export const DELETEOrgFavorites = param => Delete('/api/OrgFavorites', param);
+export const GETOrgFavorites = param => Get('/api/OrgFavorites', param);//ok
+export const POSTOrgFavorites = param => Post('/api/OrgFavorites', param); //ok
+export const DELETEOrgFavorites = param => Delete('/api/OrgFavorites', param);//ok
 
 //Students
-export const GETStudents = param => Get('/api/Students', param);
-export const POSTStudents = param => Post('/api/Students', param); 
-export const GETStudentsID = ID => GetID('/api/Students/', ID);
-export const PUTStudentsID = (ID, param) => PutID('/api/Students/', ID, param); 
+export const GETStudents = param => Get('/api/Students', param);//ok
+export const POSTStudents = param => Post('/api/Students', param); //ok
+export const GETStudentsID = ID => GetID('/api/Students/', ID);//ok
+export const PUTStudentsID = (ID, param) => PutID('/api/Students/', ID, param); //ok
 
 
 // StuFavorites
-   //accountnumber?
-export const GETStuFavoritesID = ID => GetID('/api/StuFavorites/', ID);
+export const GETStuFavoritesID = ID => GetID('/api/StuFavorites/', ID);//ok
    //id groundid?
-export const DELETEStuFavoritesID = ID => DeleteID('/api/StuFavorites/', ID);
-export const POSTStuFavorites = param => Post('/api/StuFavorites', param); 
+export const DELETEStuFavorites = param => Delete('/api/StuFavorites/', param);//ok
+export const POSTStuFavorites = param => Post('/api/StuFavorites', param); //ok
 
 //SystemAdministrators
-export const PUTSystemAdministratorsID = (ID, param) => PutID('/api/SystemAdministrators/', ID, param); 
+export const PUTSystemAdministratorsID = (ID, param) => PutID('/api/SystemAdministrators/', ID, param);//ok
 
 //SystemAnnouncements
-export const GETSystemAnnouncements = param => Get('/api/SystemAnnouncements', param);
-export const POSTSystemAnnouncements = param => Post('/api/SystemAnnouncements', param); 
+export const GETSystemAnnouncements = param => Get('/api/SystemAnnouncements', param);//ok
+export const POSTSystemAnnouncements = param => Post('/api/SystemAnnouncements', param); //ok
     //{id},{systemAnnouncementDate},{systemAnnouncementTime}?
-export const PUTSystemAnnouncementsID = (ID, param) => PutID('/api/SystemAnnouncements/', ID, param); 
-export const DELETESystemAnnouncementsID = ID => DeleteID('/api/SystemAnnouncements/', ID);
+export const PUTSystemAnnouncementsID = (ID, param) => PutID('/api/SystemAnnouncements/', ID, param);//参数修改 未测试
+export const DELETESystemAnnouncementsID = ID => DeleteID('/api/SystemAnnouncements/', ID);//参数修改 未测试
+
+//Positions
+export const GETPositions = param => Get('/api/Positions', param);//wy测试ok
+
 
 
