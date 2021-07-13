@@ -232,8 +232,7 @@ export default {
     return {
       //第一块卡片信息
       StuID: store.state.ID,
-      StuInfo: {
-      },
+      StuInfo: {},
       semesterInfo: {
         //get semester from backend
         fromYear: "2020",
@@ -242,7 +241,6 @@ export default {
         week: "14",
       },
       //第二块卡片信息
-
       //弹出式公告
       dialogTitle: "",
       dialogContent: "",

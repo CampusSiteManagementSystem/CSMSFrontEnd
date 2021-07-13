@@ -211,7 +211,7 @@ export default {
   },
   mounted() {
     this.drawClock();
-    console.log("option", this.option);
+    //console.log("option", this.option);
     const that = this;
     setInterval(function () {
       var date = new Date();

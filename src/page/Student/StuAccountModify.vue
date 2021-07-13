@@ -71,9 +71,6 @@ p {
 }
 </style>
 
-
-
-
 <script>
 
 import {GETStudentsID} from "../../API/http"
@@ -103,35 +100,35 @@ export default {
       tableData: [{
         change: 'false',
         title: '账号',
-        content: '1850668',
+        content: '',
       }, {
         change: 'false',
         title: '姓名',
-        content: '张三',
+        content: '',
       }, {
         change: 'false',
         title: '性别',
-        content: '男',
+        content: '',
       }, {
         change: 'false',
         title: '国籍',
-        content: '中国',
+        content: '',
       }, {
         change: 'false',
         title: '年级',
-        content: '2',
+        content: '',
       }, {
         change: 'true',
         title: '邮箱地址',
-        content: 'zhangsan@gmail.com',
+        content: '',
       }, {
         change: 'true',
         title: '学院',
-        content: '软件学院',
+        content: '',
       }, {
         change: 'true',
         title: '专业',
-        content: '文档工程',
+        content: '',
       }],
       radio: "1",
       textarea: "",
