@@ -58,8 +58,9 @@
                 @row-click="onRowClick"
                 :show-header="false"
               >
-                <el-table-column prop="title" width="auto"> </el-table-column>
-                <el-table-column prop="time" width="auto"> </el-table-column>
+                <el-table-column prop="groundId" width="auto"> </el-table-column>
+                <el-table-column prop="groundName" width="auto"> </el-table-column>
+                <el-table-column prop="maintenanceAnnouncementTime" width="auto"> </el-table-column>
               </el-table>
             </el-tab-pane>
           </el-tabs>
@@ -159,15 +160,25 @@
 </template>
 
 <script>
+import {GETMaintenanceAnnouncements} from "../../API/http"
 export default {
+  created(){
+    GETMaintenanceAnnouncements()
+    .then(data=>{
+      console.log(data);
+      this.groundAnnouncement=data;
+    }).catch(err=>{
+      console.log(err);
+    })
+  },
   data() {
-    const groundItem = {
-      title: "关于图书馆暂停开放的通知",
-      time: "2021-6-25 15:30",
-      ground: "15335",
-      content:
-        "因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。",
-    };
+    // const groundItem = {
+    //   title: "关于图书馆暂停开放的通知",
+    //   time: "2021-6-25 15:30",
+    //   ground: "15335",
+    //   content:
+    //     "因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。",
+    // };
     const systemItem = {
       title: "关于系统停机维护的通知",
       time: "2021-7-5 15:30",
@@ -210,7 +221,7 @@ export default {
         location: "129礼堂",
         participantnum: 0,
       },
-      groundAnnouncement: Array(20).fill(groundItem),
+      groundAnnouncement: [],
       systemAnnouncement: Array(20).fill(systemItem),
 
       //第三块卡片信息
@@ -316,7 +327,7 @@ export default {
       this.$router.push("/StuFrame/Announcement");
     },
     onRowClick(row) {
-      this.dialogTitle = row.title;
+      this.dialogTitle = row.groundName;
       this.dialogContent = row.content;
       this.dialogVisible = true;
     },
@@ -325,7 +336,7 @@ export default {
       this.activityVisible = true;
     },
     onOccupyRowClick(row) {
-      this.$router.push("/StuFrame/ShowSchedule/" + row.groundID);
+      this.$router.push("/StuFrame/ShowSchedule/" + row.groundId);
     },
   },
 };
