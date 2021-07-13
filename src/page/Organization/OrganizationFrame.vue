@@ -45,7 +45,7 @@
             </el-button>
             <el-dropdown trigger="click" @command="handleCommand">
               <span class="el-dropdown-link" trigger="click">
-                数据库小组<i class="el-icon-arrow-down el-icon--right"></i>
+                {{this.name}}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="accountInfo"
@@ -147,7 +147,19 @@
 
 <script>
 import * as echarts from "echarts";
+import {GETOrganizationsID} from "../../API/http"
+import store from "../../state/state";
 export default {
+  created() {
+    GETOrganizationsID(this.OrgID)
+    .then(data =>{
+      this.name=data.name;
+    })
+    .catch((err) => {
+      console.log(err);
+      this.$message("组织信息获取错误");
+    })
+  },
   data() {
     return {
       timeUpdatedStatus: {
@@ -172,6 +184,8 @@ export default {
       isCollapse: true,
       value: "",
       breadList: [],
+      name:"",
+      OrgID: store.state.ID,
     };
   },
   mounted() {

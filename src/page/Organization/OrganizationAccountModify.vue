@@ -36,6 +36,9 @@
                 <el-form-item label="信用分：" prop="credit">
                   <el-input v-model="ruleForm.credit" :readonly="true"></el-input>
                 </el-form-item>
+                <el-form-item label="加入时间：" prop="joinTime">
+                  <el-input v-model="ruleForm.joinTime" :readonly="true"></el-input>
+                </el-form-item>
                 <el-form-item label="邮箱：" prop="email">
                   <div v-if="isForm == false">
                     <el-input v-model="ruleForm.email" :readonly="true"></el-input>
@@ -132,18 +135,22 @@ p {
 
 
 <script>
+import {GETOrganizationsID} from "../../API/http"
+import {PUTOrganizationsID} from "../../API/http"
+import store from "../../state/state";
 export default {
   data() {
     return {
       ruleForm: {
-        account: "123456",
-        name: "软件学院",
-        type: "班级",
-        user: "王某",
-        credit: "90",
-        telephone: "13525415456",
-        email: "puupuuu@163.com",
-        content: "很好",
+        account: "",
+        name: "",
+        type: "",
+        user: "",
+        credit: 0,
+        telephone: "",
+        email: "",
+        joinTime:"",
+        content: "",
       },
 
       rules: {
@@ -174,52 +181,73 @@ export default {
       tableData: [
         {
           title: "账号",
-          content: "122234",
+          content: "",
         },
         {
           title: "名称",
-          content: "数据库小组",
+          content: "",
         },
         {
           title: "类型",
-          content: "班级",
+          content: "",
         },
         {
           title: "信用分",
-          content: "100",
+          content: 0,
         },
         {
+          title: "加入时间",
+          content: "",
+        },        
+        {
           title: "邮箱",
-          content: "www.ljj@sjk.com",
+          content: "",
         },
         {
           title: "负责人",
-          content: "李俊杰",
+          content: "",
         },
         {
           title: "联系方式",
-          content: "14515485465",
+          content: "",
         },
         {
           title: "详细信息",
-          content: "数据库小组ddl赶工中！",
+          content: "",
         },
       ],
       radio: "1",
       textarea: "",
       isForm: false,
-      isTable:true
+      isTable:true,
+      OrgID: store.state.ID,
     };
   },
-  mounted() {
-    this.updateData();
+  created() {
+    GETOrganizationsID(this.OrgID)
+    .then(data =>{
+      this.ruleForm.account=this.OrgID;
+      this.ruleForm.name=data.name;
+      this.ruleForm.type=data.type;
+      this.ruleForm.credit=data.credit;
+      this.ruleForm.joinTime=data.joinDate;
+      this.ruleForm.user=data.functionary;
+      this.ruleForm.email=data.emailAddress;
+      this.ruleForm.telephone=data.telephone;
+      this.ruleForm.content=data.detailInfo;
+      this.updateData();
+    })
+    .catch((err) => {
+      console.log(err);
+      this.$message("组织信息获取错误");
+    })
   },
   methods: {
     columnStyle({ row, column, rowIndex, columnIndex }) {
       row;
       column;
       //console.log(row, column, rowIndex, columnIndex, "row");
-      if (columnIndex == 0 && rowIndex < 4) {
+      if (columnIndex == 0 && rowIndex < 5) {
         return "background:#FBFBEF; font-weight: 700;";
       } else if (columnIndex == 0) {
         return "background:#EFFBEF; font-weight: 700;";
@@ -230,20 +258,38 @@ export default {
       this.ruleForm.name = this.tableData[1].content;
       this.ruleForm.type = this.tableData[2].content;
       this.ruleForm.credit = this.tableData[3].content;
-      this.ruleForm.email = this.tableData[4].content;
-      this.ruleForm.user = this.tableData[5].content;
-      this.ruleForm.telephone = this.tableData[6].content;
-      this.ruleForm.content = this.tableData[7].content;
+      this.ruleForm.joinTime = this.tableData[4].content;
+      this.ruleForm.email = this.tableData[5].content;
+      this.ruleForm.user = this.tableData[6].content;
+      this.ruleForm.telephone = this.tableData[7].content;
+      this.ruleForm.content = this.tableData[8].content;
     },    
     updateData() {
       this.tableData[0].content=this.ruleForm.account;
       this.tableData[1].content=this.ruleForm.name;
       this.tableData[2].content=this.ruleForm.type;
       this.tableData[3].content=this.ruleForm.credit;
-      this.tableData[4].content=this.ruleForm.email;
-      this.tableData[5].content=this.ruleForm.user;
-      this.tableData[6].content=this.ruleForm.telephone;
-      this.tableData[7].content=this.ruleForm.content;
+      this.tableData[4].content=this.ruleForm.joinTime;
+      this.tableData[5].content=this.ruleForm.email;
+      this.tableData[6].content=this.ruleForm.user;
+      this.tableData[7].content=this.ruleForm.telephone;
+      this.tableData[8].content=this.ruleForm.content;
+    },
+    setToDB() {
+      PUTOrganizationsID(this.OrgID,{
+          accountNumber: this.ruleForm.account,
+          name: this.ruleForm.name,
+          detailInfo: this.ruleForm.content,
+          emailAddress: this.ruleForm.email,
+          functionary: this.ruleForm.user,
+          telephone: this.ruleForm.telephone,
+          type: this.ruleForm.type,
+          state: "s2"
+      })
+        .catch((err) => {
+          console.log(err);
+          this.$message("组织信息传输错误");
+        })
     },
     edit() {
       this.isTable = false;
@@ -261,6 +307,7 @@ export default {
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.setToDB();
           this.isForm = false;
           setTimeout(() => {
             this.isTable = true;
