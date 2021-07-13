@@ -149,14 +149,15 @@ export default {
   created() {
     GETStudentsID(this.StuID)
     .then(data =>{
-      this.tableData[0].content=this.StuID;
-      this.tableData[1].content=data.name;
-      this.tableData[2].content=data.gender===1?'女':'男';
-      this.tableData[3].content=data.nation;
-      this.tableData[4].content=data.grade;
-      this.tableData[5].content=data.eMailAddress;
-      this.tableData[6].content=data.academy;
-      this.tableData[7].content=data.major;
+      this.ruleForm.account=this.StuID;
+      this.ruleForm.name=data.name;
+      this.ruleForm.gender=data.gender===1?'女':'男';
+      this.ruleForm.country=data.nation;
+      this.ruleForm.grade=data.grade;
+      this.ruleForm.email=data.eMailAddress;
+      this.ruleForm.college=data.academy;
+      this.ruleForm.specialty=data.major;
+      this.updateData();
     })
     .catch((err) => {
       console.log(err);
@@ -166,14 +167,14 @@ export default {
   data() {
     return {
       ruleForm: {
-        account: "123456",
-        name: "软件学院",
-        gender: "男",
-        country: "中国",
-        grade: "大一",
-        email: "puupuuu@163.com",
-        college: "软件学院",
-        specialty: "软件工程",
+        account: "",
+        name: "",
+        gender: "",
+        country: "",
+        grade: "",
+        email: "",
+        college: "",
+        specialty: "",
       },
       dicSpecialty: {
         software: ["软件工程"],
@@ -300,9 +301,6 @@ export default {
       isForm: false,
       isTable: true
     };
-  },
-  mounted() {
-    this.updateData();
   },
   methods: {
     columnStyle({
