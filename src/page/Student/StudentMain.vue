@@ -194,21 +194,6 @@ export default {
       });
   },
   data() {
-    // const groundItem = {
-    //   title: "关于图书馆暂停开放的通知",
-    //   time: "2021-6-25 15:30",
-    //   ground: "15335",
-    //   content:
-    //     "因疫情防控需要，图书馆于7月1日起暂停开放，恢复时间另行通知。不便之处，敬请谅解。",
-    // };
-    const systemItem = {
-      title: "关于系统停机维护的通知",
-      time: "2021-7-5 15:30",
-      accountNum: "14335",
-      content:
-        "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
-    };
-
     return {
       //第一块卡片信息
       studentInfo: {
