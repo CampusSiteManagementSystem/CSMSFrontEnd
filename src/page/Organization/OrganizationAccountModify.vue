@@ -2,12 +2,12 @@
   <div class="page">
     <el-card>
       <div>
-        <h2>组织用户信息</h2>
+        <h2>用户信息</h2>
       </div>
       <el-row>
         <el-col :span="12">
           <div>
-            <h3>组织画像</h3>
+            <h3>用户头像</h3>
           </div>
           <div class="image">
             <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic" />
@@ -18,19 +18,19 @@
         </el-col>
         <el-col :span="8">
           <div>
-            <h3>组织信息</h3>
+            <h3>用户信息</h3>
           </div>
           <transition name="fade-transform" mode="out-in">
             <div v-if="isForm == true">
               <el-form ref="ruleForm" :rules="rules" :model="ruleForm" label-width="100px"
                 :hide-required-asterisk="true">
-                <el-form-item label="组织账号：" prop="account">
+                <el-form-item label="账号：" prop="account">
                   <el-input v-model="ruleForm.account" :readonly="true"></el-input>
                 </el-form-item>
-                <el-form-item label="组织名称：" prop="name">
+                <el-form-item label="名称：" prop="name">
                   <el-input v-model="ruleForm.name" :readonly="true"></el-input>
                 </el-form-item>
-                <el-form-item label="组织类型：" prop="type">
+                <el-form-item label="类型：" prop="type">
                   <el-input v-model="ruleForm.type" :readonly="true"></el-input>
                 </el-form-item>
                 <el-form-item label="信用分：" prop="credit">
@@ -90,6 +90,7 @@
           </div>
           <div v-if="isForm == true" class="modify">
             <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+            <el-button @click="returnback">取消</el-button>             
           </div>
         </el-col>
       </el-row>
@@ -172,15 +173,15 @@ export default {
       },
       tableData: [
         {
-          title: "组织账号",
+          title: "账号",
           content: "122234",
         },
         {
-          title: "组织名称",
+          title: "名称",
           content: "数据库小组",
         },
         {
-          title: "组织类型",
+          title: "类型",
           content: "班级",
         },
         {
@@ -215,13 +216,25 @@ export default {
   },
   methods: {
     columnStyle({ row, column, rowIndex, columnIndex }) {
-      console.log(row, column, rowIndex, columnIndex, "row");
+      row;
+      column;
+      //console.log(row, column, rowIndex, columnIndex, "row");
       if (columnIndex == 0 && rowIndex < 4) {
         return "background:#FBFBEF; font-weight: 700;";
       } else if (columnIndex == 0) {
         return "background:#EFFBEF; font-weight: 700;";
       }
     },
+    returnData(){
+      this.ruleForm.account = this.tableData[0].content;
+      this.ruleForm.name = this.tableData[1].content;
+      this.ruleForm.type = this.tableData[2].content;
+      this.ruleForm.credit = this.tableData[3].content;
+      this.ruleForm.email = this.tableData[4].content;
+      this.ruleForm.user = this.tableData[5].content;
+      this.ruleForm.telephone = this.tableData[6].content;
+      this.ruleForm.content = this.tableData[7].content;
+    },    
     updateData() {
       this.tableData[0].content=this.ruleForm.account;
       this.tableData[1].content=this.ruleForm.name;
@@ -238,6 +251,13 @@ export default {
         this.isForm = true;
       }, 400);
     },
+    returnback(){
+      this.isForm = false;
+      setTimeout(() => {
+        this.isTable = true;
+        this.returnData();
+      }, 400);
+    },    
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
