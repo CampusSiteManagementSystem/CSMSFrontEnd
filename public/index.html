@@ -3,16 +3,36 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <style type="text/css">
-      html,body {
-        margin: 0;
-        height: 100%;
-        width: 100%;
-        /* overflow: auto; */
+    <script>
+      const w=screen.width;
+      const h=screen.height;
+      var html = document.getElementsByTagName('html')[0];
+
+      html.style.width=1280+"px";
+      html.style.height=700+"px";
+
+      if(w>1280){
+        html.style.width=w+"px";
       }
+      
+      if(h>720){
+        html.style.height=h+"px";
+      }
+    </script>
+    <style>
+    html{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+    }
     </style>
   </head>
   <body>

@@ -92,9 +92,26 @@
 
 
 <script>
+// import { GETActivitiesID } from "../../API/http";
+// import store from "../../state/state.js"
 export default {
   name: "ActivityInfo",
-  components: {},
+  mounted() {
+    const that = this;
+    console.log("run mounted");
+    console.log(that.$route.params.ID);
+    // console.log(this.testtitle.substr(0,this.testtitle.search("##")));
+    // GETActivitiesID(that.$route.params.ID) //应该加accountNumber
+    //   .then((data) => {
+    //     console.log("run GETActivities");
+    //     that.axiosdata = data;
+    //     that.dealWithActivities(that.axiosdata);
+    //     //console.log(that.axiosdata);
+    //   })
+    //   .catch((err) => {
+    //     that.data = err;
+    //   });
+  },
   data() {
     return {
       id: "16472",

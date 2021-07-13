@@ -3,7 +3,7 @@
 
     <el-row :gutter="10" type="flex">
       <div class="grid-content">
-        <el-card class="box-card">
+        <el-card class="box-card1">
           <PicCard
             :buttonshow="othertype"
             :groundId="this.$route.params.groundId"
@@ -13,7 +13,7 @@
       </div>
     </el-row>
     <el-row :gutter="10" type="flex">
-      <el-card class="box-card">
+      <el-card class="box-card2">
         <CourseTable :groundId="this.$route.params.groundId"/>
       </el-card>
     </el-row>
@@ -88,9 +88,14 @@ export default {
 .item {
   padding: 18px 0;
 }
-.box-card {
+.box-card1 {
   width: 100%;
-  height: 100%;
+  height: 100% ;
+  border-radius: 15px;
+}
+.box-card2 {
+  width: 100%;
+  height: 900px;
   border-radius: 15px;
 }
 </style>

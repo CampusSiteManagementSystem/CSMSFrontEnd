@@ -1,5 +1,5 @@
 <template>
-  <el-container style="border: 1px solid #eee; height: 100%">
+  <el-container style="border: 1px solid #eee; height: 100%;" >
     <el-header class="header" style="height: 8%">
       <el-row class="header-row">
         <el-col :span="20" class="header-row-col1"
@@ -54,7 +54,7 @@
         >
       </el-row>
     </el-header>
-    <el-container style="height: 100%">
+    <el-container style="height: 92%">
       <el-aside style="width: auto">
         <el-menu
           class="el-menu-vertical-demo"
@@ -121,28 +121,26 @@ body,
   height: 100%;
   overflow: hidden;
 }
-.el-card {
-  overflow: auto;
-  border-radius: 15px;
-}
+
 .el-main {
   overflow: auto;
   /* background-color: wheat; */
   background-color: rgb(237, 241, 245);
 }
 .header {
-  background-color: white;
+  background-color:white;
   padding-left: 16px;
+  border-bottom:0.5px solid rgba(85, 79, 78, 0.178);
 }
 .header-row {
   height: 100%;
+
 }
 .header-row-col1 {
   height: 100%;
 }
 .header-row-col2 {
   height: 100%;
-  /* background-color: azure; */
 }
 .header-row-col3{
   height: 100%;
@@ -151,9 +149,6 @@ body,
   height: 40px;
   padding-left: 10px;
   padding-bottom: 5px;
-  /* background-color: yellow; */
-  /* width: 40%; */
-  /* padding: 5%; */
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 170px;
@@ -161,30 +156,17 @@ body,
 }
 .fold-button {
   font-size: 30px;
-
-  /* border-style: hidden;
-  border-color: white;
-  background-color: white; */
 }
 .headerrow {
   font-size: 30px;
   height: 100%;
 }
-/* .el-icon-s-unfold {
-  height: 40px;
-  width: 40px;
-} */
-.el-card {
-  border-radius: 15px;
-}
+
+
 /* 面包屑导航 */
 .el-breadcrumb {
-  /* background-color: thistle; */
   box-sizing: border-box;
-  /* height: 100%;
-  width: 90%; */
   padding: 5%;
-  /* border-bottom: 1px solid #eee; */
 }
 </style>
 
