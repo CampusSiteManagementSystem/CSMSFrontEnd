@@ -106,7 +106,7 @@
       <el-col :span="9" class="lower-row-col2">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
-            <span><b>占用中的场地</b></span>
+            <span><b>最近一周场地使用情况</b></span>
             <router-link to="/StuFrame/ShowPlaceDetail">
               <el-button style="float: right; padding: 3px 0" type="text"
                 >查看更多</el-button
@@ -220,9 +220,10 @@ export default {
       //场地占用情况
       GETOccupyTimes()
       .then((data) => {
-        console.log(data);
+        //console.log(data);
+        this.occupation=data;
       })
-      .then(err=>{
+      .catch(err=>{
         console.log(err);
         this.$message("场地占用数据请求错误");
       })
@@ -231,17 +232,7 @@ export default {
     return {
       //第一块卡片信息
       StuID: store.state.ID,
-      StuInfo: {
-        academy: 2,
-        category: null,
-        eMailAddress: null,
-        gender: null,
-        grade: null,
-        header: null,
-        major: null,
-        name: null,
-        nation: null,
-      },
+      StuInfo: {},
       semesterInfo: {
         //get semester from backend
         fromYear: "2020",
@@ -250,7 +241,6 @@ export default {
         week: "14",
       },
       //第二块卡片信息
-
       //弹出式公告
       dialogTitle: "",
       dialogContent: "",
@@ -263,48 +253,7 @@ export default {
       //第三块卡片信息
       futureActivity: [],
       //第四片卡片信息
-      occupation: [
-        {
-          groundID: "12201",
-          position: "F201",
-          activityName: "数据结构",
-        },
-        {
-          groundID: "21404",
-          position: "G404",
-          activityName: "数据库",
-        },
-        {
-          groundID: "35130",
-          position: "F201",
-          activityName: "数据结构1",
-        },
-        {
-          groundID: "35404",
-          position: "G404",
-          activityName: "数据库2",
-        },
-        {
-          groundID: "21404",
-          position: "F201",
-          activityName: "数据结构3",
-        },
-        {
-          groundID: "21404",
-          position: "G404",
-          activityName: "数据库4",
-        },
-        {
-          groundID: "21404",
-          position: "F201",
-          activityName: "数据结构5",
-        },
-        {
-          groundID: "21404",
-          position: "G404",
-          activityName: "数据库6",
-        },
-      ],
+      occupation: [],
     };
   },
   methods: {

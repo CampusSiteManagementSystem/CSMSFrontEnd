@@ -17,39 +17,8 @@
           </el-date-picker>
         </el-col>
       </el-row>
-    </div>
-      <el-table :data="tableData" stripe border style="width: 100%">
-        <el-table-column prop="timeslot" label="时间"> </el-table-column>
-        <el-table-column prop="mon" label="周一"> </el-table-column>
-        <el-table-column prop="mon" label="周二"> </el-table-column>
-        <el-table-column prop="mon" label="周三"> </el-table-column>
-        <el-table-column prop="mon" label="周四"> </el-table-column>
-        <el-table-column prop="mon" label="周五"> </el-table-column>
-        <el-table-column prop="mon" label="周六"> </el-table-column>
-        <el-table-column prop="mon" label="周日"> </el-table-column>
-      </el-table>
-      <div style="margin-top:-100px">
-     <div v-for="(item, index) in usualCourses" v-bind:key="item.id">
-        <div
-          class="flex-item kcb-item"
-          @click="
-            selectedCourseIndex = index;
-            showUsualCourseDialog = true;
-          "
-          :style="{
-            marginLeft: (item.day - 1) * courseWidth + 'px',
-            marginTop: (item.startTime - 1) * courseHeight + 5 + 'px',
-            width: courseWidth + 'px',
-            height: item.length * courseHeight - 5 + 'px',
-            backgroundColor: '#705bcf',
-          }"
-        >
-          <div class="small-text">{{ item.name }}</div>
-        </div>
-      </div>
-      </div>
-    
-    <!-- <el-scrollbar style="height: 100%">
+    <!-- </div>
+    <el-scrollbar style="height: 100%">
       <div class="course-table-content">
         <div
           class="top"
@@ -84,10 +53,7 @@
               {{ item }}
             </div>
           </div>
-          
-
-
-
+          <!--课表-->
           <div v-for="(item, index) in usualCourses" v-bind:key="item.id">
             <div
               class="flex-item kcb-item"
@@ -110,7 +76,58 @@
       </div>
     </el-scrollbar> -->
 
-    
+    <!-- <el-dialog
+      title="我的实践课"
+      :visible.sync="showPracticeCourseDialog"
+      width="30%"
+      center
+    >
+      <el-scrollbar style="height: 500px" wrap-style="overflow-x:hidden;">
+        <div class="dialog-content">
+          <div v-for="(item) in practiceCourses"  v-bind:key="item.id">
+            <div>课程名称： {{ item.name }}</div>
+            <div>上课教师： {{ item.teacher }}</div>
+          </div>
+          <div class="tip" v-if="practiceCourses.length < 1">
+            本学期没有实践课哦
+          </div>
+        </div>
+      </el-scrollbar>
+    </el-dialog>
+    <el-dialog
+      title="课程信息"
+      :visible.sync="showUsualCourseDialog"
+      width="30%"
+      center
+    >
+      <div class="dialog-content">
+        <div v-if="typeof selectedCourse != 'undefined'">
+          <div>课程名称： {{ selectedCourse.name }}</div>
+          <div>
+            上课时间：
+            {{
+              selectedCourse.week +
+              " " +
+              "第" +
+              selectedCourse.period +
+              "-" +
+              (Number(selectedCourse.period) +
+                Number(selectedCourse.length) -
+                1) +
+              "节"
+            }}
+          </div>
+          <div>上课教师： {{ selectedCourse.teacher }}</div>
+          <div>上课地点： {{ selectedCourse.room }}</div>
+        </div>
+        <div v-else class="tip">本学期没有课哦</div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="showUsualCourseDialog = false"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog> -->
   </div>
 </template>
  
@@ -122,23 +139,6 @@ export default {
       selectedCourseIndex: 0,
       axiosdata: null,
       selectedDate: "",
-
-      tableData: [
-        { timeslot: "8:00-9:00" },
-        { timeslot: "9:00-10:00" },
-        { timeslot: "10:00-11:00" },
-        { timeslot: "11:00-12:00" },
-        { timeslot: "12:00-13:00" },
-        { timeslot: "13:00-14:00" },
-        { timeslot: "14:00-15:00" },
-        { timeslot: "15:00-16:00" },
-        { timeslot: "16:00-17:00" },
-        { timeslot: "17:00-18:00" },
-        { timeslot: "18:00-19:00" },
-        { timeslot: "19:00-20:00" },
-        { timeslot: "20:00-21:00" },
-        { timeslot: "21:00-22:00" },
-      ],
     };
   },
   props: {
