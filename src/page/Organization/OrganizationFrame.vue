@@ -176,7 +176,7 @@ export default {
   },
   mounted() {
     this.drawClock();
-    console.log("option", this.option);
+    // console.log("option", this.option);
     const that = this;
     setInterval(function () {
       var date = new Date();
@@ -239,17 +239,17 @@ export default {
      */
     getBreadList(val) {
       // 过滤路由matched对象
-      console.log("val.matched", val.matched);
+      // console.log("val.matched", val.matched);
       if (val.matched) {
         let matched = val.matched.filter(
           (item) => item.meta && item.meta.title
         );
-        console.log("matched", matched);
+        // console.log("matched", matched);
         // 拿到过滤好的路由v-for遍历出来
         this.breadList = matched;
       }
       this.breadList = val.matched;
-      console.log("this.breadList", this.breadList);
+      // console.log("this.breadList", this.breadList);
     },
     updateSeries(time, series, type) {
       var isCritical =
@@ -484,7 +484,7 @@ export default {
           },
         ],
       };
-      console.log(this.option);
+      // console.log(this.option);
     },
   },
   watch: {
@@ -492,7 +492,7 @@ export default {
     $route(val) {
       // 调用获取路由数组方法
       this.getBreadList(val);
-      console.log("调用获取路由数组方法", this.getBreadList(val));
+      // console.log("调用获取路由数组方法", this.getBreadList(val));
     },
   },
 };
