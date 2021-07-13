@@ -7,7 +7,6 @@ import { Get, Post, DeleteID, PutID, GetID,Delete,Put} from './config'
 //只有id可以直接传入 例如"1000007"  其他必须作为对象传入 例如{"accountNumber:1000001"}
 
 
-
 /*Activities*/
 export const GETActivities = param => Get('/api/Activities', param); //ok
 export const POSTActivities = param => Post('/api/Activities', param); //ok
@@ -54,11 +53,7 @@ export const GETIndoorGroundsID = ID => GetID('/api/IndoorGrounds/', ID)//ok
 //Grounds
 
 export const GETGrounds = param => Get('/api/Grounds', param)//ok
-<<<<<<< Updated upstream
 export const GETGroundsID = ID =>  GetID('/api/Grounds/',ID)//ok
-=======
-export const GETGroundsID = ID => GetID('/api/Grounds/',ID)//ok
->>>>>>> Stashed changes
 // export const POSTGrounds = param => Post('/api/Grounds', param); 
 // export const PUTGroundsID = (ID, param) => PutID('/api/Grounds/', ID, param); 
 // export const DELETEGroundsID = ID => DeleteID('/api/Grounds/', ID);
@@ -116,10 +111,10 @@ export const PUTSystemAdministratorsID = (ID, param) => PutID('/api/SystemAdmini
 export const GETSystemAnnouncements = param => Get('/api/SystemAnnouncements', param);//ok
 export const POSTSystemAnnouncements = param => Post('/api/SystemAnnouncements', param); //ok
     //{id},{systemAnnouncementDate},{systemAnnouncementTime}?
-export const PUTSystemAnnouncementsID = (ID, param) => PutID('/api/SystemAnnouncements/', ID, param);//参数修改 未测试
+export const PUTSystemAnnouncements = param => Put('/api/SystemAnnouncements', param);//ok
 export const DELETESystemAnnouncementsID = ID => DeleteID('/api/SystemAnnouncements/', ID);//参数修改 未测试
 
-//Positions
+//Positions（未完成）
 export const GETPositions = param => Get('/api/Positions', param);//wy测试ok
 
 
