@@ -232,15 +232,6 @@ export default {
   mounted () {
     this.upperTableHeight=this.$refs.upperCardRef.$el.clientHeight-95;
     this.lowerTableHeight=this.$refs.lowerCardRef.$el.clientHeight-100;
-      //   this.$nextTick(function() {
-			// 	console.log(this.$refs.upperCardRef.$el.clientWidth);
-
-			// 	// // 监听窗口大小变化
-			// 	// let self = this;
-			// 	// window.onresize = function() {
-			// 	// 	self.tableHeight = window.innerHeight - self.$refs.table.$el.offsetTop - 50;
-			// 	// }
-			// })
   },
   data() {
     return {
