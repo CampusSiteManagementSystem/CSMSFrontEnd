@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "../state/state"
-import router from "../router/index"
+//import router from "../router/index"
 import { Message } from 'element-ui';
 //import QS from 'qs'
 
