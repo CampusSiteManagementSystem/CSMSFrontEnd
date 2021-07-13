@@ -229,7 +229,7 @@ export default {
         participantnum: 0,
       },
       groundAnnouncement: [],
-      systemAnnouncement: Array(20).fill(systemItem),
+      systemAnnouncement: [],
 
       //第三块卡片信息
       futureActivity: [
