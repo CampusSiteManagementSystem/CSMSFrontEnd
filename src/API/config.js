@@ -81,7 +81,7 @@ export function Get(url, params) {
         }).then(res => {
             resolve(res.data);
         }).catch(err => {
-            reject(err.data)
+            reject(err)
         })
     });
 }
@@ -99,7 +99,7 @@ export function GetID(url, ID) {
         axios.get(url + ID).then(res => {
             resolve(res.data);
         }).catch(err => {
-            reject(err.data)
+            reject(err)
         })
     });
 }
@@ -121,7 +121,7 @@ export function Post(url, params) {
                 resolve(res.data);
             })
             .catch(err => {
-                reject(err.data)
+                reject(err)
             })
     });
 }
@@ -140,7 +140,7 @@ export function Delete(url, params) {
         }).then(res => {
             resolve(res.data)
         }).catch(err => {
-            reject(err.data)
+            reject(err)
         })
     })
 }
@@ -150,7 +150,7 @@ export function DeleteID(url, ID) {
         axios.delete(url + ID).then(res => {
             resolve(res.data)
         }).catch(err => {
-            reject(err.data)
+            reject(err)
         })
     })
 }
@@ -167,7 +167,7 @@ export function Put(url, params) {
         axios.put(url, params).then(res => {
             resolve(res.data)
         }).catch(err => {
-            reject(err.data)
+            reject(err)
         })
     })
 }
@@ -177,7 +177,7 @@ export function PutID(url, ID, params) {
         axios.put(url + ID, params).then(res => {
             resolve(res.data)
         }).catch(err => {
-            reject(err.data)
+            reject(err)
         })
     })
 }

@@ -42,11 +42,11 @@
                 stripe
                 style="width: 100%"
                 height="136"
-                @row-click="onRowClick"
+                @row-click="onRowClick1"
                 :show-header="false"
               >
-                <el-table-column prop="title" width="auto"> </el-table-column>
-                <el-table-column prop="time" width="auto"> </el-table-column>
+                <el-table-column prop="accountNumber" width="auto"> </el-table-column>
+                <el-table-column prop="systemAnnouncementTime" width="auto"> </el-table-column>
               </el-table>
             </el-tab-pane>
             <el-tab-pane label="场地公告">
@@ -55,12 +55,18 @@
                 stripe
                 style="width: 100%"
                 height="136"
-                @row-click="onRowClick"
+                @row-click="onRowClick2"
                 :show-header="false"
               >
-                <el-table-column prop="groundId" width="auto"> </el-table-column>
-                <el-table-column prop="groundName" width="auto"> </el-table-column>
-                <el-table-column prop="maintenanceAnnouncementTime" width="auto"> </el-table-column>
+                <el-table-column prop="groundId" width="auto">
+                </el-table-column>
+                <el-table-column prop="groundName" width="auto">
+                </el-table-column>
+                <el-table-column
+                  prop="maintenanceAnnouncementTime"
+                  width="auto"
+                >
+                </el-table-column>
               </el-table>
             </el-tab-pane>
           </el-tabs>
@@ -160,16 +166,32 @@
 </template>
 
 <script>
-import {GETMaintenanceAnnouncements} from "../../API/http"
+import {
+  GETMaintenanceAnnouncements,
+  GETSystemAnnouncements,
+} from "../../API/http";
 export default {
-  created(){
+  created() {
+    //获取场地公告
     GETMaintenanceAnnouncements()
-    .then(data=>{
-      console.log(data);
-      this.groundAnnouncement=data;
-    }).catch(err=>{
-      console.log(err);
-    })
+      .then((data) => {
+        //console.log(data);
+        this.groundAnnouncement = data;
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("场地公告数据请求错误");
+      });
+    //获取系统公告
+    GETSystemAnnouncements()
+      .then((data) => {
+        console.log(data);
+        this.systemAnnouncement=data;
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("系统公告数据请求错误");
+      });
   },
   data() {
     // const groundItem = {
@@ -326,8 +348,12 @@ export default {
     showAnnouncement() {
       this.$router.push("/StuFrame/Announcement");
     },
-    onRowClick(row) {
+    onRowClick1(row) {
       this.dialogTitle = row.groundName;
+      this.dialogContent = row.content;
+      this.dialogVisible = true;
+    },
+    onRowClick2(row) {
       this.dialogContent = row.content;
       this.dialogVisible = true;
     },
