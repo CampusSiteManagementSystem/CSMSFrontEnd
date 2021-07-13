@@ -267,7 +267,7 @@ export default {
                   label: "Radio 单选框",
                 },
                 {
-                  value: "checkbox",
+                  value: "1000003",
                   label: "Checkbox 多选框",
                 },
                 {
@@ -287,7 +287,7 @@ export default {
                   label: "Cascader 级联选择器",
                 },
                 {
-                  value: "switch",
+                  value: "1000005",
                   label: "Switch 开关",
                 },
                 {
@@ -345,7 +345,7 @@ export default {
                   label: "Pagination 分页",
                 },
                 {
-                  value: "badge",
+                  value: "1000007",
                   label: "Badge 标记",
                 },
               ],
@@ -506,16 +506,16 @@ export default {
         } else {
           console.log("ID", this.$route.query.activityID);
           console.log("name", this.$route.query.activityName);
-          console.log("ground", this.$route.query.groundID);
+          console.log("ground", this.$route.query.groundId);
           console.log("error submit!!");
           return false;
         }
       });
     },
     searchSite() {
-      console.log("name", this.$route.query.groundID);
+      console.log("name", this.$route.query.groundId);
       console.log(this.options);
-      if (typeof this.$route.query.groundID != undefined) {
+      if (typeof this.$route.query.groundId != undefined) {
         for (var i = 0; i < this.options.length; i++) {
           for (var j = 0; j < this.options[i].children.length; j++) {
             for (
@@ -524,10 +524,10 @@ export default {
               k++
             ) {
               if (
-                this.$route.query.groundID ==
+                this.$route.query.groundId ==
                 this.options[i].children[j].children[k].value
               ) {
-                console.log("sure", this.$route.query.groundID);
+                console.log("sure", this.$route.query.groundId);
                 this.ruleform.site = [
                   this.options[i].value,
                   this.options[i].children[j].value,
@@ -539,7 +539,7 @@ export default {
           }
         }
       } else {
-        console.log("sure", this.$route.query.groundID);
+        console.log("sure", this.$route.query.groundId);
       }
     },
   },

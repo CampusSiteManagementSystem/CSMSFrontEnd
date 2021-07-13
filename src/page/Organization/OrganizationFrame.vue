@@ -149,13 +149,13 @@ export default {
       var second = date.getSeconds();
       var minute = date.getMinutes() + second / 60;
       var hour = date.getHours() % 12 + minute / 60;
-      console.log(that.option);
+      //console.log(that.option);
       that.updateSeries(second, that.option.series[2], 'second');
       that.updateSeries(minute, that.option.series[1], 'minute');
       that.updateSeries(hour, that.option.series[0], 'hour');
       that.option.animationDurationUpdate = 300;
       that.reNewTime();
-      console.log("Week", that.nowTime);
+      //console.log("Week", that.nowTime);
       that.clock.setOption(that.option, true);
       date = null;
     }, 1000)
