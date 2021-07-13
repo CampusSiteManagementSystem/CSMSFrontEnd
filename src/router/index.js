@@ -8,18 +8,27 @@ const routes = [
     {
         path: '/',
         name: 'Login',
+        meta: {
+            title: "登录",
+        },
         component: () =>
             import ('../page/Shared/Login.vue')
     },
     {
         path: '/Register',
         name: 'Register',
+        meta: {
+            title: "注册",
+        },
         component: () =>
             import ('../page/Shared/Register.vue')
     },
     {
         path: '/ForgetPassword',
         name: 'ForgetPassword',
+        meta: {
+            title: "忘记密码",
+        },
         component: () =>
             import ('../page/Shared/ForgetPassword.vue')
     },
