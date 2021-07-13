@@ -173,6 +173,7 @@ import {
   GETSystemAnnouncements,
   GETStudentsID,
   GETActivities,
+  GETOccupyTimes
 } from "../../API/http";
 export default {
   created() {
@@ -200,7 +201,7 @@ export default {
     GETStudentsID(this.StuID)
       .then((data) => {
         this.StuInfo = data;
-        console.log(data);
+        //console.log(data);
       })
       .catch((err) => {
         console.log(err);
@@ -214,7 +215,17 @@ export default {
       })
       .catch((err) => {
         console.log(err);
+        this.$message("未来活动数据请求错误");
       });
+      //场地占用情况
+      GETOccupyTimes()
+      .then((data) => {
+        console.log(data);
+      })
+      .then(err=>{
+        console.log(err);
+        this.$message("场地占用数据请求错误");
+      })
   },
   data() {
     return {
