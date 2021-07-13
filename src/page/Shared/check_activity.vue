@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="18">
           <div>
-            <h2>{{(this.$route.params.ID == 'AllActivities') ? '全部活动' : this.$route.params.ID+'举办的活动'}}</h2>
+            <h2>{{(this.$route.params.ID == 'AllActivities') ? '全部活动' : this.orgName + '举办的活动' }}</h2>
           </div>
         </el-col>
         <el-col :span="6">
@@ -135,6 +135,7 @@ export default {
   data() {
     return {
       nextTab:"",
+      orgName: "",
       errored: false,
       toMatch: "",
       tableData1: [],
@@ -174,6 +175,7 @@ export default {
         this.tableData = [];
         for (let key of Object.keys(response.data)){
           for (let a of response.data[key]){
+            a.startTime = a.startTime.substr(0, 10) + " " + a.startTime.substr(11, 8);
             this.tableData1.push(a);
             this.tableData2.push(a);
           }
@@ -183,6 +185,23 @@ export default {
     .catch(function (error) {
         console.log(error);
     });
+
+    if (this.$route.params.ID != 'AllActivities') {
+      var url1 = 'http://139.196.114.7/api/Organizations/' + this.$route.params.ID;
+      var config1 = {
+          method: 'get',
+          url: url1,
+          headers: { }
+      };
+                  
+      axios(config1)
+          .then(response => {
+        this.orgName = response.data.name;
+    })
+      .catch(function (error) {
+          console.log(error);
+      });
+    }
   },
   methods: {
     viewInfo(row) {

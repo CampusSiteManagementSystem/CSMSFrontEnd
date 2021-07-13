@@ -59,7 +59,7 @@
                 v-show="membertype"
                 :to="{
                   name: 'ShowScheduleforStu',
-                  params: { groundId: scope.row.groundId, membertype: true },
+                  params: { groundId: scope.row.groundId,placeType: scope.row.type,membertype: true },
                 }"
                 size="mini"
                 type="success"
@@ -72,7 +72,7 @@
                 v-show="othertype"
                 :to="{
                   name: 'ShowScheduleforOrg',
-                  params: { groundId: scope.row.groundId, membertype: false },
+                  params: { groundId: scope.row.groundId,placeType: scope.row.type, membertype: false },
                 }"
                 size="mini"
                 type="success"
@@ -120,9 +120,9 @@ export default {
       axiosdata: null,
     };
   },
-  // created() {
-  //   this.matchList = this.tableData;
-  // },
+  created() {
+    this.matchList = this.tableData;
+  },
   computed: {},
   mounted() {
     const that = this;
@@ -132,7 +132,7 @@ export default {
         that.axiosdata = data;
         that.tableData = that.dealWith(that.axiosdata);
         //console.log(that.axiosdata[0]);
-        this.matchList = this.tableData;
+        // that.matchList = that.tableData;
       })
       .catch((err) => {
         that.data = err;
