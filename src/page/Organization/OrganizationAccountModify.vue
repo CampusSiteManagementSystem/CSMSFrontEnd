@@ -230,7 +230,10 @@ export default {
       this.ruleForm.name=data.name;
       this.ruleForm.type=data.type;
       this.ruleForm.credit=data.credit;
-      this.ruleForm.joinTime=data.joinDate;
+      this.ruleForm.joinTime=data.joinDate.replace(
+          "T",
+          " "
+        );
       this.ruleForm.user=data.functionary;
       this.ruleForm.email=data.emailAddress;
       this.ruleForm.telephone=data.telephone;
