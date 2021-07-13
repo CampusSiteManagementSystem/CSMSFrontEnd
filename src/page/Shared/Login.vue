@@ -5,7 +5,7 @@
       class="IdentitySelectionBackImage"
     />
     <!--"IdentitySelectionContainer"-->
-    <el-card class="IdentitySelectionContainer" style="border-radius: 12px">
+    <el-card id="logincard" class="IdentitySelectionContainer" style="border-radius: 12px">
       <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="24">
@@ -29,6 +29,8 @@
                 v-model.number="form.accountNumber"
                 placeholder="请输入账号"
                 clearable
+                autofocus
+                autocomplete
               ></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
@@ -37,6 +39,8 @@
                 showPassword
                 placeholder="请输入密码"
                 clearable
+                autofocus
+                autocomplete
               ></el-input>
             </el-form-item>
           </el-form>
@@ -95,6 +99,9 @@
 import { Login } from "../../API/http";
 import store from "../../state/state"
 export default {
+  created(){
+    document.getElementById("logincard").focus();
+  },
   data() {
     return {
       res: null,
@@ -145,8 +152,11 @@ export default {
             .then((data) => {
               store.state.membertype===1;
               store.state.ID=this.form.accountNumber;
-              console.log(data);
-              document.cookie=data;
+              data;
+              console.log(document.cookie);
+              // co=JSON.parse(data);
+              // console.log(co);
+
             })
             .catch((err) => {
               console.log(err);
