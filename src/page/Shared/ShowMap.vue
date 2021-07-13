@@ -169,7 +169,7 @@ export default {
           map.getCanvas().style.cursor = "pointer";
 
           var coordinates = e.features[0].geometry.coordinates.slice();
-          var description = e.features[0].properties.description;
+          var properties = e.features[0].properties;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -182,18 +182,21 @@ export default {
           // Populate the popup and set its coordinates
           // based on the feature found.
           //填充弹出窗口，并根据找到的特性设置其坐标。
-          console.log(description);
-          // console.log("11111");
-
-          // console.log("tempTest",tempTest)
+         
+    
 
           const p = Vue.extend(PopMeg);
           let vm = new p({
             propsData: {
-              building: description,
-              all: 13,
-              freeRoom: 13,
-              description: description,
+            
+
+
+
+              building: properties.description,
+              all: properties.count,
+              freeRoom: properties.empty,
+
+              description: properties.description,
               router: tempTest,
               membertype: membertype,
             }, //传参
@@ -281,7 +284,10 @@ export default {
             var temp = {
               type: "Feature",
               properties: {
-                description: "<p>A<p>",
+                description: "A楼",
+                count:13,
+                empty:1,
+                    
               },
               geometry: {
                 type: "Point",
@@ -289,6 +295,8 @@ export default {
               },
             };
             temp.properties.description = data[i].positionName ;
+            temp.properties.count = data[i].count ;
+            temp.properties.empty = data[i].empty ;
             temp.geometry.coordinates = [
               parseFloat(data[i].longitude),
               parseFloat(data[i].latitude),
