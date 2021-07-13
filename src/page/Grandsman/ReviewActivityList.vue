@@ -5,29 +5,39 @@
     <el-tabs v-model="activeTab">
         <el-tab-pane label="待审批" name="panel1">
         <el-table
-          :data="tableData.filter((item, index, arr)=>{return item.state === 0})"
+          :data="tableData.filter((item, index, arr)=>{return item.activityState === '审核中'})"
           :default-sort = "{prop: 'time', order: 'ascending'}"
           height="480"
         >
-        <el-table-column prop="organization" label="组织" width="220">
+        <el-table-column prop="groupname" label="组织" width="220">
         </el-table-column>
-        <el-table-column prop="activity" label="活动名称" width="380">
+        <el-table-column prop="activityname" label="活动名称" width="380">
         </el-table-column>
         <el-table-column prop="ground" label="场地" width="180">
         </el-table-column>
-        <el-table-column prop="time" sortable label="时间" width="180">
+        <el-table-column prop="time" sortable label="时间" width="280">
         </el-table-column>
-        <el-table-column
-          prop="state"
+       <el-table-column
+          prop="activityState"
           label="状态"
           width="120"
+          column-key="activityState"
+          :filters="[
+            { text: '审核中', value: '审核中' },
+            { text: '待举办', value: '待举办' },
+            { text: '待反馈', value: '待反馈' },
+            { text: '已反馈', value: '已反馈' },
+            { text: '被驳回', value: '被驳回' },
+          ]"
+          :filter-method="filterTag"
+          filter-placement="bottom-end"
         >
           <template slot-scope="scope1">
             <el-tag
-              :type="scope1.row.state === 0 ? 'primary' : (scope1.row.state === 1 ? 'success' : 'danger')"
+              :type="tagType[ scope1.row.activityState]"
               disable-transitions
             >
-              {{scope1.row.state === 0 ? '待审核' : (scope1.row.state === 1 ? '已批准' : '已驳回')}}
+              {{scope1.row.activityState}}
             </el-tag>
           </template>
         </el-table-column>
@@ -47,33 +57,39 @@
         </el-tab-pane>
         <el-tab-pane label="已审批" name="pane2">
         <el-table
-          :data="tableData.filter((item, index, arr)=>{return item.state != 0})"
+          :data="tableData.filter((item, index, arr)=>{return item.activityState != '审核中'})"
           :default-sort = "{prop: 'time', order: 'descending'}"
           height="480"
         >
-        <el-table-column prop="organization" sortable label="组织" width="220">
+        <el-table-column prop="groupname" label="组织" width="220">
         </el-table-column>
-        <el-table-column prop="activity" label="活动名称" width="380">
+        <el-table-column prop="activityname" label="活动名称" width="380">
         </el-table-column>
-        <el-table-column prop="ground" sortable label="场地" width="180">
+        <el-table-column prop="ground" label="场地" width="180">
         </el-table-column>
         <el-table-column prop="time" sortable label="时间" width="180">
         </el-table-column>
         <el-table-column
-          prop="state"
+          prop="activityState"
           label="状态"
           width="120"
-          column-key="state"
-          :filters="[{ text: '已批准', value: 1 }, { text: '已驳回', value: 2 }]"
+          column-key="activityState"
+          :filters="[
+            { text: '审核中', value: '审核中' },
+            { text: '待举办', value: '待举办' },
+            { text: '待反馈', value: '待反馈' },
+            { text: '已反馈', value: '已反馈' },
+            { text: '被驳回', value: '被驳回' },
+          ]"
           :filter-method="filterTag"
           filter-placement="bottom-end"
         >
           <template slot-scope="scope1">
             <el-tag
-              :type="scope1.row.state === 1 ? 'success' : 'danger'"
+              :type="tagType[ scope1.row.activityState]"
               disable-transitions
             >
-              {{scope1.row.state === 1 ? '已批准' : '已驳回'}}
+              {{scope1.row.activityState}}
             </el-tag>
           </template>
         </el-table-column>
@@ -97,42 +113,88 @@
 </template>
 
 <script>
-
+import { GETActivities } from "../../API/http";
+// import store from "../../state/state.js"
 export default {
   name: 'ActivityList',
       components: {
     },
     data() {
-      const item1 = {
-        activityID: '16472',
-        organization: '软件学院',
-        activity: '年级大会',
-        ground: '济事楼434',
-        time: '2021-6-26 15:30',
-        state: 0
-      };
-      const item2 = {
-        activityID: '16472',
-        organization: '软件学院',
-        activity: '年级大会',
-        ground: '济事楼432',
-        time: '2021-6-25 15:30',
-        state: 1
-      };
-      const item3 = {
-        activityID: '16472',
-        organization: '软件学院',
-        activity: '年级大会',
-        ground: '济事楼432',
-        time: '2021-6-24 15:30',
-        state: 2
-      };
+      // const item1 = {
+      //   activityID: '16472',
+      //   organization: '软件学院',
+      //   activity: '年级大会',
+      //   ground: '济事楼434',
+      //   time: '2021-6-26 15:30',
+      //   state: 0
+      // };
+      // const item2 = {
+      //   activityID: '16472',
+      //   organization: '软件学院',
+      //   activity: '年级大会',
+      //   ground: '济事楼432',
+      //   time: '2021-6-25 15:30',
+      //   state: 1
+      // };
+      // const item3 = {
+      //   activityID: '16472',
+      //   organization: '软件学院',
+      //   activity: '年级大会',
+      //   ground: '济事楼432',
+      //   time: '2021-6-24 15:30',
+      //   state: 2
+      // };
       return {
+        axiosdata:null,
         activeTab: 'panel1',
-        tableData: Array(20).fill(item1).concat(Array(10).fill(item2)).concat(Array(10).fill(item3))
+        tableData: [],
+        tagType: {
+        '审核中': "warning",
+        '待举办': "danger",
+        '待反馈': "",
+        '已反馈': "success",
+        '被驳回': "info",
+      },
       }
     },
+     mounted() {
+    const that = this;
+    console.log("run mounted");
+    GETActivities() //应该加accountNumber
+      .then((data) => {
+        console.log("run GETActivities");
+        that.axiosdata = data;
+        that.dealWithActivities(that.axiosdata);
+        //console.log(that.axiosdata);
+      })
+      .catch((err) => {
+        that.data = err;
+      });
+  },
     methods: {
+      dealWithActivities(data) {
+      console.log("run dealwithActivities");
+      for (var key in data) {
+        for (var i = 0; i < data[key].length; i++) {
+          var temp = {
+            activityID: "22222",
+            time: "2016-05-03",
+            activityname: "王小虎",
+            groupname: "上海市普陀区金沙江路 1516 弄",
+            ground: "同心楼666",
+            activityState: "审核中",
+          };
+          temp.activityID = data[key][i].id;
+          temp.time = data[key][i].activityDate.replace("T", " ");
+          temp.activityname = data[key][i].name;
+          temp.groupname = data[key][i].organizationName;
+          temp.ground = data[key][i].groundName;
+          temp.activityState = data[key][i].activityState;
+          this.tableData.push(temp);
+        }
+      }
+      console.log(this.tableData);
+    },
       filterTag(value, row, column) {
         const property = column["property"];
         return row[property] === value;

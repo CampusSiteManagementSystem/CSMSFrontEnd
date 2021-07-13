@@ -13,14 +13,13 @@
         <el-row v-if="placeType == '室内'" :gutter="20">
           <el-col :span="12">
             <p>场地名称:{{ indoorGround.楼号 }}{{ indoorGround.房间号 }}</p>
-
             <div v-for="(value, key, index) in indoorGround" :key="key">
               <p v-if="index < 3">{{ key }}:{{ value }}</p>
             </div>
           </el-col>
           <el-col :span="12">
             <div v-for="(value, key, index) in indoorGround" :key="key">
-              <p v-if="index >=3">{{ key }}:{{ value }}</p>
+              <p v-if="index >= 3">{{ key }}:{{ value }}</p>
             </div>
           </el-col>
         </el-row>
@@ -48,7 +47,7 @@
             class="button"
             circle=""
             size="mini"
-            @click="likes"
+            @click="pushLikeButton"
           ></el-button>
         </el-row>
       </el-col>
@@ -88,19 +87,23 @@ import {
   GETIndoorGroundsID,
   GETOutdoorGroundsID,
   GETGroundsID,
-  // POSTOrgFavorites,
-  // POSTStuFavorites,
-//   DELETEOrgFavorites,
-//  DELETEStuFavorites,
-  
+  POSTOrgFavorites,
+  POSTStuFavorites,
+  GETOrgFavorites,
+  GETStuFavoritesID,
+  //   DELETEOrgFavorites,
+  //  DELETEStuFavorites,
 } from "../API/http";
+import store from "../state/state";
 export default {
   name: "PicCard",
   data() {
     return {
       axiosdata: "",
-      placeType: "",
-      groundTemp: "",
+      id: store.state.ID,
+      placeType: "", //调用ground api 获得的数据
+      groundTemp: "", //调用ground api 获得的数据
+      likes: [], //这是调用后收藏api获取到的场地列表
       indoorGround: {
         楼号: "",
         层号: "",
@@ -140,14 +143,38 @@ export default {
   },
   methods: {
     handleApply() {
-      console.log("PICCARD groundId", this.$props.groundId);
+      // console.log("PICCARD groundId", this.$props.groundId);
     },
     fetchData: async function () {
       const that = this;
+      //获得以下这个成员收藏的场地吧
+      if (that.buttonshow) {
+        //组织
+        GETOrgFavorites({ accountNumber: that.id })
+          .then((data) => {
+            // console.log(data);
+            that.likes = data;
+          })
+          .catch((err) => {
+            this.data = err;
+          });
+      } else {
+        //学生
+        GETStuFavoritesID(that.id)
+          .then((data) => {
+            //  console.log(data);
+            that.likes = data;
+          })
+          .catch((err) => {
+            this.data = err;
+          });
+      }
 
+
+      //先获得这个场地在GROUND的信息
       await GETGroundsID(that.$props.groundId)
         .then((data) => {
-          console.log(data);
+          // console.log(data);
 
           that.groundTemp = data;
           that.placeType = data.type;
@@ -155,11 +182,11 @@ export default {
         .catch((err) => {
           this.data = err;
         });
-      console.log("that.placeType", that.placeType);
+      // console.log("that.placeType", that.placeType);
       if (that.placeType == "室内") {
+        //再获得这个场地在室内GROUND的信息
         that.indoorGround.场地大小 = that.groundTemp.area;
         that.indoorGround.详细描述 = that.groundTemp.description;
-
         GETIndoorGroundsID(that.$props.groundId)
           .then((data) => {
             that.axiosdata = data;
@@ -173,10 +200,12 @@ export default {
             this.data = err;
           });
       } else {
+        //再获得这个场地在室外GROUND的信息
         GETOutdoorGroundsID(that.$props.groundId)
           .then((data) => {
             that.axiosdata = data;
-            console.log(that.$props.groundId, that.axiosdata);
+            console.log(data.state);
+            // console.log(that.$props.groundId, that.axiosdata);
             that.outdoorGround.场地名称 = data.positionName;
             that.outdoorGround.场地大小 = data.area;
             that.outdoorGround.详细描述 = data.description;
@@ -186,17 +215,49 @@ export default {
           });
       }
     },
-    likes(){
+    pushLikeButton() {
+      const that = this;
+      console.log(that.likes);
+      for(var i=0;i<that.likes.length;i++){
+        if(that.likes[i].groundId== that.groundId){
+          that.$message( "您已收藏过该场地" );
+          return;
+        }
+        
+      }
 
-//       if(buttonshow)//组织
-//       {
-// // export const POSTOrgFavorites = param => Post('/api/OrgFavorites', param); 
-//       }else{
+      if (that.buttonshow) {
+        //组织
 
-//       }
-      
+        POSTOrgFavorites({
+          accountNumber: that.id,
+          groundId: that.groundId,
+        })
+          .then((data) => {
+            // this.res = data;
+            console.log( data);
+            that.$message({ message: "成功收藏", type: "success" });
+          })
+          .catch((err) => {
+            // console.log("err", err);
 
-    }
+            this.data = err;
+          });
+      } else {
+        //学生
+        POSTStuFavorites({
+          accountNumber: that.id,
+          groundId: that.groundId,
+        })
+          .then((data) => {
+             that.$message({ message: "成功收藏", type: "success" });
+            console.log(data);
+          })
+          .catch((err) => {
+            this.data = err;
+          });
+      }
+    },
   },
 };
 </script>

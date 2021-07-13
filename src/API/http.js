@@ -7,7 +7,6 @@ import { Get, Post, DeleteID, PutID, GetID, Delete, Put } from './config'
 //只有id可以直接传入 例如"1000007"  其他必须作为对象传入 例如{"accountNumber:1000001"}
 
 
-
 /*Activities*/
 export const GETActivities = param => Get('/api/Activities', param); //ok
 export const POSTActivities = param => Post('/api/Activities', param); //ok
@@ -111,9 +110,12 @@ export const PUTSystemAdministratorsID = (ID, param) => PutID('/api/SystemAdmini
 //SystemAnnouncements
 export const GETSystemAnnouncements = param => Get('/api/SystemAnnouncements', param); //ok
 export const POSTSystemAnnouncements = param => Post('/api/SystemAnnouncements', param); //ok
-//{id},{systemAnnouncementDate},{systemAnnouncementTime}?
-export const PUTSystemAnnouncementsID = (ID, param) => PutID('/api/SystemAnnouncements/', ID, param); //参数修改 未测试
-export const DELETESystemAnnouncementsID = ID => DeleteID('/api/SystemAnnouncements/', ID); //参数修改 未测试
+    //{id},{systemAnnouncementDate},{systemAnnouncementTime}?
+export const PUTSystemAnnouncements = param => Put('/api/SystemAnnouncements', param);//ok
+export const DELETESystemAnnouncements = param => Delete('/api/SystemAnnouncements', param);//ok
 
-//Positions
-export const GETPositions = param => Get('/api/Positions', param); //wy测试ok
+//Positions（未完成）
+export const GETPositions = param => Get('/api/Positions', param);//wy测试ok
+
+
+

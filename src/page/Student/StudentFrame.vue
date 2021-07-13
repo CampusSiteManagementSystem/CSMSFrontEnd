@@ -121,21 +121,20 @@ body,
   height: 100%;
   overflow: hidden;
 }
-.el-card {
-  overflow: auto;
-  border-radius: 15px;
-}
+
 .el-main {
   overflow: auto;
   /* background-color: wheat; */
   background-color: rgb(237, 241, 245);
 }
 .header {
-  background-color: white;
+  background-color:white;
   padding-left: 16px;
+  border-bottom:0.5px solid rgba(85, 79, 78, 0.178);
 }
 .header-row {
   height: 100%;
+
 }
 .header-row-col1 {
   height: 100%;
@@ -174,9 +173,7 @@ body,
   height: 40px;
   width: 40px;
 } */
-.el-card {
-  border-radius: 15px;
-}
+
 /* 面包屑导航 */
 .el-breadcrumb {
   /* background-color: thistle; */
@@ -211,7 +208,7 @@ export default {
   },
   mounted() {
     this.drawClock();
-    console.log("option", this.option);
+    //console.log("option", this.option);
     const that = this;
     setInterval(function () {
       var date = new Date();

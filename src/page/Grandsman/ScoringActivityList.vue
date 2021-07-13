@@ -99,11 +99,21 @@
 
 
 
-// <script>
+<script>
+import { GETActivities } from "../../API/http";
+// import store from "../../state/state.js"
 export default {
   name: "ActivityList",
   data() {
     return {
+      tagType: {
+        '审核中': "warning",
+        '待举办': "danger",
+        '待反馈': "",
+        '已反馈': "success",
+        '被驳回': "info",
+      },
+      axiosdata: null,
       toMatch: "",
       matchList: [],
       content: "",
@@ -111,101 +121,50 @@ export default {
       roomno: 666,
       num: 16,
       tableData: [
-        {
-          activityID: "11111",
-          time: "2016-05-02",
-          activityname: "数据库会议",
-          groupname: "上海市普陀区金沙江路 1518 弄",
-          ground: "同心楼666",
-          scoreingtag: true,
-        },
-        {
-          activityID: "22222",
-          time: "2016-05-04",
-          activityname: "王小虎",
-          groupname: "上海市普陀区金沙江路 1517 弄",
-          ground: "同心楼666",
-          scoreingtag: false,
-        },
-        {
-          activityID: "33333",
-          time: "2016-05-01",
-          activityname: "王小虎",
-          groupname: "上海市普陀区金沙江路 1519 弄",
-          ground: "同心楼666",
-          scoreingtag: false,
-        },
-        {
-          activityID: "44444",
-          time: "2016-05-03",
-          activityname: "王小虎",
-          groupname: "上海市普陀区金沙江路 1516 弄",
-          ground: "同心楼666",
-          scoreingtag: true,
-        },
-        {
-          activityID: "55555",
-          time: "2016-05-02",
-          activityname: "数据库会议",
-          groupname: "上海市普陀区金沙江路 1518 弄",
-          ground: "同心楼666",
-          scoreingtag: true,
-        },
-        {
-          activityID: "66666",
-          time: "2016-05-04",
-          activityname: "王小虎",
-          groupname: "上海市普陀区金沙江路 1517 弄",
-          ground: "同心楼666",
-          scoreingtag: false,
-        },
-        {
-          activityID: "66666",
-          time: "2016-05-01",
-          activityname: "王小虎",
-          groupname: "上海市普陀区金沙江路 1519 弄",
-          ground: "同心楼666",
-          scoreingtag: false,
-        },
-        {
-          activityID: "22222",
-          time: "2016-05-03",
-          activityname: "王小虎",
-          groupname: "上海市普陀区金沙江路 1516 弄",
-          ground: "同心楼666",
-          scoreingtag: true,
-        },
-        {
-          activityID: "22222",
-          time: "2016-05-02",
-          activityname: "数据库会议",
-          groupname: "上海市普陀区金沙江路 1518 弄",
-          ground: "同心楼666",
-          scoreingtag: true,
-        },
-        {
-          activityID: "22222",
-          time: "2016-05-02",
-          activityname: "数据库会议",
-          groupname: "上海市普陀区金沙江路 1518 弄",
-          ground: "同心楼666",
-          scoreingtag: true,
-        },
-        {
-          activityID: "22222",
-          time: "2016-05-02",
-          activityname: "数据库会议",
-          groupname: "上海市普陀区金沙江路 1518 弄",
-          ground: "同心楼666",
-          scoreingtag: true,
-        },
       ],
     };
   },
   created(){
     this.search();
   },
+  mounted() {
+    const that = this;
+    console.log("run mounted");
+    // console.log(this.testtitle.substr(0,this.testtitle.search("##")));
+    GETActivities() //应该加accountNumber
+      .then((data) => {
+        console.log("run GETActivities");
+        that.axiosdata = data;
+        that.dealWithActivities(that.axiosdata);
+        //console.log(that.axiosdata);
+      })
+      .catch((err) => {
+        that.data = err;
+      });
+  },
   methods: {
+    dealWithActivities(data) {
+      console.log("run dealwithActivities");
+      for (var key in data) {
+        for (var i = 0; i < data[key].length; i++) {
+          var temp = {
+            activityID: "22222",
+            time: "2016-05-03",
+            activityname: "王小虎",
+            groupname: "上海市普陀区金沙江路 1516 弄",
+            ground: "同心楼666",
+            activityState: "审核中",
+          };
+          temp.activityID = data[key][i].id;
+          temp.time = data[key][i].activityDate.replace("T", " ");
+          temp.activityname = data[key][i].name;
+          temp.groupname = data[key][i].organizationName;
+          temp.ground = data[key][i].groundName;
+          temp.activityState = data[key][i].activityState;
+          this.tableData.push(temp);
+        }
+      }
+    },
     publish() {
       this.$message({
         message: "公告发布成功",

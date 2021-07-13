@@ -33,21 +33,24 @@
         <el-table-column prop="ground" label="场地" width="180">
         </el-table-column>
         <el-table-column
-          prop="feedbackTag"
-          label="是否反馈"
-          column-key="feedbackTag"
+          prop="activityState"
+          label="活动状态"
+          column-key="activityState"
           :filters="[
-            { text: '已反馈', value: true },
-            { text: '未反馈', value: false },
+            { text: '审核中', value: '审核中' },
+            { text: '待举办', value: '待举办' },
+            { text: '待反馈', value: '待反馈' },
+            { text: '已反馈', value: '已反馈' },
+            { text: '被驳回', value: '被驳回' },
           ]"
           :filter-method="filterHandler"
         >
           <template slot-scope="scope">
             <el-tag
-              :type="scope.row.feedbackTag == false ? 'primary' : 'success'"
+              :type="tagType[ scope.row.activityState]"
               disable-transitions
               >{{
-                scope.row.feedbackTag == false ? "未反馈" : "已反馈"
+                scope.row.activityState
               }}</el-tag
             >
           </template>
@@ -107,113 +110,72 @@ body,
 
 
 
-// <script>
+<script>
+import { GETActivities } from "../../API/http";
+// import store from "../../state/state.js"
 export default {
   name: "ActivityList",
   data() {
     return {
+      tagType: {
+        '审核中': "warning",
+        '待举办': "danger",
+        '待反馈': "",
+        '已反馈': "success",
+        '被驳回': "info",
+      },
+      axiosdata: null,
       toMatch: "",
       matchList: [],
       content: "",
       building: "同心楼",
       roomno: 666,
       num: 16,
-      tableData: [
-        {
-          activityID: "11111",
-          time: "2016-05-02",
-          activityname: "数据库会议",
-          groupname: "上海市普陀区金沙江路 1518 弄",
-          ground: "同心楼666",
-          feedbackTag: true,
-        },
-        {
-          activityID: "22222",
-          time: "2016-05-04",
-          activityname: "王小虎",
-          groupname: "上海市普陀区金沙江路 1517 弄",
-          ground: "同心楼666",
-          feedbackTag: false,
-        },
-        {
-          activityID: "33333",
-          time: "2016-05-01",
-          activityname: "王小虎",
-          groupname: "上海市普陀区金沙江路 1519 弄",
-          ground: "同心楼666",
-          feedbackTag: false,
-        },
-        {
-          activityID: "44444",
-          time: "2016-05-03",
-          activityname: "王小虎",
-          groupname: "上海市普陀区金沙江路 1516 弄",
-          ground: "同心楼666",
-          feedbackTag: true,
-        },
-        {
-          activityID: "55555",
-          time: "2016-05-02",
-          activityname: "数据库会议",
-          groupname: "上海市普陀区金沙江路 1518 弄",
-          ground: "同心楼666",
-          feedbackTag: true,
-        },
-        {
-          activityID: "66666",
-          time: "2016-05-04",
-          activityname: "王小虎",
-          groupname: "上海市普陀区金沙江路 1517 弄",
-          ground: "同心楼666",
-          feedbackTag: false,
-        },
-        {
-          activityID: "66666",
-          time: "2016-05-01",
-          activityname: "王小虎",
-          groupname: "上海市普陀区金沙江路 1519 弄",
-          ground: "同心楼666",
-          feedbackTag: false,
-        },
-        {
-          activityID: "22222",
-          time: "2016-05-03",
-          activityname: "王小虎",
-          groupname: "上海市普陀区金沙江路 1516 弄",
-          ground: "同心楼666",
-          feedbackTag: true,
-        },
-        {
-          activityID: "22222",
-          time: "2016-05-02",
-          activityname: "数据库会议",
-          groupname: "上海市普陀区金沙江路 1518 弄",
-          ground: "同心楼666",
-          feedbackTag: true,
-        },
-        {
-          activityID: "22222",
-          time: "2016-05-02",
-          activityname: "数据库会议",
-          groupname: "上海市普陀区金沙江路 1518 弄",
-          ground: "同心楼666",
-          feedbackTag: true,
-        },
-        {
-          activityID: "22222",
-          time: "2016-05-02",
-          activityname: "数据库会议",
-          groupname: "上海市普陀区金沙江路 1518 弄",
-          ground: "同心楼666",
-          feedbackTag: true,
-        },
-      ],
+      tableData: [],
     };
   },
-  created(){
+  created() {
     this.search();
   },
+  mounted() {
+    const that = this;
+    console.log("run mounted");
+    // console.log(this.testtitle.substr(0,this.testtitle.search("##")));
+    GETActivities() //应该加accountNumber
+      .then((data) => {
+        console.log("run GETActivities");
+        that.axiosdata = data;
+        that.dealWithActivities(that.axiosdata);
+        //console.log(that.axiosdata);
+      })
+      .catch((err) => {
+        that.data = err;
+      });
+  },
   methods: {
+    dealWithActivities(data) {
+      console.log("run dealwithActivities");
+      for (var key in data) {
+        for (var i = 0; i < data[key].length; i++) {
+          var temp = {
+            activityID: "22222",
+            time: "2016-05-03",
+            activityname: "王小虎",
+            groupname: "上海市普陀区金沙江路 1516 弄",
+            ground: "同心楼666",
+            activityState: "审核中",
+          };
+          temp.activityID = data[key][i].id;
+          temp.time = data[key][i].activityDate.replace("T", " ");
+          temp.activityname = data[key][i].name;
+          temp.groupname = data[key][i].organizationName;
+          temp.ground = data[key][i].groundName;
+          temp.activityState = data[key][i].activityState;
+          this.tableData.push(temp);
+        }
+      }
+    },
+
     onSubmit() {
       this.editstate = false;
     },
@@ -225,10 +187,10 @@ export default {
       return row[property] === value;
     },
     handleClick(row) {
-      if (row.feedbackTag == false) {
+      if (row.activityState != "已反馈") {
         this.$message({
           showClose: true,
-          message: "此活动未收到反馈",
+          message: "此活动没有反馈信息",
           type: "error",
         });
       } else {
@@ -244,7 +206,7 @@ export default {
         this.matchList = this.tableData;
       } else {
         this.matchList = [];
-        for (var i = 0; i < this.tableData.length ; i++) {
+        for (var i = 0; i < this.tableData.length; i++) {
           console.log(i);
           if (this.tableData[i].activityname.search(this.toMatch) != -1) {
             this.matchList.push(this.tableData[i]);
