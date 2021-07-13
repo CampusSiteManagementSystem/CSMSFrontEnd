@@ -174,6 +174,7 @@ export default {
         this.tableData = [];
         for (let key of Object.keys(response.data)){
           for (let a of response.data[key]){
+            a.startTime = a.startTime.substr(0, 10) + " " + a.startTime.substr(11, 8);
             this.tableData1.push(a);
             this.tableData2.push(a);
           }
