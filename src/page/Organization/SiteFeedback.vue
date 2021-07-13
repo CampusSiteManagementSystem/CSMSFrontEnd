@@ -73,6 +73,8 @@ export default {
       ID: "111111",
       time: "2021-6-7 17：00-19：00",
       place: "G403",
+      feedBackDate:Date(),
+      feedBackTime:Date(),
     };
     return {
       ruleForm: {
