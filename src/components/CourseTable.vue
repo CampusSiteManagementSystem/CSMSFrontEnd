@@ -18,18 +18,27 @@
         </el-col>
       </el-row>
     </div>
-      <el-table :data="tableData" stripe border style="width: 100%">
-        <el-table-column prop="timeslot" label="时间"> </el-table-column>
-        <el-table-column prop="mon" label="周一"> </el-table-column>
-        <el-table-column prop="mon" label="周二"> </el-table-column>
-        <el-table-column prop="mon" label="周三"> </el-table-column>
-        <el-table-column prop="mon" label="周四"> </el-table-column>
-        <el-table-column prop="mon" label="周五"> </el-table-column>
-        <el-table-column prop="mon" label="周六"> </el-table-column>
-        <el-table-column prop="mon" label="周日"> </el-table-column>
-      </el-table>
-      <div style="margin-top:-500px; ">
-     <div v-for="(item, index) in usualCourses" v-bind:key="item.id">
+
+    <el-table
+      ref="singleTable"
+     
+      :data="tableData"
+      border
+      style="width: 100%"
+      :row-style="{ height: '2px' }"
+      tag="aa"
+    >
+      <el-table-column prop="timeslot" label="时间"> </el-table-column>
+      <el-table-column prop="mon" label="周一"> </el-table-column>
+      <el-table-column prop="mon" label="周二"> </el-table-column>
+      <el-table-column prop="mon" label="周三"> </el-table-column>
+      <el-table-column prop="mon" label="周四"> </el-table-column>
+      <el-table-column prop="mon" label="周五"> </el-table-column>
+      <el-table-column prop="mon" label="周六"> </el-table-column>
+      <el-table-column prop="mon" label="周日"> </el-table-column>
+    </el-table>
+    <div style="margin-top: -900px; margin-left: 200px" >
+      <div v-for="(item, index) in usualCourses" v-bind:key="item.id">
         <div
           class="flex-item kcb-item"
           @click="
@@ -39,7 +48,7 @@
           :style="{
             marginLeft: (item.day - 1) * courseWidth + 'px',
             marginTop: (item.startTime - 1) * courseHeight + 5 + 'px',
-            width: courseWidth + 'px',
+            width: courseWidth-1 + 'px',
             height: item.length * courseHeight - 5 + 'px',
             backgroundColor: '#705bcf',
           }"
@@ -47,8 +56,8 @@
           <div class="small-text">{{ item.name }}</div>
         </div>
       </div>
-      </div>
-    
+    </div>
+
     <!-- <el-scrollbar style="height: 100%">
       <div class="course-table-content">
         <div
@@ -109,8 +118,6 @@
         </div>
       </div>
     </el-scrollbar> -->
-
-    
   </div>
 </template>
  
@@ -121,7 +128,7 @@ export default {
     return {
       selectedCourseIndex: 0,
       axiosdata: null,
-      selectedDate: "",
+      seletedDate: "",
 
       tableData: [
         { timeslot: "8:00-9:00" },
@@ -149,28 +156,28 @@ export default {
     },
     height: {
       type: Number,
-      default: 400,
+      default: 900,
     },
     usualCourses: {
       type: Array,
       default: () => [
         {
           day: "1",
-          length: "3",
+          length: "1",
           name: "普通物理",
-          startTime: "3",
+          startTime: "9",
           type: "一般课",
         },
         {
           day: "2",
-          length: "2.5",
+          length: "1",
           name: "数据库",
           startTime: "1.5",
           type: "一般课",
         },
         {
           day: "2",
-          length: "5",
+          length: "1",
           name: "数据库",
           startTime: "3",
           type: "一般课",
@@ -218,12 +225,23 @@ export default {
       ],
     },
   },
+  
   computed: {
     courseWidth() {
+      // console.log(this.$refs.singleTable.bodyWidth)
       return Math.max((this.width - 35) / this.weekTable.length, 50);
+      // return this.$refs.singleTable.bodyWidth;
     },
+    
     courseHeight() {
-      return Math.max((this.height - 35) / this.timeTable.length, 50);
+      // console.log(this.$refs.singleTable.columns[0].realWidth)
+      // console.log( this.$refs.singleTable.bodyWidth)
+      //  this.$refs.singleTable.bodyWidth
+     
+      // return this.$refs.singleTable.bodyWidth
+      // console.log(Math.max((this.height - 35) / this.timeTable.length, 50))
+      // return Math.max((this.height - 35) / this.timeTable.length, 50);
+      return 50;
     },
     selectedCourse() {
       return this.usualCourses[this.selectedCourseIndex];
@@ -244,12 +262,12 @@ export default {
       },
       headers: {},
     };
-    console.log(config);
+    // console.log(config);
 
     axios(config)
       .then(function (response) {
         that.axiosdata = response.data;
-        console.log("3response.data", response.data);
+        // console.log("3response.data", response.data);
         that.transportData();
         // console.log(
         //   "JSON.stringify(response.data)",
@@ -259,33 +277,35 @@ export default {
       .catch(function (error) {
         console.log(error);
       });
+     
   },
   methods: {
     getStartTime(time) {
+       
       // time="2021-07-12T05:42:48.883Z";
-      console.log("time", time);
+      // console.log("time", time);
 
       var date = new Date(Date.parse(time.replace("T", " ").toString()));
       date.getHours();
 
-      console.log(
-        "Date",
-        date,
-        date.getHours(),
-        date.getMinutes(),
-        date.getHours() - 7 + date.getMinutes() / 60
-      );
+      // console.log(
+      //   "Date",
+      //   date,
+      //   date.getHours(),
+      //   date.getMinutes(),
+      //   date.getHours() - 7 + date.getMinutes() / 60
+      // );
       return date.getHours() - 7 + date.getMinutes() / 60;
     },
 
     transportData() {
-      console.log("1axiosdata", this.axiosdata);
+      // console.log("1axiosdata", this.axiosdata);
       for (var i = 0; i < this.axiosdata.length; i++) {
         var temp = {
           day: "1",
-          length: "3",
+          length: "1",
           name: "普通物理",
-          startTime: "3",
+          startTime: "9",
           type: "一般课",
         };
         temp.day = this.axiosdata[i].day;
@@ -296,7 +316,15 @@ export default {
         temp.type = this.axiosdata[i].type;
         this.usualCourses.push(temp);
       }
+      // console.log("this.$refs.singleTable.columns[0].width",this.$refs.singleTable.columns[0].realWidth)
+      //       console.log("this.$refs.singleTable.columns[0].width",this.$refs.singleTable.bodyWidth)
+      // console.log("this.$refs.singleTable.width",this.$refs.singleTable.width);
+      
     },
+    // courseWidth() {
+    //   console.log("this.$refs.singleTable.bodyWidth/8",this.$refs.singleTable.bodyWidth/8)
+    //   return  this.$refs.singleTable.bodyWidth/8;
+    // },
   },
 };
 </script>
