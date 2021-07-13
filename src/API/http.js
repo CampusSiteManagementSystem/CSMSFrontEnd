@@ -111,4 +111,8 @@ export const POSTSystemAnnouncements = param => Post('/api/SystemAnnouncements',
 export const PUTSystemAnnouncementsID = (ID, param) => PutID('/api/SystemAnnouncements/', ID, param); 
 export const DELETESystemAnnouncementsID = ID => DeleteID('/api/SystemAnnouncements/', ID);
 
+//Positions
+export const GETPositions = param => Get('/api/Positions', param);//wy测试ok
+
+
 
