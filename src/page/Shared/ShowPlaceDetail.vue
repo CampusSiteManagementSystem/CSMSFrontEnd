@@ -120,9 +120,9 @@ export default {
       axiosdata: null,
     };
   },
-  // created() {
-  //   this.matchList = this.tableData;
-  // },
+  created() {
+    this.matchList = this.tableData;
+  },
   computed: {},
   mounted() {
     const that = this;
@@ -132,7 +132,7 @@ export default {
         that.axiosdata = data;
         that.tableData = that.dealWith(that.axiosdata);
         //console.log(that.axiosdata[0]);
-        this.matchList = this.tableData;
+        // that.matchList = that.tableData;
       })
       .catch((err) => {
         that.data = err;
