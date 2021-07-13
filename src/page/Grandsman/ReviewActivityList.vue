@@ -97,42 +97,82 @@
 </template>
 
 <script>
-
+import { GETActivities } from "../../API/http";
+// import store from "../../state/state.js"
 export default {
   name: 'ActivityList',
       components: {
     },
     data() {
-      const item1 = {
-        activityID: '16472',
-        organization: '软件学院',
-        activity: '年级大会',
-        ground: '济事楼434',
-        time: '2021-6-26 15:30',
-        state: 0
-      };
-      const item2 = {
-        activityID: '16472',
-        organization: '软件学院',
-        activity: '年级大会',
-        ground: '济事楼432',
-        time: '2021-6-25 15:30',
-        state: 1
-      };
-      const item3 = {
-        activityID: '16472',
-        organization: '软件学院',
-        activity: '年级大会',
-        ground: '济事楼432',
-        time: '2021-6-24 15:30',
-        state: 2
-      };
+      // const item1 = {
+      //   activityID: '16472',
+      //   organization: '软件学院',
+      //   activity: '年级大会',
+      //   ground: '济事楼434',
+      //   time: '2021-6-26 15:30',
+      //   state: 0
+      // };
+      // const item2 = {
+      //   activityID: '16472',
+      //   organization: '软件学院',
+      //   activity: '年级大会',
+      //   ground: '济事楼432',
+      //   time: '2021-6-25 15:30',
+      //   state: 1
+      // };
+      // const item3 = {
+      //   activityID: '16472',
+      //   organization: '软件学院',
+      //   activity: '年级大会',
+      //   ground: '济事楼432',
+      //   time: '2021-6-24 15:30',
+      //   state: 2
+      // };
       return {
+        axiosdata:null,
         activeTab: 'panel1',
-        tableData: Array(20).fill(item1).concat(Array(10).fill(item2)).concat(Array(10).fill(item3))
+        tableData: [],
       }
     },
+     mounted() {
+    const that = this;
+    console.log("run mounted");
+    // console.log(this.testtitle.substr(0,this.testtitle.search("##")));
+    GETActivities() //应该加accountNumber
+      .then((data) => {
+        console.log("run GETActivities");
+        that.axiosdata = data;
+        that.dealWithActivities(that.axiosdata);
+        //console.log(that.axiosdata);
+      })
+      .catch((err) => {
+        that.data = err;
+      });
+  },
     methods: {
+      dealWithActivities(data) {
+      console.log("run dealwithActivities");
+      for (var key in data) {
+        for (var i = 0; i < data[key].length; i++) {
+          var temp = {
+            activityID: "22222",
+            time: "2016-05-03",
+            activityname: "王小虎",
+            groupname: "上海市普陀区金沙江路 1516 弄",
+            ground: "同心楼666",
+            activityState: "审核中",
+          };
+          temp.activityID = data[key][i].id;
+          temp.time = data[key][i].activityDate.replace("T", " ");
+          temp.activityname = data[key][i].name;
+          temp.groupname = data[key][i].organizationName;
+          temp.ground = data[key][i].groundName;
+          temp.activityState = data[key][i].activityState;
+          this.tableData.push(temp);
+        }
+      }
+      console.log(this.tableData);
+    },
       filterTag(value, row, column) {
         const property = column["property"];
         return row[property] === value;
