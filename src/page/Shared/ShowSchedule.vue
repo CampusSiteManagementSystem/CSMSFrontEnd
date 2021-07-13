@@ -21,6 +21,7 @@
           <PicCard
             :buttonshow="othertype"
             :groundId="this.$route.params.groundId"
+            :placeType="this.$route.params.placeType"
           />
         </el-card>
       </div>

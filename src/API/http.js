@@ -29,5 +29,8 @@ export const GETIndoorGrounds = param => Get('/api/IndoorGrounds', param)
 export const GETIndoorGroundsID = ID => GetID('/api/IndoorGrounds/', ID)
 //Grounds
 export const GETGrounds = param => Get('/api/Grounds', param)
-export const GETGroundsID = ID => Get('/api/Grounds/',ID)
+export const GETGroundsID = ID => GetID('/api/Grounds/',ID)
+//OutdoorGrounds
+export const GETOutdoorGrounds = param => Get('/api/OutdoorGrounds', param)
+export const GETOutdoorGroundsID = ID => GetID('/api/OutdoorGrounds/', ID)
 

@@ -59,7 +59,7 @@
                 v-show="membertype"
                 :to="{
                   name: 'ShowScheduleforStu',
-                  params: { groundId: scope.row.groundId, membertype: true },
+                  params: { groundId: scope.row.groundId,placeType: scope.row.type,membertype: true },
                 }"
                 size="mini"
                 type="success"
@@ -72,7 +72,7 @@
                 v-show="othertype"
                 :to="{
                   name: 'ShowScheduleforOrg',
-                  params: { groundId: scope.row.groundId, membertype: false },
+                  params: { groundId: scope.row.groundId,placeType: scope.row.type, membertype: false },
                 }"
                 size="mini"
                 type="success"
