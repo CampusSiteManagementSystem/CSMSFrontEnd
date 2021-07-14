@@ -119,3 +119,11 @@ export const GETPositions = param => Get('/api/Positions', param); //wy测试ok
 //login
 export const Login = param => Get('/api/Login', param);
 export const LoginTest = param => Get('/api/Login/test/student', param);
+export const LoginTestOrg = param => Get('/api/Login/test/organization', param);
+export const LoginTestStuID = ID => GetID('/api/Login/test/student/', ID);
+
+//email
+export const GETEmail = param => Get('/api/Students/api/QQEmail', param);
+//modify password
+export const PUTStuPassword = param => Put('/api/Students', param);
+export const PUTOrgPassword = param => Put('/api/Organizations', param);
