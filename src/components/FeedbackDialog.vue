@@ -83,17 +83,18 @@ export default {
     };
   },
   props: {
+    feedbackVisible: Boolean,
     feedbackRow: {
-      ID: "",
-      additionalRequest: "",
-      date: "",
-      description: "",
-      groundname: "",
-      groupname: "",
-      name: "",
-      participantNum: 0,
-      tag: "",
-      time: "",
+      ID: String,
+      additionalRequest: String,
+      date: String,
+      description: String,
+      groundname: String,
+      groupname: String,
+      name: String,
+      participantNum: Number,
+      tag: String,
+      time: String,
     },
 
   },
