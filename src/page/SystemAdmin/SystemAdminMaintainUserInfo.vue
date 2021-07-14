@@ -123,7 +123,7 @@ export default {
 
   methods: {
     handleChange() {
-      this.$router.push({ path: "AccountModify" });
+      this.$router.push({ path: "UserModify" });
     },
 
     addUser() {
