@@ -57,7 +57,7 @@
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="180" sortable>
+              <el-table-column prop="date" label="日期" width="230" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -165,7 +165,7 @@
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="180" sortable>
+              <el-table-column prop="date" label="日期" width="230" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -275,7 +275,7 @@
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="180" sortable>
+              <el-table-column prop="date" label="日期" width="230" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -379,7 +379,7 @@
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="180" sortable>
+              <el-table-column prop="date" label="日期" width="230" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -590,16 +590,7 @@ export default {
         待反馈: [],
         已反馈: [],
         被驳回: [],
-        已完成: [{
-            date: "2016-05-03",
-            name: "王小虎",
-            groundname: "上海市普陀区金沙江路 1516 弄",
-            ID: "11117",
-            people: 40,
-            require: "无",
-            details: "听数据库开会",
-            tag: "室外",
-          },],
+        已完成: [],
       },
 
       activeName: "second",
@@ -715,9 +706,9 @@ export default {
     //取得所有活动信息
     fetchData() {
       const that = this;
-      console.log("fetchData");
       GETActivities({ orgId: that.orgId }) //应该加accountNumber
         .then((data) => {
+                console.log("fetchData",data);
           console.log("run GETActivities");
           that.axiosdata = data;
           that.dealWithActivities(that.axiosdata);
