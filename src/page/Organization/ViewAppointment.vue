@@ -326,7 +326,7 @@
               <el-table-column
                 prop="tag"
                 label="标签"
-                width="100"
+               
                 :filters="[
                   { text: '室内', value: '室内' },
                   { text: '室外', value: '室外' },
@@ -342,13 +342,34 @@
                   </el-tag>
                 </template>
               </el-table-column>
+              <el-table-column
+                prop="activityState"
+                label="状态"
+               
+              >
+                <template slot-scope="scope">
+                  <el-tag
+                    :type="scope.row.activityState === '已反馈' ? 'primary' : 'success'"
+                    disable-transitions
+                    >{{ scope.row.activityState }}
+                  </el-tag>
+                </template>
+              </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
                   <el-button
+                  v-if="scope.row.activityState === '待反馈'"
                     size="mini"
                     type="primary"
                     @click.stop="handleFeedback(scope.row)"
                     >反馈
+                  </el-button>
+                  <el-button
+                  v-else
+                    size="mini"
+                    type="primary"
+                   disabled
+                    >已反馈
                   </el-button>
                   <!-- <router-link
                     :to="{
@@ -664,6 +685,8 @@ export default {
         已反馈: [],
         被驳回: [],
         已完成: [],
+
+        已过期:[],
       },
       ruleForm: {
         score: null,
@@ -852,6 +875,7 @@ export default {
             additionalRequest: "无",
             description: "听数据库开会",
             tag: "室外",
+            activityState: "审核中",
           };
           temp.ID = data[key][i].id;
           temp.date = data[key][i].activityDate.split("T")[0];
@@ -862,6 +886,7 @@ export default {
           temp.groupname = data[key][i].organizationName;
           temp.groundname = data[key][i].groundName;
           temp.additionalRequest = data[key][i].additionalRequest;
+          temp.activityState = data[key][i].activityState;
 
           this.tableData[key].push(temp);
         }

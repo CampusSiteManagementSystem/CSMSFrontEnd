@@ -9,7 +9,7 @@
       :allDaySlot="false"
       eventLimit="3"
       height="auto"
-      slotDuration="00:30:00"
+      slotDuration="01:00:00"
       :minTime="minTime"
       :maxTime="maxTime"
       :timeGridEventMinHeight="auto"
