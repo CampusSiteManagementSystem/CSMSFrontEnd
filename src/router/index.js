@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import { LoginTest } from '../API/http'
 Vue.use(VueRouter)
 
 const routes = [
@@ -295,13 +295,31 @@ const routes = [
                     import ('../page/SystemAdmin/AddUser.vue')
             },
             {
-                path: "UserModify",
-                name: "SystemAdminAddUser",
+                path: "AddUserTest",
+                name: "SystemAdminAddUserTest",
                 meta: {
                     title: "添加用户",
                 },
                 component: () =>
+                    import ('../page/SystemAdmin/AddUserTest.vue')
+            },
+            {
+                path: "UserModify",
+                name: "SystemAdminUserModify",
+                meta: {
+                    title: "修改信息",
+                },
+                component: () =>
                     import ('../page/SystemAdmin/SystemAdminUserModify.vue')
+            },
+            {
+                path: "StuModify",
+                name: "SystemAdminStudentModify",
+                meta: {
+                    title: "修改信息",
+                },
+                component: () =>
+                    import ('../page/SystemAdmin/SystemAdminStudentModify.vue')
             },
             {
                 path: "SystemAnnouncement",
@@ -655,4 +673,17 @@ const router = new VueRouter({
     mode: "history",
     routes
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.path === '/') {
+        next();
+    } else {
+        LoginTest()
+            .then(() => {
+                next();
+            })
+            .catch(() => {})
+    }
+})
+
 export default router

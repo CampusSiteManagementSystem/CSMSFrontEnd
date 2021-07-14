@@ -2,17 +2,17 @@
   <div>
     <el-col :span="12" class="left-col">
       <el-card class="maincard">
-        <div class="maintitle">活动详情</div>
+        <div slot="header" class="clearfix">
+          <span class="maintitle">活动详情 </span>
+        </div>
         <div class="detailinfo">
-          <p class="">活动名称：{{ activityName }}</p>
-          <p class="">主办组织：{{ groupName }}</p>
-          <p class="">活动日期：{{ date }}</p>
-          <p class="">活动时间：{{ startTime }}</p>
-          <p class="">参与人数：{{ participantNum }}</p>
-          <p class="">
-            场地名称：{{ indoorOrOutdoor ? building + roomNo : groundName }}
-          </p>
-          <p class="">活动描述：{{ description }}</p>
+          <p class=""><b>活动名称：</b>{{ activityName }}</p>
+          <p class=""><b>主办组织：</b>{{ groupName }}</p>
+          <p class=""><b>活动日期：</b>{{ date }}</p>
+          <p class=""><b>活动时间：</b>{{ startTime }}</p>
+          <p class=""><b>参与人数：</b>{{ participantNum }}</p>
+          <p class=""><b>场地名称：</b>{{ groundName }}</p>
+          <p class=""><b>活动描述：</b>{{ description }}</p>
         </div>
         <!-- <el-divider content-position="center">详细信息</el-divider> -->
       </el-card>
@@ -20,43 +20,31 @@
 
     <el-col :span="12" class="right-col">
       <el-card class="maincard">
-        <h1 class="maintitle">场地反馈</h1>
-        <!-- <div class="detailinfo">
-          <p>评分:</p>
-          
-          
-        </div> -->
-
-        <el-form ref="form" label-width="80px">
+        <div slot="header" class="clearfix">
+          <span class="maintitle">场地反馈 </span>
+        </div>
+        <el-form ref="form" label-width="100px">
           <el-form-item label="评分：">
             <el-rate
               class="block"
               v-model="score"
               :colors="colors"
-              disabled="yes"
+              disabled
               show-text
             >
             </el-rate>
           </el-form-item>
+          <el-form-item label="反馈日期：">
+            {{ feedbackDate }}
+          </el-form-item>
+          <el-form-item label="反馈时间：">
+            {{ feedbackTime }}
+          </el-form-item>
           <el-form-item label="反馈：">
-            <!-- <el-input
-              type="textarea"
-              :autosize="{ minRows: 5, maxRows: 10 }"
-              v-model="feedBack"
-              placeholder=""
-              maxlength="50"
-              :disabled="true"
-              show-word-limit
-            ></el-input> -->
-            {{ feedBack }}
+            {{ content }}
           </el-form-item>
           <el-form-item>
-            <router-link
-              to="/GroundsAdmin/FeedbackActivityList"
-              tag="el-button"
-              class="primary"
-              >返回</router-link
-            >
+            <el-button type="primary" @click="back">返回</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -89,10 +77,12 @@ body,
 
 .maincard {
   height: 100%;
+  border-radius: 15px;
 }
 
 .detailinfo {
-  padding: 15px;
+  padding-left: 30px;
+  /* padding: 15px; */
 }
 .left-col,
 .right-col {
@@ -113,35 +103,77 @@ body,
 
 
 <script>
-// import store from 
+// import store from
+import { GETActivitiesID } from "../../API/http";
+import { GETFeedbackRecordsID } from "../../API/http";
 
 // store.state.id
 export default {
   name: "creditscoring",
   data() {
     return {
-      score: 4.5,
-      textarea: "",
-      feedBack:
-        "场地很不错呦场地很不错呦场地很不错呦场地很不错呦场地很不错呦场地很不错呦场地很不错呦",
-      activityName: "数据库会议",
-      date: "2021-6-1",
-      startTime: 13154112315,
-      description: "数据库要建表了",
-      additionalRequest: "需要两台电脑",
-      participantNum: 20,
-      duration: 60,
-      groundID: 666,
-      groupID: 777,
-
-      groupName: "数据库小组",
-      indoorOrOutdoor: false,
-      building: null,
-      roomNo: null,
-      groundName: "操场",
+      colors: ["#99A9BF", "#F7BA2A", "#FF9900"],
+      score: null,
+      textarea: null,
+      feedBack: null,
+      activityName: null,
+      date: null,
+      startTime: null,
+      description: null,
+      additionalRequest: null,
+      participantNum: null,
+      duration: null,
+      groundID: null,
+      groupID: null,
+      groupName: null,
+      groundName: null,
+      feedbackDate: null,
+      feedbackTime: null,
+      content: null,
     };
   },
+  mounted() {
+    GETFeedbackRecordsID(this.$route.params.ID)
+      .then((data) => {
+        this.feedbackDate = data.feedbackDate.substr(
+          0,
+          data.feedbackDate.search("T")
+        );
+        this.feedbackTime = data.feedbackDate.slice(
+          data.feedbackDate.search("T") + 1
+        );
+        this.content = data.content;
+        this.score = data.score;
+        console.log(this.score);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("场地数据请求错误");
+      });
+    GETActivitiesID(this.$route.params.ID)
+      .then((data) => {
+        this.date = data.activityDate.substr(0, data.activityDate.search("T"));
+        this.startTime = data.activityDate.slice(
+          data.activityDate.search("T") + 1
+        );
+        this.activityName = data.name;
+        this.groupID = data.accountNumber;
+        this.groupName = data.organizationName;
+        this.participantNum = data.participantNum;
+        this.description = data.description;
+        this.additionalrequest = data.additionalRequest;
+        this.duration = data.duration;
+        this.groundName = data.groundName;
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("场地数据请求错误");
+      });
+  },
   methods: {
+    back() {
+      this.$router.push("/GroundsAdmin/FeedbackActivityList");
+    },
     cancle() {
       this.$router.push({
         path: "/GroundsAdmin/ScoringActivityList",
@@ -156,20 +188,8 @@ export default {
     },
     form() {},
     created() {
-      // 路由器，包含所有的路由 整个项目中VueRouter
-      // console.log(this.$router); //输出所有东西
-      // // 当前页面 这条路由
-      // console.log(this.$route); //这里接收到home页面传过来商品的id 及其页面信息 可去输出查看
       console.log(String(this.activityID));
       this.activityID = Number(this.$route.params.activityID); //具体信息
-      // if(itemId){ //先判断值有没有
-      //     this.axios({//${itemId} axios传递参数获取数据通过参数获取相对应的数据
-      //         url:`/api/item/${itemId}`
-      //     }).then(res=>{
-      //         this.item = res.data;
-      //         console.log(this.item)//输出的放请求里面，写外面还没请求到数据呢，肯定输出报错
-      //     }).catch(err=>{});
-      //}
     },
   },
 };

@@ -43,16 +43,6 @@
             <el-radio label="不批准"></el-radio>
           </el-radio-group>
         </el-form-item>
-        <!-- <el-form-item label="说明：">
-          <el-input
-            class="reason-input"
-            type="textarea"
-            v-model="form.comment"
-            rows="3"
-            v-if="state == 0"
-          ></el-input>
-          <p v-else>{{ form.comment }}</p>
-        </el-form-item> -->
         <el-form-item>
           <el-button v-if="state == 0" type="primary" @click="onSubmit"
             >提交</el-button
@@ -70,9 +60,6 @@
             </el-radio-group>
             <span v-else>{{ form.state }}</span>
           </el-form-item>
-          <!-- <el-form-item label="说明：">
-          <p><b>审核意见：</b>{{ comment }}</p>
-        </el-form-item> -->
           <el-form-item>
             <el-button type="primary" @click="reReview" v-if="state != 2"
               >重审</el-button
@@ -83,9 +70,7 @@
             <el-button @click="back">返回列表</el-button>
           </el-form-item>
         </el-form>
-        <!-- <p><b>审核结果：</b>{{ state == 1 ? "审核通过" : "不通过" }}</p>
-        <p><b>审核意见：</b>{{ comment }}</p>
-        <el-button type="primary" @click="back">返回</el-button> -->
+       
       </div>
     </el-card>
   </div>
@@ -128,23 +113,21 @@ export default {
   data() {
     return {
       axiosdata: null,
-      id: "16472",
-      organization: "软件学院1906班",
-      accountnumber: "6159",
-      credit: 95,
-      email: "65b4g6y8@tongji.edu.cn",
-      name: "班会",
-      time: " 15:30-16:00",
-      duration: 60,
-      participantnum: 40,
-      description: "进行专业方向介绍，开展防范电信诈骗教育",
-      additionalrequest: "无",
-      state: 0, //0未审核，1已审核，2重审
-      // comment: "",
+      id: null,
+      organization: null,
+      accountnumber: null,
+      credit: null,
+      email: null,
+      name: null,
+      time: null,
+      duration: null,
+      participantnum: null,
+      description: null,
+      additionalrequest: null,
+      state: null, //0未审核，1已审核，2重审
       form: {
         orgState: null,
         state: null,
-        // comment: "",
       },
     };
   },
@@ -223,7 +206,7 @@ export default {
             // console.log(dateActivity >= dateNow)
             if (dateActivity < dateNow) {
               this.$message({ message: "活动已过期", type: "error" });
-            } else {
+            } else { 
               if (this.form.state != this.form.orgState) {
                 POSTExamineAndApproves({
                   activityId: this.id,

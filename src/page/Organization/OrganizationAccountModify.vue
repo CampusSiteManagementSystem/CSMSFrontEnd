@@ -17,7 +17,7 @@
           </div>
         </el-col>
         <el-col :span="8">
-          <div>
+          <div> 
             <h3>用户信息</h3>
           </div>
           <transition name="fade-transform" mode="out-in">
@@ -76,7 +76,6 @@
             </div>
           </transition>
 
-
           <transition name="fade-transform" mode="out-in">
             <div v-if="isTable == true">
               <el-table :show-header="false" :data="tableData" :cell-style="columnStyle" border
@@ -130,7 +129,7 @@ p {
   margin-left: 2.2cm;
 }
 </style>
-
+ 
 
 <script>
 import {GETOrganizationsID} from "../../API/http"
