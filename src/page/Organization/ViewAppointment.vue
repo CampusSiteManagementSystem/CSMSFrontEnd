@@ -600,7 +600,7 @@
         </el-dialog>
       </div>
     </div>
-    <feedback-dialog :feedbackRow="feedbackRow" :feedbackVisible="feedbackVisible"></feedback-dialog>
+    <feedback-dialog :feedbackRow="feedbackRow" :feedbackVisible="feedbackVisible" @closeDialog="feedbackVisible=false"></feedback-dialog>
     <!-- <el-dialog title="场地反馈" :visible.sync="feedbackVisible" class="dialog">
       <div class="content">
         <el-form

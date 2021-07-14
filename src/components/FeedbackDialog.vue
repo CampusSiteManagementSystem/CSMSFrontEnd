@@ -51,7 +51,7 @@
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="feedbackVisible = false">取消</el-button>
+        <el-button @click="$emit('closeDialog')">取消</el-button>
         <el-button type="primary" @click="submit">提交</el-button>
       </span>
     </el-dialog>
@@ -134,6 +134,7 @@ export default {
               this.$message({ message: "反馈失败", type: "error" });
             });
       }
+      this.$emit('closeDialog');
     }
   }
 }
