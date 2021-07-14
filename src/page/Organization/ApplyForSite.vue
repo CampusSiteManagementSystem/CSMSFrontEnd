@@ -229,6 +229,10 @@ export default {
 // start: "2021-07-12T09:00:00+08:00"
 
 
+//用这个函数转化
+// var date = new Date(Date.parse(time.replace("T", " ").toString()));
+
+
     },
     handleChange(value) {
       console.log(value);
