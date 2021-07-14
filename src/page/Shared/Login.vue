@@ -81,17 +81,19 @@
           type="primary"
           >登录</el-button
         >
-        <el-button @click="test">test</el-button>
+        <el-button @click="test1">test1</el-button>
+        <el-button @click="test2">test2</el-button>
+        <el-button @click="test3">test3</el-button>
       </el-row>
 
       <el-row>
         <el-col :span="8" :offset="6">
-          <router-link to="/Register">
+          <router-link :to="'/Register/' + identity">
             <el-link :underline="false">注册</el-link>
           </router-link>
         </el-col>
         <el-col :span="8">
-          <router-link to="/ForgetPassword">
+          <router-link :to="'/ForgetPassword/'+ identity">
             <el-link :underline="false">忘记密码</el-link>
           </router-link>
         </el-col>
@@ -101,12 +103,11 @@
 </template>
 
 <script>
-import { Login, LoginTest } from "../../API/http";
+import { Login, LoginTest, LoginTestOrg, LoginTestStuID } from "../../API/http";
 import store from "../../state/state";
 export default {
   data() {
     return {
-      res: null,
       form: {
         accountNumber: 1951459,
         password: "Zzy123456",
@@ -145,9 +146,9 @@ export default {
     role() {
       if (this.identity === 1) {
         return "student";
-      } else if (this.identity === 2) {
-        return "organization";
       } else if (this.identity === 3) {
+        return "organization";
+      } else if (this.identity === 2) {
         return "groundsMan";
       } else {
         return "systemAdministrator";
@@ -155,7 +156,7 @@ export default {
     },
   },
   methods: {
-    test() {
+    test1() {
       LoginTest()
         .then((res) => {
           console.log(res);
@@ -163,6 +164,12 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    test2() {
+      LoginTestOrg();
+    },
+    test3() {
+      LoginTestStuID(1951459);
     },
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
