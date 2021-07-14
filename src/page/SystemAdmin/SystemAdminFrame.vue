@@ -209,6 +209,7 @@ export default {
     };
   },
   mounted() {
+     this.breadList=this.$route.matched
     this.drawClock();
     console.log("option", this.option);
     const that = this;
