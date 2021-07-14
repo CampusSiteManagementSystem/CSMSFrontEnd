@@ -8,18 +8,27 @@ const routes = [
     {
         path: '/',
         name: 'Login',
+        meta: {
+            title: "登录",
+        },
         component: () =>
             import ('../page/Shared/Login.vue')
     },
     {
         path: '/Register',
         name: 'Register',
+        meta: {
+            title: "注册",
+        },
         component: () =>
             import ('../page/Shared/Register.vue')
     },
     {
         path: '/ForgetPassword',
         name: 'ForgetPassword',
+        meta: {
+            title: "忘记密码",
+        },
         component: () =>
             import ('../page/Shared/ForgetPassword.vue')
     },
@@ -637,28 +646,4 @@ const router = new VueRouter({
     mode: "history",
     routes
 })
-
-router.beforeEach((to, from, next) => {
-    to;
-    from;
-    const w = window.innerWidth
-    const h = window.innerHeight
-    console.log(w)
-    console.log(h)
-    var html = document.getElementsByTagName('html')[0];
-    var body = document.getElementsByTagName('body')[0];
-    html.style.width = w + "px";
-    body.style.width = w + "px";
-    html.style.height = h + "px";
-    body.style.height = h + "px";
-
-    if (w < 1280 || h < 700) {
-        html.style.width = 1280 + "px";
-        body.style.width = 1280 + "px";
-        html.style.height = 700 + "px";
-        body.style.height = 700 + "px";
-    }
-    next();
-})
-
 export default router

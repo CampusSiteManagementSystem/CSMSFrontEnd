@@ -8,7 +8,7 @@
           </div>
         </el-image>
       </div>
-      <h1>{{ groundinfo.building + " " + groundinfo.roomno }}</h1>
+      <h1>{{ groundinfo.name }}</h1>
 
       <p v-if="!editstate">{{ groundinfo.description }}</p>
       <el-input
@@ -21,9 +21,16 @@
     </el-row>
     <el-divider content-position="center">详细信息</el-divider>
     <el-row class="lower-row">
-      <el-form v-if="editstate" ref="ruleForm" :model="ruleForm" :rules="rules" label-width="80px">
+      <div v-if="this.groundinfo.indoor">
+      <el-form
+        v-if="editstate"
+        ref="ruleForm"
+        :model="ruleForm"
+        :rules="rules"
+        label-width="80px"
+      >
         <el-form-item label="座位数" prop="seatnum">
-          <el-input v-model="groundinfo.seatnum "></el-input>
+          <el-input v-model="groundinfo.seatnum"></el-input>
         </el-form-item>
         <el-form-item label="电脑数" prop="computernum">
           <el-input v-model="groundinfo.computernum"></el-input>
@@ -42,15 +49,43 @@
         </el-form-item>
       </el-form>
       <div v-else>
-        <p>座位数：{{ groundinfo.seatnum }}</p>
-        <p>电脑数：{{ groundinfo.computernum }}</p>
-        <p>楼层：{{ groundinfo.floor }}</p>
-        <p>面积：{{ groundinfo.area }}</p>
+        <p><b>座位数：</b>{{ groundinfo.seatnum }}</p>
+        <p><b>电脑数：</b>{{ groundinfo.computernum }}</p>
+        <p><b>楼层：</b>{{ groundinfo.floor }}</p>
+        <p><b>面积：</b>{{ groundinfo.area }}</p>
         <div class="editbutton">
           <el-button @click="edit" type="primary" icon="el-icon-edit"
             >修改信息</el-button
           >
         </div>
+      </div>
+      </div>
+      <div v-else>
+      <el-form
+        v-if="editstate"
+        ref="ruleForm"
+        :model="ruleForm"
+        :rules="rules"
+        label-width="80px"
+      >
+        <el-form-item label="面积" prop="area">
+          <el-input v-model="groundinfo.area"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">提交</el-button>
+          <router-link to="/GroundsAdmin/GroundList">
+            <el-button>取消</el-button></router-link
+          >
+        </el-form-item>
+      </el-form>
+      <div v-else>
+        <p><b>面积：</b>{{ groundinfo.area }}</p>
+        <div class="editbutton">
+          <el-button @click="edit" type="primary" icon="el-icon-edit"
+            >修改信息</el-button
+          >
+        </div>
+      </div>
       </div>
     </el-row>
   </el-card>
@@ -71,7 +106,7 @@ body,
   height: 100%;
 }
 
-.maincard{
+.maincard {
   border-radius: 15px;
   height: 100%;
   overflow: auto;
@@ -115,46 +150,72 @@ body,
 
 
 <script>
+import { GETGroundsID } from "../../API/http";
+import { GETIndoorGroundsID } from "../../API/http";
+
+// import store from "../../state/state.js"
 export default {
   name: "groundinfo",
   data() {
     return {
       ruleForm: {
-          seatnum: '',
-          computernum:'',
-          area:'',
-          floor:'',
-        },
-            rules: {
-          seatnum: [
-            { required: true, message: '请输入座椅数量', trigger: 'blur' },
-          ],
-            computernum: [
-            { required: true, message: '请输入电脑数量', trigger: 'blur' },
-          ],
-            floor: [
-            { required: true, message: '请输入层数', trigger: 'blur' },
-          ],
-            area: [
-            { required: true, message: '请输入面积', trigger: 'blur' },
-          ],
-
-        },
+        seatnum: "",
+        computernum: "",
+        area: "",
+        floor: "",
+      },
+      rules: {
+        seatnum: [
+          { required: true, message: "请输入座椅数量", trigger: "blur" },
+        ],
+        computernum: [
+          { required: true, message: "请输入电脑数量", trigger: "blur" },
+        ],
+        floor: [{ required: true, message: "请输入层数", trigger: "blur" }],
+        area: [{ required: true, message: "请输入面积", trigger: "blur" }],
+      },
       editstate: false,
       groundinfo: {
-        seatnum: 10,
-        computernum: 6,
-        building: "同心楼",
-        floor: 2,
-        roomno: 666,
-        area: 100.66,
-        description: "这是一个教室，非常适合学习，开会也可以",
+        name: null,
+        seatnum: null,
+        computernum: null,
+        building: null,
+        floor: null,
+        roomno: null,
+        area: null,
+        description: null,
         imgsrc:
           "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
-        indoor: true,
+        indoor: null,
       },
     };
   },
+
+  mounted() {
+    const that = this;
+    GETGroundsID(that.$route.params.ID)
+      .then((data) => {
+        that.groundinfo.indoor = data.type == "室内";
+        that.groundinfo.name = data.name;
+        that.groundinfo.area = data.area;
+        that.groundinfo.description = data.description;
+      })
+      .then(function () {
+        if (that.groundinfo.indoor) {
+          GETIndoorGroundsID(that.$route.params.ID).then((data) => {
+            that.groundinfo.building = data.positionName;
+            that.groundinfo.floor = data.floor;
+            that.groundinfo.roomno = data.roomNo;
+            that.groundinfo.seatnum = data.seatNum;
+            that.groundinfo.computernum = data.computerNum;
+          });
+        }
+      })
+      .catch((err) => {
+        that.data = err;
+      });
+  },
+
   methods: {
     edit() {
       this.editstate = true;

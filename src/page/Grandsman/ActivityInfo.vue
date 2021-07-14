@@ -27,7 +27,8 @@
           <el-card class="info-card">
             <p><b>活动名称：</b>{{ name }}</p>
             <p><b>参与人数：</b>{{ participantnum }}</p>
-            <p><b>活动时间：</b>{{ date + " " + time }}</p>
+            <p><b>活动时间：</b>{{ time }}</p>
+            <p><b>活动时长：</b>{{ duration }}分钟</p>
             <p><b>活动描述：</b>{{ description }}</p>
             <p><b>特殊需求：</b>{{ additionalrequest }}</p>
           </el-card>
@@ -42,7 +43,7 @@
             <el-radio label="不批准"></el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="说明：">
+        <!-- <el-form-item label="说明：">
           <el-input
             class="reason-input"
             type="textarea"
@@ -51,10 +52,10 @@
             v-if="state == 0"
           ></el-input>
           <p v-else>{{ form.comment }}</p>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item>
           <el-button v-if="state == 0" type="primary" @click="onSubmit"
-            >确认</el-button
+            >提交</el-button
           >
           <el-button @click="back">返回列表</el-button>
         </el-form-item>
@@ -67,7 +68,7 @@
               <el-radio label="批准"></el-radio>
               <el-radio label="不批准"></el-radio>
             </el-radio-group>
-            <span v-else>{{ form.state == 0 ? "不批准" : "批准" }}</span>
+            <span v-else>{{ form.state}}</span>
           </el-form-item>
           <!-- <el-form-item label="说明：">
           <p><b>审核意见：</b>{{ comment }}</p>
@@ -92,49 +93,80 @@
 
 
 <script>
-// import { GETActivitiesID } from "../../API/http";
+import { GETActivitiesID } from "../../API/http";
+import { GETOrganizationsID } from "../../API/http";
+
 // import store from "../../state/state.js"
 export default {
   name: "ActivityInfo",
   mounted() {
     const that = this;
-    console.log("run mounted");
-    console.log(that.$route.params.ID);
-    // console.log(this.testtitle.substr(0,this.testtitle.search("##")));
-    // GETActivitiesID(that.$route.params.ID) //应该加accountNumber
-    //   .then((data) => {
-    //     console.log("run GETActivities");
-    //     that.axiosdata = data;
-    //     that.dealWithActivities(that.axiosdata);
-    //     //console.log(that.axiosdata);
-    //   })
-    //   .catch((err) => {
-    //     that.data = err;
-    //   });
+    GETActivitiesID(that.$route.params.ID)
+      .then((data) => {
+        return new Promise(function (resolve) {
+          console.log("run GETActivities");
+          // console.log(data);
+          that.axiosdata = data;
+          that.dealWithActivitiy(that.axiosdata);
+          console.log(that.axiosdata);
+          resolve(data.accountNumber);
+        });
+      })
+      .then((accountNumber) => {
+        GETOrganizationsID(accountNumber).then((data) => {
+          that.credit = data.credit;
+          that.email = data.emailAddress;
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("场地数据请求错误");
+      });
   },
   data() {
     return {
+      axiosdata: null,
       id: "16472",
       organization: "软件学院1906班",
       accountnumber: "6159",
       credit: 95,
       email: "65b4g6y8@tongji.edu.cn",
       name: "班会",
-      date: "2021-6-25",
       time: " 15:30-16:00",
+      duration: 60,
       participantnum: 40,
       description: "进行专业方向介绍，开展防范电信诈骗教育",
       additionalrequest: "无",
       state: 0, //0未审核，1已审核，2重审
-      comment: "",
+      // comment: "",
       form: {
-        state: "批准",
-        comment: "",
+        state: null,
+        // comment: "",
       },
     };
   },
   methods: {
+    dealWithActivitiy(data) {
+      this.name = data.name;
+      this.accountNumber = data.accountNumber;
+      this.organization = data.organizationName;
+      // this.credit  没有组织信用分
+      this.time = data.activityDate.replace("T", " ");
+      this.participantnum = data.participantNum;
+      this.description = data.description;
+      this.additionalrequest = data.additionalRequest;
+      this.state = data.activityState == "审核中" ? 0 : 1;
+      this.duration = data.duration;
+      if (this.state == 1) {
+        if (data.activityState != "被驳回") {
+          this.form.state = "批准";
+        } else {
+          this.form.state = "不批准";
+        }
+      }
+    },
     reReview() {
+      //判断活动是否应经举办过
       this.state = 2; //重审
     },
     submitReReview() {
@@ -146,23 +178,27 @@ export default {
     },
     onSubmit() {
       console.log("submit!");
-      this.state = this.form.state;
-      this.$message({
-        message: "审核提交成功",
-        type: "success",
-      });
-    //   this.comment = this.form.comment;
-    //   this.$alert("您已批准该活动。", "审核完成", {
-    //     confirmButtonText: "返回列表",
-    //     callback: (action) => {
-    //       this.$message({
-    //         type: "info",
-    //         message: `action: ${action}`,
-    //       });
-    //       this.back();
-    //     },
-    //   });
-     },
+      // this.state = this.form.state;
+      console.log(this.form.state);
+      if (this.form.state != null) {
+        this.state = 1;
+        this.$message({
+          message: "审核提交成功",
+          type: "success",
+        });
+      }
+      //   this.comment = this.form.comment;
+      //   this.$alert("您已批准该活动。", "审核完成", {
+      //     confirmButtonText: "返回列表",
+      //     callback: (action) => {
+      //       this.$message({
+      //         type: "info",
+      //         message: `action: ${action}`,
+      //       });
+      //       this.back();
+      //     },
+      //   });
+    },
     back() {
       this.$router.push({ path: "/GroundsAdmin/ReviewActivityList" });
     },

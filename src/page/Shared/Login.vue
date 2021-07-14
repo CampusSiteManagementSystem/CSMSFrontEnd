@@ -5,7 +5,7 @@
       class="IdentitySelectionBackImage"
     />
     <!--"IdentitySelectionContainer"-->
-    <el-card class="IdentitySelectionContainer" style="border-radius: 12px">
+    <el-card id="logincard" class="IdentitySelectionContainer" style="border-radius: 12px">
       <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="24">
@@ -29,6 +29,8 @@
                 v-model.number="form.accountNumber"
                 placeholder="请输入账号"
                 clearable
+                autofocus
+                autocomplete
               ></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
@@ -37,6 +39,8 @@
                 showPassword
                 placeholder="请输入密码"
                 clearable
+                autofocus
+                autocomplete
               ></el-input>
             </el-form-item>
           </el-form>
@@ -92,8 +96,12 @@
 </template>
 
 <script>
-//import { DELETEActivitiesID } from "../../API/http";
+import { Login } from "../../API/http";
+import store from "../../state/state"
 export default {
+  created(){
+    document.getElementById("logincard").focus();
+  },
   data() {
     return {
       res: null,
@@ -132,33 +140,32 @@ export default {
     };
   },
   methods: {
-    open() {
-      this.$alert("该组织账号还未授权！", "账号未授权", {
-        confirmButtonText: "确定",
-        callback: (action) => {
-          if (action === "confirm") {
-            this.$message({
-              type: "info",
-              message: "账号未授权",
-            });
-          }
-        },
-      });
-    },
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //提交表单到后台验证身份，并路由到指定页面
           if (this.identity === 1) {
-            this.$router.push("/StuFrame/Main");
+            Login({
+              accountNumber: this.form.accountNumber,
+              secretPassword: this.form.password,
+            })
+            .then((data) => {
+              store.state.membertype===1;
+              store.state.ID=this.form.accountNumber;
+              data;
+              console.log(document.cookie);
+              // co=JSON.parse(data);
+              // console.log(co);
+
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+            //this.$router.push("/StuFrame/Main");
           } else if (this.identity === 2) {
             this.$router.push("/GroundsAdmin/Main");
           } else if (this.identity === 3) {
-            if (this.form.accountNumber == "12345678") {
-              this.open();
-            } else {
-              this.$router.push("/OrgFrame/Main");
-            }
+            this.$router.push("/OrgFrame/Main");
           } else if (this.identity === 4) {
             this.$router.push("/SysAdminFrame");
           }

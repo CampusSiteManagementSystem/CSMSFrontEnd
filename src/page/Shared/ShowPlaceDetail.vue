@@ -88,8 +88,11 @@
                 >查看</router-link
               >
               <router-link
+                :to="{
+                name: 'ApplySiteWindow',
+                query: { groundId: scope.row.groundId },
+                }"
                 v-show="othertype"
-                to="/OrgFrame/ApplySite"
                 size="mini"
                 type="primary"
                 tag="el-button"

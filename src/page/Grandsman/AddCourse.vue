@@ -69,8 +69,8 @@
         <div class="maindiv">
           <el-card class="lowerCard">
             <div slot="header" class="clearfix">
-            <span  ><b>场地课程表</b></span>
-          </div>
+              <span><b>场地课程表</b></span>
+            </div>
             <el-table
               height="219"
               ref="filterTable"
@@ -105,20 +105,24 @@
 </template>
 
 <script>
-// import { number } from "echarts";
+import { GETDefaultOccupyTime } from "../../API/http";
+
+// import store from "../../state/state.js"
 export default {
   name: "ActivityList",
   components: {},
-  data() {
-    const course = {
-      courseName: "数据库课程设计",
-      courseDate: "2021-7-10",
-      courseTime: "15:00",
-      courseDuring: "95",
-    };
-    return {
-      tableData: Array(20).fill(course),
 
+  data() {
+    // const course = {
+    //   courseName: "数据库课程设计",
+    //   courseDate: "2021-7-10",
+    //   courseTime: "15:00",
+    //   courseDuring: "95",
+    // };
+    return {
+      groundID: "1000003",
+      // tableData: Array(20).fill(course),
+      tableData: [],
       groundTable: [],
 
       ruleForm: {
@@ -130,160 +134,218 @@ export default {
         during: "",
       },
 
-      options: [{
-          value: 'A',
-          label: 'A楼',
-          children: [{
-            value: '1',
-            label: '1楼',
-            children: [{
-              value: 'yizhi',
-              label: '一致'
-            }, {
-              value: 'fankui',
-              label: '反馈'
-            }, {
-              value: 'xiaolv',
-              label: '效率'
-            }, {
-              value: 'kekong',
-              label: '可控'
-            }]
-          }, {
-            value: '2',
-            label: '2楼',
-            children: [{
-              value: 'cexiangdaohang',
-              label: '侧向导航'
-            }, {
-              value: 'dingbudaohang',
-              label: '顶部导航'
-            }]
-          }]
-        }, {
-          value: 'B',
-          label: 'B楼',
-          children: [{
-            value: '1',
-            label: '1楼',
-            children: [{
-              value: 'layout',
-              label: 'Layout 布局'
-            }, {
-              value: 'color',
-              label: 'Color 色彩'
-            }, {
-              value: 'typography',
-              label: 'Typography 字体'
-            }, {
-              value: 'icon',
-              label: 'Icon 图标'
-            }, {
-              value: 'button',
-              label: 'Button 按钮'
-            }]
-          }, {
-            value: '2',
-            label: '2楼',
-            children: [{
-              value: 'radio',
-              label: 'Radio 单选框'
-            }, {
-              value: 'checkbox',
-              label: 'Checkbox 多选框'
-            }, {
-              value: 'input',
-              label: 'Input 输入框'
-            }, {
-              value: 'input-number',
-              label: 'InputNumber 计数器'
-            }, {
-              value: 'select',
-              label: 'Select 选择器'
-            }, {
-              value: 'cascader',
-              label: 'Cascader 级联选择器'
-            }, {
-              value: 'switch',
-              label: 'Switch 开关'
-            }, {
-              value: 'slider',
-              label: 'Slider 滑块'
-            }, {
-              value: 'time-picker',
-              label: 'TimePicker 时间选择器'
-            }, {
-              value: 'date-picker',
-              label: 'DatePicker 日期选择器'
-            }, {
-              value: 'datetime-picker',
-              label: 'DateTimePicker 日期时间选择器'
-            }, {
-              value: 'upload',
-              label: 'Upload 上传'
-            }, {
-              value: 'rate',
-              label: 'Rate 评分'
-            }, {
-              value: 'form',
-              label: 'Form 表单'
-            }]
-          }, {
-            value: '3',
-            label: '3楼',
-            children: [{
-              value: 'table',
-              label: 'Table 表格'
-            }, {
-              value: 'tag',
-              label: 'Tag 标签'
-            }, {
-              value: 'progress',
-              label: 'Progress 进度条'
-            }, {
-              value: 'tree',
-              label: 'Tree 树形控件'
-            }, {
-              value: 'pagination',
-              label: 'Pagination 分页'
-            }, {
-              value: 'badge',
-              label: 'Badge 标记'
-            }]
-          }, {
-            value: '4',
-            label: '4楼',
-            children: [{
-              value: 'alert',
-              label: 'Alert 警告'
-            }, {
-              value: 'loading',
-              label: 'Loading 加载'
-            }, {
-              value: 'message',
-              label: 'Message 消息提示'
-            }, {
-              value: 'message-box',
-              label: 'MessageBox 弹框'
-            }, {
-              value: 'notification',
-              label: 'Notification 通知'
-            }]
-          }]
-        }, {
-          value: 'C',
-          label: 'C楼',
-          children: [{
-            value: 'axure',
-            label: 'Axure Components'
-          }, {
-            value: 'sketch',
-            label: 'Sketch Templates'
-          }, {
-            value: 'jiaohu',
-            label: '组件交互文档'
-          }]
-        }],
+      options: [
+        {
+          value: "A",
+          label: "A楼",
+          children: [
+            {
+              value: "1",
+              label: "1楼",
+              children: [
+                {
+                  value: "yizhi",
+                  label: "一致",
+                },
+                {
+                  value: "fankui",
+                  label: "反馈",
+                },
+                {
+                  value: "xiaolv",
+                  label: "效率",
+                },
+                {
+                  value: "kekong",
+                  label: "可控",
+                },
+              ],
+            },
+            {
+              value: "2",
+              label: "2楼",
+              children: [
+                {
+                  value: "cexiangdaohang",
+                  label: "侧向导航",
+                },
+                {
+                  value: "dingbudaohang",
+                  label: "顶部导航",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          value: "B",
+          label: "B楼",
+          children: [
+            {
+              value: "1",
+              label: "1楼",
+              children: [
+                {
+                  value: "layout",
+                  label: "Layout 布局",
+                },
+                {
+                  value: "color",
+                  label: "Color 色彩",
+                },
+                {
+                  value: "typography",
+                  label: "Typography 字体",
+                },
+                {
+                  value: "icon",
+                  label: "Icon 图标",
+                },
+                {
+                  value: "button",
+                  label: "Button 按钮",
+                },
+              ],
+            },
+            {
+              value: "2",
+              label: "2楼",
+              children: [
+                {
+                  value: "radio",
+                  label: "Radio 单选框",
+                },
+                {
+                  value: "checkbox",
+                  label: "Checkbox 多选框",
+                },
+                {
+                  value: "input",
+                  label: "Input 输入框",
+                },
+                {
+                  value: "input-number",
+                  label: "InputNumber 计数器",
+                },
+                {
+                  value: "select",
+                  label: "Select 选择器",
+                },
+                {
+                  value: "cascader",
+                  label: "Cascader 级联选择器",
+                },
+                {
+                  value: "switch",
+                  label: "Switch 开关",
+                },
+                {
+                  value: "slider",
+                  label: "Slider 滑块",
+                },
+                {
+                  value: "time-picker",
+                  label: "TimePicker 时间选择器",
+                },
+                {
+                  value: "date-picker",
+                  label: "DatePicker 日期选择器",
+                },
+                {
+                  value: "datetime-picker",
+                  label: "DateTimePicker 日期时间选择器",
+                },
+                {
+                  value: "upload",
+                  label: "Upload 上传",
+                },
+                {
+                  value: "rate",
+                  label: "Rate 评分",
+                },
+                {
+                  value: "form",
+                  label: "Form 表单",
+                },
+              ],
+            },
+            {
+              value: "3",
+              label: "3楼",
+              children: [
+                {
+                  value: "table",
+                  label: "Table 表格",
+                },
+                {
+                  value: "tag",
+                  label: "Tag 标签",
+                },
+                {
+                  value: "progress",
+                  label: "Progress 进度条",
+                },
+                {
+                  value: "tree",
+                  label: "Tree 树形控件",
+                },
+                {
+                  value: "pagination",
+                  label: "Pagination 分页",
+                },
+                {
+                  value: "badge",
+                  label: "Badge 标记",
+                },
+              ],
+            },
+            {
+              value: "4",
+              label: "4楼",
+              children: [
+                {
+                  value: "alert",
+                  label: "Alert 警告",
+                },
+                {
+                  value: "loading",
+                  label: "Loading 加载",
+                },
+                {
+                  value: "message",
+                  label: "Message 消息提示",
+                },
+                {
+                  value: "message-box",
+                  label: "MessageBox 弹框",
+                },
+                {
+                  value: "notification",
+                  label: "Notification 通知",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          value: "C",
+          label: "C楼",
+          children: [
+            {
+              value: "axure",
+              label: "Axure Components",
+            },
+            {
+              value: "sketch",
+              label: "Sketch Templates",
+            },
+            {
+              value: "jiaohu",
+              label: "组件交互文档",
+            },
+          ],
+        },
+      ],
 
       rules: {
         name: [
@@ -328,24 +390,69 @@ export default {
   },
 
   mounted() {
-    var axios = require('axios');
+    var axios = require("axios");
     var config = {
-      method: 'get',
-      url: 'http://139.196.114.7/api/Grounds',
+      method: "get",
+      url: "http://139.196.114.7/api/Grounds",
       //url: 'http://139.196.114.7/api/Grounds?accountNumber=thisNum',
-      headers: { }
+      headers: {},
     };
-                
+
     axios(config)
-    .then(response => {
-      this.groundTable = [];
-      for (let gnd of response.data){
-        this.groundTable.push(gnd);
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then((response) => {
+        this.groundTable = [];
+        for (let gnd of response.data) {
+          this.groundTable.push(gnd);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    // var axios = require("axios");
+
+    // var config = {
+    //   method: "get",
+    //   url: "http://139.196.114.7/api/DefaultOccupyTimes",
+    //   headers: {},
+    // };
+
+    // axios(config)
+    //   .then((response) =>{
+    //     console.log(JSON.stringify(response.data));
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
+    const that = this;
+    console.log(that.groundID);
+    GETDefaultOccupyTime()
+      .then((data) => {
+        console.log("run GETDefaultOccupyTime");
+        console.log(data);
+        for (var i = 0; i < data.length; i++) {
+          var temp = {
+            courseName: "数据库课程设计",
+            courseDate: "2021-7-10",
+            courseTime: "15:00",
+            courseDuring: "95",
+          };
+          temp.courseName = data.name;
+          temp.courseDate = data.occupyDate.substr(
+            0,
+            data.occupyDate.search("T")
+          );
+          temp.courseTime = data.occupyDate.slice(
+            data.occupyDate.search("T") + 1
+          );
+          temp.courseDuring = data.duration;
+          that.tableData.push(temp);
+        }
+        console.log(that.tableData);
+      })
+      .catch((err) => {
+        that.data = err;
+      });
   },
 
   methods: {
@@ -400,7 +507,6 @@ export default {
   font-size: 18px;
 }
 
-
 .detailinfo {
   padding: 15px;
 }
@@ -422,7 +528,7 @@ export default {
   height: 280px;
 }
 .upperCard,
-.lowerCard{
+.lowerCard {
   overflow: auto;
   border-radius: 15px;
 }
