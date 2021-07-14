@@ -12,6 +12,7 @@
             ref="ruleForm"
             label-width="100px"
             class="demo-ruleForm"
+            v-show="tag"
           >
             <el-form-item label="课程名称" prop="name">
               <el-input clearable v-model="ruleForm.name"></el-input>
@@ -56,11 +57,21 @@
                 placeholder="单位：分钟"
               ></el-input>
             </el-form-item>
+            <el-form-item label="课程描述" prop="description">
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 2, maxRows: 10 }"
+                v-model="ruleForm.description"
+                placeholder="请输入描述内容"
+                maxlength="200"
+                show-word-limit
+              ></el-input>
+            </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit('ruleForm')"
                 >提交</el-button
               >
-              <el-button @click="back">返回</el-button>
+              <!-- <el-button @click="back">返回</el-button> -->
             </el-form-item>
           </el-form>
         </el-card>
@@ -105,16 +116,20 @@
 </template>
 
 <script>
-//import { GETDefaultOccupyTime } from "../../API/http";
+// import newVue from "../SystemAdmin/new.vue";
+import { GETDefaultOccupyTime } from "../../API/http";
+import { POSTDefaultOccupyTime } from "../../API/http";
 
 // import store from "../../state/state.js"
 export default {
   name: "ActivityList",
   components: {},
   watch: {
-    'ruleForm.site'(val) {
+    "ruleForm.site"(val) {
       //普通的watch监听
-      console.log("new",val);
+      // console.log("new val", val.length);
+      this.handleGroundChange(val);
+      
     },
   },
   data() {
@@ -126,6 +141,7 @@ export default {
     // };
 
     return {
+      tag:true,
       groundId: "1000003",
       // tableData: Array(20).fill(course),
       tableData: [],
@@ -139,6 +155,7 @@ export default {
         date1: "",
         date2: "",
         during: "",
+        decription: "",
       },
 
       options: [],
@@ -146,7 +163,7 @@ export default {
       rules: {
         name: [
           { required: true, message: "请输入课程名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+          { min: 1, max: 20, message: "长度为1~20个字符", trigger: "blur" },
         ],
 
         date1: [
@@ -165,7 +182,10 @@ export default {
             trigger: "change",
           },
         ],
-
+        decription: [
+          { required: false, message: "请输入课程描述", trigger: "blur" },
+          { min: 1, max: 200, message: "长度为1~200个字符", trigger: "blur" },
+        ],
         during: [
           {
             type: "number",
@@ -202,12 +222,12 @@ export default {
     axios(config1)
       .then((response) => {
         this.iGroundTable = [];
-        console.log(response.data);
+        // console.log(response.data);
         for (let gnd of response.data) {
           this.iGroundTable.push(gnd);
         }
-        console.log("ig");
-        console.log(this.iGroundTable);
+        // console.log("ig");
+        // console.log(this.iGroundTable);
         this.options = [];
         if (this.iGroundTable.length != 0) {
           this.options.push({
@@ -292,38 +312,64 @@ export default {
       .catch((error) => {
         console.log(error);
       });
-
-    //   console.log(this.ruleForm.site[this.ruleForm.site.length - 1]);
-    //   GETDefaultOccupyTime()
-    //     .then((data) => {
-    //       console.log("run GETDefaultOccupyTime");
-    //       console.log(data);
-    //       for (var i = 0; i < data.length; i++) {
-    //         var temp = {
-    //           courseName: "数据库课程设计",
-    //           courseDate: "2021-7-10",
-    //           courseTime: "15:00",
-    //           courseDuring: "95",
-    //         };
-    //         temp.courseName = data.name;
-    //         temp.courseDate = data.occupyDate.substr(
-    //           0,
-    //           data.occupyDate.search("T")
-    //         );
-    //         temp.courseTime = data.occupyDate.slice(
-    //           data.occupyDate.search("T") + 1
-    //         );
-    //         temp.courseDuring = data.duration;
-    //         this.tableData.push(temp);
-    //       }
-    //       console.log(this.tableData);
-    //     })
-    //     .catch((err) => {
-    //       this.data = err;
-    //     });
   },
 
   methods: {
+    getFullTime() {
+      // let date = this.ruleForm.date1, //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      let Y = this.ruleForm.date1.getFullYear() + "",
+        M =
+          this.ruleForm.date1.getMonth() + 1 < 10
+            ? "0" + (this.ruleForm.date1.getMonth() + 1)
+            : this.ruleForm.date1.getMonth() + 1,
+        D =
+          this.ruleForm.date1.getDate() < 10
+            ? "0" + this.ruleForm.date1.getDate()
+            : this.ruleForm.date1.getDate(),
+        // date = this.ruleForm.date2,
+        h =
+          this.ruleForm.date2.getHours() < 10
+            ? "0" + this.ruleForm.date2.getHours()
+            : this.ruleForm.date2.getHours(),
+        m =
+          this.ruleForm.date2.getMinutes() < 10
+            ? "0" + this.ruleForm.date2.getMinutes()
+            : this.ruleForm.date2.getMinutes(),
+        s =
+          this.ruleForm.date2.getSeconds() < 10
+            ? "0" + this.ruleForm.date2.getSeconds()
+            : this.ruleForm.date2.getSeconds();
+      return Y + "-" + M + "-" + D + "T" + h + ":" + m + ":" + s;
+    },
+    handleGroundChange(val){
+      this.tableData = [];
+      if (val.length != 0) {
+        GETDefaultOccupyTime({ groundId: val[val.length - 1] })
+          .then((data) => {
+            for (var i = 0; i < data.length; i++) {
+              var temp = {
+                courseName: "数据库课程设计",
+                courseDate: "2021-7-10",
+                courseTime: "15:00",
+                courseDuring: "95",
+              };
+              temp.courseName = data[i].name;
+              temp.courseDate = data[i].occupyDate.substr(
+                0,
+                data[i].occupyDate.search("T")
+              );
+              temp.courseTime = data[i].occupyDate.slice(
+                data[i].occupyDate.search("T") + 1
+              );
+              temp.courseDuring = data[i].duration;
+              this.tableData.push(temp);
+            }
+          })
+          .catch((err) => {
+            this.data = err;
+          });
+      }
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -334,15 +380,35 @@ export default {
         }
       });
     },
-    back() {
-      this.$router.push({ path: "/GroundsAdmin/AddCourseGroundList" });
-    },
+    // back() {
+    //   this.$router.push({ path: "/GroundsAdmin/AddCourseGroundList" });
+    // },
     onSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$message({
-            message: "课程添加成功",
-            type: "success",
+          POSTDefaultOccupyTime({
+            groundId: this.ruleForm.site[this.ruleForm.site.length - 1],
+            occupyDate: this.getFullTime(),
+            startTime: this.getFullTime(),
+            duration: this.ruleForm.during,
+            name: this.ruleForm.name,
+            decription: this.ruleForm.decription,
+          }).then((data) => {
+            console.log(data);
+            var temp = this.ruleForm.site;
+            this.$refs["ruleForm"].resetFields();
+            this.ruleForm.site = temp;
+            this.handleGroundChange(this.ruleForm.site);
+            this.$message({
+              message: "课程添加成功",
+              type: "success",
+            });
+          }).catch(err=>{
+            console.log(err);
+            this.$message({
+              message: "课程添加失败",
+              type: "error",
+            });
           });
         } else {
           console.log("error submit!!");
