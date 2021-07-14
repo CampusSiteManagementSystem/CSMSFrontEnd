@@ -242,11 +242,15 @@ export default {
         };
 
         axios(config)
-          .then(function (response) {
+          .then((response) => {
             console.log(JSON.stringify(response.data));
+            this.$message({ message: "修改成功", type: "success" });
+            this.$router.push("/GroundsAdmin/GroundList");
           })
-          .catch(function (error) {
+          .catch((error) => {
             console.log(error);
+            this.$message({ message: "修改失败", type: "error" });
+            this.$router.push("/GroundsAdmin/GroundList");
           });
       }
       else {
@@ -267,11 +271,15 @@ export default {
         };
 
         axios(config)
-          .then(function (response) {
+          .then((response) => {
             console.log(JSON.stringify(response.data));
+            this.$message({ message: "修改成功", type: "success" });
+            this.$router.push("/GroundsAdmin/GroundList");
           })
-          .catch(function (error) {
+          .catch((error) => {
             console.log(error);
+            this.$message({ message: "修改失败", type: "error" });
+            this.$router.push("/GroundsAdmin/GroundList");
           });
       }
       this.editstate = false;
