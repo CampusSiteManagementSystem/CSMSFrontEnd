@@ -1,10 +1,6 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router' <<
-<< << < HEAD
-import { GETIdentity } from '../API/http' ===
-=== =
-import { LoginTest } from '../API/http' >>>
->>> > ef9c5a0fe2f2d3befe726b9976e5f5c46a0acf6c
+import VueRouter from 'vue-router'
+import { GETIdentity } from '../API/http'
 Vue.use(VueRouter)
 
 const routes = [
