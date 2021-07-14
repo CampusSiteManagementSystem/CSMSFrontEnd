@@ -67,12 +67,19 @@
 
 <script type="text/javascript"> 
 import * as echarts from 'echarts'
+import {GETOrganizationsID, 
+        GETCreditRecords
+        } from "../../API/http"
+import store from "../../state/state.js"
 export default {
+  created(){
+
+  },
   data() {
     return {
       group: {
-        name: '数据库项目小组',
-        score: 40
+        name: '',
+        score: 0
       },
       colors: [{
           color: '#f56c6c',
@@ -125,15 +132,45 @@ export default {
         address: '上海市普陀区金沙江路 1518 弄',
         score: -5,
         reason: '不来数据库开会',
-      }]
+      }],
+      OrgID: store.state.ID,
+      date:[],
+      creditScore:[],
+      activity:[],
     };
   },
   mounted() {
-    this.drawLine();
+    GETOrganizationsID(this.OrgID)
+    .then(data =>{
+      this.group.name=data.name;
+      this.group.score=data.credit;
+    })
+    .catch((err) => {
+      console.log(err);
+      this.$message("组织信息获取错误");
+    });
+    GETCreditRecords({accountNumber:this.OrgID,
+                      recentNum:40})
+    .then(data =>{
+      this.activity = data;
+      this.dealWithCredits(this.activity);
+      this.drawLine();
+      console.log("activity",this.activity);
+    })
+    .catch((err) => {
+      console.log(err);
+      this.$message("组织信用分历史信息获取错误");
+    });
   },
   methods: {
     format(percentage) {
       return `${percentage}分`;
+    },
+    dealWithCredits(data) {
+      for (var i = 0; i < data.length; i++) {
+        this.date.push((data[i].creditTime.replace("T"," ").split('.'))[0]);
+        this.creditScore.push(data[i].absoluteScore);
+      }
     },
     drawLine() {
       this.chartColumn = echarts.init(document.getElementById('chartColumn'));
@@ -163,21 +200,7 @@ export default {
               color: '#912CEE'
             }
           },
-          data: ["2020-11-18 00:08:36", "2020-11-18 00:18:42", "2020-11-18 00:28:46", "2020-11-18 00:38:33",
-            "2020-11-18 00:48:43", "2020-11-18 00:58:36", "2020-11-18 01:08:40", "2020-11-18 01:18:36", "2020-11-18 01:28:42",
-            "2020-11-18 01:38:39", "2020-11-18 01:48:45", "2020-11-18 01:58:35", "2020-11-18 02:08:34", "2020-11-18 02:18:32",
-            "2020-11-18 02:28:38", "2020-11-18 02:38:37", "2020-11-18 02:48:44", "2020-11-18 02:58:49", "2020-11-18 03:08:38",
-            "2020-11-18 03:18:42", "2020-11-18 03:28:35", "2020-11-18 03:38:44", "2020-11-18 03:48:35", "2020-11-18 03:58:50",
-            "2020-11-18 04:08:40", "2020-11-18 04:18:46", "2020-11-18 04:28:48", "2020-11-18 04:38:46", "2020-11-18 04:48:35",
-            "2020-11-18 04:58:46", "2020-11-18 05:08:38", "2020-11-18 05:18:34", "2020-11-18 05:28:46", "2020-11-18 05:38:35",
-            "2020-11-18 05:48:41", "2020-11-18 05:58:38", "2020-11-18 06:08:41", "2020-11-18 06:18:49", "2020-11-18 06:28:46",
-            "2020-11-18 06:38:43", "2020-11-18 06:48:40", "2020-11-18 06:58:47", "2020-11-18 07:08:36", "2020-11-18 07:18:35",
-            "2020-11-18 07:28:51", "2020-11-18 07:38:45", "2020-11-18 07:48:39", "2020-11-18 07:58:42", "2020-11-18 08:08:51",
-            "2020-11-18 08:18:37", "2020-11-18 08:28:43", "2020-11-18 08:38:46", "2020-11-18 08:48:54", "2020-11-18 08:58:52",
-            "2020-11-18 09:08:51", "2020-11-18 09:18:36", "2020-11-18 09:28:41", "2020-11-18 09:38:42", "2020-11-18 09:48:48",
-            "2020-11-18 09:58:52", "2020-11-18 10:08:48", "2020-11-18 10:18:38", "2020-11-18 10:28:49", "2020-11-18 10:38:44",
-            "2020-11-18 10:48:37", "2020-11-18 11:08:49", "2020-11-18 11:18:49"
-          ]
+          data: this.date,
         },
         yAxis: {
           name: '分数',
@@ -194,10 +217,7 @@ export default {
         },
         series: [{
           name: '信用分',
-          data: [80, 42, 90, 91, 47, 99, 10, 78, 61, 15, 16, 79, 42, 79, 81, 64, 70, 89, 10, 86, 62, 60, 74, 71,
-            12, 89, 81, 97, 90, 62, 90, 100, 99, 4, 70, 93, 13, 14, 74, 86, 35, 80, 96, 34, 41, 98, 93,
-            93, 100, 60, 78, 79, 93, 69, 98, 100, 65, 74, 100, 75
-          ],
+          data: this.creditScore,
           type: 'line'
         }]
       });
@@ -268,27 +288,27 @@ export default {
   }
 .dashboard{
     position:relative;
-    left:25px;
+    left:50px;
     top:10px; 
 }
 #grade1{
     position:relative;
-    left:10px;
+    left:35px;
     top:-60px;
 }
 #grade2{
     position:relative;
-    left:20px;
+    left:45px;
     top:-220px;
 }
 #grade3{
     position:relative;
-    left:210px;
+    left:235px;
     top:-245px;
 }
 #grade4{
     position:relative;
-    left:220px;
+    left:245px;
     top:-122px;
 }
   .groupname1{
