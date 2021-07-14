@@ -34,12 +34,14 @@
             max-height="480"
             stripe
           >
-            <el-table-column prop="title" label="标题" min-width="75%">
+            <el-table-column prop="title" label="标题" min-width="50%">
               <template slot-scope="scope"> 
                 <el-button @click="viewInfo(scope.row)" type="text">{{
                     scope.row.title
                 }}</el-button>
               </template>
+            </el-table-column>
+            <el-table-column prop="groundName" sortable label="场地" min-width="25%">
             </el-table-column>
             <el-table-column prop="maintenanceAnnouncementDate" sortable label="时间" min-width="25%">
             </el-table-column>
