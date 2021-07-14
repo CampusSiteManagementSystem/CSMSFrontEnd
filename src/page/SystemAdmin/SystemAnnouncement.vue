@@ -7,13 +7,16 @@
       :model="ruleform"
       label-width="100px"
     >
+      <el-form-item label="公告标题：" prop="name" style="width:30%">
+        <el-input v-model="ruleform.name" placeholder="请输入公告标题"></el-input>
+      </el-form-item>
       <el-form-item label="公告内容：" prop="content">
         <el-input
           type="textarea"
           :autosize="{ minRows: 8, maxRows: 10 }"
           v-model="ruleform.content"
           placeholder="请输入公告内容"
-          maxlength="100"
+          maxlength="80"
           show-word-limit
         ></el-input>
       </el-form-item>
@@ -67,9 +70,14 @@ export default {
         content: [
           { required: true, message: "请输入公告内容", trigger: "blur" },
         ],
+        name: [
+          { required: true, message: "请输入公告标题", trigger: "blur" },
+          { max: 18, message: "长度为1~18个字符", trigger: "blur" },
+        ],
       },
 
       ruleform: {
+        name: "",
         content: "",
       },
     };
@@ -98,22 +106,22 @@ export default {
           accountNumber: store.state.ID,
           systemAnnouncementDate: this.getFullTime(),
           systemAnnouncementTime: this.getFullTime(),
-          content: this.ruleform.content,
+          content: this.ruleform.name+"##"+this.ruleform.content,
         })
           .then((data) => {
             // this.res = data;
             console.log(data);
             this.$message({ message: "公告发布成功", type: "success" });
+            this.$router.push({ path: "/SysAdminFrame/SysAdminHomePage" });
           })
           .catch((err) => {
             console.log("err", err);
             this.$message({ message: "公告发布失败", type: "error" });
           });
-      }
-      else{
+      } else {
         this.$message({ message: "请输入公告内容", type: "warning" });
       }
-      // this.$router.push({ path: "/SysAdminFrame/SysAdminHomePage" });
+      
     },
     back() {
       this.$router.push({ path: "/SysAdminFrame/SysAdminHomePage" });

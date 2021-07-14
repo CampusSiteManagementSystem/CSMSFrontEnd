@@ -28,10 +28,10 @@
           ><div class="status">
             <h3>审核意见</h3>
             <el-col :span="2" :offset="1">
-              <el-radio v-model="radio" label="1">通过</el-radio>
+              <el-radio v-model="radio" label="通过">通过</el-radio>
             </el-col>
             <el-col :span="2">
-              <el-radio v-model="radio" label="2">不通过</el-radio>
+              <el-radio v-model="radio" label="不通过">不通过</el-radio>
             </el-col>
           </div></el-col
         >
@@ -45,7 +45,7 @@
             type="primary"
             >返回</router-link
           >
-          <el-button type="primary" @click="success">提交</el-button>
+          <el-button type="primary" @click="submit">提交</el-button>
         </div>
       </el-row>
     </el-card>
@@ -94,7 +94,7 @@ export default {
 
   data() {
     return {
-      radio: "1",
+      radio: "",
       textarea: "",
       //OrgID:"this.$route.params.accountNumber",
       ruleForm: {
@@ -105,16 +105,32 @@ export default {
   },
 
   methods: {
-    success() {     
-      this.$alert("审核成功！", {
-        confirmButtonText: "确定",
-        callback: (action) => {
-          this.$message({
-            type: "info",
-            message: `action: ${action}`,
-          });
+    submit() {
+      var axios = require("axios");
+      var data = JSON.stringify({
+          accountNumber: this.$route.query.accountNumber,
+          state: this.radio,
+        });
+
+      var config = {
+        method: "put",
+        url: "http://139.196.114.7/api/Organizations",
+        headers: {
+          "Content-Type": "application/json",
         },
-      });
+        data: data,
+      }
+      axios(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+            this.$message({ message: "修改成功", type: "success" });
+            this.$router.push("/SysAdminFrame/GroupVerifyList");
+          })
+          .catch((error) => {
+            console.log(error);
+            this.$message({ message: "修改失败", type: "error" });
+            this.$router.push("/SysAdminFrame/GroupVerifyList");
+          });
     },
   },
 };

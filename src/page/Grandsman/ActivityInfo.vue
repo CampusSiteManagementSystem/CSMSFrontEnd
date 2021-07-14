@@ -178,7 +178,7 @@ export default {
             console.log("run GETActivities");
             var dateActivity = new Date(data.activityDate);
             var dateNow = new Date();
-            if (dateActivity < dateNow) {
+            if (dateActivity > dateNow) {
               this.state = 2; //重审
             } else {
               this.$message({ message: "活动已过期，不能重审", type: "error" });
@@ -215,25 +215,40 @@ export default {
     },
     onSubmit() {
       if (this.form.state != null) {
-        if (this.form.state != this.form.orgState) {
-          POSTExamineAndApproves({
-            activityId: this.id,
-            accountNumber: store.state.ID,
-            state: this.form.state == "批准" ? "通过" : "拒绝",
+        GETActivitiesID(this.$route.params.ID)
+          .then((data) => {
+            console.log("run GETActivities");
+            var dateActivity = new Date(data.activityDate);
+            var dateNow = new Date();
+            // console.log(dateActivity >= dateNow)
+            if (dateActivity < dateNow) {
+              this.$message({ message: "活动已过期", type: "error" });
+            } else {
+              if (this.form.state != this.form.orgState) {
+                POSTExamineAndApproves({
+                  activityId: this.id,
+                  accountNumber: store.state.ID,
+                  state: this.form.state == "批准" ? "通过" : "拒绝",
+                })
+                  .then((data) => {
+                    // this.res = data;
+                    this.state = 1;
+                    this.form.orgState = this.form.state;
+                    console.log(data);
+                    this.$message({ message: "审核提交成功", type: "success" });
+                  })
+                  .catch((err) => {
+                    this.form.state = this.form.orgState;
+                    console.log("err", err);
+                    this.$message({ message: "审核提交失败", type: "error" });
+                  });
+              }
+            }
           })
-            .then((data) => {
-              // this.res = data;
-              this.state = 1;
-              this.form.orgState = this.form.state;
-              console.log(data);
-              this.$message({ message: "审核提交成功", type: "success" });
-            })
-            .catch((err) => {
-              this.form.state = this.form.orgState;
-              console.log("err", err);
-              this.$message({ message: "审核提交失败", type: "error" });
-            });
-        }
+          .catch((err) => {
+            console.log("err", err);
+            this.$message({ message: "活动时间获取失败", type: "error" });
+          });
       }
       //   this.comment = this.form.comment;
       //   this.$alert("您已批准该活动。", "审核完成", {
