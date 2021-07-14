@@ -63,6 +63,9 @@ axios.interceptors.response.use(
             switch (error.response.status) {
                 case 401:
                     Message.error("身份有误，请重新登录")
+                    localStorage.removeItem("uutype");
+                    localStorage.removeItem("uuid");
+                    localStorage.removeItem("uutoken");
                     router.replace('/')
                     break;
                 case 404:
