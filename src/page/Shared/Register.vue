@@ -65,7 +65,7 @@
                   plain
                   @click="sendEmail('RegisterForm')"
                   :disabled="isOK"
-                  >{{timeCnt}}</el-button
+                  >{{ timeCnt }}</el-button
                 >
               </el-row>
             </el-form-item>
@@ -100,7 +100,12 @@
 </template>
 
 <script>
-import { GETEmail, POSTStudents, POSTOrganizations } from "../../API/http";
+import {
+  GETStuEmail,
+  POSTStudents,
+  POSTOrganizations,
+  GETOrgEmail,
+} from "../../API/http";
 export default {
   props: ["type"],
   data() {
@@ -168,7 +173,7 @@ export default {
         if (this.timeCnt === 0) {
           clearInterval(this.cnthandler);
           this.timeCnt = "验证";
-          this.isOK=false;
+          this.isOK = false;
           return;
         }
         this.timeCnt--;
@@ -181,25 +186,40 @@ export default {
           //验证失败
           this.$message(ErrorMessage);
         } else {
-          this.$message("验证码发送成功");
-          this.timeCnt = 30;
-          this.isOK=true;
-          this.cnt();
-          GETEmail({ email: this.form.email })
-            .then((data) => {
-              data;
-            })
-            .catch((err) => {
-              err;
-              this.$message.error("验证码发送失败");
-            });
+          if (this.type === "1") {
+            this.$message("验证码发送成功");
+            this.timeCnt = 30;
+            this.isOK = true;
+            this.cnt();
+            GETStuEmail({ email: this.form.email })
+              .then((data) => {
+                data;
+              })
+              .catch((err) => {
+                err;
+                this.$message.error("验证码发送失败");
+              });
+          } else if (this.type === "3") {
+            this.$message("验证码发送成功");
+            this.timeCnt = 30;
+            this.isOK = true;
+            this.cnt();
+            GETOrgEmail({ email: this.form.email })
+              .then((data) => {
+                data;
+              })
+              .catch((err) => {
+                err;
+                this.$message.error("验证码发送失败");
+              });
+          }
         }
       });
     },
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (this.type === '1') {
+          if (this.type === "1") {
             //stu
             POSTStudents({
               accountNumber: this.form.accountNo,
@@ -218,7 +238,7 @@ export default {
                 err;
                 this.$message.error("学生用户创建失败");
               });
-          } else if (this.type === '3') {
+          } else if (this.type === "3") {
             //
             POSTOrganizations({
               accountNumber: this.form.accountNo,

@@ -81,9 +81,6 @@
           type="primary"
           >登录</el-button
         >
-        <el-button @click="test1">test1</el-button>
-        <el-button @click="test2">test2</el-button>
-        <el-button @click="test3">test3</el-button>
       </el-row>
 
       <el-row>
@@ -103,7 +100,7 @@
 </template>
 
 <script>
-import { Login, LoginTest, LoginTestOrg, LoginTestStuID } from "../../API/http";
+import { Login} from "../../API/http";
 import store from "../../state/state";
 export default {
   data() {
@@ -156,21 +153,6 @@ export default {
     },
   },
   methods: {
-    test1() {
-      LoginTest()
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    test2() {
-      LoginTestOrg();
-    },
-    test3() {
-      LoginTestStuID(1951459);
-    },
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
