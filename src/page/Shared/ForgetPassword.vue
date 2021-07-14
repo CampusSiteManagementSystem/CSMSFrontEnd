@@ -31,7 +31,6 @@
               ></el-input>
             </el-form-item>
 
-
             <el-form-item label="邮箱" prop="email">
               <el-row type="flex">
                 <el-input
@@ -43,7 +42,8 @@
                   type="primary"
                   plain
                   @click="sendEmail('RegisterForm')"
-                  >验证</el-button
+                  :disabled="isOK"
+                  >{{timeCnt}}</el-button
                 >
               </el-row>
             </el-form-item>
@@ -94,9 +94,15 @@
 </template>
 
 <script>
+import { GETEmail, PUTStuPassword, PUTOrgPassword } from "../../API/http";
 export default {
+  props: ["type"],
   data() {
     return {
+      //发送邮箱避免频繁发送
+      timeCnt: "验证",
+      isOK: false,
+      cnthandler: null,
       form: {
         accountNumber: "",
         password: "",
@@ -104,7 +110,6 @@ export default {
         email: "",
         verifyEmail: "",
       },
-      verifyCode: undefined, //从后端接收的验证码
 
       rules: {
         accountNumber: [
@@ -139,43 +144,80 @@ export default {
         ],
         verifyEmail: [
           { required: true, message: "请输入验证码", trigger: "change" },
-          {
-            validator: (rule, value, callback) => {
-              if (value !== this.verifyCode) {
-                callback(new Error("验证码错误"));
-              } else {
-                callback();
-              }
-            },
-            trigger: "blur"
-          },
         ],
       },
     };
   },
   methods: {
+    cnt: function () {
+      this.cnthandler = setTimeout(() => {
+        if (this.timeCnt === 0) {
+          clearInterval(this.cnthandler);
+          this.timeCnt = "验证";
+          this.isOK = false;
+          return;
+        }
+        this.timeCnt--;
+        this.cnt();
+      }, 1000);
+    },
     sendEmail: function (formName) {
       this.$refs[formName].validateField("email", (ErrorMessage) => {
         if (ErrorMessage) {
-          //验证失败
-          alert(ErrorMessage);
+          this.$message(ErrorMessage);
         } else {
-          //向后端请求发送验证码并接收该验证码
-          //to do
-          alert("验证码发送成功"); //just test
+          this.timeCnt = 30;
+          this.isOK = true;
+          this.cnt();
+          GETEmail({ email: this.form.email })
+            .then((data) => {
+              data;
+              this.$message("验证码发送成功");
+            })
+            .catch((err) => {
+              err;
+              this.$message.error("验证码发送失败");
+            });
         }
       });
     },
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          //校验邮箱验证码，然后发送请求
-          //to do
-          //向后端请求修改密码
-          alert("用户密码修改成功"); //just test
+          if (this.type === "1") {
+            PUTStuPassword({
+              accountNumber: this.form.accountNumber,
+              secretPassword: this.form.password,
+              eMailAddress: this.form.email,
+              verificationCode: this.form.verifyEmail,
+            })
+              .then((data) => {
+                data;
+                this.$message("学生密码修改成功");
+              })
+              .catch((err) => {
+                err;
+                this.$message("学生密码修改失败");
+              });
+          } else if (this.type === "3") {
+            PUTOrgPassword({
+              accountNumber: this.form.accountNumber,
+              secretPassword: this.form.password,
+              eMailAddress: this.form.email,
+              verificationCode: this.form.verifyEmail,
+            })
+              .then((data) => {
+                data;
+                this.$message("组织密码修改成功");
+              })
+              .catch((err) => {
+                err;
+                this.$message("组织密码修改失败");
+              });
+          }
         } else {
           this.$refs[formName].clearValidate();
-          alert("填写数据有误，请重新填写!");
+          this.$message("填写数据有误，请重新填写!");
         }
       });
     },

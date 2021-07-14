@@ -51,7 +51,7 @@
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="feedbackVisible = false">取消</el-button>
+        <el-button @click="$emit('closeDialog')">取消</el-button>
         <el-button type="primary" @click="submit">提交</el-button>
       </span>
     </el-dialog>
@@ -83,17 +83,18 @@ export default {
     };
   },
   props: {
+    feedbackVisible: Boolean,
     feedbackRow: {
-      ID: "",
-      additionalRequest: "",
-      date: "",
-      description: "",
-      groundname: "",
-      groupname: "",
-      name: "",
-      participantNum: 0,
-      tag: "",
-      time: "",
+      ID: String,
+      additionalRequest: String,
+      date: String,
+      description: String,
+      groundname: String,
+      groupname: String,
+      name: String,
+      participantNum: Number,
+      tag: String,
+      time: String,
     },
 
   },
@@ -104,7 +105,6 @@ export default {
             confirmButtonText: "确定",
             callback: (action) => {
               if (action === "confirm") {
-                console.log("ID", this.$route.query.activityID);
                 this.$message({
                   type: "error",
                   message: "反馈失败",
@@ -134,6 +134,7 @@ export default {
               this.$message({ message: "反馈失败", type: "error" });
             });
       }
+      this.$emit('closeDialog');
     }
   }
 }

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import { LoginTest } from '../API/http'
+import { LoginTest } from '../API/http'
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,22 +15,40 @@ const routes = [
             import ('../page/Shared/Login.vue')
     },
     {
-        path: '/Register',
+        path: '/Register/:type',
         name: 'Register',
+        props: true,
         meta: {
             title: "注册",
         },
         component: () =>
-            import ('../page/Shared/Register.vue')
+            import ('../page/Shared/Register.vue'),
+        beforeEnter: (to, from, next) => {
+            from;
+            if (to.params.type === '1' || to.params.type === '3') {
+                next();
+            } else {
+                next(false);
+            }
+        }
     },
     {
-        path: '/ForgetPassword',
+        path: '/ForgetPassword/:type',
         name: 'ForgetPassword',
+        props: true,
         meta: {
             title: "忘记密码",
         },
         component: () =>
-            import ('../page/Shared/ForgetPassword.vue')
+            import ('../page/Shared/ForgetPassword.vue'),
+        beforeEnter: (to, from, next) => {
+            from;
+            if (to.params.type === '1' || to.params.type === '3') {
+                next();
+            } else {
+                next(false);
+            }
+        }
     },
     //学生页面
     {
@@ -680,16 +698,16 @@ const router = new VueRouter({
     routes
 })
 
-// router.beforeEach((to, from, next) => {
-//     if (to.path === '/') {
-//         next();
-//     } else {
-//         LoginTest()
-//             .then(() => {
-//                 next();
-//             })
-//             .catch(() => {})
-//     }
-// })
+router.beforeEach((to, from, next) => {
+    if (to.path === '/') {
+        next();
+    } else {
+        LoginTest()
+            .then(() => {
+                next();
+            })
+            .catch(() => {})
+    }
+})
 
 export default router

@@ -103,7 +103,7 @@
       <el-col :span="12">
         <!-- <el-card> -->
         <div style="padding-left:5%;height:500px">
-         <Mycalendar :groundId="1000003"/>
+         <Mycalendar :groundId="1000003"  @handleSelect="myfun($event)"/>
         </div>
         <!-- </el-card> -->
 
@@ -222,6 +222,14 @@ export default {
     };
   },
   methods: {
+    myfun(a){
+      console.log("aaaaaaaaaaabbbbbb",a);
+//       {start: "2021-07-12T09:00:00+08:00", end: "2021-07-12T12:30:00+08:00"}
+// end: "2021-07-12T12:30:00+08:00"
+// start: "2021-07-12T09:00:00+08:00"
+
+
+    },
     handleChange(value) {
       console.log(value);
     },

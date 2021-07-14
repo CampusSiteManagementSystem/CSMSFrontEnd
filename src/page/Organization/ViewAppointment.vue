@@ -506,10 +506,10 @@
       </el-card>
 
       <!-- 以下是场地反馈的弹出窗口 -->
-      <FeedbackDialog
+      <!-- <FeedbackDialog
         :feedbackVisible="feedbackVisible"
         :message="feedbackRow"
-      />
+      /> -->
       <!-- <el-dialog title="场地反馈" :visible.sync="feedbackVisible">
           <span>这是一段信息</span>
           <el-form ref="form" label-width="100px">
@@ -592,7 +592,7 @@
             <el-checkbox v-model="isShow" style="margin-right: 20px"
               >添加盖章</el-checkbox
             >
-            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button @click="dialogVisible = false">取消</el-button>
             <el-button type="primary" @click="getPdf('#pdfDom')"
               >下载</el-button
             >
@@ -600,7 +600,7 @@
         </el-dialog>
       </div>
     </div>
-    <feedback-dialog :feedbackRow="feedbackRow" v-if="feedbackVisible"></feedback-dialog>
+    <feedback-dialog :feedbackRow="feedbackRow" :feedbackVisible="feedbackVisible" @closeDialog="feedbackVisible=false"></feedback-dialog>
     <!-- <el-dialog title="场地反馈" :visible.sync="feedbackVisible" class="dialog">
       <div class="content">
         <el-form
