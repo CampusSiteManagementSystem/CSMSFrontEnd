@@ -18,10 +18,7 @@
           <el-col :span="12">
             <p class=""><b>活动时长：</b>{{ duration }}分钟</p>
             <p class=""><b>参与人数：</b>{{ participantNum }}</p>
-            <p class="">
-              <b>场地名称：</b
-              >{{ indoorOrOutdoor ? building + roomNo : groundName }}
-            </p>
+            <p class=""><b>场地名称：</b>{{ groundName }}</p>
             <p class=""><b>活动描述：</b>{{ description }}</p>
           </el-col>
         </div>
@@ -35,7 +32,7 @@
         <div slot="header" class="clearfix">
           <span class="maintitle">信用评分 </span>
         </div>
-        <div class="scoringForm" v-if="!isReviewed">
+        <div class="scoringForm" v-if="!hasCredit">
           <!-- <div class="detailinfo">
             评分：
             <el-input-number
@@ -67,7 +64,7 @@
               <el-input
                 type="textarea"
                 :autosize="{ minRows: 5, maxRows: 10 }"
-                v-model="reason"
+                v-model="ruleForm.reason"
                 placeholder="请输入评分理由"
                 maxlength="50"
                 show-word-limit
@@ -82,10 +79,10 @@
           </el-form>
         </div>
         <div class="detailinfo" v-else>
-          <p class="">信用评分：{{ score }}</p>
-          <p class="">评分日期：{{ creditDate }}</p>
-          <p class="">评分时间：{{ creditTime }}</p>
-          <p class="">评分理由：{{ reason }}</p>
+          <p class=""><b>信用评分：</b>{{ score }}</p>
+          <p class=""><b>评分日期：</b>{{ creditDate }}</p>
+          <p class=""><b>评分时间：</b>{{ creditTime }}</p>
+          <p class=""><b>评分理由：</b>{{ ruleForm.reason }}</p>
           <div style="float: right">
             <!-- <router-link to="/ScoringActivityList"> -->
             <el-button type="primary" @click="cancle">返回</el-button>
@@ -141,6 +138,8 @@ body,
 <script>
 import { GETActivitiesID } from "../../API/http";
 // import { GETOrganizationsID } from "../../API/http";
+import { GETCreditRecordsID } from "../../API/http";
+import { POSTCreditRecords } from "../../API/http";
 
 // import store from "../../state/state.js"
 export default {
@@ -155,43 +154,53 @@ export default {
           { required: true, message: "请输入评分理由", trigger: "blur" },
         ],
       },
-      activityName: "数据库会议",
-      date: "2021-6-1",
-      startTime: 13154112315,
-      description: "数据库要建表了",
-      additionalRequest: "需要两台电脑",
-      participantNum: 20,
-      duration: 60,
-      groundID: 666,
-      groupID: 777,
-      isReviewed: 0,
-      creditDate: "2021-6-1",
-      creditTime: 15645321,
-      reason: "乱扔垃圾",
-      score: -2,
-      groupName: "数据库小组",
-      groundName: "操场",
+      activityName: null,
+      date: null,
+      startTime: null,
+      description: null,
+      additionalRequest: null,
+      participantNum: null,
+      duration: null,
+      groundID: null,
+      groupID: null,
+      isReviewed: null,
+      creditDate: null,
+      creditTime: null,
+      score: null,
+      groupName: null,
+      groundName: null,
+      hasCredit: null,
     };
   },
   mounted() {
     const that = this;
     GETActivitiesID(that.$route.params.ID)
       .then((data) => {
-        // return new Promise(function (resolve) {
-          // console.log("run GETActivities");
-          // console.log(data);
-          that.axiosdata = data;
-          that.dealWithActivitiy(that.axiosdata);
-          console.log(that.axiosdata);
-          // resolve(data.accountNumber);
-        // });
+        that.axiosdata = data;
+        that.dealWithActivitiy(that.axiosdata);
+        console.log(that.axiosdata);
       })
-      // .then((accountNumber) => {
-      //   GETOrganizationsID(accountNumber).then((data) => {
-      //     that.credit = data.credit;
-      //     that.email = data.emailAddress;
-      //   });
-      // })
+      .then(function () {
+        if (that.hasCredit) {
+          GETCreditRecordsID(that.$route.params.ID).then((data) => {
+            that.score = data.relativeScore;
+            that.creditDate = data.creditDate.substr(
+              0,
+              data.creditDate.search("T")
+            );
+            that.creditTime = data.creditDate.slice(
+              data.creditDate.search("T") + 1
+            );
+            that.ruleForm.reason = data.reason;
+          }).catch((err) => {
+        console.log(err);
+        this.$message("评分数据请求错误");
+      });
+        } else {
+          that.score = 0;
+          that.ruleForm.reason = "";
+        }
+      })
       .catch((err) => {
         console.log(err);
         this.$message("场地数据请求错误");
@@ -199,10 +208,11 @@ export default {
   },
   methods: {
     dealWithActivitiy(data) {
+      this.groundName = data.groundName;
       this.activityName = data.name;
       this.accountNumber = data.accountNumber;
       this.groupName = data.organizationName;
-      this.data = data.activityDate.substr(0, data.activityDate.search("T"));
+      this.date = data.activityDate.substr(0, data.activityDate.search("T"));
       this.startTime = data.activityDate.slice(
         data.activityDate.search("T") + 1
       );
@@ -210,6 +220,7 @@ export default {
       this.description = data.description;
       this.additionalRequest = data.additionalRequest;
       this.duration = data.duration;
+      this.hasCredit = data.hasCredit;
       // this.state = data.activityState; 是否评分还没有
     },
     cancle() {
@@ -218,28 +229,46 @@ export default {
       });
     },
     publish() {
-      this.isReviewed = 1;
-      this.$message({
-        message: "评分成功",
-        type: "success",
+      this.$refs["ruleForm"].validate((valid) => {
+        if (valid) {
+          POSTCreditRecords({
+            reason: this.ruleForm.reason,
+            score: this.score,
+            id: this.$route.params.ID,
+          })
+            .then((data) => {
+              GETCreditRecordsID(this.$route.params.ID).then((data) => {
+                this.score = data.relativeScore;
+                this.creditDate = data.creditDate.substr(
+                  0,
+                  data.creditDate.search("T")
+                );
+                this.creditTime = data.creditDate.slice(
+                  data.creditDate.search("T") + 1
+                );
+                this.ruleForm.reason = data.reason;
+              }).catch((err) => {
+        console.log(err);
+        this.$message("评分时间请求错误");
+      });
+              this.hasCredit = 1;
+              console.log(data);
+              this.$message({ message: "评分成功", type: "success" });
+              //this.$router.push({ path: "/GroundsAdmin/Main" });
+            })
+            .catch((err) => {
+              err;
+              this.$message({ message: "评分失败", type: "error" });
+            });
+        } else {
+          this.$message({ message: "请输入符合规范的数据", type: "warning" });
+        }
       });
     },
     form() {},
     created() {
-      // 路由器，包含所有的路由 整个项目中VueRouter
-      // console.log(this.$router); //输出所有东西
-      // // 当前页面 这条路由
-      // console.log(this.$route); //这里接收到home页面传过来商品的id 及其页面信息 可去输出查看
       console.log(String(this.activityID));
       this.activityID = Number(this.$route.params.activityID); //具体信息
-      // if(itemId){ //先判断值有没有
-      //     this.axios({//${itemId} axios传递参数获取数据通过参数获取相对应的数据
-      //         url:`/api/item/${itemId}`
-      //     }).then(res=>{
-      //         this.item = res.data;
-      //         console.log(this.item)//输出的放请求里面，写外面还没请求到数据呢，肯定输出报错
-      //     }).catch(err=>{});
-      //}
     },
   },
 };
