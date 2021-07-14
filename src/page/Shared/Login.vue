@@ -181,7 +181,7 @@ export default {
             role: this.role,
           })
             .then((data) => {
-              localStorage.setItem("uutype", this.identity);
+              localStorage.setItem("uutype", this.role);
               localStorage.setItem("uuid", this.form.accountNumber);
               localStorage.setItem("uutoken", data.accessToken);
               store.state.ID = this.form.accountNumber;

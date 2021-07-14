@@ -118,6 +118,7 @@ export const GETPositions = param => Get('/api/Positions', param); //wy测试ok
 
 //login
 export const Login = param => Get('/api/Login', param);
+export const GETIdentity = param => Get('/api/Login/identity', param);
 export const LoginTest = param => Get('/api/Login/test/student', param);
 export const LoginTestOrg = param => Get('/api/Login/test/organization', param);
 export const LoginTestStuID = ID => GetID('/api/Login/test/student/', ID);
