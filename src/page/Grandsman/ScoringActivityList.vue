@@ -154,6 +154,7 @@ export default {
             groupname: "上海市普陀区金沙江路 1516 弄",
             ground: "同心楼666",
             activityState: "审核中",
+            scoreingtag:true,
           };
           temp.activityID = data[key][i].id;
           temp.time = data[key][i].activityDate.replace("T", " ");
@@ -161,6 +162,7 @@ export default {
           temp.groupname = data[key][i].organizationName;
           temp.ground = data[key][i].groundName;
           temp.activityState = data[key][i].activityState;
+          temp.scoreingtag = data[key][i].hasCredit;
           this.tableData.push(temp);
         }
       }

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { DELETESystemAnnouncements  } from "./API/http";
+import { PUTIndoorGroundsID } from "./API/http";
 export default {
   data() {
     return {
@@ -15,10 +15,12 @@ export default {
   },
   methods: {
     test() {
-      DELETESystemAnnouncements ({
-        accountNumber: "1000001",
-        systemAnnouncementDate: "2020-05-17T00:00:00",
-        systemAnnouncementTime: "2020-05-17T08:00:00",
+      PUTIndoorGroundsID("1000003", {
+        groundId: "1000003",
+        seatNum: 100,
+        computerNum: 5,
+        floor: 2,
+        roomNo: 10,
       })
         .then((data) => {
           this.res = data;

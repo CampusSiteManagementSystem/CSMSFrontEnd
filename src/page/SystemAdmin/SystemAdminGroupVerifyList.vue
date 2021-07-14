@@ -3,7 +3,7 @@
     <el-card style="border-radius: 12px">
       <div class="maintitle">审核组织注册</div>
       <div>
-        <el-table
+        <el-table 
           :data="matchList"
           max-height="480"
           stripe
@@ -53,13 +53,7 @@
                 "
                 >审核</router-link
               >
-
-              <!-- <router-link
-                to="/SysAdminFrame/GroupVerify"
-                tag="el-button"
-                type="primary"
-                >审核</router-link
-              > -->
+              
             </template>
           </el-table-column>
         </el-table>
@@ -84,6 +78,7 @@ import { GETOrganizations } from "../../API/http";
 
 export default {
   created() {
+
     GETOrganizations()
       .then((data) => {
         this.axiosdata = data;

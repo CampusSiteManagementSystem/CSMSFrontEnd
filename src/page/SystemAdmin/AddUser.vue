@@ -66,10 +66,10 @@ p {
 }
 </style>
 
-
-
-
 <script>
+
+//import { POSTOrganizations } from "../../API/http";
+
 export default {
   data() {
     return {

@@ -214,6 +214,7 @@ export default {
       });
   },
   methods: {
+    
     publish() {
       this.$refs["ruleForm"].validate((valid) => {
         if (valid) {

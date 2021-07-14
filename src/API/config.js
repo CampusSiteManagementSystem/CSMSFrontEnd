@@ -1,6 +1,6 @@
 import axios from "axios";
 //import store from "../state/state"
-//import router from "../router/index"
+import router from "../router/index"
 import { Message } from 'element-ui';
 //import QS from 'qs'
 
@@ -25,16 +25,20 @@ axios.interceptors.request.use(
         // 每次发送请求之前判断vuex中是否存在token        
         // 如果存在，则统一在http请求的header都加上token，这样后台根据token判断你的登录情况
         // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断 
-        //const token = store.state.token;
-        //token && (config.headers.Authorization = token);
+        const token = localStorage.getItem("accessToken")
+        if (token) {
+            config.headers.Authorization = 'Bearer ' + token
+        }
         // if(cookie.get('user_token')){
         // 	config.headers['token'] = cookie.get('user_token');
         // }
         return config;
     },
     error => {
+        Message.error("请求发送失败");
         return Promise.reject(error);
-    })
+    }
+);
 
 // 响应拦截器
 axios.interceptors.response.use(
@@ -42,6 +46,7 @@ axios.interceptors.response.use(
         // 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据     
         // 否则的话抛出错误
         if (response.status === 200) { //get success
+            //console.log(response)
             return Promise.resolve(response);
         } else if (response.status === 201) { //post success
             return Promise.resolve(response);
@@ -53,20 +58,27 @@ axios.interceptors.response.use(
     },
     /*200 获取成功 201 创建成功 204 更新/删除成功 403 输入不合法 404 NotFound 409 冲突*/
     error => {
-        console.log(error,123)
+        console.log(error, 123)
         if (error.response.status) {
             switch (error.response.status) {
-                // 401: 未登录
-                // 未登录则跳转登录页面，并携带当前页面的路径
-                // 在登录成功后返回当前页面，这一步需要在登录页操作。
+                case 401:
+                    Message.error("身份有误，请重新登录")
+                    localStorage.removeItem("uutype");
+                    localStorage.removeItem("uuid");
+                    localStorage.removeItem("uutoken");
+                    router.replace('/')
+                    break;
                 case 404:
-                    Message.error("网络请求不存在")
-                        //router.replace('/error')
+                    Message.error("404NotFound")
+                    break;
+                case 403:
+                    Message.error("403输入不合法");
+                    break;
+                case 409:
+                    Message.error("409冲突");
                     break;
                 default:
-                    Message({
-                        message: "错误代码to do",
-                    })
+                    Message.error("未捕获错误");
             }
             return Promise.reject(error);
         }
