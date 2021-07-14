@@ -35,8 +35,10 @@ axios.interceptors.request.use(
         return config;
     },
     error => {
+        Message.error("请求发送失败");
         return Promise.reject(error);
-    })
+    }
+);
 
 // 响应拦截器
 axios.interceptors.response.use(
