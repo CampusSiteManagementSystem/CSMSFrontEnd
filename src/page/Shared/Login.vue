@@ -102,7 +102,7 @@
 
 <script>
 import { Login, LoginTest } from "../../API/http";
-//import store from "../../state/state";
+import store from "../../state/state";
 export default {
   data() {
     return {
@@ -141,6 +141,19 @@ export default {
       identity: 1,
     };
   },
+  computed: {
+    role() {
+      if (this.identity === 1) {
+        return "student";
+      } else if (this.identity === 2) {
+        return "organization";
+      } else if (this.identity === 3) {
+        return "groundsMan";
+      } else {
+        return "systemAdministrator";
+      }
+    },
+  },
   methods: {
     test() {
       LoginTest()
@@ -158,16 +171,18 @@ export default {
           Login({
             accountNumber: this.form.accountNumber,
             secretPassword: this.form.password,
+            role: this.role,
           })
             .then((data) => {
               localStorage.setItem("uutype", this.identity);
               localStorage.setItem("uuid", this.form.accountNumber);
               localStorage.setItem("uutoken", data.accessToken);
+              store.state.ID = this.form.accountNumber;
               if (this.identity === 1) {
                 this.$router.push("/StuFrame/Main");
-              } else if (this.identity === 2) {
-                this.$router.push("/GroundsAdmin/Main");
               } else if (this.identity === 3) {
+                this.$router.push("/GroundsAdmin/Main");
+              } else if (this.identity === 2) {
                 this.$router.push("/OrgFrame/Main");
               } else if (this.identity === 4) {
                 this.$router.push("/SysAdminFrame");
