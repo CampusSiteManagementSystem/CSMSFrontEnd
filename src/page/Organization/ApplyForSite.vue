@@ -53,7 +53,7 @@
             start-placeholder="开始时间"
             end-placeholder="结束时间"
             placeholder="选择时间范围"
-            @change="getTime"
+            @change="getDurTime"
             value-format="HH:mm"
           ></el-time-picker>
         </el-form-item>
@@ -106,9 +106,11 @@
 </template>
 
 <script scoped>
+import store from "../../state/state";
+import { POSTActivities } from "../../API/http";
 export default {
-  mounted() {
-    this.searchSite();
+  created() {
+    this.getAllSite();
   },
   data() {
     return {
@@ -124,6 +126,7 @@ export default {
         ],
         date: [{ required: true, message: "请选择活动日期", trigger: "blur" }],
         time: [
+          { required: true, message: "请选择活动时间", trigger: "blur" },
           {
             required: true,
             trigger: "blur",
@@ -138,7 +141,7 @@ export default {
                 callback(new Error("时长不超过30分钟"));
               } else if(this.ruleform.time[1][0]=='2'&&this.ruleform.time[1][1]>='2'){
                 callback(new Error("场地晚间22点之后关闭申请"));
-              }else if(this.ruleform.time[0][0]<'8'){
+              }else if(this.ruleform.time[0][0]=='0'&&this.ruleform.time[0][1]<'8'){
                 callback(new Error("场地8点之前关闭申请"));
               }else {
                 callback();
@@ -186,287 +189,23 @@ export default {
         ],
       },
       options: [
-        {
-          value: "zhinan",
-          label: "指南",
-          children: [
-            {
-              value: "shejiyuanze",
-              label: "设计原则",
-              children: [
-                {
-                  value: "yizhi",
-                  label: "一致",
-                },
-                {
-                  value: "fankui",
-                  label: "反馈",
-                },
-                {
-                  value: "xiaolv",
-                  label: "效率",
-                },
-                {
-                  value: "kekong",
-                  label: "可控",
-                },
-              ],
-            },
-            {
-              value: "daohang",
-              label: "导航",
-              children: [
-                {
-                  value: "cexiangdaohang",
-                  label: "侧向导航",
-                },
-                {
-                  value: "dingbudaohang",
-                  label: "顶部导航",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          value: "zujian",
-          label: "组件",
-          children: [
-            {
-              value: "basic",
-              label: "Basic",
-              children: [
-                {
-                  value: "layout",
-                  label: "Layout 布局",
-                },
-                {
-                  value: "123123",
-                  label: "Color 色彩",
-                },
-                {
-                  value: "typography",
-                  label: "Typography 字体",
-                },
-                {
-                  value: "icon",
-                  label: "Icon 图标",
-                },
-                {
-                  value: "button",
-                  label: "Button 按钮",
-                },
-              ],
-            },
-            {
-              value: "form",
-              label: "Form",
-              children: [
-                {
-                  value: "radio",
-                  label: "Radio 单选框",
-                },
-                {
-                  value: "1000003",
-                  label: "Checkbox 多选框",
-                },
-                {
-                  value: "input",
-                  label: "Input 输入框",
-                },
-                {
-                  value: "input-number",
-                  label: "InputNumber 计数器",
-                },
-                {
-                  value: "select",
-                  label: "Select 选择器",
-                },
-                {
-                  value: "cascader",
-                  label: "Cascader 级联选择器",
-                },
-                {
-                  value: "1000005",
-                  label: "Switch 开关",
-                },
-                {
-                  value: "slider",
-                  label: "Slider 滑块",
-                },
-                {
-                  value: "time-picker",
-                  label: "TimePicker 时间选择器",
-                },
-                {
-                  value: "date-picker",
-                  label: "DatePicker 日期选择器",
-                },
-                {
-                  value: "datetime-picker",
-                  label: "DateTimePicker 日期时间选择器",
-                },
-                {
-                  value: "upload",
-                  label: "Upload 上传",
-                },
-                {
-                  value: "rate",
-                  label: "Rate 评分",
-                },
-                {
-                  value: "form",
-                  label: "Form 表单",
-                },
-              ],
-            },
-            {
-              value: "data",
-              label: "Data",
-              children: [
-                {
-                  value: "table",
-                  label: "Table 表格",
-                },
-                {
-                  value: "tag",
-                  label: "Tag 标签",
-                },
-                {
-                  value: "progress",
-                  label: "Progress 进度条",
-                },
-                {
-                  value: "tree",
-                  label: "Tree 树形控件",
-                },
-                {
-                  value: "pagination",
-                  label: "Pagination 分页",
-                },
-                {
-                  value: "1000007",
-                  label: "Badge 标记",
-                },
-              ],
-            },
-            {
-              value: "notice",
-              label: "Notice",
-              children: [
-                {
-                  value: "alert",
-                  label: "Alert 警告",
-                },
-                {
-                  value: "loading",
-                  label: "Loading 加载",
-                },
-                {
-                  value: "message",
-                  label: "Message 消息提示",
-                },
-                {
-                  value: "message-box",
-                  label: "MessageBox 弹框",
-                },
-                {
-                  value: "notification",
-                  label: "Notification 通知",
-                },
-              ],
-            },
-            {
-              value: "navigation",
-              label: "Navigation",
-              children: [
-                {
-                  value: "menu",
-                  label: "NavMenu 导航菜单",
-                },
-                {
-                  value: "tabs",
-                  label: "Tabs 标签页",
-                },
-                {
-                  value: "breadcrumb",
-                  label: "Breadcrumb 面包屑",
-                },
-                {
-                  value: "dropdown",
-                  label: "Dropdown 下拉菜单",
-                },
-                {
-                  value: "steps",
-                  label: "Steps 步骤条",
-                },
-              ],
-            },
-            {
-              value: "others",
-              label: "Others",
-              children: [
-                {
-                  value: "dialog",
-                  label: "Dialog 对话框",
-                },
-                {
-                  value: "tooltip",
-                  label: "Tooltip 文字提示",
-                },
-                {
-                  value: "popover",
-                  label: "Popover 弹出框",
-                },
-                {
-                  value: "card",
-                  label: "Card 卡片",
-                },
-                {
-                  value: "carousel",
-                  label: "Carousel 走马灯",
-                },
-                {
-                  value: "collapse",
-                  label: "Collapse 折叠面板",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          value: "ziyuan",
-          label: "资源",
-          children: [
-            {
-              value: "axure",
-              label: "Axure Components",
-            },
-            {
-              value: "sketch",
-              label: "Sketch Templates",
-            },
-            {
-              value: "jiaohu",
-              label: "组件交互文档",
-            },
-          ],
-        },
       ],
       ruleform: {
-        id: "222222",
+        id: store.state.ID,
         site: [],
         date: "",
-        time: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
+        time: [],
         name:
           typeof this.$route.query.activityName == undefined
             ? ""
             : this.$route.query.activityName,
         description: "",
         special: "",
-        doration: 0,
+        duration: 0,
         people: 1,
+        startTime:"",
       },
+      OrgID:store.state.ID,
     };
   },
   methods: {
@@ -479,20 +218,131 @@ export default {
       console.log(this.options);
       //console.log("name",this.$route.params.ID);
     },
-    getTime(value) {
+    getDurTime(value) {
       JSON.parse(JSON.stringify(value));
-      this.ruleform.doration =
+      this.ruleform.duration =
         (this.ruleform.time[1][0] - this.ruleform.time[0][0]) * 600 +
         (this.ruleform.time[1][1] - this.ruleform.time[0][1]) * 60 +
         (this.ruleform.time[1][3] - this.ruleform.time[0][3]) * 10 +
         (this.ruleform.time[1][4] - this.ruleform.time[0][4]) * 1;
+      this.ruleform.startTime="T"+this.ruleform.time[0]+":00.000";
       console.log(this.ruleform.time);
-      console.log(this.ruleform.doration);
+      console.log(this.ruleform.duration);
     },
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$alert("您的活动ID为" + this.ruleform.id, "活动ID分配", {
+    getAllSite:async function(){
+    var axios = require("axios");
+    var config1 = {
+      method: "get",
+      url: "http://139.196.114.7/api/IndoorGrounds", //改
+      headers: {},
+    };
+
+    var config2 = {
+      method: "get",
+      url: "http://139.196.114.7/api/OutdoorGrounds", //改
+      headers: {},
+    };
+//室外级联选择
+    await axios(config1)
+      .then((response) => {
+        this.iGroundTable = [];
+        console.log(response.data);
+        for (let gnd of response.data) {
+          this.iGroundTable.push(gnd);
+        }
+        console.log("ig");
+        console.log(this.iGroundTable);
+        this.options = [];
+        if (this.iGroundTable.length != 0) {
+          this.options.push({
+            value: this.iGroundTable[0].positionName,
+            label: this.iGroundTable[0].positionName,
+            children: [{
+              value: this.iGroundTable[0].floor,
+              label: String(this.iGroundTable[0].floor) + "楼",
+              children: [{
+                value: this.iGroundTable[0].groundId,
+                label: this.iGroundTable[0].roomNo,
+              }, ],
+            }, ],
+          });
+
+          for (var k = 1; k < this.iGroundTable.length; ++k) {
+            if (
+              this.iGroundTable[k].positionName !=
+              this.iGroundTable[k - 1].positionName
+            ) {
+              this.options.push({
+                value: this.iGroundTable[k].positionName,
+                label: this.iGroundTable[k].positionName,
+                children: [{
+                  value: this.iGroundTable[k].floor,
+                  label: String(this.iGroundTable[k].floor) + "楼",
+                  children: [{
+                    value: this.iGroundTable[k].groundId,
+                    label: this.iGroundTable[k].roomNo,
+                  }, ],
+                }, ],
+              });
+            } else if (
+              this.iGroundTable[k].floor != this.iGroundTable[k - 1].floor
+            ) {
+              this.options[this.options.length - 1].children.push({
+                value: this.iGroundTable[k].floor,
+                label: String(this.iGroundTable[k].floor) + "楼",
+                children: [{
+                  value: this.iGroundTable[k].groundId,
+                  label: this.iGroundTable[k].roomNo,
+                }, ],
+              });
+            } else {
+              var cPos = this.options.length - 1,
+                cFloor = this.options[cPos].children.length - 1;
+              this.options[cPos].children[cFloor].push({
+                value: this.iGroundTable[k].groundId,
+                label: this.iGroundTable[k].roomNo,
+              });
+            }
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    await axios(config2)
+      .then((response) => {
+        this.oGroundTable = [];
+        for (let gnd of response.data) {
+          this.oGroundTable.push(gnd);
+        }
+        for (var k = 0; k < this.oGroundTable.length; ++k) {
+          this.options.push({
+            value: this.oGroundTable[k].groundId,
+            label: this.oGroundTable[k].positionName,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    this.searchSite();
+    },
+    setToDB(){
+      POSTActivities({
+        name:this.ruleform.name,
+        accountNumber:this.OrgID,
+        activityDate:this.ruleform.date+this.ruleform.startTime,
+        startTime:this.ruleform.date+this.ruleform.startTime,
+        participantNum:this.ruleform.people,
+        description:this.ruleform.description,
+        additionalRequest:this.ruleform.special,
+        duration:this.ruleform.duration,
+        groundId:this.ruleform.site[this.ruleform.site.length-1],
+      })
+      .then((data)=>{
+          this.$alert("您的活动ID为" + data.id, "活动ID分配", {
             confirmButtonText: "确定",
             callback: (action) => {
               if (action === "confirm") {
@@ -503,6 +353,17 @@ export default {
               }
             },
           });
+        this.ruleform.id=data.id;
+      })
+      .catch((err) => {
+          console.log(err);
+          this.$message("活动申请信息传输错误");
+        })
+    },
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.setToDB();
         } else {
           console.log("ID", this.$route.query.activityID);
           console.log("name", this.$route.query.activityName);

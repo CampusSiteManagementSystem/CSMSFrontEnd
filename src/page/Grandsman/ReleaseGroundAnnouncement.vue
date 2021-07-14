@@ -218,9 +218,9 @@ export default {
     publish() {
       this.$refs["ruleForm"].validate((valid) => {
         if (valid) {
-          console.log("公告数据");
-          console.log(this.ruleForm.site[this.ruleForm.site.length - 1]);
-          console.log(this.ruleForm.title + "##" + this.ruleForm.content);
+          // console.log("公告数据");
+          // console.log(this.ruleForm.site[this.ruleForm.site.length - 1]);
+          // console.log(this.ruleForm.title + "##" + this.ruleForm.content);
 
           POSTMaintenanceAnnouncements({
             groundId: this.ruleForm.site[this.ruleForm.site.length - 1],
