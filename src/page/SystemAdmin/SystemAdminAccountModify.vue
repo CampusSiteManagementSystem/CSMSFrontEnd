@@ -28,32 +28,32 @@
               <div v-if="isForm == true">
                 <el-form
                   ref="ruleForm"
-                  :rules="rules"
                   :model="ruleForm"
                   label-width="100px"
+                  width="auto"
                   :hide-required-asterisk="true"
                 >
-                  <el-form-item label="账号：" prop="account">
+                  <el-form-item label="账号：" prop="accountNumber">
                     <el-input
-                      v-model="ruleForm.account"
+                      v-model="ruleForm.accountNumber"
                       :readonly="true"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="密码：" prop="password">
+                  <el-form-item label="密码：" prop="secretPassword">
                     <el-input
-                      v-model="ruleForm.password"
+                      v-model="ruleForm.secretPassword"
                       :readonly="true"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="邮箱：" prop="email">
+                  <el-form-item label="邮箱：" prop="eMailAddress">
                     <div v-if="isForm == false">
                       <el-input
-                        v-model="ruleForm.email"
+                        v-model="ruleForm.eMailAddress"
                         :readonly="true"
                       ></el-input>
                     </div>
                     <div v-else>
-                      <el-input v-model="ruleForm.email"></el-input>
+                      <el-input v-model="ruleForm.eMailAddress"></el-input>
                     </div>
                   </el-form-item>
                 </el-form>
@@ -113,7 +113,7 @@ p {
 
 .modify {
   margin-top: 1cm;
-  margin-left: 5cm;
+  margin-left: 3cm;
 }
 
 .pic {
@@ -127,15 +127,15 @@ p {
 
 <script>
 
-import {GETSystemAdministrators} from "../../API/http"
+import {GETSystemAdministratorsID} from "../../API/http"
 
 export default {
   created() {
-    GETSystemAdministrators()
+    GETSystemAdministratorsID("1000001")
       .then((data) => {
-        this.ruleForm.account = data.accountNumber;
-        this.ruleForm.password = data.secretPassword;
-        this.ruleForm.email = data.eMailAddress;
+        this.ruleForm.accountNumber = data.accountNumber;
+        this.ruleForm.secretPassword = data.secretPassword;
+        this.ruleForm.eMailAddress = data.eMailAddress;
         this.updateData();
       })
       .catch((err) => {
@@ -147,46 +147,30 @@ export default {
   data() {
     return {
       ruleForm: {
-        account: "",
-        password: "",
-        email: "",
+        accountNumber: "",
+        secretPassword: "",
+        eMailAddress: "",
       },
 
-      rules: {
-        email: [
-          {
-            required: true,
-            message: "请输入邮箱",
-            trigger: "blur",
-          },
-          {
-            type: "email",
-            massage: "请正确输入邮箱",
-            trigger: "blur",
-          },
-        ],
-      },
       tableData: [
         {
           title: "账号",
-          content: "122234",
+          content: "",
         },
         {
           title: "密码",
-          content: "7788Acb",
+          content: "",
         },
         {
           title: "邮箱",
-          content: "www.ljj@sjk.com",
+          content: "",
         },
       ],
       isForm: false,
       isTable: true,
     };
   },
-  mounted() {
-    this.updateData();
-  },
+
   methods: {
     columnStyle({ row, column, rowIndex, columnIndex }) {
       row;
@@ -199,14 +183,14 @@ export default {
       }
     },
     returnData() {
-      this.ruleForm.account = this.tableData[0].content;
-      this.ruleForm.password = this.tableData[1].content;
-      this.ruleForm.email = this.tableData[2].content;
+      this.ruleForm.accountNumber = this.tableData[0].content;
+      this.ruleForm.secretPassword = this.tableData[1].content;
+      this.ruleForm.eMailAddress = this.tableData[2].content;
     },
     updateData() {
-      this.tableData[0].content = this.ruleForm.account;
-      this.tableData[1].content = this.ruleForm.password;
-      this.tableData[2].content = this.ruleForm.email;
+      this.tableData[0].content = this.ruleForm.accountNumber;
+      this.tableData[1].content = this.ruleForm.secretPassword;
+      this.tableData[2].content = this.ruleForm.eMailAddress;
     },
     edit() {
       this.isTable = false;

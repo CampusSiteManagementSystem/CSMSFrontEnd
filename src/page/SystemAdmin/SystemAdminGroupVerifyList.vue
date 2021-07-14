@@ -3,7 +3,7 @@
     <el-card style="border-radius: 12px">
       <div class="maintitle">审核组织注册</div>
       <div>
-        <el-table
+        <el-table 
           :data="matchList"
           max-height="480"
           stripe
@@ -17,8 +17,8 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="accountNumber" label="ID">
-            <template slot-scope="scope">
+          <el-table-column prop="accountNumber" label="ID"> 
+             <template slot-scope="scope">
               <span>{{ scope.row.accountNumber }}</span>
             </template>
           </el-table-column>
@@ -37,27 +37,23 @@
           <el-table-column label="操作" width="200">
             <template slot-scope="scope">
               <router-link
-                
                 :to="{
-                  //path: 'GroupVerify',
-                  name:'SystemAdminGroupVerify',
-                  params: {
+                  ////////////name不可以 path可以？
+                  path: 'GroupVerify',
+                  //name:'SystemAdminGroupVerify',
+                  query: {
                     accountNumber: scope.row.accountNumber,
                   },
                 }"
                 size="medium"
                 type="primary"
                 tag="el-button"
-                @click.native="shandleEdit"
+                @click.native="
+                  shandleEdit(scope.row.accountNumber, scope.$index)
+                "
                 >审核</router-link
               >
-
-              <!-- <router-link
-                to="/SysAdminFrame/GroupVerify"
-                tag="el-button"
-                type="primary"
-                >审核</router-link
-              > -->
+              
             </template>
           </el-table-column>
         </el-table>
@@ -82,6 +78,7 @@ import { GETOrganizations } from "../../API/http";
 
 export default {
   created() {
+
     GETOrganizations()
       .then((data) => {
         this.axiosdata = data;
@@ -129,8 +126,7 @@ export default {
     shandleEdit() {
       console.log("handleedit");
       console.log(this.$route);
-      this.childPage =
-        this.$route.name == "SystemAdminGroupVerify";
+      this.childPage = this.$route.name == "SystemAdminGroupVerify";
     },
   },
 

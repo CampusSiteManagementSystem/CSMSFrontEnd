@@ -5,9 +5,6 @@
       <el-row>
         <el-col :span="23" :offset="1"
           ><div class="info">
-            <!-- <p>组织信息:</p>
-            <p>组织名称:</p>
-            <p>详细信息:</p> -->
             <el-form
               ref="ruleForm"
               :model="ruleForm"
@@ -15,10 +12,7 @@
               :hide-required-asterisk="true"
             >
               <el-form-item label="组织名称：" prop="name">
-                <el-input
-                  v-model="ruleForm.name"
-                  :readonly="true"
-                ></el-input>
+                <el-input v-model="ruleForm.name" :readonly="true"></el-input>
               </el-form-item>
               <el-form-item label="详细信息：" prop="content">
                 <el-input
@@ -34,10 +28,10 @@
           ><div class="status">
             <h3>审核意见</h3>
             <el-col :span="2" :offset="1">
-              <el-radio v-model="radio" label="1">通过</el-radio>
+              <el-radio v-model="radio" label="通过">通过</el-radio>
             </el-col>
             <el-col :span="2">
-              <el-radio v-model="radio" label="2">不通过</el-radio>
+              <el-radio v-model="radio" label="不通过">不通过</el-radio>
             </el-col>
           </div></el-col
         >
@@ -51,7 +45,7 @@
             type="primary"
             >返回</router-link
           >
-          <el-button type="primary" @click="success">提交</el-button>
+          <el-button type="primary" @click="submit">提交</el-button>
         </div>
       </el-row>
     </el-card>
@@ -68,7 +62,7 @@ body,
 .info {
   text-align: left;
 }
-
+ 
 .submit {
   /* margin: 1cm 1cm 1cm 17cm; */
   float: right;
@@ -81,43 +75,62 @@ p {
 </style>
 
 <script>
-
-import {GETOrganizationsID} from "../../API/http"
-import store from "../../state/state";
-
+import { GETOrganizationsID } from "../../API/http";
+//import store from "../../state/state";
+ 
 export default {
-
-  created() {
-    GETOrganizationsID(this.OrgID)
-    .then(data =>{
-      this.ruleForm.name=data.name;
-      this.ruleForm.content=data.detailInfo;
-    })
-    .catch((err) => {
-      console.log(err);
-      this.$message("组织信息获取错误");
-    })
+  mounted() {
+    console.log("aaa",this.$route.query.accountNumber)
+    GETOrganizationsID(this.$route.query.accountNumber)
+      .then((data) => {
+        this.ruleForm.name = data.name;
+        this.ruleForm.content = data.detailInfo;
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("组织信息获取错误");
+      });    
   },
 
   data() {
     return {
-      radio: "1",
+      radio: "",
       textarea: "",
-      OrgID: store.state.ID,
+      //OrgID:"this.$route.params.accountNumber",
+      ruleForm: {
+        name: "",
+        content: "",
+      },
     };
   },
 
   methods: {
-    success() {
-      this.$alert("审核成功！", {
-        confirmButtonText: "确定",
-        callback: (action) => {
-          this.$message({
-            type: "info",
-            message: `action: ${action}`,
-          });
+    submit() {
+      var axios = require("axios");
+      var data = JSON.stringify({
+          accountNumber: this.$route.query.accountNumber,
+          state: this.radio,
+        });
+
+      var config = {
+        method: "put",
+        url: "http://139.196.114.7/api/Organizations",
+        headers: {
+          "Content-Type": "application/json",
         },
-      });
+        data: data,
+      }
+      axios(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+            this.$message({ message: "修改成功", type: "success" });
+            this.$router.push("/SysAdminFrame/GroupVerifyList");
+          })
+          .catch((error) => {
+            console.log(error);
+            this.$message({ message: "修改失败", type: "error" });
+            this.$router.push("/SysAdminFrame/GroupVerifyList");
+          });
     },
   },
 };

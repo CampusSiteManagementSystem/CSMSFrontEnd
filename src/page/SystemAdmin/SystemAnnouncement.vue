@@ -7,24 +7,16 @@
       :model="ruleform"
       label-width="100px"
     >
-      <el-form-item label="选择日期：" prop="date">
-        <el-date-picker
-          v-model="ruleform.date"
-          align="right"
-          type="date"
-          placeholder="选择日期"
-          :picker-options="pickerOptions"
-          value-format="yyyy-MM-dd"
-        ></el-date-picker>
+      <el-form-item label="公告标题：" prop="name" style="width:30%">
+        <el-input v-model="ruleform.name" placeholder="请输入公告标题"></el-input>
       </el-form-item>
-
       <el-form-item label="公告内容：" prop="content">
         <el-input
           type="textarea"
           :autosize="{ minRows: 8, maxRows: 10 }"
           v-model="ruleform.content"
           placeholder="请输入公告内容"
-          maxlength="100"
+          maxlength="80"
           show-word-limit
         ></el-input>
       </el-form-item>
@@ -67,55 +59,72 @@ body,
 
 
 // <script>
+import { POSTSystemAnnouncements } from "../../API/http";
+
+import store from "../../state/state.js";
 export default {
   name: "ReleaseGroundAnnouncement",
   data() {
     return {
       rules: {
-        date: [
-          { required: true, message: "请选择公告发布日期", trigger: "blur" },
-        ],
-        time: [
-          { required: true, message: "请选择公告发布时间段", trigger: "blur" },
-        ],
         content: [
           { required: true, message: "请输入公告内容", trigger: "blur" },
+        ],
+        name: [
+          { required: true, message: "请输入公告标题", trigger: "blur" },
+          { max: 18, message: "长度为1~18个字符", trigger: "blur" },
         ],
       },
 
       ruleform: {
-        date: "",
-        time: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
         name: "",
         content: "",
       },
     };
   },
   methods: {
+    getFullTime() {
+      let date = new Date(), //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + "",
+        M =
+          date.getMonth() + 1 < 10
+            ? "0" + (date.getMonth() + 1)
+            : date.getMonth() + 1,
+        D = date.getDate() < 10 ? "0" + date.getDate() : date.getDate(),
+        h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
+        m =
+          date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(),
+        s =
+          date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+      return Y + "-" + M + "-" + D + "T" + h + ":" + m + ":" + s;
+    },
+
     publish() {
-      this.$message({
-        message: "公告发布成功",
-        type: "success",
-      });
-      this.$router.push({ path: "/SysAdminFrame/SysAdminHomePage" });
+      console.log(this.ruleform.content);
+      if (this.ruleform.content != "") {
+        POSTSystemAnnouncements({
+          accountNumber: store.state.ID,
+          systemAnnouncementDate: this.getFullTime(),
+          systemAnnouncementTime: this.getFullTime(),
+          content: this.ruleform.name+"##"+this.ruleform.content,
+        })
+          .then((data) => {
+            // this.res = data;
+            console.log(data);
+            this.$message({ message: "公告发布成功", type: "success" });
+            this.$router.push({ path: "/SysAdminFrame/SysAdminHomePage" });
+          })
+          .catch((err) => {
+            console.log("err", err);
+            this.$message({ message: "公告发布失败", type: "error" });
+          });
+      } else {
+        this.$message({ message: "请输入公告内容", type: "warning" });
+      }
+      
     },
     back() {
       this.$router.push({ path: "/SysAdminFrame/SysAdminHomePage" });
-    },
-    filterTag(value, row, column) {
-      const property = column["property"];
-      return row[property] === value;
-    },
-    onSubmit() {
-      this.editstate = false;
-    },
-    handleChange(value) {
-      console.log(value);
-    },
-    onRowClick(row) {
-      this.nameSelected = row.name;
-      this.description = row.description;
-      this.idSelected = row.id;
     },
   },
 };

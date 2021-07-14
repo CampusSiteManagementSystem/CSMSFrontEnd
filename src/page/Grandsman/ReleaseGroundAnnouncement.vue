@@ -1,22 +1,33 @@
 <template>
   <el-card class="maincard">
     <div class="maintitle">发布场地公告</div>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px">
+    <el-form
+      :model="ruleForm"
+      :rules="rules"
+      ref="ruleForm"
+      label-width="100px"
+    >
       <el-form-item label="场地" prop="site" required>
         <el-cascader
           clearable
-          v-model="form.site"
+          v-model="ruleForm.site"
           :options="options"
           @change="handleChange"
         ></el-cascader>
+      </el-form-item>
+      <el-form-item label="公告标题" prop="title" style="width: 30%">
+        <el-input
+          v-model="ruleForm.title"
+          placeholder="请输入公告标题"
+        ></el-input>
       </el-form-item>
       <el-form-item label="公告内容" prop="content">
         <el-input
           type="textarea"
           :autosize="{ minRows: 8, maxRows: 10 }"
-          v-model="form.content"
+          v-model="ruleForm.content"
           placeholder="请输入公告内容"
-          maxlength="100"
+          maxlength="80"
           show-word-limit
         ></el-input>
       </el-form-item>
@@ -66,314 +77,178 @@
 
 
 // <script>
+import { POSTMaintenanceAnnouncements } from "../../API/http";
+
+// import store from "../../state/state.js";
 export default {
   name: "ReleaseGroundAnnouncement",
   data() {
     return {
-      form: {
+      ruleForm: {
         site: [],
         content: "",
-      },
-      ruleForm: {
-        content: "",
+        title: "",
       },
       rules: {
         content: [
           { required: true, message: "请输入公告内容", trigger: "blur" },
         ],
+        title: [
+          { required: true, message: "请输入公告标题", trigger: "blur" },
+          { max: 18, message: "长度为1~18个字符", trigger: "blur" },
+        ],
       },
-      groundTable: [
-        {
-          id: "6553",
-          name: "济事楼434",
-          area: "济事楼",
-          class: 0,
-          description: "暂无描述",
-        },
-        {
-          id: "6554",
-          name: "济事楼435",
-          area: "济事楼",
-          class: 0,
-          description: "暂无描述",
-        },
-        {
-          id: "6555",
-          name: "济事楼436",
-          area: "济事楼",
-          class: 0,
-          description: "暂无描述",
-        },
-        {
-          id: "6555",
-          name: "济事楼436",
-          area: "济事楼",
-          class: 0,
-          description: "暂无描述",
-        },
-        {
-          id: "3545",
-          name: "篮球场",
-          area: "篮球场",
-          class: 1,
-          description: "仅限体育课教学时间以外预约",
-        },
-        {
-          id: "5454",
-          name: "足球场",
-          area: "足球场",
-          class: 1,
-          description: "仅限体育课教学时间以外预约",
-        },
-        {
-          id: "4585",
-          name: "F101",
-          area: "复楼",
-          class: 0,
-          description: "暂无描述",
-        },
-        {
-          id: "1254",
-          name: "A101",
-          area: "安楼",
-          class: 0,
-          description: "暂无描述",
-        },
-      ],
 
       /* 级联选择框 */
-      options: [
-        {
-          value: "A",
-          label: "A楼",
-          children: [
-            {
-              value: "1",
-              label: "1楼",
-              children: [
-                {
-                  value: "yizhi",
-                  label: "一致",
-                },
-                {
-                  value: "fankui",
-                  label: "反馈",
-                },
-                {
-                  value: "xiaolv",
-                  label: "效率",
-                },
-                {
-                  value: "kekong",
-                  label: "可控",
-                },
-              ],
-            },
-            {
-              value: "2",
-              label: "2楼",
-              children: [
-                {
-                  value: "cexiangdaohang",
-                  label: "侧向导航",
-                },
-                {
-                  value: "dingbudaohang",
-                  label: "顶部导航",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          value: "B",
-          label: "B楼",
-          children: [
-            {
-              value: "1",
-              label: "1楼",
-              children: [
-                {
-                  value: "layout",
-                  label: "Layout 布局",
-                },
-                {
-                  value: "color",
-                  label: "Color 色彩",
-                },
-                {
-                  value: "typography",
-                  label: "Typography 字体",
-                },
-                {
-                  value: "icon",
-                  label: "Icon 图标",
-                },
-                {
-                  value: "button",
-                  label: "Button 按钮",
-                },
-              ],
-            },
-            {
-              value: "2",
-              label: "2楼",
-              children: [
-                {
-                  value: "radio",
-                  label: "Radio 单选框",
-                },
-                {
-                  value: "checkbox",
-                  label: "Checkbox 多选框",
-                },
-                {
-                  value: "input",
-                  label: "Input 输入框",
-                },
-                {
-                  value: "input-number",
-                  label: "InputNumber 计数器",
-                },
-                {
-                  value: "select",
-                  label: "Select 选择器",
-                },
-                {
-                  value: "cascader",
-                  label: "Cascader 级联选择器",
-                },
-                {
-                  value: "switch",
-                  label: "Switch 开关",
-                },
-                {
-                  value: "slider",
-                  label: "Slider 滑块",
-                },
-                {
-                  value: "time-picker",
-                  label: "TimePicker 时间选择器",
-                },
-                {
-                  value: "date-picker",
-                  label: "DatePicker 日期选择器",
-                },
-                {
-                  value: "datetime-picker",
-                  label: "DateTimePicker 日期时间选择器",
-                },
-                {
-                  value: "upload",
-                  label: "Upload 上传",
-                },
-                {
-                  value: "rate",
-                  label: "Rate 评分",
-                },
-                {
-                  value: "form",
-                  label: "Form 表单",
-                },
-              ],
-            },
-            {
-              value: "3",
-              label: "3楼",
-              children: [
-                {
-                  value: "table",
-                  label: "Table 表格",
-                },
-                {
-                  value: "tag",
-                  label: "Tag 标签",
-                },
-                {
-                  value: "progress",
-                  label: "Progress 进度条",
-                },
-                {
-                  value: "tree",
-                  label: "Tree 树形控件",
-                },
-                {
-                  value: "pagination",
-                  label: "Pagination 分页",
-                },
-                {
-                  value: "badge",
-                  label: "Badge 标记",
-                },
-              ],
-            },
-            {
-              value: "4",
-              label: "4楼",
-              children: [
-                {
-                  value: "alert",
-                  label: "Alert 警告",
-                },
-                {
-                  value: "loading",
-                  label: "Loading 加载",
-                },
-                {
-                  value: "message",
-                  label: "Message 消息提示",
-                },
-                {
-                  value: "message-box",
-                  label: "MessageBox 弹框",
-                },
-                {
-                  value: "notification",
-                  label: "Notification 通知",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          value: "C",
-          label: "C楼",
-          children: [
-            {
-              value: "axure",
-              label: "Axure Components",
-            },
-            {
-              value: "sketch",
-              label: "Sketch Templates",
-            },
-            {
-              value: "jiaohu",
-              label: "组件交互文档",
-            },
-          ],
-        },
-      ],
+      options: [],
       /* end of options */
     };
   },
+
+  mounted() {
+    var axios = require("axios");
+    var config1 = {
+      method: "get",
+      url: "http://139.196.114.7/api/IndoorGrounds?accountNumber=1000003", //改
+      headers: {},
+    };
+
+    var config2 = {
+      method: "get",
+      url: "http://139.196.114.7/api/OutdoorGrounds?accountNumber=1000003", //改
+      headers: {},
+    };
+
+    axios(config1)
+      .then((response) => {
+        this.iGroundTable = [];
+        console.log(response.data);
+        for (let gnd of response.data) {
+          this.iGroundTable.push(gnd);
+        }
+        console.log("ig");
+        console.log(this.iGroundTable);
+        this.options = [];
+        if (this.iGroundTable.length != 0) {
+          this.options.push({
+            value: this.iGroundTable[0].positionName,
+            label: this.iGroundTable[0].positionName,
+            children: [
+              {
+                value: this.iGroundTable[0].floor,
+                label: String(this.iGroundTable[0].floor) + "楼",
+                children: [
+                  {
+                    value: this.iGroundTable[0].groundId,
+                    label: this.iGroundTable[0].roomNo,
+                  },
+                ],
+              },
+            ],
+          });
+
+          for (var k = 1; k < this.iGroundTable.length; ++k) {
+            if (
+              this.iGroundTable[k].positionName !=
+              this.iGroundTable[k - 1].positionName
+            ) {
+              this.options.push({
+                value: this.iGroundTable[k].positionName,
+                label: this.iGroundTable[k].positionName,
+                children: [
+                  {
+                    value: this.iGroundTable[k].floor,
+                    label: String(this.iGroundTable[k].floor) + "楼",
+                    children: [
+                      {
+                        value: this.iGroundTable[k].groundId,
+                        label: this.iGroundTable[k].roomNo,
+                      },
+                    ],
+                  },
+                ],
+              });
+            } else if (
+              this.iGroundTable[k].floor != this.iGroundTable[k - 1].floor
+            ) {
+              this.options[this.options.length - 1].children.push({
+                value: this.iGroundTable[k].floor,
+                label: String(this.iGroundTable[k].floor) + "楼",
+                children: [
+                  {
+                    value: this.iGroundTable[k].groundId,
+                    label: this.iGroundTable[k].roomNo,
+                  },
+                ],
+              });
+            } else {
+              var cPos = this.options.length - 1,
+                cFloor = this.options[cPos].children.length - 1;
+              this.options[cPos].children[cFloor].push({
+                value: this.iGroundTable[k].groundId,
+                label: this.iGroundTable[k].roomNo,
+              });
+            }
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios(config2)
+      .then((response) => {
+        this.oGroundTable = [];
+        for (let gnd of response.data) {
+          this.oGroundTable.push(gnd);
+        }
+        for (var k = 0; k < this.oGroundTable.length; ++k) {
+          this.options.push({
+            value: this.oGroundTable[k].groundId,
+            label: this.oGroundTable[k].positionName,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
   methods: {
     publish() {
-      this.$message({
-        message: "公告发布成功",
-        type: "success",
+      this.$refs["ruleForm"].validate((valid) => {
+        if (valid) {
+          console.log("公告数据");
+          console.log(this.ruleForm.site[this.ruleForm.site.length - 1]);
+          console.log(this.ruleForm.title + "##" + this.ruleForm.content);
+
+          POSTMaintenanceAnnouncements({
+            groundId: this.ruleForm.site[this.ruleForm.site.length - 1],
+            content: this.ruleForm.title + "##" + this.ruleForm.content,
+          })
+            .then((data) => {
+              console.log(data);
+              this.$message({ message: "公告发布成功", type: "success" });
+              this.$router.push({ path: "/GroundsAdmin/Main" });
+            })
+            .catch((err) => {
+              err;
+             // console.log("errann", err);
+              // console.log(this.ruleForm.site[this.ruleForm.site.length-1]);
+              // console.log(this.ruleForm.title + "##" + this.ruleForm.content);
+              this.$message({ message: "公告发布失败", type: "error" });
+            });
+        } else {
+          this.$message({ message: "请输入符合规范的数据", type: "warning" });
+        }
       });
-      this.$router.push({ path: "/GroundsAdmin/Main" });
     },
+
     back() {
       this.$router.push({ path: "/GroundsAdmin/Main" });
     },
     filterTag(value, row, column) {
       const property = column["property"];
       return row[property] === value;
-    },
-    onSubmit() {
-      this.editstate = false;
     },
     handleChange(value) {
       console.log(value);

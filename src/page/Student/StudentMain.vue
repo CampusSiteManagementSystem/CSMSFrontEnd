@@ -39,7 +39,7 @@
                 :data="systemAnnouncement"
                 stripe
                 style="width: 100%"
-                
+    
                 :height="upperTableHeight"
                 @row-click="onRowClick1"
                 :show-header="false"
