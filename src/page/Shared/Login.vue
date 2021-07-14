@@ -108,8 +108,8 @@ export default {
     return {
       res: null,
       form: {
-        accountNumber: "",
-        password: "",
+        accountNumber: 1951459,
+        password: "Zzy123456",
       },
       rules: {
         accountNumber: [

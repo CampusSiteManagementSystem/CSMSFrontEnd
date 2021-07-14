@@ -113,9 +113,8 @@ export default {
   name: "ActivityList",
   components: {},
   watch: {
-    'ruleForm.site'(val, oldVal) {
+    'ruleForm.site'(val) {
       //普通的watch监听
-      console.log("old",oldVal);
       console.log("new",val);
     },
   },
