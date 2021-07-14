@@ -1,22 +1,33 @@
 <template>
   <el-card class="maincard">
     <div class="maintitle">发布场地公告</div>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px">
+    <el-form
+      :model="ruleForm"
+      :rules="rules"
+      ref="ruleForm"
+      label-width="100px"
+    >
       <el-form-item label="场地" prop="site" required>
         <el-cascader
           clearable
-          v-model="form.site"
+          v-model="ruleForm.site"
           :options="options"
           @change="handleChange"
         ></el-cascader>
+      </el-form-item>
+      <el-form-item label="公告标题" prop="title" style="width: 30%">
+        <el-input
+          v-model="ruleForm.title"
+          placeholder="请输入公告标题"
+        ></el-input>
       </el-form-item>
       <el-form-item label="公告内容" prop="content">
         <el-input
           type="textarea"
           :autosize="{ minRows: 8, maxRows: 10 }"
-          v-model="form.content"
+          v-model="ruleForm.content"
           placeholder="请输入公告内容"
-          maxlength="100"
+          maxlength="80"
           show-word-limit
         ></el-input>
       </el-form-item>
@@ -66,20 +77,25 @@
 
 
 // <script>
+import { POSTMaintenanceAnnouncements } from "../../API/http";
+
+// import store from "../../state/state.js";
 export default {
   name: "ReleaseGroundAnnouncement",
   data() {
     return {
-      form: {
+      ruleForm: {
         site: [],
         content: "",
-      },
-      ruleForm: {
-        content: "",
+        title: "",
       },
       rules: {
         content: [
           { required: true, message: "请输入公告内容", trigger: "blur" },
+        ],
+        title: [
+          { required: true, message: "请输入公告标题", trigger: "blur" },
+          { max: 18, message: "长度为1~18个字符", trigger: "blur" },
         ],
       },
 
@@ -199,21 +215,40 @@ export default {
   },
   methods: {
     publish() {
-      this.$message({
-        message: "公告发布成功",
-        type: "success",
+      this.$refs["ruleForm"].validate((valid) => {
+        if (valid) {
+          console.log("公告数据");
+          console.log(this.ruleForm.site[this.ruleForm.site.length - 1]);
+          console.log(this.ruleForm.title + "##" + this.ruleForm.content);
+
+          POSTMaintenanceAnnouncements({
+            groundId: this.ruleForm.site[this.ruleForm.site.length - 1],
+            content: this.ruleForm.title + "##" + this.ruleForm.content,
+          })
+            .then((data) => {
+              console.log(data);
+              this.$message({ message: "公告发布成功", type: "success" });
+              this.$router.push({ path: "/GroundsAdmin/Main" });
+            })
+            .catch((err) => {
+              err;
+             // console.log("errann", err);
+              // console.log(this.ruleForm.site[this.ruleForm.site.length-1]);
+              // console.log(this.ruleForm.title + "##" + this.ruleForm.content);
+              this.$message({ message: "公告发布失败", type: "error" });
+            });
+        } else {
+          this.$message({ message: "请输入符合规范的数据", type: "warning" });
+        }
       });
-      this.$router.push({ path: "/GroundsAdmin/Main" });
     },
+
     back() {
       this.$router.push({ path: "/GroundsAdmin/Main" });
     },
     filterTag(value, row, column) {
       const property = column["property"];
       return row[property] === value;
-    },
-    onSubmit() {
-      this.editstate = false;
     },
     handleChange(value) {
       console.log(value);
