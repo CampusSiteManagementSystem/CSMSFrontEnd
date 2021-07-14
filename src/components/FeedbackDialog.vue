@@ -1,135 +1,64 @@
 <template>
-  <el-dialog title="场地反馈" :visible.sync="feedbackVisible">
-    <div class="content">
-    <el-form
-      :model="ruleForm"
-      :rules="rules"
-      ref="ruleForm"
-      label-position="left"
-      class="demo-table"
-      label-width="150px"
-    >
-      <el-form-item label="活动ID">
-        <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
-        <span>{{ value1.ID }}</span>
-      </el-form-item>
-      <el-form-item label="活动时间">
-        <label slot="label">活动时间</label>
-        <span>{{ value1.time }}</span>
-      </el-form-item>
-      <el-form-item label="活动地点">
-        <label slot="label">活动地点</label>
-        <span>{{ value1.place }}</span>
-      </el-form-item>
-      <el-form-item label="活动评分">
-        <label slot="label">活动评分</label>
-        <div>
-          <p>
-            <el-rate
-              class="block"
-              v-model="score"
-              :colors="colors"
-              show-text
-            ></el-rate>
-          </p>
-        </div>
-      </el-form-item>
-      <el-form-item label="详细意见" prop="textarea">
-        <label slot="label">详细意见</label>
-        <span>
-          <el-input
-            :autosize="{ minRows: 2, maxRows: 6 }"
-            class="input"
-            type="textarea"
-            :rows="5"
-            placeholder="请输入内容"
-            v-model="textarea"
-          >
-          </el-input>
-        </span>
-      </el-form-item>
-      <el-form-item align="center" class="modify">
-        <el-button type="primary" @click="submit">提交</el-button>
-        <router-link to="/OrgFrame/FinishActivity" tag="el-button"
-          >取消</router-link
+    <el-dialog title="场地反馈" :visible.sync="feedbackVisible" class="dialog">
+      <div class="content">
+        <el-form
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+          label-position="left"
+          class="demo-table"
+          label-width="150px"
         >
-      </el-form-item>
-    </el-form>
-    </div>
-    <span slot="footer" class="dialog-footer">
-      <el-button @click="feedbackVisible = false">取消</el-button>
-      <el-button type="primary" @click="feedbackVisible">提交</el-button>
-    </span>
-  </el-dialog>
-
-  <!-- <div class="page">
-    <div class="background">
-      <el-card>
-        <div>
-          <h2>场地反馈</h2>
-        </div>
-        <div id="content">
-          <el-form
-            :model="ruleForm"
-            :rules="rules"
-            ref="ruleForm"
-            label-position="left"
-            class="demo-table"
-            label-width="150px"
-          >
-            <el-form-item label="活动ID">
-              <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
-              <span>{{ value1.ID }}</span>
-            </el-form-item>
-            <el-form-item label="活动时间">
-              <label slot="label">活动时间</label>
-              <span>{{ value1.time }}</span>
-            </el-form-item>
-            <el-form-item label="活动地点">
-              <label slot="label">活动地点</label>
-              <span>{{ value1.place }}</span>
-            </el-form-item>
-            <el-form-item label="活动评分">
-              <label slot="label">活动评分</label>
-              <div>
-                <p>
-                  <el-rate
-                    class="block"
-                    v-model="score"
-                    :colors="colors"
-                    show-text
-                  ></el-rate>
-                </p>
-              </div>
-            </el-form-item>
-            <el-form-item label="详细意见" prop="textarea">
-              <label slot="label">详细意见</label>
-              <span>
-                <el-input
-                  :autosize="{ minRows: 2, maxRows: 6 }"
-                  class="input"
-                  type="textarea"
-                  :rows="5"
-                  placeholder="请输入内容"
-                  v-model="textarea"
-                >
-                </el-input>
-              </span>
-            </el-form-item>
-            <el-form-item align="center" class="modify">
-              <el-button type="primary" @click="submit">提交</el-button>
-              <router-link to="/OrgFrame/FinishActivity" tag="el-button"
-                >取消</router-link
+          <el-form-item label="活动ID">
+            <label slot="label"><b>活动ID</b></label>
+            <span>{{ feedbackRow.ID }}</span>
+          </el-form-item>
+          <el-form-item label="活动时间">
+            <label slot="label"><b>活动时间</b></label>
+            <span>{{ feedbackRow.time }}</span>
+          </el-form-item>
+          <el-form-item label="活动地点">
+            <label slot="label"><b>活动地点</b></label>
+            <span>{{ feedbackRow.groundname }}</span>
+          </el-form-item>
+          <el-form-item label="活动评分">
+            <label slot="label"><b>活动评分</b></label>
+            <div>
+              <p>
+                <el-rate
+                  class="block"
+                  v-model="ruleForm.score"
+                  :colors="colors"
+                  show-text
+                ></el-rate>
+              </p>
+            </div>
+          </el-form-item>
+          <el-form-item label="详细意见">
+            <label slot="label"><b>详细意见</b></label>
+            <span>
+              <el-input
+                :autosize="{ minRows: 2, maxRows: 6 }"
+                class="input"
+                type="textarea"
+                :rows="5"
+                placeholder="请输入内容"
+                v-model="ruleForm.textarea"
               >
-            </el-form-item>
-          </el-form>
-        </div>
-      </el-card>
-    </div>
-  </div> -->
+              </el-input>
+            </span>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="feedbackVisible = false">取消</el-button>
+        <el-button type="primary" @click="submit">提交</el-button>
+      </span>
+    </el-dialog>
 </template>
 
 <script>
+import { POSTFeedbackRecords } from "../API/http";
 export default {
   name: "FeedbackDialog",
   data() {
@@ -142,65 +71,72 @@ export default {
     // };
     return {
       ruleForm: {
-        textarea: "",
+          score: null,
+          textarea: "",
       },
       rules: {
         textarea: [
           { required: true, message: "请输入场地反馈", trigger: "blur" },
         ],
       },
-      value1: this.$props.message,
-      score: null,
       colors: ["#99A9BF", "#F7BA2A", "#FF9900"], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
-      textarea: "",
     };
+  },
+  props: {
+    feedbackRow: {
+      ID: "",
+      additionalRequest: "",
+      date: "",
+      description: "",
+      groundname: "",
+      groupname: "",
+      name: "",
+      participantNum: 0,
+      tag: "",
+      time: "",
+    },
+
   },
   methods: {
     submit() {
-      if (this.score == null || this.textarea == "") {
-        this.$alert("未输入所有备选项", "反馈失败", {
-          confirmButtonText: "确定",
-          callback: (action) => {
-            if (action === "confirm") {
-              console.log("ID", this.$route.query.activityID);
-              this.$message({
-                type: "error",
-                message: "反馈失败",
-              });
-            }
-          },
-        });
-      } else {
-        this.$alert("感谢您的反馈", "反馈成功", {
-          confirmButtonText: "确定",
-          callback: (action) => {
-            if (action === "confirm") {
-              this.$message({
-                type: "success",
-                message: "反馈成功",
-              });
-            }
-            this.$router.push("/OrgFrame/FinishActivity");
-          },
-        });
+      if (this.ruleForm.score == null || this.ruleForm.textarea == "") {
+          this.$alert("未输入所有备选项", "反馈失败", {
+            confirmButtonText: "确定",
+            callback: (action) => {
+              if (action === "confirm") {
+                console.log("ID", this.$route.query.activityID);
+                this.$message({
+                  type: "error",
+                  message: "反馈失败",
+                });
+              }
+            },
+          });
+      } 
+      else {
+        var tmp = {
+          feedbackDate: this.formatTime,
+          feedbackTime: this.formatTime,
+          content: this.ruleForm.textarea,
+          score: this.ruleForm.score,
+          id: this.feedbackRow.ID,
+          groundName: this.feedbackRow.groundname,
+        };
+        console.log(tmp);
+        POSTFeedbackRecords(tmp)
+            .then((data) => {
+              console.log(data);
+              this.$message({ message: "反馈成功", type: "success" });
+              this.$router.push({ path: "/GroundsAdmin/Main" });
+            })
+            .catch((err) => {
+              err;
+              this.$message({ message: "反馈失败", type: "error" });
+            });
       }
-    },
-  },
-  props: {
-    message: {
-      default: {
-        ID: "111211",
-        time: "2021-6-7 17：00-19：00",
-        place: "G403",
-        feedBackDate: Date(),
-        feedBackTime: Date(),
-      },
-    },
-    feedbackVisible: {
-      default: false,
-    },
-  },
-};
+    }
+  }
+}
 </script>
 <style scoped>
 .page {

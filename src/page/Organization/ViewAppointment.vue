@@ -579,7 +579,8 @@
         </el-dialog>
       </div>
     </div>
-    <el-dialog title="场地反馈" :visible.sync="feedbackVisible" class="dialog">
+    <feedback-dialog :feedbackRow="feedbackRow" v-if="feedbackVisible"></feedback-dialog>
+    <!-- <el-dialog title="场地反馈" :visible.sync="feedbackVisible" class="dialog">
       <div class="content">
         <el-form
           :model="ruleForm"
@@ -634,18 +635,18 @@
         <el-button @click="feedbackVisible = false">取消</el-button>
         <el-button type="primary" @click="submit">提交</el-button>
       </span>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
 <script>
 import store from "../../state/state";
-//import FeedbackDialog from "../../components/FeedbackDialog";
-import { GETActivities, DELETEActivitiesID, POSTFeedbackRecords } from "../../API/http";
+import { GETActivities, DELETEActivitiesID } from "../../API/http";
+import FeedbackDialog from '../../components/FeedbackDialog.vue';
 export default {
-  // components: {
-  //   FeedbackDialog,
-  // },
+   components: {
+      FeedbackDialog,
+   },
   data() {
     return {
       //这是下载pdf的参数 别删了嗷
@@ -964,43 +965,43 @@ export default {
       }
     },
 
-    submit() {
-      if (this.ruleForm.score == null || this.ruleForm.textarea == "") {
-        this.$alert("未输入所有备选项", "反馈失败", {
-          confirmButtonText: "确定",
-          callback: (action) => {
-            if (action === "confirm") {
-              console.log("ID", this.$route.query.activityID);
-              this.$message({
-                type: "error",
-                message: "反馈失败",
-              });
-            }
-          },
-        });
-      } else {
-        var tmp = {
-          feedbackDate: this.formatTime,
-          feedbackTime: this.formatTime,
-          content: this.ruleForm.textarea,
-          score: this.ruleForm.score,
-          id: this.feedbackRow.ID,
-          groundName: this.feedbackRow.groundname,
-        };
-        console.log(tmp);
-        POSTFeedbackRecords(tmp)
-            .then((data) => {
-              console.log(data);
-              this.$message({ message: "反馈成功", type: "success" });
-              this.$router.push({ path: "/GroundsAdmin/Main" });
-            })
-            .catch((err) => {
-              err;
-              this.$message({ message: "反馈失败", type: "error" });
-            });
-      }
-      this.feedbackVisible = false;
-    },
+    // submit() {
+    //   if (this.ruleForm.score == null || this.ruleForm.textarea == "") {
+    //     this.$alert("未输入所有备选项", "反馈失败", {
+    //       confirmButtonText: "确定",
+    //       callback: (action) => {
+    //         if (action === "confirm") {
+    //           console.log("ID", this.$route.query.activityID);
+    //           this.$message({
+    //             type: "error",
+    //             message: "反馈失败",
+    //           });
+    //         }
+    //       },
+    //     });
+    //   } else {
+    //     var tmp = {
+    //       feedbackDate: this.formatTime,
+    //       feedbackTime: this.formatTime,
+    //       content: this.ruleForm.textarea,
+    //       score: this.ruleForm.score,
+    //       id: this.feedbackRow.ID,
+    //       groundName: this.feedbackRow.groundname,
+    //     };
+    //     console.log(tmp);
+    //     POSTFeedbackRecords(tmp)
+    //         .then((data) => {
+    //           console.log(data);
+    //           this.$message({ message: "反馈成功", type: "success" });
+    //           this.$router.push({ path: "/GroundsAdmin/Main" });
+    //         })
+    //         .catch((err) => {
+    //           err;
+    //           this.$message({ message: "反馈失败", type: "error" });
+    //         });
+    //   }
+    //   this.feedbackVisible = false;
+    // },
   },
   computed: {
     formatTime() {
