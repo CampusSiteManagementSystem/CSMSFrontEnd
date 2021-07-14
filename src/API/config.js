@@ -16,7 +16,7 @@ if (process.env.NODE_ENV == 'development') {
 //axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.timeout = 10000; //10s
 //带上cookie
-//axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true
 
 
 // 请求拦截器

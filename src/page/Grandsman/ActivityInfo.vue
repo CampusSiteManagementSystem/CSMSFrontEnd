@@ -68,7 +68,7 @@
               <el-radio label="批准"></el-radio>
               <el-radio label="不批准"></el-radio>
             </el-radio-group>
-            <span v-else>{{ form.state }}</span>
+            <span v-else>{{ form.state}}</span>
           </el-form-item>
           <!-- <el-form-item label="说明：">
           <p><b>审核意见：</b>{{ comment }}</p>
@@ -95,10 +95,8 @@
 <script>
 import { GETActivitiesID } from "../../API/http";
 import { GETOrganizationsID } from "../../API/http";
-import { POSTExamineAndApproves } from "../../API/http";
-import { PUTExamineAndApprovesID } from "../../API/http";
 
-import store from "../../state/state.js";
+// import store from "../../state/state.js"
 export default {
   name: "ActivityInfo",
   mounted() {
@@ -142,7 +140,6 @@ export default {
       state: 0, //0未审核，1已审核，2重审
       // comment: "",
       form: {
-        orgState: null,
         state: null,
         // comment: "",
       },
@@ -150,7 +147,6 @@ export default {
   },
   methods: {
     dealWithActivitiy(data) {
-      this.id = data.id;
       this.name = data.name;
       this.accountNumber = data.accountNumber;
       this.organization = data.organizationName;
@@ -168,72 +164,28 @@ export default {
           this.form.state = "不批准";
         }
       }
-      this.form.orgState = this.state;
     },
     reReview() {
       //判断活动是否应经举办过
-      if (this.form.state != null) {
-        GETActivitiesID(this.$route.params.ID)
-          .then((data) => {
-            console.log("run GETActivities");
-            var dateActivity = new Date(data.activityDate);
-            var dateNow = new Date();
-            if (dateActivity < dateNow) {
-              this.state = 2; //重审
-            } else {
-              this.$message({ message: "活动已过期，不能重审", type: "error" });
-            }
-          })
-          .catch((err) => {
-            console.log("err", err);
-            this.$message({ message: "活动时间获取失败", type: "error" });
-          });
-      }
+      this.state = 2; //重审
     },
     submitReReview() {
-      if (this.form.state != this.form.orgState) {
-        console.log("活动id", this.id);
-        PUTExamineAndApprovesID(this.id, {
-          activityId: this.id,
-          // accountNumber: store.state.ID,
-          state: this.form.state == "批准" ? "通过" : "拒绝",
-        })
-          .then((data) => {
-            // this.res = data;
-            this.form.orgState = this.form.state;
-            this.state = 1;
-            console.log(data);
-            this.$message({ message: "重审提交成功", type: "success" });
-          })
-          .catch((err) => {
-            this.form.state = this.form.orgState;
-            console.log("err", err);
-            this.$message({ message: "重审提交失败", type: "error" });
-          });
-      }
-      // }
+      this.state = 1; //审核过
+      this.$message({
+        message: "重审成功",
+        type: "success",
+      });
     },
     onSubmit() {
+      console.log("submit!");
+      // this.state = this.form.state;
+      console.log(this.form.state);
       if (this.form.state != null) {
-        if (this.form.state != this.form.orgState) {
-          POSTExamineAndApproves({
-            activityId: this.id,
-            accountNumber: store.state.ID,
-            state: this.form.state == "批准" ? "通过" : "拒绝",
-          })
-            .then((data) => {
-              // this.res = data;
-              this.state = 1;
-              this.form.orgState = this.form.state;
-              console.log(data);
-              this.$message({ message: "审核提交成功", type: "success" });
-            })
-            .catch((err) => {
-              this.form.state = this.form.orgState;
-              console.log("err", err);
-              this.$message({ message: "审核提交失败", type: "error" });
-            });
-        }
+        this.state = 1;
+        this.$message({
+          message: "审核提交成功",
+          type: "success",
+        });
       }
       //   this.comment = this.form.comment;
       //   this.$alert("您已批准该活动。", "审核完成", {

@@ -141,7 +141,11 @@ import {
   GETSystemAnnouncements,
   GETOrganizations,
   GETStudents,
-  GETSystemAdministrators,
+  PUTSystemAdministratorsID,
+
+  // GETStudentsID,
+  // GETActivities,
+  // GETOccupyTimes
 } from "../../API/http";
 export default {
   created() {
@@ -171,9 +175,9 @@ export default {
 
     //获取组织注册信息
     GETOrganizations()
-      .then((data) => {
+    .then((data) => {
         this.groupInfo = data;
-        console.log(">>>>>>", data);
+        console.log(">>>>>>",data);
       })
       .catch((err) => {
         console.log(err);
@@ -182,9 +186,9 @@ export default {
 
     //获取学生信息
     GETStudents()
-      .then((data) => {
+    .then((data) => {
         this.userInfo = data;
-        console.log(">>>>>>", data);
+        console.log(">>>>>>",data);
       })
       .catch((err) => {
         console.log(err);
@@ -192,15 +196,7 @@ export default {
       });
 
     //获取管理员信息
-    GETSystemAdministrators()
-      .then((data) => {
-        this.sysInfo = data;
-        console.log(">>>>>>", data);
-      })
-      .catch((err) => {
-        console.log(err);
-        this.$message("管理员信息请求错误");
-      });
+    PUTSystemAdministratorsID();
   },
   data() {
     return {
@@ -213,6 +209,7 @@ export default {
       axiosdata: null,
 
       //第一块卡片信息
+      // SysID=store.stats.ID,
       sysInfo: {},
       semesterInfo: {
         fromYear: "2020",

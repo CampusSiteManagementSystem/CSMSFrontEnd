@@ -132,6 +132,8 @@ p {
 </style>
 
 
+
+
 <script>
 import {GETOrganizationsID} from "../../API/http"
 import {PUTOrganizationsID} from "../../API/http"
@@ -221,7 +223,6 @@ export default {
       OrgID: store.state.ID,
     };
   },
-
   created() {
     GETOrganizationsID(this.OrgID)
     .then(data =>{
@@ -229,10 +230,7 @@ export default {
       this.ruleForm.name=data.name;
       this.ruleForm.type=data.type;
       this.ruleForm.credit=data.credit;
-      this.ruleForm.joinTime=data.joinDate.replace(
-          "T",
-          " "
-        );
+      this.ruleForm.joinTime=data.joinDate;
       this.ruleForm.user=data.functionary;
       this.ruleForm.email=data.emailAddress;
       this.ruleForm.telephone=data.telephone;

@@ -145,7 +145,6 @@ p {
 import {GETStudentsID} from "../../API/http"
 import store from "../../state/state";
 
-
 export default {
   created() {
     GETStudentsID(this.StuID)

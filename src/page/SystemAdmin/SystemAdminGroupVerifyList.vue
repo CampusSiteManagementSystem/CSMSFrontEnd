@@ -4,30 +4,22 @@
       <div class="maintitle">审核组织注册</div>
       <div>
         <el-table
-          :data="matchList"
+          :data="tableData"
           max-height="480"
           stripe
           style="width: 100%"
-          :header-row-style="{ height: '20px' }"
-          :cell-style="{ padding: '5px' }"
+          :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}"
         >
-          <el-table-column prop="functionary" label="负责人">
+          <el-table-column label="负责人">
             <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.functionary }}</span>
+              <span style="margin-left: 10px">{{ scope.row.person }}</span>
             </template>
           </el-table-column>
-
-          <el-table-column prop="accountNumber" label="ID">
-            <template slot-scope="scope">
-              <span>{{ scope.row.accountNumber }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column prop="name" label="组织">
+          <el-table-column label="组织">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
                 <p>组织: {{ scope.row.name }}</p>
-                <p>申请人: {{ scope.row.functionary }}</p>
+                <p>申请人: {{ scope.row.person }}</p>
                 <div slot="reference" class="name-wrapper">
                   <el-tag size="medium">{{ scope.row.name }}</el-tag>
                 </div>
@@ -35,29 +27,13 @@
             </template>
           </el-table-column>
           <el-table-column label="操作" width="200">
-            <template slot-scope="scope">
+            <template>
               <router-link
-                
-                :to="{
-                  //path: 'GroupVerify',
-                  name:'SystemAdminGroupVerify',
-                  params: {
-                    accountNumber: scope.row.accountNumber,
-                  },
-                }"
-                size="medium"
-                type="primary"
-                tag="el-button"
-                @click.native="shandleEdit"
-                >审核</router-link
-              >
-
-              <!-- <router-link
                 to="/SysAdminFrame/GroupVerify"
                 tag="el-button"
                 type="primary"
                 >审核</router-link
-              > -->
+              >
             </template>
           </el-table-column>
         </el-table>
@@ -78,73 +54,43 @@
 
 
 <script>
-import { GETOrganizations } from "../../API/http";
-
 export default {
-  created() {
-    GETOrganizations()
-      .then((data) => {
-        this.axiosdata = data;
-        for (var i = 0; i < data.length; i++) {
-          var temp = {
-            name: "软件学院",
-            functionary: "他",
-            accountNumber: "12234",
-            state: "0",
-          };
-
-          temp.functionary = data[i].functionary;
-          temp.name = data[i].name;
-          temp.accountNumber = data[i].accountNumber;
-          temp.state = data[i].state;
-          this.tableData.push(temp);
-
-          this.matchList = this.tableData;
-          if (this.$route.params.building != "") {
-            this.toMatch = this.$route.params.building;
-            this.search();
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        this.$message("未审批组织数据请求错误");
-      });
-  },
-
-  methods: {
-    search: function () {
-      if (this.toMatch == "") {
-        this.matchList = this.tableData;
-      } else {
-        this.matchList = [];
-        for (var i = 0; i < this.tableData.length; i++) {
-          if (this.tableData[i].state == "0") {
-            this.matchList.push(this.tableData[i]);
-          }
-        }
-      }
-    },
-
-    shandleEdit() {
-      console.log("handleedit");
-      console.log(this.$route);
-      this.childPage =
-        this.$route.name == "SystemAdminGroupVerify";
-    },
-  },
-
-  watch: {
-    // 如果路由有变化，会再次执行该方法
-    $route: "shandleEdit", //getOrderInfo为自定义方法
-  },
-
   data() {
     return {
-      toMatch: "",
-      matchList: [],
-      tableData: [],
-      axiosdata: null,
+      tableData: [
+        {
+          person: "呵呵",
+          name: "公关部",
+        },
+        {
+          person: "呵呵",
+          name: "学生综合素质发展中心",
+        },
+        {
+          person: "呵呵",
+          name: "社发管",
+        },
+        {
+          person: "嘿嘿",
+          name: "钢琴协会",
+        },
+        {
+          person: "呵呵",
+          name: "公关部",
+        },
+        {
+          person: "嘻嘻",
+          name: "学生综合素质发展中心",
+        },
+        {
+          person: "哈哈",
+          name: "社发管",
+        },
+        {
+          person: "haha",
+          name: "钢琴协会",
+        },
+      ],
     };
   },
 };
