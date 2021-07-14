@@ -169,9 +169,9 @@ export default {
               store.state.ID = this.form.accountNumber;
               if (this.identity === 1) {
                 this.$router.push("/StuFrame/Main");
-              } else if (this.identity === 3) {
-                this.$router.push("/GroundsAdmin/Main");
               } else if (this.identity === 2) {
+                this.$router.push("/GroundsAdmin/Main");
+              } else if (this.identity === 3) {
                 this.$router.push("/OrgFrame/Main");
               } else if (this.identity === 4) {
                 this.$router.push("/SysAdminFrame");
