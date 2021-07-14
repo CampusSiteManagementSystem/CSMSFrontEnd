@@ -287,8 +287,6 @@ export default {
         console.log(error);
       });
 
-    console.log(this.iGroundTable);
-
     const that = this;
     console.log(that.groundId);
     GETDefaultOccupyTime()
