@@ -132,8 +132,6 @@ p {
 </style>
 
 
-
-
 <script>
 import {GETOrganizationsID} from "../../API/http"
 import {PUTOrganizationsID} from "../../API/http"
@@ -223,6 +221,7 @@ export default {
       OrgID: store.state.ID,
     };
   },
+
   created() {
     GETOrganizationsID(this.OrgID)
     .then(data =>{

@@ -5,22 +5,39 @@
       <el-row>
         <el-col :span="23" :offset="1"
           ><div class="info">
-            <p>组织信息:</p>
+            <!-- <p>组织信息:</p>
             <p>组织名称:</p>
-            <p>详细信息:</p>
-          </div></el-col
-        ></el-row
-      >
+            <p>详细信息:</p> -->
+            <el-form
+              ref="ruleForm"
+              :model="ruleForm"
+              label-width="100px"
+              :hide-required-asterisk="true"
+            >
+              <el-form-item label="组织名称：" prop="name">
+                <el-input
+                  v-model="ruleForm.name"
+                  :readonly="true"
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="详细信息：" prop="content">
+                <el-input
+                  v-model="ruleForm.content"
+                  :readonly="true"
+                ></el-input>
+              </el-form-item>
+            </el-form></div></el-col
+      ></el-row>
 
       <el-row>
         <el-col :span="20"
           ><div class="status">
             <h3>审核意见</h3>
             <el-col :span="2" :offset="1">
-            <el-radio v-model="radio" label="1">通过</el-radio>
+              <el-radio v-model="radio" label="1">通过</el-radio>
             </el-col>
             <el-col :span="2">
-            <el-radio v-model="radio" label="2">不通过</el-radio>
+              <el-radio v-model="radio" label="2">不通过</el-radio>
             </el-col>
           </div></el-col
         >
@@ -64,11 +81,29 @@ p {
 </style>
 
 <script>
+
+import {GETOrganizationsID} from "../../API/http"
+import store from "../../state/state";
+
 export default {
+
+  created() {
+    GETOrganizationsID(this.OrgID)
+    .then(data =>{
+      this.ruleForm.name=data.name;
+      this.ruleForm.content=data.detailInfo;
+    })
+    .catch((err) => {
+      console.log(err);
+      this.$message("组织信息获取错误");
+    })
+  },
+
   data() {
     return {
       radio: "1",
       textarea: "",
+      OrgID: store.state.ID,
     };
   },
 

@@ -123,7 +123,8 @@ export default {
       groundID: "1000003",
       // tableData: Array(20).fill(course),
       tableData: [],
-      groundTable: [],
+      iGroundTable: [],
+      oGroundTable: [],
 
       ruleForm: {
         site: [],
@@ -134,218 +135,7 @@ export default {
         during: "",
       },
 
-      options: [
-        {
-          value: "A",
-          label: "A楼",
-          children: [
-            {
-              value: "1",
-              label: "1楼",
-              children: [
-                {
-                  value: "yizhi",
-                  label: "一致",
-                },
-                {
-                  value: "fankui",
-                  label: "反馈",
-                },
-                {
-                  value: "xiaolv",
-                  label: "效率",
-                },
-                {
-                  value: "kekong",
-                  label: "可控",
-                },
-              ],
-            },
-            {
-              value: "2",
-              label: "2楼",
-              children: [
-                {
-                  value: "cexiangdaohang",
-                  label: "侧向导航",
-                },
-                {
-                  value: "dingbudaohang",
-                  label: "顶部导航",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          value: "B",
-          label: "B楼",
-          children: [
-            {
-              value: "1",
-              label: "1楼",
-              children: [
-                {
-                  value: "layout",
-                  label: "Layout 布局",
-                },
-                {
-                  value: "color",
-                  label: "Color 色彩",
-                },
-                {
-                  value: "typography",
-                  label: "Typography 字体",
-                },
-                {
-                  value: "icon",
-                  label: "Icon 图标",
-                },
-                {
-                  value: "button",
-                  label: "Button 按钮",
-                },
-              ],
-            },
-            {
-              value: "2",
-              label: "2楼",
-              children: [
-                {
-                  value: "radio",
-                  label: "Radio 单选框",
-                },
-                {
-                  value: "checkbox",
-                  label: "Checkbox 多选框",
-                },
-                {
-                  value: "input",
-                  label: "Input 输入框",
-                },
-                {
-                  value: "input-number",
-                  label: "InputNumber 计数器",
-                },
-                {
-                  value: "select",
-                  label: "Select 选择器",
-                },
-                {
-                  value: "cascader",
-                  label: "Cascader 级联选择器",
-                },
-                {
-                  value: "switch",
-                  label: "Switch 开关",
-                },
-                {
-                  value: "slider",
-                  label: "Slider 滑块",
-                },
-                {
-                  value: "time-picker",
-                  label: "TimePicker 时间选择器",
-                },
-                {
-                  value: "date-picker",
-                  label: "DatePicker 日期选择器",
-                },
-                {
-                  value: "datetime-picker",
-                  label: "DateTimePicker 日期时间选择器",
-                },
-                {
-                  value: "upload",
-                  label: "Upload 上传",
-                },
-                {
-                  value: "rate",
-                  label: "Rate 评分",
-                },
-                {
-                  value: "form",
-                  label: "Form 表单",
-                },
-              ],
-            },
-            {
-              value: "3",
-              label: "3楼",
-              children: [
-                {
-                  value: "table",
-                  label: "Table 表格",
-                },
-                {
-                  value: "tag",
-                  label: "Tag 标签",
-                },
-                {
-                  value: "progress",
-                  label: "Progress 进度条",
-                },
-                {
-                  value: "tree",
-                  label: "Tree 树形控件",
-                },
-                {
-                  value: "pagination",
-                  label: "Pagination 分页",
-                },
-                {
-                  value: "badge",
-                  label: "Badge 标记",
-                },
-              ],
-            },
-            {
-              value: "4",
-              label: "4楼",
-              children: [
-                {
-                  value: "alert",
-                  label: "Alert 警告",
-                },
-                {
-                  value: "loading",
-                  label: "Loading 加载",
-                },
-                {
-                  value: "message",
-                  label: "Message 消息提示",
-                },
-                {
-                  value: "message-box",
-                  label: "MessageBox 弹框",
-                },
-                {
-                  value: "notification",
-                  label: "Notification 通知",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          value: "C",
-          label: "C楼",
-          children: [
-            {
-              value: "axure",
-              label: "Axure Components",
-            },
-            {
-              value: "sketch",
-              label: "Sketch Templates",
-            },
-            {
-              value: "jiaohu",
-              label: "组件交互文档",
-            },
-          ],
-        },
-      ],
+      options: [],
 
       rules: {
         name: [
@@ -391,38 +181,113 @@ export default {
 
   mounted() {
     var axios = require("axios");
-    var config = {
+    var config1 = {
       method: "get",
-      url: "http://139.196.114.7/api/Grounds",
-      //url: 'http://139.196.114.7/api/Grounds?accountNumber=thisNum',
+      url: "http://139.196.114.7/api/IndoorGrounds?accountNumber=1000003", //改
       headers: {},
     };
 
-    axios(config)
+    var config2 = {
+      method: "get",
+      url: "http://139.196.114.7/api/OutdoorGrounds?accountNumber=1000003", //改
+      headers: {},
+    };
+
+    axios(config1)
       .then((response) => {
-        this.groundTable = [];
+        this.iGroundTable = [];
+        console.log(response.data);
         for (let gnd of response.data) {
-          this.groundTable.push(gnd);
+          this.iGroundTable.push(gnd);
+        }
+        console.log("ig");
+        console.log(this.iGroundTable);
+        this.options = [];
+        if (this.iGroundTable.length != 0) {
+          this.options.push({
+            value: this.iGroundTable[0].positionName,
+            label: this.iGroundTable[0].positionName,
+            children: [
+              {
+                value: this.iGroundTable[0].floor,
+                label: String(this.iGroundTable[0].floor) + "楼",
+                children: [
+                  {
+                    value: this.iGroundTable[0].groundID,
+                    label: this.iGroundTable[0].roomNo,
+                  },
+                ],
+              },
+            ],
+          });
+
+          for (var k = 1; k < this.iGroundTable.length; ++k) {
+            if (
+              this.iGroundTable[k].positionName !=
+              this.iGroundTable[k - 1].positionName
+            ) {
+              this.options.push({
+                value: this.iGroundTable[k].positionName,
+                label: this.iGroundTable[k].positionName,
+                children: [
+                  {
+                    value: this.iGroundTable[k].floor,
+                    label: String(this.iGroundTable[k].floor) + "楼",
+                    children: [
+                      {
+                        value: this.iGroundTable[k].groundID,
+                        label: this.iGroundTable[k].roomNo,
+                      },
+                    ],
+                  },
+                ],
+              });
+            } else if (
+              this.iGroundTable[k].floor != this.iGroundTable[k - 1].floor
+            ) {
+              this.options[this.options.length - 1].children.push({
+                value: this.iGroundTable[k].floor,
+                label: String(this.iGroundTable[k].floor) + "楼",
+                children: [
+                  {
+                    value: this.iGroundTable[k].groundID,
+                    label: this.iGroundTable[k].roomNo,
+                  },
+                ],
+              });
+            } else {
+              var cPos = this.options.length - 1,
+                cFloor = this.options[cPos].children.length - 1;
+              this.options[cPos].children[cFloor].push({
+                value: this.iGroundTable[k].groundID,
+                label: this.iGroundTable[k].roomNo,
+              });
+            }
+          }
         }
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
-    // var axios = require("axios");
 
-    // var config = {
-    //   method: "get",
-    //   url: "http://139.196.114.7/api/DefaultOccupyTimes",
-    //   headers: {},
-    // };
+    axios(config2)
+      .then((response) => {
+        this.oGroundTable = [];
+        for (let gnd of response.data) {
+          this.oGroundTable.push(gnd);
+        }
+        for (var k = 0; k < this.iGroundTable.length; ++k) {
+          this.options.push({
+            value: this.iGroundTable[0].groundID,
+            label: this.iGroundTable[0].positionName,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-    // axios(config)
-    //   .then((response) =>{
-    //     console.log(JSON.stringify(response.data));
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    console.log(this.iGroundTable);
 
     const that = this;
     console.log(that.groundID);
