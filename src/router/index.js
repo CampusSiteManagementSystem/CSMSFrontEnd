@@ -673,4 +673,18 @@ const router = new VueRouter({
     mode: "history",
     routes
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.path === '/') {
+        next();
+    } else {
+        const token = localStorage.getItem("uutoken");
+        if (token) {
+            next();
+        } else {
+            next("/");
+        }
+    }
+})
+
 export default router
