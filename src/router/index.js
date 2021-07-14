@@ -1,6 +1,10 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import { LoginTest } from '../API/http'
+import VueRouter from 'vue-router' <<
+<< << < HEAD
+import { GETIdentity } from '../API/http' ===
+=== =
+import { LoginTest } from '../API/http' >>>
+>>> > ef9c5a0fe2f2d3befe726b9976e5f5c46a0acf6c
 Vue.use(VueRouter)
 
 const routes = [
@@ -10,6 +14,7 @@ const routes = [
         name: 'Login',
         meta: {
             title: "登录",
+            requireAuth: false
         },
         component: () =>
             import ('../page/Shared/Login.vue')
@@ -20,6 +25,7 @@ const routes = [
         props: true,
         meta: {
             title: "注册",
+            requireAuth: false
         },
         component: () =>
             import ('../page/Shared/Register.vue'),
@@ -38,6 +44,7 @@ const routes = [
         props: true,
         meta: {
             title: "忘记密码",
+            requireAuth: false,
         },
         component: () =>
             import ('../page/Shared/ForgetPassword.vue'),
@@ -56,7 +63,9 @@ const routes = [
         component: () =>
             import ('../page/Student/StudentFrame.vue'),
         meta: {
-            title: '学生'
+            title: '学生',
+            requireAuth: true,
+            roles: ['student']
         },
         children: [{
                 path: "AccountModify",
@@ -64,7 +73,9 @@ const routes = [
                 component: () =>
                     import ('../page/Student/StuAccountModify.vue'),
                 meta: {
-                    title: '个人信息'
+                    title: '个人信息',
+                    requireAuth: true,
+                    roles: ['student']
                 }
             },
             {
@@ -73,7 +84,9 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/ModifyPassword.vue'),
                 meta: {
-                    title: '修改密码'
+                    title: '修改密码',
+                    requireAuth: true,
+                    roles: ['student']
                 }
             },
             {
@@ -82,7 +95,9 @@ const routes = [
                 component: () =>
                     import ('../page/Student/StudentMain.vue'),
                 meta: {
-                    title: '主页'
+                    title: '主页',
+                    requireAuth: true,
+                    roles: ['student']
                 }
             },
             {
@@ -91,7 +106,9 @@ const routes = [
                 component: () =>
                     import ('../page/Student/StudentFavorite.vue'),
                 meta: {
-                    title: '收藏'
+                    title: '收藏',
+                    requireAuth: true,
+                    roles: ['student']
                 }
             },
 
@@ -104,7 +121,9 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/ShowSchedule.vue'),
                 meta: {
-                    title: '场地详情'
+                    title: '场地详情',
+                    requireAuth: true,
+                    roles: ['student']
                 }
             },
             {
@@ -113,7 +132,9 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/check_site.vue'),
                 meta: {
-                    title: '查看场地'
+                    title: '查看场地',
+                    requireAuth: true,
+                    roles: ['student']
                 }
             }, {
                 path: "ActivityInfo/:ID",
@@ -121,7 +142,9 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/ActivityInfo.vue'),
                 meta: {
-                    title: '活动详情'
+                    title: '活动详情',
+                    requireAuth: true,
+                    roles: ['student']
                 }
             }, {
                 path: "ViewActivities/:ID",
@@ -129,7 +152,9 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/check_activity.vue'),
                 meta: {
-                    title: '查看活动'
+                    title: '查看活动',
+                    requireAuth: true,
+                    roles: ['student']
                 }
             }, {
                 path: "Map",
@@ -141,7 +166,9 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/ShowMap.vue'),
                 meta: {
-                    title: '地图'
+                    title: '地图',
+                    requireAuth: true,
+                    roles: ['student']
                 }
             },
             {
@@ -150,7 +177,9 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue'),
                 meta: {
-                    title: '公告'
+                    title: '公告',
+                    requireAuth: true,
+                    roles: ['student']
                 }
             },
             {
@@ -162,7 +191,9 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/ShowPlaceDetail.vue'),
                 meta: {
-                    title: '场地列表'
+                    title: '场地列表',
+                    requireAuth: true,
+                    roles: ['student']
                 },
                 children: [{
                     path: "ShowSchedule/:groundId",
@@ -173,7 +204,9 @@ const routes = [
                     component: () =>
                         import ('../page/Shared/ShowSchedule.vue'),
                     meta: {
-                        title: '场地详情'
+                        title: '场地详情',
+                        requireAuth: true,
+                        roles: ['student']
                     }
                 }, ]
 
@@ -183,7 +216,9 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/check_organ.vue'),
                 meta: {
-                    title: '查看组织'
+                    title: '查看组织',
+                    requireAuth: true,
+                    roles: ['student']
                 }
             }, {
                 path: "ViewSites",
@@ -191,7 +226,9 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/check_site.vue'),
                 meta: {
-                    title: '查看场地'
+                    title: '查看场地',
+                    requireAuth: true,
+                    roles: ['student']
                 }
             },
         ]
@@ -210,6 +247,8 @@ const routes = [
         name: "SystemAdminFrame",
         meta: {
             title: "系统管理员",
+            requireAuth: true,
+            roles: ['systemAdministrator']
         },
         component: () =>
             import ('../page/SystemAdmin/SystemAdminFrame.vue'),
@@ -218,6 +257,8 @@ const routes = [
                 name: "SystemAdminHomePage",
                 meta: {
                     title: "主页",
+                    requireAuth: true,
+                    roles: ['systemAdministrator']
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminHomePage.vue')
@@ -275,6 +316,8 @@ const routes = [
                 name: 'SystemAdminGroupVerify',
                 meta: {
                     title: "审核注册",
+                    requireAuth: true,
+                    roles: ['systemAdministrator']
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminGroupVerifyList.vue')
@@ -284,6 +327,8 @@ const routes = [
                 name: "SystemAdminMaintainUserInfo",
                 meta: {
                     title: "维护信息",
+                    requireAuth: true,
+                    roles: ['systemAdministrator']
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminMaintainUserInfo.vue')
@@ -293,6 +338,8 @@ const routes = [
                 name: "SystemAdminAccountModify",
                 meta: {
                     title: "查看信息",
+                    requireAuth: true,
+                    roles: ['systemAdministrator']
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminAccountModify.vue')
@@ -302,6 +349,8 @@ const routes = [
                 name: "SystemAdminGroupVerify",
                 meta: {
                     title: "审核组织",
+                    requireAuth: true,
+                    roles: ['systemAdministrator']
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminGroupVerify.vue')
@@ -311,6 +360,8 @@ const routes = [
                 name: "SystemAdminAddUser",
                 meta: {
                     title: "添加用户",
+                    requireAuth: true,
+                    roles: ['systemAdministrator']
                 },
                 component: () =>
                     import ('../page/SystemAdmin/AddUser.vue')
@@ -320,6 +371,8 @@ const routes = [
                 name: "SystemAdminAddUserTest",
                 meta: {
                     title: "添加用户",
+                    requireAuth: true,
+                    roles: ['systemAdministrator']
                 },
                 component: () =>
                     import ('../page/SystemAdmin/AddUserTest.vue')
@@ -329,6 +382,8 @@ const routes = [
                 name: "SystemAdminUserModify",
                 meta: {
                     title: "修改信息",
+                    requireAuth: true,
+                    roles: ['systemAdministrator']
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminUserModify.vue')
@@ -338,6 +393,8 @@ const routes = [
                 name: "SystemAdminStudentModify",
                 meta: {
                     title: "修改信息",
+                    requireAuth: true,
+                    roles: ['systemAdministrator']
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminStudentModify.vue')
@@ -347,6 +404,8 @@ const routes = [
                 name: "AnnouncementforSystem",
                 meta: {
                     title: "发布公告",
+                    requireAuth: true,
+                    roles: ['systemAdministrator']
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAnnouncement.vue')
@@ -358,7 +417,9 @@ const routes = [
         path: '/OrgFrame',
         name: 'OrgFrame',
         meta: {
-            title: '组织'
+            title: '组织',
+            requireAuth: true,
+            roles: ['organization']
         },
         component: () =>
             import ('../page/Organization/OrganizationFrame.vue'),
@@ -366,7 +427,9 @@ const routes = [
                 path: 'CheckSite',
                 name: 'OrgCheckSite',
                 meta: {
-                    title: '所有场地'
+                    title: '所有场地',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 props: {
                     membertype: false
@@ -377,7 +440,9 @@ const routes = [
                     path: 'ShowSchedule/:groundId',
                     name: 'ShowScheduleforOrg',
                     meta: {
-                        title: '场地使用详情'
+                        title: '场地使用详情',
+                        requireAuth: true,
+                        roles: ['organization']
                     },
                     props: {
                         membertype: false,
@@ -393,13 +458,17 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/ModifyPassword.vue'),
                 meta: {
-                    title: '修改密码'
+                    title: '修改密码',
+                    requireAuth: true,
+                    roles: ['organization']
                 }
             }, {
                 path: "Main",
                 name: "OrganizationFrameMain",
                 meta: {
-                    title: '组织主页'
+                    title: '组织主页',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Organization/OrganizationMain.vue')
@@ -407,7 +476,9 @@ const routes = [
                 path: 'CheckActivity/:ID',
                 name: 'CreditActivityWindow',
                 meta: {
-                    title: '所有活动'
+                    title: '所有活动',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Shared/check_activity.vue')
@@ -415,7 +486,9 @@ const routes = [
                 path: "OrgAccountModify",
                 name: "OrganizationAccountModify",
                 meta: {
-                    title: '组织详细信息'
+                    title: '组织详细信息',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Organization/OrganizationAccountModify.vue')
@@ -423,7 +496,9 @@ const routes = [
                 path: 'CheckOrgan',
                 name: 'CreditOrganWindow',
                 meta: {
-                    title: '所有组织'
+                    title: '所有组织',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Shared/check_organ.vue')
@@ -431,7 +506,9 @@ const routes = [
                 path: 'CreditScore',
                 name: 'CreditScoreWindow',
                 meta: {
-                    title: '信用分记录'
+                    title: '信用分记录',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Organization/ViewCreditScore.vue')
@@ -439,7 +516,9 @@ const routes = [
                 path: 'Appointment',
                 name: 'AppointmentWindow',
                 meta: {
-                    title: '预约记录'
+                    title: '预约记录',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Organization/ViewAppointment.vue')
@@ -447,7 +526,9 @@ const routes = [
                 path: "OrgFavorite",
                 name: "FavoriteWindow",
                 meta: {
-                    title: '收藏'
+                    title: '收藏',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Organization/OrganizationFavorite.vue')
@@ -456,7 +537,9 @@ const routes = [
                 path: "Announcement",
                 name: "AnnouncementforOrg",
                 meta: {
-                    title: '公告'
+                    title: '公告',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue')
@@ -465,7 +548,9 @@ const routes = [
                 path: 'FinishActivity',
                 name: 'FinishWindow',
                 meta: {
-                    title: '活动反馈'
+                    title: '活动反馈',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Organization/ViewFinishActivity.vue')
@@ -473,7 +558,9 @@ const routes = [
                 path: 'RecordDetails',
                 name: 'RecordWindow',
                 meta: {
-                    title: '已通过'
+                    title: '已通过',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Organization/RecordDetails.vue')
@@ -481,7 +568,9 @@ const routes = [
                 path: 'Pending',
                 name: 'PendingWindow',
                 meta: {
-                    title: '待审核'
+                    title: '待审核',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Organization/PendingReview.vue')
@@ -489,7 +578,9 @@ const routes = [
                 path: 'Rejected',
                 name: 'RejectedWindow',
                 meta: {
-                    title: '被驳回'
+                    title: '被驳回',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Organization/AppointmentRejected.vue')
@@ -497,7 +588,9 @@ const routes = [
                 path: 'FeedBack',
                 name: 'FeedBackWindow',
                 meta: {
-                    title: '场地反馈'
+                    title: '场地反馈',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Organization/SiteFeedback.vue')
@@ -505,7 +598,9 @@ const routes = [
                 path: 'ApplySite',
                 name: 'ApplySiteWindow',
                 meta: {
-                    title: '预约场地'
+                    title: '预约场地',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 component: () =>
                     import ('../page/Organization/ApplyForSite.vue')
@@ -515,7 +610,9 @@ const routes = [
                 path: 'ShowMap',
                 name: 'ShowMapforOrg',
                 meta: {
-                    title: '组织详细信息'
+                    title: '组织详细信息',
+                    requireAuth: true,
+                    roles: ['organization']
                 },
                 props: {
                     membertype: false,
@@ -529,7 +626,9 @@ const routes = [
     {
         path: '/GroundsAdmin',
         meta: {
-            title: '场地管理员'
+            title: '场地管理员',
+            requireAuth: true,
+            roles: ['groundsMan']
         },
         component: () =>
             import ('../page/Grandsman/GroundsmanFrame'),
@@ -539,7 +638,9 @@ const routes = [
                 component: () =>
                     import ('../page/Grandsman/GroundsmanAccountModify.vue'),
                 meta: {
-                    title: '个人信息'
+                    title: '个人信息',
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 }
             },
             {
@@ -548,7 +649,9 @@ const routes = [
                 component: () =>
                     import ('../page/Shared/ModifyPassword.vue'),
                 meta: {
-                    title: '修改密码'
+                    title: '修改密码',
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 }
             },
             {
@@ -556,6 +659,8 @@ const routes = [
                 name: "GroundAdminMain",
                 meta: {
                     title: "主页",
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 },
                 component: () =>
                     import ('../page/Grandsman/GroundsmanHome.vue')
@@ -565,6 +670,8 @@ const routes = [
                 name: "ScoringActivityList",
                 meta: {
                     title: "活动评价列表",
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 },
                 component: () =>
                     import ('../page/Grandsman/ScoringActivityList.vue'),
@@ -574,6 +681,8 @@ const routes = [
                 name: "AnnouncementforGround",
                 meta: {
                     title: "公告",
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 },
                 component: () =>
                     import ('../page/Shared/AnnouncementList.vue'),
@@ -583,6 +692,8 @@ const routes = [
                 name: "ScoringActivity",
                 meta: {
                     title: "活动评价",
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 },
                 component: () =>
                     import ('../page/Grandsman/ScoringActivity'),
@@ -592,6 +703,8 @@ const routes = [
                 name: "ReleaseGroundAnnouncement",
                 meta: {
                     title: "发布场地公告",
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 },
                 component: () =>
                     import ('../page/Grandsman/ReleaseGroundAnnouncement'),
@@ -601,6 +714,8 @@ const routes = [
                 name: "ReviewActivityList",
                 meta: {
                     title: "活动审核列表",
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 },
                 component: () =>
                     import ('../page/Grandsman/ReviewActivityList'),
@@ -610,6 +725,8 @@ const routes = [
                 name: "GroundList",
                 meta: {
                     title: "所有场地",
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 },
                 component: () =>
                     import ('../page/Grandsman/GroundList'),
@@ -619,6 +736,8 @@ const routes = [
                 name: "OrgActivityInfo",
                 meta: {
                     title: "审批活动",
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 },
                 component: () =>
                     import ('../page/Grandsman/ActivityInfo'),
@@ -628,6 +747,8 @@ const routes = [
                 name: "FeedbackActivityList",
                 meta: {
                     title: "活动反馈列表",
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 },
                 component: () =>
                     import ('../page/Grandsman/FeedbackActivityList'),
@@ -637,6 +758,8 @@ const routes = [
                 name: "FeedbackInfo",
                 meta: {
                     title: "反馈详情",
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 },
                 component: () =>
                     import ('../page/Grandsman/FeedbackInfo'),
@@ -646,6 +769,8 @@ const routes = [
                 name: "AddCourse",
                 meta: {
                     title: "导入课表",
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 },
                 component: () =>
                     import ('../page/Grandsman/AddCourse'),
@@ -655,6 +780,8 @@ const routes = [
                 name: "GroundInfo",
                 meta: {
                     title: "场地信息",
+                    requireAuth: true,
+                    roles: ['groundsMan']
                 },
                 component: () =>
                     import ('../page/Grandsman/GroundInfo'),
@@ -677,18 +804,27 @@ const routes = [
     {
         path: "/test",
         component: () =>
-            import ("../test.vue")
+            import ("../test.vue"),
+        meta: {
+            requireAuth: false,
+        }
     },
     {
         path: "/error",
         component: () =>
-            import ('../page/Shared/404.vue')
+            import ('../page/Shared/404.vue'),
+        meta: {
+            requireAuth: false,
+        }
     },
     {
         path: "*",
         name: "404page",
         component: () =>
-            import ('../page/Shared/404.vue')
+            import ('../page/Shared/404.vue'),
+        meta: {
+            requireAuth: false,
+        }
     }
 ]
 
@@ -699,14 +835,27 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.path === '/') {
+    if (to.meta.requireAuth === false) {
         next();
     } else {
-        LoginTest()
-            .then(() => {
-                next();
+        GETIdentity()
+            .then((data) => {
+                const id = localStorage.getItem('uuid');
+                const type = localStorage.getItem('uutype');
+                if (id === data.accountNumber && type === data.role && to.meta.roles.some(role => {
+                        return role === type;
+                    })) {
+                    next();
+                } else {
+                    localStorage.removeItem("uuid");
+                    localStorage.removeItem("uutype");
+                    localStorage.removeItem("uutoken");
+                    next('/');
+                }
             })
-            .catch(() => {})
+            .catch(() => {
+
+            })
     }
 })
 
