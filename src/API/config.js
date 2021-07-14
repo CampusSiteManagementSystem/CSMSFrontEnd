@@ -175,23 +175,52 @@ export function DeleteID(url, ID) {
  * @param params
  * @returns {Promise}
  */
-
 export function Put(url, params) {
     return new Promise((resolve, reject) => {
-        axios.put(url, params).then(res => {
-            resolve(res.data)
-        }).catch(err => {
-            reject(err)
-        })
-    })
+        axios.put(url, JSON.stringify(params), {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(res => {
+                resolve(res.data);
+            })
+            .catch(err => {
+                reject(err)
+            })
+    });
 }
+// export function Put(url, params) {
+//     return new Promise((resolve, reject) => {
+//         axios.put(url, params).then(res => {
+//             resolve(res.data)
+//         }).catch(err => {
+//             reject(err)
+//         })
+//     })
+// }
 
 export function PutID(url, ID, params) {
     return new Promise((resolve, reject) => {
-        axios.put(url + ID, params).then(res => {
-            resolve(res.data)
-        }).catch(err => {
-            reject(err)
-        })
-    })
+        axios.put(url + ID, JSON.stringify(params), {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(res => {
+                resolve(res.data);
+            })
+            .catch(err => {
+                reject(err)
+            })
+    });
 }
+// export function PutID(url, ID, params) {
+//     return new Promise((resolve, reject) => {
+//         axios.put(url + ID, params).then(res => {
+//             resolve(res.data)
+//         }).catch(err => {
+//             reject(err)
+//         })
+//     })
+// }
