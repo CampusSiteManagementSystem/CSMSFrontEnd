@@ -679,7 +679,9 @@ router.beforeEach((to, from, next) => {
         next();
     } else {
         LoginTest()
-            .then(() => {})
+            .then(() => {
+                next();
+            })
             .catch(() => {})
     }
 })
