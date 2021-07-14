@@ -32,9 +32,7 @@ export const DELETEExamineAndApprovesID = ID => DeleteID('/api/ExamineAndApprove
 
 //FeedbackRecords
 export const GETFeedbackRecords = param => Get('/api/FeedbackRecords', param); //ok
-
 export const POSTFeedbackRecords = param => Post('/api/FeedbackRecords', param); //ok
-
 export const GETFeedbackRecordsID = ID => GetID('/api/FeedbackRecords/', ID) //ok
     // export const PUTFeedbackRecordsID = (ID, param) => PutID('/api/FeedbackRecords/', ID, param); 
 export const DELETEFeedbackRecordsID = ID => DeleteID('/api/FeedbackRecords/', ID); //ok
@@ -45,18 +43,17 @@ export const DELETEFeedbackRecordsID = ID => DeleteID('/api/FeedbackRecords/', I
 export const GETIndoorGrounds = param => Get('/api/IndoorGrounds', param) //ok
 export const GETIndoorGroundsID = ID => GetID('/api/IndoorGrounds/', ID) //ok   
     // export const POSTIndoorGrounds = param => Post('/api/IndoorGrounds', param);
-    // export const PUTIndoorGroundsID = (ID, param) => PutID('/api/IndoorGrounds/', ID, param); 
+export const PUTIndoorGroundsID = (ID, param) => PutID('/api/IndoorGrounds/', ID, param); //ok
     // export const DELETEIndoorGroundsID = ID => DeleteID('/api/IndoorGrounds/', ID);
 
 
 
 //Grounds
-
 export const GETGrounds = param => Get('/api/Grounds', param) //ok
 export const GETGroundsID = ID => GetID('/api/Grounds/', ID) //ok
-    // export const POSTGrounds = param => Post('/api/Grounds', param); 
-    // export const PUTGroundsID = (ID, param) => PutID('/api/Grounds/', ID, param); 
-    // export const DELETEGroundsID = ID => DeleteID('/api/Grounds/', ID);
+export const PUTGroundsID = (ID, param) => PutID('/api/Grounds/', ID, param); //ok
+
+
 
 //OutdoorGrounds
 export const GETOutdoorGrounds = param => Get('/api/OutdoorGrounds', param)
@@ -100,7 +97,6 @@ export const PUTStudentsID = (ID, param) => PutID('/api/Students/', ID, param); 
 
 // StuFavorites
 export const GETStuFavoritesID = ID => GetID('/api/StuFavorites/', ID); //ok
-//id groundid?
 export const DELETEStuFavorites = param => Delete('/api/StuFavorites/', param); //ok
 export const POSTStuFavorites = param => Post('/api/StuFavorites', param); //ok
 
@@ -112,11 +108,10 @@ export const GETSystemAdministratorsID = ID => GetID('/api/SystemAdministrators/
 //SystemAnnouncements
 export const GETSystemAnnouncements = param => Get('/api/SystemAnnouncements', param); //ok
 export const POSTSystemAnnouncements = param => Post('/api/SystemAnnouncements', param); //ok
-//{id},{systemAnnouncementDate},{systemAnnouncementTime}?
 export const PUTSystemAnnouncements = param => Put('/api/SystemAnnouncements', param); //ok
 export const DELETESystemAnnouncements = param => Delete('/api/SystemAnnouncements', param); //ok
 
-//Positions（未完成）
+//Positions
 export const GETPositions = param => Get('/api/Positions', param); //wy测试ok
 
 //login
