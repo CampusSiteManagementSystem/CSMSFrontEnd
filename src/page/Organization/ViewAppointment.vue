@@ -607,14 +607,14 @@
               <p>
                 <el-rate
                   class="block"
-                  v-model="score"
+                  v-model="ruleForm.score"
                   :colors="colors"
                   show-text
                 ></el-rate>
               </p>
             </div>
           </el-form-item>
-          <el-form-item label="详细意见" prop="textarea">
+          <el-form-item label="详细意见">
             <label slot="label"><b>详细意见</b></label>
             <span>
               <el-input
@@ -623,22 +623,16 @@
                 type="textarea"
                 :rows="5"
                 placeholder="请输入内容"
-                v-model="textarea"
+                v-model="ruleForm.textarea"
               >
               </el-input>
             </span>
-          </el-form-item>
-          <el-form-item align="center" class="modify">
-            <el-button type="primary" @click="submit">提交</el-button>
-            <router-link to="/OrgFrame/FinishActivity" tag="el-button"
-              >取消</router-link
-            >
           </el-form-item>
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="feedbackVisible = false">取消</el-button>
-        <el-button type="primary" @click="feedbackVisible">提交</el-button>
+        <el-button type="primary" @click="submit">提交</el-button>
       </span>
     </el-dialog>
   </div>
@@ -647,7 +641,7 @@
 <script>
 import store from "../../state/state";
 //import FeedbackDialog from "../../components/FeedbackDialog";
-import { GETActivities, DELETEActivitiesID } from "../../API/http";
+import { GETActivities, DELETEActivitiesID, POSTFeedbackRecords } from "../../API/http";
 export default {
   // components: {
   //   FeedbackDialog,
@@ -672,6 +666,7 @@ export default {
         已完成: [],
       },
       ruleForm: {
+        score: null,
         textarea: "",
       },
       rules: {
@@ -692,9 +687,7 @@ export default {
         tag: "",
         time: "",
       },
-      score: null,
       colors: ["#99A9BF", "#F7BA2A", "#FF9900"], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
-      textarea: "",
       activeName: "second",
 
       //以下是调用api后新增的内容
@@ -704,7 +697,6 @@ export default {
     };
   },
   methods: {
-    submitFeedback() {},
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -971,6 +963,44 @@ export default {
         context.restore();
       }
     },
+
+    submit() {
+      if (this.ruleForm.score == null || this.ruleForm.textarea == "") {
+        this.$alert("未输入所有备选项", "反馈失败", {
+          confirmButtonText: "确定",
+          callback: (action) => {
+            if (action === "confirm") {
+              console.log("ID", this.$route.query.activityID);
+              this.$message({
+                type: "error",
+                message: "反馈失败",
+              });
+            }
+          },
+        });
+      } else {
+        var tmp = {
+          feedbackDate: this.formatTime,
+          feedbackTime: this.formatTime,
+          content: this.ruleForm.textarea,
+          score: this.ruleForm.score,
+          id: this.feedbackRow.ID,
+          groundName: this.feedbackRow.groundname,
+        };
+        console.log(tmp);
+        POSTFeedbackRecords(tmp)
+            .then((data) => {
+              console.log(data);
+              this.$message({ message: "反馈成功", type: "success" });
+              this.$router.push({ path: "/GroundsAdmin/Main" });
+            })
+            .catch((err) => {
+              err;
+              this.$message({ message: "反馈失败", type: "error" });
+            });
+      }
+      this.feedbackVisible = false;
+    },
   },
   computed: {
     formatTime() {
@@ -999,7 +1029,7 @@ export default {
       if (s < 10) {
         s = "0" + s;
       }
-      sresult = Y + "-" + m + "-" + d + " " + H + ":" + i + ":" + s;
+      sresult = String(Y) + "-" + m + "-" + d + "T" + H + ":" + i + ":" + s;
 
       return sresult;
     },
