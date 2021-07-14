@@ -23,9 +23,16 @@
             :hide-required-asterisk="true"
             size="medium"
           >
+            <el-form-item label="账号" prop="accountNo">
+              <el-input
+                v-model.number="form.accountNo"
+                placeholder="请输入账号"
+                clearable
+              ></el-input>
+            </el-form-item>
             <el-form-item label="用户名" prop="username">
               <el-input
-                v-model.number="form.username"
+                v-model="form.username"
                 placeholder="请输入用户名"
                 clearable
               ></el-input>
@@ -57,7 +64,8 @@
                   type="primary"
                   plain
                   @click="sendEmail('RegisterForm')"
-                  >验证</el-button
+                  :disabled="isOK"
+                  >{{ timeCnt }}</el-button
                 >
               </el-row>
             </el-form-item>
@@ -92,19 +100,33 @@
 </template>
 
 <script>
+import {
+  GETStuEmail,
+  POSTStudents,
+  POSTOrganizations,
+  GETOrgEmail,
+} from "../../API/http";
 export default {
+  props: ["type"],
   data() {
     return {
+      //发送邮箱避免频繁发送
+      timeCnt: "验证",
+      isOK: false,
+      cnthandler: null,
       form: {
+        accountNo: "",
         username: "",
         password: "",
         checkPassword: "",
         email: "",
         verifyEmail: "",
       },
-      verifyCode: undefined, //从后端接收的验证码
-
       rules: {
+        accountNo: [
+          { required: true, message: "请输入账号", trigger: "blur" },
+          { type: "number", message: "年龄必须为数字值", trigger: "change" },
+        ],
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
           {
@@ -141,41 +163,99 @@ export default {
         ],
         verifyEmail: [
           { required: true, message: "请输入验证码", trigger: "change" },
-          {
-            validator: (rule, value, callback) => {
-              if (value !== this.verifyCode) {
-                callback(new Error("验证码错误"));
-              } else {
-                callback();
-              }
-            },
-            trigger: "blur"
-          },
         ],
-
       },
     };
   },
   methods: {
+    cnt: function () {
+      this.cnthandler = setTimeout(() => {
+        if (this.timeCnt === 0) {
+          clearInterval(this.cnthandler);
+          this.timeCnt = "验证";
+          this.isOK = false;
+          return;
+        }
+        this.timeCnt--;
+        this.cnt();
+      }, 1000);
+    },
     sendEmail: function (formName) {
       this.$refs[formName].validateField("email", (ErrorMessage) => {
         if (ErrorMessage) {
           //验证失败
-          alert(ErrorMessage);
+          this.$message(ErrorMessage);
         } else {
-          //向后端请求发送验证码并接收该验证码
-          //to do
-          alert("验证码发送成功"); //just test
+          if (this.type === "1") {
+            this.$message("验证码发送成功");
+            this.timeCnt = 30;
+            this.isOK = true;
+            this.cnt();
+            GETStuEmail({ email: this.form.email })
+              .then((data) => {
+                data;
+              })
+              .catch((err) => {
+                err;
+                this.$message.error("验证码发送失败");
+              });
+          } else if (this.type === "3") {
+            this.$message("验证码发送成功");
+            this.timeCnt = 30;
+            this.isOK = true;
+            this.cnt();
+            GETOrgEmail({ email: this.form.email })
+              .then((data) => {
+                data;
+              })
+              .catch((err) => {
+                err;
+                this.$message.error("验证码发送失败");
+              });
+          }
         }
       });
     },
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          //校验邮箱验证码，然后发送请求
-          //to do
-          //向后端请求创建账户
-          alert("用户创建成功"); //just test
+          if (this.type === "1") {
+            //stu
+            POSTStudents({
+              accountNumber: this.form.accountNo,
+              secretPassword: this.form.password,
+              eMailAddress: this.form.email,
+              name: this.form.username,
+              verificationCode: this.form.verifyEmail,
+            })
+              .then((data) => {
+                data;
+                //console.log(data);
+                this.$message("学生用户创建成功");
+              })
+              .catch((err) => {
+                //console.log(err);
+                err;
+                this.$message.error("学生用户创建失败");
+              });
+          } else if (this.type === "3") {
+            //
+            POSTOrganizations({
+              accountNumber: this.form.accountNo,
+              secretPassword: this.form.password,
+              eMailAddress: this.form.email,
+              name: this.form.username,
+              verificationCode: this.form.verifyEmail,
+            })
+              .then((data) => {
+                data;
+                this.$message("组织用户创建成功");
+              })
+              .catch((err) => {
+                err;
+                this.$message.error("组织用户创建失败");
+              });
+          }
         } else {
           //alert(msg);
           alert("信息填写有误，请重新填写");

@@ -398,7 +398,8 @@ export default {
             var temp = this.ruleForm.site;
             this.$refs["ruleForm"].resetFields();
             this.ruleForm.site = temp;
-            this.handleGroundChange(this.ruleForm.site);
+            // this.tableData=[];
+            // this.handleGroundChange(this.ruleForm.site);
             this.$message({
               message: "课程添加成功",
               type: "success",
