@@ -347,7 +347,7 @@
                   <el-button
                     size="mini"
                     type="primary"
-                    @click.stop="handleFeedback(scope.$index, scope.row)"
+                    @click.stop="handleFeedback(scope.row)"
                     >反馈
                   </el-button>
                   <!-- <router-link
@@ -443,7 +443,6 @@
                 :formatter="formatter"
               >
               </el-table-column>
-
               <el-table-column
                 prop="tag"
                 label="标签"
@@ -486,7 +485,10 @@
       </el-card>
 
       <!-- 以下是场地反馈的弹出窗口 -->
-      <FeedbackDialog :feedbackVisible="feedbackVisible" :message="feedbackRow" />
+      <FeedbackDialog
+        :feedbackVisible="feedbackVisible"
+        :message="feedbackRow"
+      />
       <!-- <el-dialog title="场地反馈" :visible.sync="feedbackVisible">
           <span>这是一段信息</span>
           <el-form ref="form" label-width="100px">
@@ -509,7 +511,7 @@
           </el-form-item>
         </el-form> -->
 
-  <!-- <el-form :model="form">
+      <!-- <el-form :model="form">
     <el-form-item label="活动名称" :label-width="formLabelWidth">
       <el-input v-model="form.name" autocomplete="off"></el-input>
     </el-form-item>
@@ -520,7 +522,7 @@
       </el-select>
     </el-form-item>
   </el-form> -->
-  <!-- <div slot="footer" class="dialog-footer">
+      <!-- <div slot="footer" class="dialog-footer">
     <el-button @click="feedbackVisible = false">取 消</el-button>
     <el-button type="primary" @click="submitFeedback">提交</el-button>
   </div>
@@ -577,17 +579,79 @@
         </el-dialog>
       </div>
     </div>
+    <el-dialog title="场地反馈" :visible.sync="feedbackVisible" class="dialog">
+      <div class="content">
+        <el-form
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+          label-position="left"
+          class="demo-table"
+          label-width="150px"
+        >
+          <el-form-item label="活动ID">
+            <label slot="label"><b>活动ID</b></label>
+            <span>{{ feedbackRow.ID }}</span>
+          </el-form-item>
+          <el-form-item label="活动时间">
+            <label slot="label"><b>活动时间</b></label>
+            <span>{{ feedbackRow.time }}</span>
+          </el-form-item>
+          <el-form-item label="活动地点">
+            <label slot="label"><b>活动地点</b></label>
+            <span>{{ feedbackRow.groundname }}</span>
+          </el-form-item>
+          <el-form-item label="活动评分">
+            <label slot="label"><b>活动评分</b></label>
+            <div>
+              <p>
+                <el-rate
+                  class="block"
+                  v-model="score"
+                  :colors="colors"
+                  show-text
+                ></el-rate>
+              </p>
+            </div>
+          </el-form-item>
+          <el-form-item label="详细意见" prop="textarea">
+            <label slot="label"><b>详细意见</b></label>
+            <span>
+              <el-input
+                :autosize="{ minRows: 2, maxRows: 6 }"
+                class="input"
+                type="textarea"
+                :rows="5"
+                placeholder="请输入内容"
+                v-model="textarea"
+              >
+              </el-input>
+            </span>
+          </el-form-item>
+          <el-form-item align="center" class="modify">
+            <el-button type="primary" @click="submit">提交</el-button>
+            <router-link to="/OrgFrame/FinishActivity" tag="el-button"
+              >取消</router-link
+            >
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="feedbackVisible = false">取消</el-button>
+        <el-button type="primary" @click="feedbackVisible">提交</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import store from "../../state/state";
-import FeedbackDialog from "../../components/FeedbackDialog";
+//import FeedbackDialog from "../../components/FeedbackDialog";
 import { GETActivities, DELETEActivitiesID } from "../../API/http";
 export default {
-  components:{
-    FeedbackDialog,
-  },
+  // components: {
+  //   FeedbackDialog,
+  // },
   data() {
     return {
       //这是下载pdf的参数 别删了嗷
@@ -607,20 +671,40 @@ export default {
         被驳回: [],
         已完成: [],
       },
-
+      ruleForm: {
+        textarea: "",
+      },
+      rules: {
+        textarea: [
+          { required: true, message: "请输入场地反馈", trigger: "blur" },
+        ],
+      },
+      
+      feedbackRow: {
+        ID: "",
+        additionalRequest: "",
+        date: "",
+        description: "",
+        groundname: "",
+        groupname: "",
+        name: "",
+        participantNum: 0,
+        tag: "",
+        time: "",
+      },
+      score: null,
+      colors: ["#99A9BF", "#F7BA2A", "#FF9900"], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
+      textarea: "",
       activeName: "second",
 
       //以下是调用api后新增的内容
       axiosdata: "",
       orgId: store.state.ID,
       feedbackVisible: false,
-      feedbackRow:null,
     };
   },
   methods: {
-    submitFeedback(){
-      
-    },
+    submitFeedback() {},
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -667,10 +751,10 @@ export default {
         });
     },
 
-    handleFeedback(index, row) {
-      console.log(index, row);
+    handleFeedback(row) {
+      console.log(row);
       this.feedbackVisible = true;
-      this.feedbackRow=row;
+      this.feedbackRow = row;
     },
     handleRenew(index, row) {
       console.log(index, row);
@@ -926,9 +1010,15 @@ export default {
 };
 </script>
 
+<style>
+.el-dialog {
+  border-radius: 12px;
+}
+
+</style>
 <style scoped>
 body {
-    margin: 0;
+  margin: 0;
 }
 .page {
   height: 100%;
@@ -959,7 +1049,9 @@ body {
   width: 90px;
   font-weight: 700;
 }
-
+.dialog {
+  backdrop-filter: blur(10px);
+}
 .demo-table-expand .el-form-item {
   margin-right: 0;
   margin-bottom: 0;

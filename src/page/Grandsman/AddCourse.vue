@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import { GETDefaultOccupyTime } from "../../API/http";
+//import { GETDefaultOccupyTime } from "../../API/http";
 
 // import store from "../../state/state.js"
 export default {

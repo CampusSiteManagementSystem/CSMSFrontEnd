@@ -20,6 +20,7 @@
     "element-ui": "^2.15.2",
     "html2canvas": "^1.1.0",
     "jspdf": "^2.3.1",
+    "lib-flexible": "^0.3.2",
     "mapbox-gl": "^2.3.1",
     "mockis": "0.0.6",
     "mockjs": "^1.1.0",
@@ -35,6 +36,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "px2rem-loader": "^0.1.9",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.6.11"
