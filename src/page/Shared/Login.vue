@@ -155,8 +155,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //提交表单到后台验证身份，并路由到指定页面
-          if (this.identity === 1) {
-            Login({
+          Login({
               accountNumber: this.form.accountNumber,
               secretPassword: this.form.password,
             })
@@ -164,12 +163,8 @@ export default {
                 localStorage.setItem("uutype", this.identity);
                 localStorage.setItem("uuid", this.form.accountNumber);
                 localStorage.setItem("uutoken", data.accessToken);
-              })
-              .catch((err) => {
-                this.$message("账户或密码错误");
-                console.log(err);
-              });
-            //this.$router.push("/StuFrame/Main");
+                 if (this.identity === 1) {
+            this.$router.push("/StuFrame/Main");
           } else if (this.identity === 2) {
             this.$router.push("/GroundsAdmin/Main");
           } else if (this.identity === 3) {
@@ -177,6 +172,11 @@ export default {
           } else if (this.identity === 4) {
             this.$router.push("/SysAdminFrame");
           }
+              })
+              .catch((err) => {
+                this.$message("账户或密码错误");
+                console.log(err);
+              });
         }
       });
     },

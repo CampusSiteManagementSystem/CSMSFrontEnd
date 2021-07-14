@@ -1,6 +1,6 @@
 import axios from "axios";
 //import store from "../state/state"
-//import router from "../router/index"
+import router from "../router/index"
 import { Message } from 'element-ui';
 //import QS from 'qs'
 
@@ -61,20 +61,18 @@ axios.interceptors.response.use(
         console.log(error, 123)
         if (error.response.status) {
             switch (error.response.status) {
-                // 401: 未登录
-                // 未登录则跳转登录页面，并携带当前页面的路径
-                // 在登录成功后返回当前页面，这一步需要在登录页操作。
+                case 401:
+                    Message.error("身份有误，请重新登录")
+                    router.replace('/')
+                    break;
                 case 404:
-                    Message.error("NotFound")
-                        //router.replace('/error')
+                    Message.error("404NotFound")
                     break;
                 case 403:
-                    Message.error("输入不合法");
-                    //router.replace('/error')
+                    Message.error("403输入不合法");
                     break;
                 case 409:
-                    Message.error("冲突");
-                    //router.replace('/error')
+                    Message.error("409冲突");
                     break;
                 default:
                     Message.error("未捕获错误");
