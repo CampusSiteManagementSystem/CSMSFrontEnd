@@ -675,11 +675,15 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    const token = localStorage.getItem("uutoken");
-    if (token) {
+    if (to.path === '/') {
         next();
     } else {
-        next("/");
+        const token = localStorage.getItem("uutoken");
+        if (token) {
+            next();
+        } else {
+            next("/");
+        }
     }
 })
 
