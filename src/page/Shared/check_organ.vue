@@ -162,20 +162,7 @@ export default {
     .catch(function (error) {
       console.log(error);
     });
-                
-    axios(config)
-        .then(response => {
-        this.tableData = [];
-        for (let key of Object.keys(response.data)){
-          for (let a of response.data[key]){
-            this.tableData.push(a);
-          }
-        }
-        this.matchList = this.tableData;
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
+  
   },
 
   methods: {
