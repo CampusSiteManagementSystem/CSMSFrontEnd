@@ -33,7 +33,7 @@
                 <el-form-item label="性别：" prop="gender">
                   <el-input v-model="ruleForm.gender" :readonly="true"></el-input>
                 </el-form-item>
-                <el-form-item label="国籍：" prop="country">
+                <el-form-item label="民族：" prop="country">
                   <el-input v-model="ruleForm.country" :readonly="true"></el-input>
                 </el-form-item>
                 <el-form-item label="年级：" prop="grade">
@@ -142,22 +142,24 @@ p {
 
 <script>
 
-import {GETStudentsID} from "../../API/http"
+import {GETStudentsID,
+       PUTStudentsID} from "../../API/http"
 import store from "../../state/state";
 
 
 export default {
   created() {
-    GETStudentsID("1850001")
+    GETStudentsID("1850002")
     .then(data =>{
       this.ruleForm.account=this.StuID;
       this.ruleForm.name=data.name;
-      this.ruleForm.gender=data.gender===1?'女':'男';
+      this.ruleForm.gender=data.gender;
       this.ruleForm.country=data.nation;
       this.ruleForm.grade=data.grade;
       this.ruleForm.email=data.eMailAddress;
       this.ruleForm.college=data.academy;
       this.ruleForm.specialty=data.major;
+      this.NumToStr();      
       this.updateData();
     })
     .catch((err) => {
@@ -170,11 +172,11 @@ export default {
       ruleForm: {
         account: "",
         name: "",
-        gender: "",
-        country: "",
-        grade: "",
+        gender: 0,
+        country: 0,
+        grade: 0,
         email: "",
-        college: "",
+        college: 0,
         specialty: "",
       },
       dicSpecialty: {
@@ -254,6 +256,65 @@ export default {
           },
         ],
       },
+      countrys: [{
+        value: '汉族',
+        label: '汉族'
+      }, {
+        value: '回族',
+        label: '回族'
+      }, {
+        value: '满族',
+        label: '满族'
+      }, {
+        value: '傣族',
+        label: '傣族'
+      }, {
+        value: '白族',
+        label: '白族'
+      }, {
+        value: '维吾尔族',
+        label: '维吾尔族'
+      }, {
+        value: '藏族',
+        label: '藏族'
+      }, {
+        value: '蒙古族',
+        label: '蒙古族'
+      }, {
+        value: '苗族',
+        label: '苗族'
+      }, {
+        value: '其他',
+        label: '其他'
+      }],
+      sexy:[
+        {
+        value: '女',
+        label: '女'
+      }, {
+        value: '男',
+        label: '男'
+      }],
+      grades:[{
+        value: '大一',
+        label: '大一'
+      }, {
+        value: '大二',
+        label: '大二'
+      }, {
+        value: '大三',
+        label: '大三'
+      }, {
+        value: '大四',
+        label: '大四'
+      },{
+        value: '研究生',
+        label: '研究生'
+      },{
+        value: '其他',
+        label: '其他'
+      },
+      ],
       colleges: [{
         value: '软件学院',
         label: '软件学院'
@@ -282,7 +343,7 @@ export default {
         title: '性别',
         content: '',
       }, {
-        title: '国籍',
+        title: '民族',
         content: '',
       }, {
         title: '年级',
@@ -297,6 +358,12 @@ export default {
         title: '专业',
         content: '',
       }],
+      numData:{
+        gender: null,
+        country: null,
+        grade: null,
+        college: null,
+      },
       radio: "1",
       textarea: "",
       isForm: false,
@@ -317,6 +384,58 @@ export default {
         return 'background:#FBFBEF; font-weight: 700;'
       } else if (columnIndex == 0) {
         return 'background:#EFFBEF; font-weight: 700;'
+      }
+    },
+    NumToStr() {
+      if(this.ruleForm.country<this.countrys.length)
+      {
+        this.ruleForm.country=this.countrys[this.ruleForm.country].label;
+      }
+      if(this.ruleForm.gender<this.sexy.length)
+      {
+        this.ruleForm.gender=this.sexy[this.ruleForm.gender].label;
+      }
+      if(this.ruleForm.grade<this.grades.length)
+      {
+        this.ruleForm.grade=this.grades[this.ruleForm.grade].label;
+      }
+      if(this.ruleForm.college<this.colleges.length)
+      {
+        this.ruleForm.college=this.colleges[this.ruleForm.college].label;        
+      }
+    },
+    StrToNum(){
+      for(let i=0;i<this.countrys.length;i++)
+      {
+        if(this.ruleForm.country==this.countrys[i].label)
+        {
+          this.numData.country=i;
+          break;
+        }
+      }
+      for(let i=0;i<this.sexy.length;i++)
+      {
+        if(this.ruleForm.gender==this.sexy[i].label)
+        {
+          this.numData.gender=i;
+          break;
+        }
+      }
+      for(let i=0;i<this.grades.length;i++)
+      {
+        if(this.ruleForm.grade==this.grades[i].label)
+        {
+          this.numData.grade=i;
+          break;
+        }
+      }
+      for(let i=0;i<this.colleges.length;i++)
+      {
+        if(this.ruleForm.college==this.colleges[i].label)
+        {
+          this.numData.college=i;
+          break;
+        }
       }
     },
     focusText() {
@@ -379,6 +498,22 @@ export default {
       this.tableData[6].content = this.ruleForm.college;
       this.tableData[7].content = this.ruleForm.specialty;
     },
+    setToDB() {
+      PUTStudentsID("1850002"/*this.ruleForm.account*/,{
+          accountNumber: "1850002"/*this.ruleForm.account*/,
+          name: this.ruleForm.name,
+          gender: this.numData.gender,
+          grade: this.numData.grade,
+          academy: this.numData.college,
+          eMailAddress: this.ruleForm.email,
+          major:this.ruleForm.specialty,
+          nation:this.numData.country,
+      })
+        .catch((err) => {
+          console.log(err);
+          this.$message("学生信息传输错误");
+        })
+    },
     edit() {
       this.isTable = false;
       setTimeout(() => {
@@ -395,6 +530,8 @@ export default {
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.StrToNum();          
+          this.setToDB();
           this.isForm = false;
           setTimeout(() => {
             this.isTable = true;
