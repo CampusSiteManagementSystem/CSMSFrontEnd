@@ -3,7 +3,7 @@
     <div slot="header" class="clearfix">
       <span><b>使用场地申请</b></span>
     </div>
-    <el-row>
+    <el-row type="flex">
       <el-col :span="12">
       <el-form
         ref="applyform"
@@ -99,16 +99,29 @@
         </el-form-item>
       </el-form>
       </el-col>
+      
       <el-col :span="12">
+        <!-- <el-card> -->
+        <div style="padding-left:5%;height:500px">
+         <Mycalendar :groundId="1000003"  @handleSelect="myfun($event)"/>
+        </div>
+        <!-- </el-card> -->
+
+
       </el-col>
     </el-row>
   </el-card>
 </template>
 
 <script scoped>
+import Mycalendar from "../../components/Mycalendar.vue";
 import store from "../../state/state";
 import { POSTActivities } from "../../API/http";
 export default {
+  components:{
+    Mycalendar,
+
+  },
   created() {
     this.getAllSite();
   },
@@ -209,6 +222,18 @@ export default {
     };
   },
   methods: {
+    myfun(a){
+      console.log("aaaaaaaaaaabbbbbb",a);
+//       {start: "2021-07-12T09:00:00+08:00", end: "2021-07-12T12:30:00+08:00"}
+// end: "2021-07-12T12:30:00+08:00"
+// start: "2021-07-12T09:00:00+08:00"
+
+
+//用这个函数转化
+// var date = new Date(Date.parse(time.replace("T", " ").toString()));
+
+
+    },
     handleChange(value) {
       console.log(value);
     },

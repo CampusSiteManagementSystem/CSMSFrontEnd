@@ -81,6 +81,7 @@ export const PUTOrganizations = param => Put('/api/Organizations', param); //ok
 export const POSTOrganizations = param => Post('/api/Organizations', param); //ok
 export const GETOrganizationsID = ID => GetID('/api/Organizations/', ID); //ok
 export const PUTOrganizationsID = (ID, param) => PutID('/api/Organizations/', ID, param); //ok
+export const DELETEOrganizationsID = ID => DeleteID('/api/Organizations/', ID); //ok
 
 
 //OrgFavorites
@@ -93,6 +94,7 @@ export const GETStudents = param => Get('/api/Students', param); //ok
 export const POSTStudents = param => Post('/api/Students', param); //ok
 export const GETStudentsID = ID => GetID('/api/Students/', ID); //ok
 export const PUTStudentsID = (ID, param) => PutID('/api/Students/', ID, param); //ok
+export const DELETEStudentsID = ID => DeleteID('/api/Students/', ID); //ok
 
 
 // StuFavorites
@@ -116,4 +118,14 @@ export const GETPositions = param => Get('/api/Positions', param); //wy测试ok
 
 //login
 export const Login = param => Get('/api/Login', param);
+export const GETIdentity = param => Get('/api/Login/identity', param);
 export const LoginTest = param => Get('/api/Login/test/student', param);
+export const LoginTestOrg = param => Get('/api/Login/test/organization', param);
+export const LoginTestStuID = ID => GetID('/api/Login/test/student/', ID);
+
+//email
+export const GETStuEmail = param => Get('/api/Students/api/QQEmail', param);
+export const GETOrgEmail = param => Get('/api/Organizations/QQEmail', param)
+    //modify password
+export const PUTStuPassword = param => Put('/api/Students', param);
+export const PUTOrgPassword = param => Put('/api/Organizations', param);

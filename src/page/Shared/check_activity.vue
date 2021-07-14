@@ -174,12 +174,12 @@ export default {
     var url =
       this.$route.params.ID == "AllActivities"
         ? "http://139.196.114.7/api/activities"
-        : "http://139.196.114.7/api/activities?accountNumber=" +
-          this.$route.params;
+        : "http://139.196.114.7/api/activities?orgId=" +
+          this.$route.params.ID;
     var config = {
       method: "get",
       url: url,
-      headers: {},
+      headers: {'Content-Type': 'application/json'}
     };
 
     axios(config)
