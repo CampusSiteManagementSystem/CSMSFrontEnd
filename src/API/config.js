@@ -6,7 +6,7 @@ import { Message } from 'element-ui';
 
 // 环境切换//https://7c49c50e-d356-412d-aace-8a782ce092f3.mock.pstmn.io
 if (process.env.NODE_ENV == 'development') {
-    axios.defaults.baseURL = 'https://139.196.114.7';
+    axios.defaults.baseURL = 'http://139.196.114.7';
 } else if (process.env.NODE_ENV == 'debug') {
     axios.defaults.baseURL = '';
 } else if (process.env.NODE_ENV == 'production') {
