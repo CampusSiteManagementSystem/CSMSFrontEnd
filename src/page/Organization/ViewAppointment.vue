@@ -34,9 +34,13 @@
                       <label slot="label">活动名称</label>
                       <span>{{ props.row.name }}</span>
                     </el-form-item>
-                    <el-form-item label="活动时间">
-                      <label slot="label">活动时间</label>
+                    <el-form-item label="活动日期">
+                      <label slot="label">活动日期</label>
                       <span>{{ props.row.date }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动开始时间">
+                      <label slot="label">活动开始时间</label>
+                      <span>{{ props.row.time }}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
                       <label slot="label">申请地点</label>
@@ -44,15 +48,15 @@
                     </el-form-item>
                     <el-form-item label="参加人数">
                       <label slot="label">参加人数</label>
-                      <span>{{ props.row.people }}</span>
+                      <span>{{ props.row.participantNum }}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
                       <label slot="label">特殊要求</label>
-                      <span>{{ props.row.require }}</span>
+                      <span>{{ props.row.additionalRequest }}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
                       <label slot="label">活动描述</label>
-                      <span>{{ props.row.details }}</span>
+                      <span>{{ props.row.description }}</span>
                     </el-form-item>
                   </el-form>
                 </template>
@@ -62,6 +66,9 @@
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
                 </template>
+              </el-table-column>
+              <el-table-column prop="time" label="开始时间" width="180" sortable>
+              
               </el-table-column>
               <el-table-column prop="name" label="名称" width="180">
               </el-table-column>
@@ -105,9 +112,9 @@
                     size="mini"
                     type="danger"
                     class="modify"
-                    @click="handleDelete1(scope.$index, scope.row)"
+                    @click="handleDelete(scope.$index, scope.row,1)"
                     >删除预约</el-button
-                  ><el-button type="primary" size="mini" @click="preview"
+                  ><el-button type="primary" size="mini" @click="preview(scope.$index, scope.row)"
                     >预览使用凭证</el-button
                   >
                 </template>
@@ -142,9 +149,13 @@
                       <label slot="label">活动名称</label>
                       <span>{{ props.row.name }}</span>
                     </el-form-item>
-                    <el-form-item label="活动时间">
-                      <label slot="label">活动时间</label>
+                    <el-form-item label="活动日期">
+                      <label slot="label">活动日期</label>
                       <span>{{ props.row.date }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动开始时间">
+                      <label slot="label">活动开始时间</label>
+                      <span>{{ props.row.time }}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
                       <label slot="label">申请地点</label>
@@ -152,15 +163,15 @@
                     </el-form-item>
                     <el-form-item label="参加人数">
                       <label slot="label">参加人数</label>
-                      <span>{{ props.row.people }}</span>
+                      <span>{{ props.row.participantNum }}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
                       <label slot="label">特殊要求</label>
-                      <span>{{ props.row.require }}</span>
+                      <span>{{ props.row.additionalRequest }}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
                       <label slot="label">活动描述</label>
-                      <span>{{ props.row.details }}</span>
+                      <span>{{ props.row.description }}</span>
                     </el-form-item>
                   </el-form>
                 </template>
@@ -171,6 +182,7 @@
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
                 </template>
               </el-table-column>
+              <el-table-column prop="time" label="开始时间" width="180" sortable></el-table-column>
               <el-table-column prop="name" label="名称" width="180">
               </el-table-column>
               <el-table-column
@@ -209,7 +221,7 @@
                   >
                     <el-button
                       size="mini"
-                      @click.stop="handleEdit(scope.$index, scope.row)"
+                     
                       >更改预约</el-button
                     >
                   </router-link>
@@ -217,7 +229,7 @@
                     size="mini"
                     type="danger"
                     class="modify"
-                    @click.stop="handleDelete2(scope.$index, scope.row)"
+                    @click.stop="handleDelete(scope.$index, scope.row,2)"
                     >删除预约
                   </el-button>
                 </template>
@@ -252,9 +264,13 @@
                       <label slot="label">活动名称</label>
                       <span>{{ props.row.name }}</span>
                     </el-form-item>
-                    <el-form-item label="活动时间">
-                      <label slot="label">活动时间</label>
+                    <el-form-item label="活动日期">
+                      <label slot="label">活动日期</label>
                       <span>{{ props.row.date }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动开始时间">
+                      <label slot="label">活动开始时间</label>
+                      <span>{{ props.row.time }}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
                       <label slot="label">申请地点</label>
@@ -262,15 +278,15 @@
                     </el-form-item>
                     <el-form-item label="参加人数">
                       <label slot="label">参加人数</label>
-                      <span>{{ props.row.people }}</span>
+                      <span>{{ props.row.participantNum }}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
                       <label slot="label">特殊要求</label>
-                      <span>{{ props.row.require }}</span>
+                      <span>{{ props.row.additionalRequest }}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
                       <label slot="label">活动描述</label>
-                      <span>{{ props.row.details }}</span>
+                      <span>{{ props.row.description }}</span>
                     </el-form-item>
                   </el-form>
                 </template>
@@ -281,6 +297,7 @@
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
                 </template>
               </el-table-column>
+              <el-table-column prop="time" label="开始时间" width="180" sortable></el-table-column>
               <el-table-column prop="name" label="名称" width="180">
               </el-table-column>
               <el-table-column
@@ -356,9 +373,13 @@
                       <label slot="label">活动名称</label>
                       <span>{{ props.row.name }}</span>
                     </el-form-item>
-                    <el-form-item label="活动时间">
-                      <label slot="label">活动时间</label>
+                     <el-form-item label="活动日期">
+                      <label slot="label">活动日期</label>
                       <span>{{ props.row.date }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动开始时间">
+                      <label slot="label">活动开始时间</label>
+                      <span>{{ props.row.time }}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
                       <label slot="label">申请地点</label>
@@ -366,15 +387,15 @@
                     </el-form-item>
                     <el-form-item label="参加人数">
                       <label slot="label">参加人数</label>
-                      <span>{{ props.row.people }}</span>
+                      <span>{{ props.row.participantNum }}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
                       <label slot="label">特殊要求</label>
-                      <span>{{ props.row.require }}</span>
+                      <span>{{ props.row.additionalRequest }}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
                       <label slot="label">活动描述</label>
-                      <span>{{ props.row.details }}</span>
+                      <span>{{ props.row.description }}</span>
                     </el-form-item>
                   </el-form>
                 </template>
@@ -385,6 +406,7 @@
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
                 </template>
               </el-table-column>
+              <el-table-column prop="time" label="开始时间" width="180" sortable></el-table-column>
               <el-table-column prop="name" label="名称" width="180">
               </el-table-column>
               <el-table-column
@@ -434,7 +456,7 @@
           </el-tab-pane>
         </el-tabs>
       </el-card>
-      <!-- 以下需要增加参数 麻烦了！！！！！！！ -->
+      <!-- 以下需要增加参数  -->
 
       <div>
         <el-dialog
@@ -446,10 +468,10 @@
           <div id="pdfDom">
             <div class="proBox">
               <p class="tit">场地使用凭证</p>
-              <p class="proid"><span>编号：</span> <span>活动ID</span></p>
+              <p class="proid"><span>编号：</span> <span>{{drawDetail.ID}}</span></p>
               <p class="con">
-                <span class="con-name">某某</span>
-                组织于<span>某某时间</span>申请使用某某场地，经批准，予以使用。
+                <span class="con-name">{{drawDetail.groupname}}</span>
+                组织于<span>{{drawDetail.date}} {{drawDetail.time}}</span>申请使用{{drawDetail.groundname}}场地，经批准，予以使用。
               </p>
               <div class="con-unit">
                 <p>同济大学校园场地管理系统</p>
@@ -487,11 +509,12 @@
 
 <script>
 import store from "../../state/state";
-import { GETActivities } from "../../API/http";
+import { GETActivities ,DELETEActivitiesID} from "../../API/http";
 export default {
   data() {
     return {
       //这是下载pdf的参数 别删了嗷
+      drawDetail:"",//这是选中那一行
       dialogVisible: false,
       pageData: null, //接收html格式代码
       isShow: true,
@@ -590,16 +613,7 @@ export default {
         待反馈: [],
         已反馈: [],
         被驳回: [],
-        已完成: [{
-            date: "2016-05-03",
-            name: "王小虎",
-            groundname: "上海市普陀区金沙江路 1516 弄",
-            ID: "11117",
-            people: 40,
-            require: "无",
-            details: "听数据库开会",
-            tag: "室外",
-          },],
+        已完成: [],
       },
 
       activeName: "second",
@@ -619,20 +633,27 @@ export default {
     formatter(row) {
       return row.groundname;
     },
-    handleEdit(index, row) {
+    // handleEdit(index, row) {
+    //   console.log(index, row);
+    // },
+    //wy编辑
+    handleDelete(index, row,type) {
       console.log(index, row);
-    },
-    handleDelete1(index, row) {
-      console.log(index, row);
+      
       this.$confirm("此操作将永久删除该活动信息, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
-          for (var i = 0; i < this.tableData.length; i++) {
-            if (this.tableData[i].ID == row.ID) {
-              this.tableData.splice(i, 1);
+          const tempList=type==1?this.tableData.待举办:this.tableData.审核中;
+    
+          for (var i = 0; i < tempList.length; i++) {
+            if (tempList[i].ID == row.ID) {
+              
+              tempList.splice(i, 1);
+               
+              this.deleteAppointment(row.ID);
               break;
             }
           }
@@ -648,32 +669,7 @@ export default {
           });
         });
     },
-    handleDelete2(index, row) {
-      console.log(index, row);
-      this.$confirm("此操作将永久删除该活动信息, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          for (var i = 0; i < this.tableData.length; i++) {
-            if (this.tableData[i].ID == row.ID) {
-              this.tableData.splice(i, 1);
-              break;
-            }
-          }
-          this.$message({
-            type: "success",
-            message: "删除成功!",
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
-    },
+ 
     handleFeedback(index, row) {
       console.log(index, row);
     },
@@ -682,7 +678,7 @@ export default {
     },
     handleCurrentChange1(val) {
       this.currentRow = val;
-      //this.$router.push('/RecordDetails')
+      //this.$router.push('/Recorddescription')
     },
     handleCurrentChange2(val) {
       this.currentRow = val;
@@ -712,16 +708,30 @@ export default {
       });
     },
     //以下是调用api后新增的函数，有问题找wy
+    //删除某一条活动信息
+    deleteAppointment(id){
+      DELETEActivitiesID(id)
+      .then((data) => {
+          console.log("run deleteAppointment",data);
+
+         
+        })
+        .catch((err) => {
+          console.log(err);
+         
+        });
+
+    },
     //取得所有活动信息
     fetchData() {
       const that = this;
       console.log("fetchData");
       GETActivities({ orgId: that.orgId }) //应该加accountNumber
         .then((data) => {
-          console.log("run GETActivities");
+          // console.log("run GETActivities");
           that.axiosdata = data;
           that.dealWithActivities(that.axiosdata);
-          console.log("that.axiosdata", that.axiosdata);
+          // console.log("that.axiosdata", that.axiosdata);
         })
         .catch((err) => {
           that.data = err;
@@ -765,16 +775,21 @@ export default {
             name: "活动2",
             groundname: "a楼",
             ID: "11117",
-            people: 40,
-            require: "无",
-            details: "听数据库开会",
+            participantNum: 40,
+            additionalRequest: "无",
+            description: "听数据库开会",
             tag: "室外",
           };
           temp.ID = data[key][i].id;
-          temp.date = data[key][i].activityDate.replace("T", " ");
+          temp.date = data[key][i].activityDate.split("T")[0];
+          temp.time = data[key][i].activityDate.split("T")[1];
           temp.name = data[key][i].name;
+          temp.description = data[key][i].description;
+           temp.participantNum = data[key][i].participantNum;
           temp.groupname = data[key][i].organizationName;
           temp.groundname = data[key][i].groundName;
+          temp.additionalRequest = data[key][i].additionalRequest;
+   
           // temp.activityState = data[key][i].activityState;
           // console.log("before", this.tableData[key]);
           // console.log("key",key)
@@ -797,7 +812,8 @@ export default {
     handleClose() {
       this.dialogVisible = false;
     },
-    preview() {
+    preview(index, row) {
+      this.drawDetail=row;
       this.dialogVisible = true;
       this.$nextTick(() => {
         if (!this.isCanvas) {
