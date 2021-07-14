@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import { LoginTest } from '../API/http'
 Vue.use(VueRouter)
 
 const routes = [
@@ -678,12 +678,11 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/') {
         next();
     } else {
-        const token = localStorage.getItem("uutoken");
-        if (token) {
-            next();
-        } else {
-            next("/");
-        }
+        LoginTest()
+            .then(() => {
+                next();
+            })
+            .catch(() => {})
     }
 })
 

@@ -8,6 +8,7 @@
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="待举办" name="first">
             <el-table
+              v-loading="loading"
               :header-row-style="{ height: '20px' }"
               :cell-style="{ padding: '5px' }"
               ref="filterTable1"
@@ -132,6 +133,7 @@
             <el-table
               :header-row-style="{ height: '20px' }"
               :cell-style="{ padding: '5px' }"
+              v-loading="loading"
               ref="filterTable2"
               :data="tableData.审核中"
               height="465"
@@ -249,6 +251,7 @@
               :header-row-style="{ height: '20px' }"
               :cell-style="{ padding: '5px' }"
               ref="filterTable"
+              v-loading="loading"
               :data="tableData.已完成"
               height="465"
               stripe
@@ -369,6 +372,7 @@
               :header-row-style="{ height: '20px' }"
               :cell-style="{ padding: '5px' }"
               ref="filterTable"
+              v-loading="loading"
               :data="tableData.被驳回"
               height="465"
               stripe
@@ -594,90 +598,7 @@ export default {
       isCanvas: false,
       downType: true, // false为 pdf , true为图片
       htmlTitle: "场地使用凭证",
-
-      // tableData: [
-      //   {
-      //     审核中: [
-      //       {
-      //         id: "1000023",
-      //         name: "活动7",
-      //         accountNumber: "0      ",
-      //         organizationName: "aaaa",
-      //         activityDate: "2021-07-12T08:22:28",
-      //         startTime: "2021-07-12T08:22:28.282",
-      //         participantNum: 0,
-      //         description: "string",
-      //         additionalRequest: "string",
-      //         duration: 0,
-      //         activityState: "审核中",
-      //         groundId: "1000005",
-      //         groundName: "C202",
-      //         isGroundIndoor: true,
-      //         hasCredit: false,
-      //       },
-      //     ],
-      //     待举办: [],
-      //     被驳回: [
-      //       {
-      //         id: "1000008",
-      //         name: "活动6",
-      //         accountNumber: "1000064",
-      //         organizationName: "一班",
-      //         activityDate: "2021-07-11T17:30:11",
-      //         startTime: "2021-07-11T17:30:11.795",
-      //         participantNum: 0,
-      //         description: "string",
-      //         additionalRequest: "string",
-      //         duration: 0,
-      //         activityState: "被驳回",
-      //         groundId: "1000007",
-      //         groundName: "越野场",
-      //         isGroundIndoor: false,
-      //         hasCredit: false,
-      //       },
-      //     ],
-
-      //     已完成: [],
-      //     待反馈: [
-      //       {
-      //         id: "1000012",
-      //         name: "活动4",
-      //         accountNumber: "1000064",
-      //         organizationName: "一班",
-      //         activityDate: "2021-07-11T17:30:11",
-      //         startTime: "2021-07-11T13:30:11.795",
-      //         participantNum: 0,
-      //         description: "string",
-      //         additionalRequest: "string",
-      //         duration: 60,
-      //         activityState: "待反馈",
-      //         groundId: "1000007",
-      //         groundName: "越野场",
-      //         isGroundIndoor: false,
-      //         hasCredit: false,
-      //       },
-      //     ],
-      //     已反馈: [
-      //       {
-      //         id: "1000000",
-      //         name: "上课",
-      //         accountNumber: "1000114",
-      //         organizationName: "数学",
-      //         activityDate: "2021-05-18T00:00:00",
-      //         startTime: "2021-05-18T08:00:00",
-      //         participantNum: 50,
-      //         description: "小班授课",
-      //         additionalRequest: "无",
-      //         duration: 95,
-      //         activityState: "已反馈",
-      //         groundId: "1000005",
-      //         groundName: "C202",
-      //         isGroundIndoor: true,
-      //         hasCredit: true,
-      //       },
-      //     ],
-      //   },
-      // ],
+      loading: true,
       tableData: {
         审核中: [],
         待举办: [],
@@ -798,6 +719,7 @@ export default {
     },
     //取得所有活动信息
     fetchData() {
+      this.loading = true;
       const that = this;
       GETActivities({ orgId: that.orgId }) //应该加accountNumber
         .then((data) => {
@@ -809,6 +731,8 @@ export default {
         .catch((err) => {
           that.data = err;
         });
+
+      this.loading = false;
     },
     dealWithActivities(data) {
       console.log("run dealwithActivities", data);
@@ -1003,6 +927,9 @@ export default {
 </script>
 
 <style scoped>
+body {
+    margin: 0;
+}
 .page {
   height: 100%;
   width: 100%;
