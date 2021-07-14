@@ -38,20 +38,20 @@
             <div class="text item">
               <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" :data="tableData" style="width: 100%" height="200" stripe
                 :default-sort="{prop: 'score', order: 'descending'}">
-                <el-table-column prop="name" label="名称" width="180">
+                <el-table-column prop="activityName" label="名称" width="180">
                 </el-table-column>
-                <el-table-column prop="date" label="日期" width="180" sortable>
+                <el-table-column prop="creditTime" label="日期" width="250" sortable>
                   <template slot-scope="scope">
                     <i class="el-icon-time"></i>
-                    <span style="margin-left: 10px">{{ scope.row.date }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.creditTime }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column prop="address" label="地址">
+                <el-table-column prop="groundName" label="地址">
                 </el-table-column>
-                <el-table-column prop="score" label="分数" width="80" sortable filter-placement="bottom-end">
+                <el-table-column prop="relativeScore" label="分数" width="100" sortable filter-placement="bottom-end">
                   <template slot-scope="scope">
-                    <el-tag :type="scope.row.score === 7 ? 'success' : 'danger'" disable-transitions>
-                      {{scope.row.score}}</el-tag>
+                    <el-tag :type="scope.row.relativeScore >= 0 ? 'success' : 'danger'" disable-transitions>
+                      {{scope.row.relativeScore}}</el-tag>
                   </template>
                 </el-table-column>
                 <el-table-column prop="reason" label="原因">
@@ -102,37 +102,7 @@ export default {
           percentage: 100
         }
       ],
-      tableData: [{
-        date: '2017-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-        score: -10,
-        reason: '不来数据库开会',
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-        score: 7,
-        reason: '不来数据库开会',
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-        score: -5,
-        reason: '不来数据库开会',
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-        score: -5,
-        reason: '不来数据库开会',
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-        score: -5,
-        reason: '不来数据库开会',
-      }],
+      tableData: [],
       OrgID: store.state.ID,
       date:[],
       creditScore:[],
@@ -155,7 +125,7 @@ export default {
       this.activity = data;
       this.dealWithCredits(this.activity);
       this.drawLine();
-      console.log("activity",this.activity);
+      //console.log("activity",this.activity);
     })
     .catch((err) => {
       console.log(err);
@@ -168,8 +138,21 @@ export default {
     },
     dealWithCredits(data) {
       for (var i = 0; i < data.length; i++) {
-        this.date.push((data[i].creditTime.replace("T"," ").split('.'))[0]);
+        var temp = {
+          activityName: "",
+          creditTime:"",
+          groundName: "",
+          relativeScore: "",
+          reason: "",
+        };
+        temp.activityName=data[i].activityName;
+        temp.groundName=data[i].groundName;
+        temp.relativeScore=data[i].relativeScore;
+        temp.reason=data[i].reason;
+        temp.creditTime=(data[i].creditTime.replace("T"," ").split('.'))[0];
+        this.date.push(temp.creditTime);
         this.creditScore.push(data[i].absoluteScore);
+        this.tableData.push(temp);
       }
     },
     drawLine() {
