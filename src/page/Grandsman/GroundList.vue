@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import store from "../../state/state.js"
 export default {
   name: "GroundList",
   components: {},
@@ -83,8 +84,7 @@ export default {
     var axios = require('axios');
     var config = {
       method: 'get',
-      url: 'http://139.196.114.7/api/Grounds',
-      //url: 'http://139.196.114.7/api/Grounds?accountNumber=thisNum',
+      url: 'http://139.196.114.7/api/GroundsaccountNumber=' + store.state.ID,
       headers: { }
     };
                 
