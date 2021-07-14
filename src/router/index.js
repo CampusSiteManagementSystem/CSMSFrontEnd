@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import { LoginTest } from '../API/http'
 Vue.use(VueRouter)
 
 const routes = [
@@ -293,6 +293,15 @@ const routes = [
                 },
                 component: () =>
                     import ('../page/SystemAdmin/AddUser.vue')
+            },
+            {
+                path: "AddUserTest",
+                name: "SystemAdminAddUserTest",
+                meta: {
+                    title: "添加用户",
+                },
+                component: () =>
+                    import ('../page/SystemAdmin/AddUserTest.vue')
             },
             {
                 path: "UserModify",
@@ -664,4 +673,15 @@ const router = new VueRouter({
     mode: "history",
     routes
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.path === '/') {
+        next();
+    } else {
+        LoginTest()
+            .then(() => {})
+            .catch(() => {})
+    }
+})
+
 export default router

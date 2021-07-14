@@ -287,35 +287,34 @@ export default {
         console.log(error);
       });
 
-    const that = this;
-    console.log(that.groundId);
-    GETDefaultOccupyTime()
-      .then((data) => {
-        console.log("run GETDefaultOccupyTime");
-        console.log(data);
-        for (var i = 0; i < data.length; i++) {
-          var temp = {
-            courseName: "数据库课程设计",
-            courseDate: "2021-7-10",
-            courseTime: "15:00",
-            courseDuring: "95",
-          };
-          temp.courseName = data.name;
-          temp.courseDate = data.occupyDate.substr(
-            0,
-            data.occupyDate.search("T")
-          );
-          temp.courseTime = data.occupyDate.slice(
-            data.occupyDate.search("T") + 1
-          );
-          temp.courseDuring = data.duration;
-          that.tableData.push(temp);
-        }
-        console.log(that.tableData);
-      })
-      .catch((err) => {
-        that.data = err;
-      });
+  //   console.log(this.ruleForm.site[this.ruleForm.site.length - 1]);
+  //   GETDefaultOccupyTime()
+  //     .then((data) => {
+  //       console.log("run GETDefaultOccupyTime");
+  //       console.log(data);
+  //       for (var i = 0; i < data.length; i++) {
+  //         var temp = {
+  //           courseName: "数据库课程设计",
+  //           courseDate: "2021-7-10",
+  //           courseTime: "15:00",
+  //           courseDuring: "95",
+  //         };
+  //         temp.courseName = data.name;
+  //         temp.courseDate = data.occupyDate.substr(
+  //           0,
+  //           data.occupyDate.search("T")
+  //         );
+  //         temp.courseTime = data.occupyDate.slice(
+  //           data.occupyDate.search("T") + 1
+  //         );
+  //         temp.courseDuring = data.duration;
+  //         this.tableData.push(temp);
+  //       }
+  //       console.log(this.tableData);
+  //     })
+  //     .catch((err) => {
+  //       this.data = err;
+  //     });
   },
 
   methods: {
