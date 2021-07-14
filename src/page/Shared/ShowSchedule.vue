@@ -3,7 +3,7 @@
  
     <el-row :gutter="10" type="flex">
       <div class="grid-content">
-        <el-card class="box-card1">
+        <el-card class="box-card">
           <PicCard
             :buttonshow="othertype"
             :groundId="this.$route.params.groundId"
@@ -13,8 +13,9 @@
       </div>
     </el-row>
     <el-row :gutter="10" type="flex">
-      <el-card class="box-card2">
-        <CourseTable :groundId="this.$route.params.groundId"/>
+      <el-card class="box-card">
+        <!-- <CourseTable :groundId="this.$route.params.groundId"/> -->
+        <Mycalendar :groundId="this.$route.params.groundId"/>
       </el-card>
     </el-row>
   </div>
@@ -22,13 +23,15 @@
 
 <script>
 
-import CourseTable from "../../components/CourseTable.vue";
+// import CourseTable from "../../components/CourseTable.vue";
 import PicCard from "../../components/PicCard.vue";
+import Mycalendar from "../../components/Mycalendar.vue";
 export default {
   name: "ScheduleAndPic",
   components: {
-    CourseTable,
+    // CourseTable,
     PicCard,
+    Mycalendar
   },
   created() {},
   mounted() {
@@ -88,14 +91,10 @@ export default {
 .item {
   padding: 18px 0;
 }
-.box-card1 {
+.box-card {
   width: 100%;
   height: 100% ;
   border-radius: 15px;
 }
-.box-card2 {
-  width: 100%;
-  height: 900px;
-  border-radius: 15px;
-}
+
 </style>
