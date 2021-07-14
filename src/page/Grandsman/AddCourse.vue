@@ -111,7 +111,12 @@
 export default {
   name: "ActivityList",
   components: {},
-
+  watch: {
+    'ruleForm.site'(val) {
+      //普通的watch监听
+      console.log("new",val);
+    },
+  },
   data() {
     // const course = {
     //   courseName: "数据库课程设计",
@@ -119,6 +124,7 @@ export default {
     //   courseTime: "15:00",
     //   courseDuring: "95",
     // };
+
     return {
       groundId: "1000003",
       // tableData: Array(20).fill(course),
@@ -287,34 +293,34 @@ export default {
         console.log(error);
       });
 
-  //   console.log(this.ruleForm.site[this.ruleForm.site.length - 1]);
-  //   GETDefaultOccupyTime()
-  //     .then((data) => {
-  //       console.log("run GETDefaultOccupyTime");
-  //       console.log(data);
-  //       for (var i = 0; i < data.length; i++) {
-  //         var temp = {
-  //           courseName: "数据库课程设计",
-  //           courseDate: "2021-7-10",
-  //           courseTime: "15:00",
-  //           courseDuring: "95",
-  //         };
-  //         temp.courseName = data.name;
-  //         temp.courseDate = data.occupyDate.substr(
-  //           0,
-  //           data.occupyDate.search("T")
-  //         );
-  //         temp.courseTime = data.occupyDate.slice(
-  //           data.occupyDate.search("T") + 1
-  //         );
-  //         temp.courseDuring = data.duration;
-  //         this.tableData.push(temp);
-  //       }
-  //       console.log(this.tableData);
-  //     })
-  //     .catch((err) => {
-  //       this.data = err;
-  //     });
+    //   console.log(this.ruleForm.site[this.ruleForm.site.length - 1]);
+    //   GETDefaultOccupyTime()
+    //     .then((data) => {
+    //       console.log("run GETDefaultOccupyTime");
+    //       console.log(data);
+    //       for (var i = 0; i < data.length; i++) {
+    //         var temp = {
+    //           courseName: "数据库课程设计",
+    //           courseDate: "2021-7-10",
+    //           courseTime: "15:00",
+    //           courseDuring: "95",
+    //         };
+    //         temp.courseName = data.name;
+    //         temp.courseDate = data.occupyDate.substr(
+    //           0,
+    //           data.occupyDate.search("T")
+    //         );
+    //         temp.courseTime = data.occupyDate.slice(
+    //           data.occupyDate.search("T") + 1
+    //         );
+    //         temp.courseDuring = data.duration;
+    //         this.tableData.push(temp);
+    //       }
+    //       console.log(this.tableData);
+    //     })
+    //     .catch((err) => {
+    //       this.data = err;
+    //     });
   },
 
   methods: {
