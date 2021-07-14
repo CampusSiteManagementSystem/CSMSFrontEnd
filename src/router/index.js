@@ -198,6 +198,9 @@ const routes = [
         children: [{
                 path: "SysAdminHomePage",
                 name: "SystemAdminHomePage",
+                meta: {
+                    title: "主页",
+                },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminHomePage.vue')
             },

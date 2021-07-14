@@ -44,7 +44,7 @@ export const GETIndoorGrounds = param => Get('/api/IndoorGrounds', param) //ok
 export const GETIndoorGroundsID = ID => GetID('/api/IndoorGrounds/', ID) //ok   
     // export const POSTIndoorGrounds = param => Post('/api/IndoorGrounds', param);
 export const PUTIndoorGroundsID = (ID, param) => PutID('/api/IndoorGrounds/', ID, param); //ok
-    // export const DELETEIndoorGroundsID = ID => DeleteID('/api/IndoorGrounds/', ID);
+// export const DELETEIndoorGroundsID = ID => DeleteID('/api/IndoorGrounds/', ID);
 
 
 
@@ -116,4 +116,4 @@ export const GETPositions = param => Get('/api/Positions', param); //wy测试ok
 
 //login
 export const Login = param => Get('/api/Login', param);
-export const LoginTest = param => Get('/api/Login/test', param);
+export const LoginTest = param => Get('/api/Login/test/student', param);

@@ -347,7 +347,7 @@
                   <el-button
                     size="mini"
                     type="primary"
-                    @click.stop="handleFeedback(scope.$index, scope.row)"
+                    @click.stop="handleFeedback(scope.row)"
                     >反馈
                   </el-button>
                   <!-- <router-link
@@ -443,7 +443,6 @@
                 :formatter="formatter"
               >
               </el-table-column>
-
               <el-table-column
                 prop="tag"
                 label="标签"
@@ -486,7 +485,10 @@
       </el-card>
 
       <!-- 以下是场地反馈的弹出窗口 -->
-      <FeedbackDialog :feedbackVisible="feedbackVisible" :message="feedbackRow" />
+      <FeedbackDialog
+        :feedbackVisible="feedbackVisible"
+        :message="feedbackRow"
+      />
       <!-- <el-dialog title="场地反馈" :visible.sync="feedbackVisible">
           <span>这是一段信息</span>
           <el-form ref="form" label-width="100px">
@@ -509,7 +511,7 @@
           </el-form-item>
         </el-form> -->
 
-  <!-- <el-form :model="form">
+      <!-- <el-form :model="form">
     <el-form-item label="活动名称" :label-width="formLabelWidth">
       <el-input v-model="form.name" autocomplete="off"></el-input>
     </el-form-item>
@@ -520,7 +522,7 @@
       </el-select>
     </el-form-item>
   </el-form> -->
-  <!-- <div slot="footer" class="dialog-footer">
+      <!-- <div slot="footer" class="dialog-footer">
     <el-button @click="feedbackVisible = false">取 消</el-button>
     <el-button type="primary" @click="submitFeedback">提交</el-button>
   </div>
@@ -577,17 +579,73 @@
         </el-dialog>
       </div>
     </div>
+    <el-dialog title="场地反馈" :visible.sync="feedbackVisible" class="dialog">
+      <div class="content">
+        <el-form
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+          label-position="left"
+          class="demo-table"
+          label-width="150px"
+        >
+          <el-form-item label="活动ID">
+            <label slot="label"><b>活动ID</b></label>
+            <span>{{ feedbackRow.ID }}</span>
+          </el-form-item>
+          <el-form-item label="活动时间">
+            <label slot="label"><b>活动时间</b></label>
+            <span>{{ feedbackRow.time }}</span>
+          </el-form-item>
+          <el-form-item label="活动地点">
+            <label slot="label"><b>活动地点</b></label>
+            <span>{{ feedbackRow.groundname }}</span>
+          </el-form-item>
+          <el-form-item label="活动评分">
+            <label slot="label"><b>活动评分</b></label>
+            <div>
+              <p>
+                <el-rate
+                  class="block"
+                  v-model="ruleForm.score"
+                  :colors="colors"
+                  show-text
+                ></el-rate>
+              </p>
+            </div>
+          </el-form-item>
+          <el-form-item label="详细意见">
+            <label slot="label"><b>详细意见</b></label>
+            <span>
+              <el-input
+                :autosize="{ minRows: 2, maxRows: 6 }"
+                class="input"
+                type="textarea"
+                :rows="5"
+                placeholder="请输入内容"
+                v-model="ruleForm.textarea"
+              >
+              </el-input>
+            </span>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="feedbackVisible = false">取消</el-button>
+        <el-button type="primary" @click="submit">提交</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import store from "../../state/state";
-import FeedbackDialog from "../../components/FeedbackDialog";
-import { GETActivities, DELETEActivitiesID } from "../../API/http";
+//import FeedbackDialog from "../../components/FeedbackDialog";
+import { GETActivities, DELETEActivitiesID, POSTFeedbackRecords } from "../../API/http";
 export default {
-  components:{
-    FeedbackDialog,
-  },
+  // components: {
+  //   FeedbackDialog,
+  // },
   data() {
     return {
       //这是下载pdf的参数 别删了嗷
@@ -607,20 +665,38 @@ export default {
         被驳回: [],
         已完成: [],
       },
-
+      ruleForm: {
+        score: null,
+        textarea: "",
+      },
+      rules: {
+        textarea: [
+          { required: true, message: "请输入场地反馈", trigger: "blur" },
+        ],
+      },
+      
+      feedbackRow: {
+        ID: "",
+        additionalRequest: "",
+        date: "",
+        description: "",
+        groundname: "",
+        groupname: "",
+        name: "",
+        participantNum: 0,
+        tag: "",
+        time: "",
+      },
+      colors: ["#99A9BF", "#F7BA2A", "#FF9900"], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
       activeName: "second",
 
       //以下是调用api后新增的内容
       axiosdata: "",
       orgId: store.state.ID,
       feedbackVisible: false,
-      feedbackRow:null,
     };
   },
   methods: {
-    submitFeedback(){
-      
-    },
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -667,10 +743,10 @@ export default {
         });
     },
 
-    handleFeedback(index, row) {
-      console.log(index, row);
+    handleFeedback(row) {
+      console.log(row);
       this.feedbackVisible = true;
-      this.feedbackRow=row;
+      this.feedbackRow = row;
     },
     handleRenew(index, row) {
       console.log(index, row);
@@ -887,6 +963,44 @@ export default {
         context.restore();
       }
     },
+
+    submit() {
+      if (this.ruleForm.score == null || this.ruleForm.textarea == "") {
+        this.$alert("未输入所有备选项", "反馈失败", {
+          confirmButtonText: "确定",
+          callback: (action) => {
+            if (action === "confirm") {
+              console.log("ID", this.$route.query.activityID);
+              this.$message({
+                type: "error",
+                message: "反馈失败",
+              });
+            }
+          },
+        });
+      } else {
+        var tmp = {
+          feedbackDate: this.formatTime,
+          feedbackTime: this.formatTime,
+          content: this.ruleForm.textarea,
+          score: this.ruleForm.score,
+          id: this.feedbackRow.ID,
+          groundName: this.feedbackRow.groundname,
+        };
+        console.log(tmp);
+        POSTFeedbackRecords(tmp)
+            .then((data) => {
+              console.log(data);
+              this.$message({ message: "反馈成功", type: "success" });
+              this.$router.push({ path: "/GroundsAdmin/Main" });
+            })
+            .catch((err) => {
+              err;
+              this.$message({ message: "反馈失败", type: "error" });
+            });
+      }
+      this.feedbackVisible = false;
+    },
   },
   computed: {
     formatTime() {
@@ -915,7 +1029,7 @@ export default {
       if (s < 10) {
         s = "0" + s;
       }
-      sresult = Y + "-" + m + "-" + d + " " + H + ":" + i + ":" + s;
+      sresult = String(Y) + "-" + m + "-" + d + "T" + H + ":" + i + ":" + s;
 
       return sresult;
     },
@@ -926,9 +1040,15 @@ export default {
 };
 </script>
 
+<style>
+.el-dialog {
+  border-radius: 12px;
+}
+
+</style>
 <style scoped>
 body {
-    margin: 0;
+  margin: 0;
 }
 .page {
   height: 100%;
@@ -959,7 +1079,9 @@ body {
   width: 90px;
   font-weight: 700;
 }
-
+.dialog {
+  backdrop-filter: blur(10px);
+}
 .demo-table-expand .el-form-item {
   margin-right: 0;
   margin-bottom: 0;
