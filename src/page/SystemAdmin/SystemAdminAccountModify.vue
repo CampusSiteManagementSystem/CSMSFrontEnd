@@ -28,9 +28,9 @@
               <div v-if="isForm == true">
                 <el-form
                   ref="ruleForm"
-                  :rules="rules"
                   :model="ruleForm"
                   label-width="100px"
+                  width="auto"
                   :hide-required-asterisk="true"
                 >
                   <el-form-item label="账号：" prop="account">
@@ -113,7 +113,7 @@ p {
 
 .modify {
   margin-top: 1cm;
-  margin-left: 5cm;
+  margin-left: 3cm;
 }
 
 .pic {
@@ -152,20 +152,6 @@ export default {
         email: "",
       },
 
-      rules: {
-        email: [
-          {
-            required: true,
-            message: "请输入邮箱",
-            trigger: "blur",
-          },
-          {
-            type: "email",
-            massage: "请正确输入邮箱",
-            trigger: "blur",
-          },
-        ],
-      },
       tableData: [
         {
           title: "账号",

@@ -120,7 +120,7 @@ export default {
     //   courseDuring: "95",
     // };
     return {
-      groundID: "1000003",
+      groundId: "1000003",
       // tableData: Array(20).fill(course),
       tableData: [],
       iGroundTable: [],
@@ -213,7 +213,7 @@ export default {
                 label: String(this.iGroundTable[0].floor) + "楼",
                 children: [
                   {
-                    value: this.iGroundTable[0].groundID,
+                    value: this.iGroundTable[0].groundId,
                     label: this.iGroundTable[0].roomNo,
                   },
                 ],
@@ -235,7 +235,7 @@ export default {
                     label: String(this.iGroundTable[k].floor) + "楼",
                     children: [
                       {
-                        value: this.iGroundTable[k].groundID,
+                        value: this.iGroundTable[k].groundId,
                         label: this.iGroundTable[k].roomNo,
                       },
                     ],
@@ -250,7 +250,7 @@ export default {
                 label: String(this.iGroundTable[k].floor) + "楼",
                 children: [
                   {
-                    value: this.iGroundTable[k].groundID,
+                    value: this.iGroundTable[k].groundId,
                     label: this.iGroundTable[k].roomNo,
                   },
                 ],
@@ -259,7 +259,7 @@ export default {
               var cPos = this.options.length - 1,
                 cFloor = this.options[cPos].children.length - 1;
               this.options[cPos].children[cFloor].push({
-                value: this.iGroundTable[k].groundID,
+                value: this.iGroundTable[k].groundId,
                 label: this.iGroundTable[k].roomNo,
               });
             }
@@ -276,10 +276,10 @@ export default {
         for (let gnd of response.data) {
           this.oGroundTable.push(gnd);
         }
-        for (var k = 0; k < this.iGroundTable.length; ++k) {
+        for (var k = 0; k < this.oGroundTable.length; ++k) {
           this.options.push({
-            value: this.iGroundTable[0].groundID,
-            label: this.iGroundTable[0].positionName,
+            value: this.oGroundTable[k].groundId,
+            label: this.oGroundTable[k].positionName,
           });
         }
       })
@@ -287,10 +287,8 @@ export default {
         console.log(error);
       });
 
-    console.log(this.iGroundTable);
-
     const that = this;
-    console.log(that.groundID);
+    console.log(that.groundId);
     GETDefaultOccupyTime()
       .then((data) => {
         console.log("run GETDefaultOccupyTime");
