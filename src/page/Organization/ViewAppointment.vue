@@ -506,10 +506,10 @@
       </el-card>
 
       <!-- 以下是场地反馈的弹出窗口 -->
-      <FeedbackDialog
+      <!-- <FeedbackDialog
         :feedbackVisible="feedbackVisible"
         :message="feedbackRow"
-      />
+      /> -->
       <!-- <el-dialog title="场地反馈" :visible.sync="feedbackVisible">
           <span>这是一段信息</span>
           <el-form ref="form" label-width="100px">

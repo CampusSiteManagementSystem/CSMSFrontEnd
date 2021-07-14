@@ -105,7 +105,6 @@ export default {
             confirmButtonText: "确定",
             callback: (action) => {
               if (action === "confirm") {
-                console.log("ID", this.$route.query.activityID);
                 this.$message({
                   type: "error",
                   message: "反馈失败",
