@@ -161,11 +161,12 @@ export default {
               secretPassword: this.form.password,
             })
               .then((data) => {
-                localStorage.setItem("membertype", this.identity);
+                localStorage.setItem("uutype", this.identity);
                 localStorage.setItem("uuid", this.form.accountNumber);
-                localStorage.setItem("accessToken", data.accessToken);
+                localStorage.setItem("uutoken", data.accessToken);
               })
               .catch((err) => {
+                this.$message("账户或密码错误");
                 console.log(err);
               });
             //this.$router.push("/StuFrame/Main");

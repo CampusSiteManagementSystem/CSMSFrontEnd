@@ -63,13 +63,19 @@ axios.interceptors.response.use(
                 // 未登录则跳转登录页面，并携带当前页面的路径
                 // 在登录成功后返回当前页面，这一步需要在登录页操作。
                 case 404:
-                    Message.error("网络请求不存在")
+                    Message.error("NotFound")
                         //router.replace('/error')
                     break;
+                case 403:
+                    Message.error("输入不合法");
+                    //router.replace('/error')
+                    break;
+                case 409:
+                    Message.error("冲突");
+                    //router.replace('/error')
+                    break;
                 default:
-                    Message({
-                        message: "错误代码to do",
-                    })
+                    Message.error("未捕获错误");
             }
             return Promise.reject(error);
         }
