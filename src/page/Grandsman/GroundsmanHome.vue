@@ -30,23 +30,19 @@
       <el-col :span="14" class="upper-row-col2">
         <el-card class="upper-card">
           <div slot="header" class="clearfix">
-            <span><b>系统公告</b></span>
-            <router-link to="/GroundsAdmin/Announcement"
-              ><el-button style="float: right; padding: 3px 0" type="text"
-                >查看更多</el-button
-              ></router-link
-            >
+            <span><b>占用中的场地</b></span>
           </div>
-
           <el-table
-            :data="systemAnnouncement"
+            :data="busyground"
             style="width: 100%"
             height="129px"
             :show-header="false"
-            @row-click="onRowClick"
+            @row-click="onOccupyRowClick"
           >
-            <el-table-column prop="title" width="auto"> </el-table-column>
-            <el-table-column prop="systemAnnouncementDate" width="auto"> </el-table-column>
+            <el-table-column prop="position" label="内容"> </el-table-column>
+            <el-table-column prop="activityName" label="活动名称">
+            </el-table-column>
+            <el-table-column prop="time" label="活动名称"> </el-table-column>
           </el-table>
         </el-card>
       </el-col>
@@ -79,17 +75,22 @@
       <el-col :span="10" class="lower-row-col2">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
-            <span><b>占用中的场地</b></span>
+            <span><b>系统公告</b></span>
+            <router-link to="/GroundsAdmin/Announcement"
+              ><el-button style="float: right; padding: 3px 0" type="text"
+                >查看更多</el-button
+              ></router-link
+            >
           </div>
           <el-table
-            :data="busyground"
+            :data="systemAnnouncement"
             style="width: 100%"
             height="249px"
             :show-header="false"
-            @row-click="onOccupyRowClick"
+            @row-click="onRowClick"
           >
-            <el-table-column prop="position" label="内容"> </el-table-column>
-            <el-table-column prop="activityName" label="活动名称">
+            <el-table-column prop="title" width="auto"> </el-table-column>
+            <el-table-column prop="systemAnnouncementDate" width="auto">
             </el-table-column>
           </el-table>
         </el-card>
@@ -199,43 +200,120 @@
 
 <script>
 import { GETSystemAnnouncements } from "../../API/http";
-import store from "../../state/state.js"
+import { GETActivities } from "../../API/http";
+import { GETGrounds } from "../../API/http";
+import { GETOutdoorGrounds } from "../../API/http";
+import { GETIndoorGrounds } from "../../API/http";
+
+import store from "../../state/state.js";
 export default {
   name: "GrandsmanHome",
 
   mounted() {
+    this.personinfo.grounds=[];
     const that = this;
-    console.log("run mounted");
     // console.log(this.testtitle.substr(0,this.testtitle.search("##")));
     GETSystemAnnouncements()
       .then((data) => {
-        console.log("run GETSystemAnnouncements");
         that.axiosdata = data;
         that.dealWithAnnouncements(that.axiosdata);
       })
       .catch((err) => {
-        that.data = err;
+        console.log(err);
+        this.$message({
+          showClose: true,
+          message: "获取系统公告失败",
+          type: "error",
+        });
+      });
+
+    GETActivities() //应该加accountNumber
+      .then((data) => {
+        that.axiosdata = data;
+        that.dealWithActivities(that.axiosdata);
+        //console.log(that.axiosdata);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message({
+          showClose: true,
+          message: "获取待审核预约失败",
+          type: "error",
+        });
+      });
+
+    GETIndoorGrounds({
+      accountNumber: store.state.ID,
+    })
+      .then((data) => {
+        // console.log("type",this.personinfo.grounds.includes("sd"));
+        for (var i = 0; i < data.length; i++) {
+          console.log(data[i].positionName);
+          console.log(this.personinfo.grounds.includes(data[i].positionName));
+          if (!this.personinfo.grounds.includes(data[i].positionName)) {
+            this.personinfo.grounds.push(data[i].positionName);
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message({
+          showClose: true,
+          message: "获取室内场地失败",
+          type: "error",
+        });
+      });
+
+    GETOutdoorGrounds({
+      accountNumber: store.state.ID,
+    })
+      .then((data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (!this.personinfo.grounds.includes(data[i].positionName)) {
+            this.personinfo.grounds.push(data[i].positionName);
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message({
+          showClose: true,
+          message: "获取室外场地失败",
+          type: "error",
+        });
+      });
+
+    GETGrounds({
+      occupyDateTime: this.getFullTime(),
+      accountNumber: store.state.ID,
+    })
+      .then((data) => {
+        // console.log("run GETActivities");
+        // console.log("grouds", data);
+        that.axiosdata = data;
+        that.dealWithGrounds(that.axiosdata);
+        //console.log(that.axiosdata);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message({
+          showClose: true,
+          message: "获取占用中场地失败",
+          type: "error",
+        });
       });
   },
 
   data() {
-    // const systemItem = {
-    //   title: "关于系统停机维护的通知",
-    //   time: "2021-7-5 15:30",
-    //   accountNum: "14335",
-    //   content:
-    //     "本系统将于7月10日23:00至7月11日7:00停机维护。不便之处，敬请谅解。",
-    // };
-
     return {
       axiosdata: null,
       personinfo: {
         photosrc:
           "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        name: "老王",
+        name: "场地管理员",
         // id: state.ID,
-        id:store.state.ID,
-        grounds: ["复楼", "诚楼"],
+        id: store.state.ID,
+        grounds: [],
         type: ["", "success", "info", "warning", "danger"],
         date: "2020-2021学年第2学期第13周",
       },
@@ -256,114 +334,67 @@ export default {
       },
       // systemAnnouncement: Array(20).fill(systemItem),
       systemAnnouncement: [],
-      appointment: [
-        {
-          activityID: "0001",
-          title: "数据库会议",
-          ground: "广楼101",
-          datetime: "2021-6-1 19:00",
-        },
-        {
-          activityID: "0002",
-          title: "数据库会议",
-          ground: "广楼101",
-          datetime: "2021-6-1 20:00",
-        },
-        {
-          activityID: "0003",
-          title: "数据库会议",
-          ground: "广楼101",
-          datetime: "2021-6-1 21:00",
-        },
-        {
-          activityID: "0004",
-          title: "数据库会议",
-          ground: "广楼101",
-          datetime: "2021-6-1 22:00",
-        },
-        {
-          activityID: "0005",
-          title: "数据库会议",
-          ground: "广楼101",
-          datetime: "2021-6-1 23:00",
-        },
-        {
+      appointment: [],
+      busyground: [
+      ],
+      msg: "666",
+    };
+  },
+  methods: {
+    getFullTime() {
+      let date = new Date(), //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + "",
+        M =
+          date.getMonth() + 1 < 10
+            ? "0" + (date.getMonth() + 1)
+            : date.getMonth() + 1,
+        D = date.getDate() < 10 ? "0" + date.getDate() : date.getDate(),
+        h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
+        m =
+          date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(),
+        s =
+          date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+      return Y + "-" + M + "-" + D + "T" + h + ":" + m + ":" + s;
+    },
+
+    getEndTime(startTime, duration) {
+      var date = new Date(startTime);
+      var mins = date.getMinutes();
+      date.setMinutes(duration + mins);
+      // date = this.getFullTime(
+      //   Date(date).setMinutes(duration + date.getMinutes())
+      // );
+      let Y = date.getFullYear() + "",
+        M =
+          date.getMonth() + 1 < 10
+            ? "0" + (date.getMonth() + 1)
+            : date.getMonth() + 1,
+        D = date.getDate() < 10 ? "0" + date.getDate() : date.getDate(),
+        h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
+        m =
+          date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(),
+        s =
+          date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+      return Y + "-" + M + "-" + D + "T" + h + ":" + m + ":" + s;
+    },
+
+    dealWithActivities(data) {
+      for (var i = 0; i < data["审核中"].length; i++) {
+        var temp = {
           activityID: "0006",
           title: "数据库会议",
           ground: "广楼101",
           datetime: "2021-6-2 00:00",
-        },
-      ],
-      busyground: [
-        {
-          groundID: "12201",
-          position: "F201",
-          activityName: "数据结构",
-        },
-        {
-          groundID: "21404",
-          position: "G404",
-          activityName: "数据库",
-        },
-        {
-          groundID: "35130",
-          position: "F201",
-          activityName: "数据结构1",
-        },
-        {
-          groundID: "35404",
-          position: "G404",
-          activityName: "数据库2",
-        },
-        {
-          groundID: "21404",
-          position: "F201",
-          activityName: "数据结构3",
-        },
-        {
-          groundID: "21404",
-          position: "G404",
-          activityName: "数据库4",
-        },
-        {
-          groundID: "21404",
-          position: "F201",
-          activityName: "数据结构5",
-        },
-        {
-          groundID: "21404",
-          position: "G404",
-          activityName: "数据库6",
-        },
-      ],
-      msg: "666",
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-      ],
-    };
-  },
-  methods: {
+        };
+        temp.activityID = data["审核中"][i].id;
+        temp.datetime = data["审核中"][i].activityDate.replace("T", " ");
+        temp.title = data["审核中"][i].name;
+        temp.ground = data["审核中"][i].groundName;
+        this.appointment.push(temp);
+      }
+    },
+
     dealWithAnnouncements(data) {
-      console.log("run dealwith");
       for (var i = 0; i < data.length; i++) {
         var temp = {
           accountNumber: "123123",
@@ -381,6 +412,36 @@ export default {
         this.systemAnnouncement.push(temp);
       }
     },
+
+    dealWithGrounds(data) {
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].state == "占用") {
+          var temp = {
+            groundID: "12201",
+            position: "F201",
+            activityName: "数据结构",
+            startTime: "",
+            duration: "",
+            endTime: "",
+            time: "",
+          };
+          temp.groundID = data[i].groundId;
+          temp.position = data[i].name;
+          temp.activityName = data[i].activityName;
+          temp.startTime = data[i].startTime.replace("T", " ");
+          temp.duration = parseInt(data[i].duration);
+          temp.endTime = this.getEndTime(data[i].startTime, temp.duration);
+          temp.time =
+            temp.startTime +
+            "~" +
+            temp.endTime.substr(temp.endTime.search("T") + 1);
+          this.busyground.push(temp);
+          // console.log(i,temp);
+        }
+      }
+      // console.log(this.busyground);
+    },
+
     onRowClick(row) {
       this.dialogTitle = row.title;
       this.dialogContent = row.content;

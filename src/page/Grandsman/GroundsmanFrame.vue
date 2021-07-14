@@ -44,7 +44,7 @@
             ></el-button>
             <el-dropdown trigger="click" @command="handleCommand">
               <span class="el-dropdown-link" trigger="click">
-                管理员<i class="el-icon-arrow-down el-icon--right"></i>
+                {{id}}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="accountInfo"
@@ -193,7 +193,7 @@ body,
 
 <script>
 // import sidebar from "../../components/GrandsmanSidebar.vue";
-// import myheader from "../../components/ZZYheader.vue";
+import store from "../../state/state.js";
 import * as echarts from "echarts";
 export default {
   // components: { myheader },
@@ -222,6 +222,7 @@ export default {
       isCollapse: true,
       value: "",
       breadList: [],
+      id: store.state.ID,
     };
   },
   mounted() {
