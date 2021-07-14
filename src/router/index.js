@@ -841,6 +841,9 @@ router.beforeEach((to, from, next) => {
                 if (id === data.accountNumber && type === data.role && to.meta.roles.some(role => {
                         return role === type;
                     })) {
+                    if (to.meta.title) {
+                        document.title = to.meta.title
+                    }
                     next();
                 } else {
                     localStorage.removeItem("uuid");
