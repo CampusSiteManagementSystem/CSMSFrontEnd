@@ -22,70 +22,70 @@
     <el-divider content-position="center">详细信息</el-divider>
     <el-row class="lower-row">
       <div v-if="this.groundinfo.indoor">
-      <el-form
-        v-if="editstate"
-        ref="ruleForm"
-        :model="ruleForm"
-        :rules="rules"
-        label-width="80px"
-      >
-        <el-form-item label="座位数" prop="seatnum">
-          <el-input v-model="groundinfo.seatnum"></el-input>
-        </el-form-item>
-        <el-form-item label="电脑数" prop="computernum">
-          <el-input v-model="groundinfo.computernum"></el-input>
-        </el-form-item>
-        <el-form-item label="楼层" prop="floor">
-          <el-input v-model="groundinfo.floor"></el-input>
-        </el-form-item>
-        <el-form-item label="面积" prop="area">
-          <el-input v-model="groundinfo.area"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">提交</el-button>
-          <router-link to="/GroundsAdmin/GroundList">
-            <el-button>取消</el-button></router-link
-          >
-        </el-form-item>
-      </el-form>
-      <div v-else>
-        <p><b>座位数：</b>{{ groundinfo.seatnum }}</p>
-        <p><b>电脑数：</b>{{ groundinfo.computernum }}</p>
-        <p><b>楼层：</b>{{ groundinfo.floor }}</p>
-        <p><b>面积：</b>{{ groundinfo.area }}</p>
-        <div class="editbutton">
-          <el-button @click="edit" type="primary" icon="el-icon-edit"
-            >修改信息</el-button
-          >
+        <el-form
+          v-if="editstate"
+          ref="ruleForm"
+          :model="ruleForm"
+          :rules="rules"
+          label-width="80px"
+        >
+          <el-form-item label="座位数" prop="seatnum">
+            <el-input v-model="groundinfo.seatnum"></el-input>
+          </el-form-item>
+          <el-form-item label="电脑数" prop="computernum">
+            <el-input v-model="groundinfo.computernum"></el-input>
+          </el-form-item>
+          <el-form-item label="楼层" prop="floor">
+            <el-input v-model="groundinfo.floor"></el-input>
+          </el-form-item>
+          <el-form-item label="面积" prop="area">
+            <el-input v-model="groundinfo.area"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">提交</el-button>
+            <router-link to="/GroundsAdmin/GroundList">
+              <el-button>取消</el-button></router-link
+            >
+          </el-form-item>
+        </el-form>
+        <div v-else>
+          <p><b>座位数：</b>{{ groundinfo.seatnum }}</p>
+          <p><b>电脑数：</b>{{ groundinfo.computernum }}</p>
+          <p><b>楼层：</b>{{ groundinfo.floor }}</p>
+          <p><b>面积：</b>{{ groundinfo.area + "m²" }}</p>
+          <div class="editbutton">
+            <el-button @click="edit" type="primary" icon="el-icon-edit"
+              >修改信息</el-button
+            >
+          </div>
         </div>
       </div>
-      </div>
       <div v-else>
-      <el-form
-        v-if="editstate"
-        ref="ruleForm"
-        :model="ruleForm"
-        :rules="rules"
-        label-width="80px"
-      >
-        <el-form-item label="面积" prop="area">
-          <el-input v-model="groundinfo.area"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">提交</el-button>
-          <router-link to="/GroundsAdmin/GroundList">
-            <el-button>取消</el-button></router-link
-          >
-        </el-form-item>
-      </el-form>
-      <div v-else>
-        <p><b>面积：</b>{{ groundinfo.area }}</p>
-        <div class="editbutton">
-          <el-button @click="edit" type="primary" icon="el-icon-edit"
-            >修改信息</el-button
-          >
+        <el-form
+          v-if="editstate"
+          ref="ruleForm"
+          :model="ruleForm"
+          :rules="rules"
+          label-width="80px"
+        >
+          <el-form-item label="面积" prop="area">
+            <el-input v-model="groundinfo.area"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">提交</el-button>
+            <router-link to="/GroundsAdmin/GroundList">
+              <el-button>取消</el-button></router-link
+            >
+          </el-form-item>
+        </el-form>
+        <div v-else>
+          <p><b>面积：</b>{{ groundinfo.area + "m²" }}</p>
+          <div class="editbutton">
+            <el-button @click="edit" type="primary" icon="el-icon-edit"
+              >修改信息</el-button
+            >
+          </div>
         </div>
-      </div>
       </div>
     </el-row>
   </el-card>
@@ -152,6 +152,7 @@ body,
 <script>
 import { GETGroundsID } from "../../API/http";
 import { GETIndoorGroundsID } from "../../API/http";
+import store from "../../state/state.js"
 
 // import store from "../../state/state.js"
 export default {
@@ -221,6 +222,58 @@ export default {
       this.editstate = true;
     },
     onSubmit() {
+      var axios = require("axios"), data, config;
+      if (this.groundinfo.indoor) {
+        data = JSON.stringify({
+          groundId: this.$route.params.ID,
+          seatNum: this.groundinfo.seatnum,
+          computerNum: this.groundinfo.computernum,
+          floor: this.groundinfo.floor,
+          roomNo: this.groundinfo.roomno,
+        });
+
+        config = {
+          method: "put",
+          url: "http://139.196.114.7/api/IndoorGrounds/" + this.$route.params.ID,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: data,
+        };
+
+        axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+      else {
+        data = JSON.stringify({
+          groundId: this.$route.params.ID,
+          area: this.groundinfo.area,
+          description: this.groundinfo.description,
+          accountNumber: store.state.ID,
+        });
+
+        config = {
+          method: "put",
+          url: "http://139.196.114.7/api/Grounds/" + this.$route.params.ID,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: data,
+        };
+
+        axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
       this.editstate = false;
     },
   },

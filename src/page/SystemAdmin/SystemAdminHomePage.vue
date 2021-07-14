@@ -142,6 +142,10 @@ import {
   GETOrganizations,
   GETStudents,
   GETSystemAdministrators,
+
+  // GETStudentsID,
+  // GETActivities,
+  // GETOccupyTimes
 } from "../../API/http";
 export default {
   created() {
@@ -213,6 +217,7 @@ export default {
       axiosdata: null,
 
       //第一块卡片信息
+      // SysID=store.stats.ID,
       sysInfo: {},
       semesterInfo: {
         fromYear: "2020",
