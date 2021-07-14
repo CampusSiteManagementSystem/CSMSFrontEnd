@@ -81,6 +81,7 @@ export const PUTOrganizations = param => Put('/api/Organizations', param); //ok
 export const POSTOrganizations = param => Post('/api/Organizations', param); //ok
 export const GETOrganizationsID = ID => GetID('/api/Organizations/', ID); //ok
 export const PUTOrganizationsID = (ID, param) => PutID('/api/Organizations/', ID, param); //ok
+export const DELETEOrganizationsID = ID => DeleteID('/api/Organizations/', ID); //ok
 
 
 //OrgFavorites
@@ -93,6 +94,7 @@ export const GETStudents = param => Get('/api/Students', param); //ok
 export const POSTStudents = param => Post('/api/Students', param); //ok
 export const GETStudentsID = ID => GetID('/api/Students/', ID); //ok
 export const PUTStudentsID = (ID, param) => PutID('/api/Students/', ID, param); //ok
+export const DELETEStudentsID = ID => DeleteID('/api/Students/', ID); //ok
 
 
 // StuFavorites

@@ -16,14 +16,16 @@
             />
           </div>
           <div class="modify">
-            <el-button type="primary" @click="success">更改照片</el-button>
+            <el-button type="primary">更改照片</el-button>
           </div>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="8">
           <div>
             <h3>用户信息</h3>
           </div>
           <div id="content">
+            <transition name="fade-transform" mode="out-in">
+            <div v-if="isForm == true">
             <el-form
               ref="ruleForm"
               :rules="rules"
@@ -38,7 +40,7 @@
                 ></el-input>
               </el-form-item>
               <el-form-item label="姓名：" prop="name">
-                <div v-if="isSet == false">
+                <div v-if="isForm == false">
                   <el-input v-model="ruleForm.name" :readonly="true"></el-input>
                 </div>
                 <div v-else>
@@ -51,8 +53,8 @@
                   :readonly="true"
                 ></el-input>
               </el-form-item>
-              <el-form-item label="成绩：" prop="grade">
-                <div v-if="isSet == false">
+              <el-form-item label="年级：" prop="grade">
+                <div v-if="isForm == false">
                   <el-input
                     v-model="ruleForm.grade"
                     :readonly="true"
@@ -69,7 +71,7 @@
                 ></el-input>
               </el-form-item>
               <el-form-item label="邮箱：" prop="email">
-                <div v-if="isSet == false">
+                <div v-if="isForm == false">
                   <el-input
                     v-model="ruleForm.email"
                     :readonly="true"
@@ -80,13 +82,26 @@
                 </div>
               </el-form-item>
             </el-form>
-            <div v-if="isSet == false" class="modify">
-              <el-button type="primary" @click="returnback">取消</el-button>
-              <el-button type="primary" @click="edit">编辑</el-button>
             </div>
-            <div v-else class="modify">
-              <el-button type="primary" @click="returnback">取消</el-button>
-              <el-button type="primary" @click="success">提交</el-button>
+          </transition>
+
+          <transition name="fade-transform" mode="out-in">
+            <div v-if="isTable == true">
+              <el-table :show-header="false" :data="tableData" :cell-style="columnStyle" border
+                style="width: 80%; margin-top: 20px">
+                <el-table-column width="180" prop="title" label="标题">
+                </el-table-column>
+                <el-table-column prop="content" label="内容">
+                </el-table-column>
+              </el-table>
+            </div>
+          </transition>
+            <div v-if="isTable == true" class="modify">
+              <el-button type="primary" @click="edit">编辑个人信息</el-button>
+            </div>
+            <div v-if="isForm == true" class="modify">
+              <el-button type="primary" @click="submitForm('ruleForm')">取消</el-button>
+              <el-button @click="returnback">提交</el-button>
             </div>
           </div>
         </el-col>
@@ -104,7 +119,12 @@ p {
   color: rgb(0, 0, 0);
   position: relative;
 }
-
+.fade-transform-enter-active{
+  transition: all 0.3s;
+}
+.fade-transform-leave-active{
+  transition: all 0.3s;
+}
 .image {
   margin-top: -0.5cm;
 }
@@ -178,34 +198,98 @@ export default {
         content: [{ required: true, message: "请输入介绍", trigger: "blur" }],
         state: [{ required: true, message: "请输入审核状态", trigger: "blur" }],
       },
-
-      isSet: false,
+      tableData: [
+        {
+          title: "账号",
+          content: "",
+        },
+        {
+          title: "姓名",
+          content: "",
+        },
+        {
+          title: "性别",
+          content: "",
+        },
+        {
+          title: "年级",
+          content: "",
+        },
+        {
+          title: "学院",
+          content: "",
+        },        
+        {
+          title: "邮箱",
+          content: "",
+        },
+      ],
+      isForm: false,
+      isTable:true,
     };
   },
 
   methods: {
-    returnback() {
-      this.$router.push({ path: "MaintainUserInfo" });
+    columnStyle({ row, column, rowIndex, columnIndex }) {
+      row;
+      column;
+      //console.log(row, column, rowIndex, columnIndex, "row");
+      if (columnIndex == 0 && ((rowIndex == 0)||(rowIndex == 2)||(rowIndex == 4))) {
+        return "background:#FBFBEF; font-weight: 700;";
+      } else if (columnIndex == 0) {
+        return "background:#EFFBEF; font-weight: 700;";
+      }
     },
-    // columnStyle({ row, column, rowIndex, columnIndex }) {
-    //   console.log(row, column, rowIndex, columnIndex, "row");
-    //   if (columnIndex == 0) {
-    //     return "background:#EFFBEF; font-weight: 700;";
-    //   }
-    // },
+    returnData(){
+      this.ruleForm.account = this.tableData[0].content;
+      this.ruleForm.name = this.tableData[1].content;
+      this.ruleForm.gender = this.tableData[2].content;
+      this.ruleForm.grade = this.tableData[3].content;
+      this.ruleForm.academy = this.tableData[4].content;
+      this.ruleForm.email = this.tableData[5].content;
+    },    
+    updateData() {
+      this.tableData[0].content=this.ruleForm.account;
+      this.tableData[1].content=this.ruleForm.name;
+      this.tableData[2].content=this.ruleForm.gender;
+      this.tableData[3].content=this.ruleForm.grade;
+      this.tableData[4].content=this.ruleForm.academy;
+      this.tableData[5].content=this.ruleForm.email;
+    },
     edit() {
-      this.isSet = true;
+      this.isTable = false;
+      setTimeout(() => {
+        this.isForm = true;
+      }, 400);
     },
-    success() {
-      this.isSet = false;
-      this.$alert("提交成功！", {
-        confirmButtonText: "确定",
-        callback: (action) => {
-          this.$message({
-            type: "info",
-            message: `action: ${action}`,
+    returnback(){
+      this.isForm = false;
+      setTimeout(() => {
+        this.isTable = true;
+        this.returnData();
+      }, 400);
+    },    
+    submitForm: function (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          //this.setToDB();
+          this.isForm = false;
+          setTimeout(() => {
+            this.isTable = true;
+            this.updateData();
+          }, 400);
+          this.$alert("编辑成功！", {
+            confirmButtonText: "确定",
+            callback: (action) => {
+              if (action === "confirm") {
+                this.$message({
+                  type: "success",
+                  message: "编辑成功",
+                });
+              }
+            },
           });
-        },
+        }
       });
     },
   },

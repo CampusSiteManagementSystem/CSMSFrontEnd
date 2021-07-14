@@ -148,7 +148,7 @@ import store from "../../state/state";
 
 export default {
   created() {
-    GETStudentsID(this.StuID)
+    GETStudentsID("1850001")
     .then(data =>{
       this.ruleForm.account=this.StuID;
       this.ruleForm.name=data.name;
