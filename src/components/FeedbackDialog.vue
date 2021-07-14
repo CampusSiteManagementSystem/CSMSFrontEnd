@@ -1,5 +1,6 @@
 <template>
   <el-dialog title="场地反馈" :visible.sync="feedbackVisible">
+    <div class="content">
     <el-form
       :model="ruleForm"
       :rules="rules"
@@ -54,11 +55,11 @@
         >
       </el-form-item>
     </el-form>
-
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="feedbackVisible = false">取 消</el-button>
-      <el-button type="primary" @click="submitFeedback">提交</el-button>
     </div>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="feedbackVisible = false">取消</el-button>
+      <el-button type="primary" @click="feedbackVisible">提交</el-button>
+    </span>
   </el-dialog>
 
   <!-- <div class="page">
@@ -201,7 +202,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .page {
   height: 100%;
@@ -212,6 +212,12 @@ export default {
   background: rgba(240, 235, 235, 0.5);
   justify-content: center;
   align-items: center;
+}
+.el-dialog {
+  border-radius: 12px;
+}
+.dialog {
+  backdrop-filter: blur(10px);
 }
 .background {
   margin: 0;
