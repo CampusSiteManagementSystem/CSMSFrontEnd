@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-
+ 
     <el-row :gutter="10" type="flex">
       <div class="grid-content">
         <el-card class="box-card1">

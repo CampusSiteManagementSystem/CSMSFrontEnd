@@ -17,8 +17,8 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="accountNumber" label="ID">
-            <template slot-scope="scope">
+          <el-table-column prop="accountNumber" label="ID"> 
+             <template slot-scope="scope">
               <span>{{ scope.row.accountNumber }}</span>
             </template>
           </el-table-column>
@@ -37,18 +37,20 @@
           <el-table-column label="操作" width="200">
             <template slot-scope="scope">
               <router-link
-                
                 :to="{
-                  //path: 'GroupVerify',
-                  name:'SystemAdminGroupVerify',
-                  params: {
+                  ////////////name不可以 path可以？
+                  path: 'GroupVerify',
+                  //name:'SystemAdminGroupVerify',
+                  query: {
                     accountNumber: scope.row.accountNumber,
                   },
                 }"
                 size="medium"
                 type="primary"
                 tag="el-button"
-                @click.native="shandleEdit"
+                @click.native="
+                  shandleEdit(scope.row.accountNumber, scope.$index)
+                "
                 >审核</router-link
               >
 
@@ -129,8 +131,7 @@ export default {
     shandleEdit() {
       console.log("handleedit");
       console.log(this.$route);
-      this.childPage =
-        this.$route.name == "SystemAdminGroupVerify";
+      this.childPage = this.$route.name == "SystemAdminGroupVerify";
     },
   },
 
