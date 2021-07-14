@@ -107,6 +107,7 @@ export const POSTStuFavorites = param => Post('/api/StuFavorites', param); //ok
 //SystemAdministrators
 export const PUTSystemAdministratorsID = (ID, param) => PutID('/api/SystemAdministrators/', ID, param); //正在编写
 export const GETSystemAdministrators = param => Get('/api/SystemAdministrators', param); //目前有4个
+export const GETSystemAdministratorsID = ID => GetID('/api/SystemAdministrators/', ID); //ok
 
 //SystemAnnouncements
 export const GETSystemAnnouncements = param => Get('/api/SystemAnnouncements', param); //ok

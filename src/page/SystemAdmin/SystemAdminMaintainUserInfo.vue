@@ -28,25 +28,74 @@
         :header-row-style="{ height: '20px' }"
         :cell-style="{ padding: '5px' }"
       >
-        <el-table-column label="ID">
+        <el-table-column label="ID" prop="accountNumber">
           <template slot-scope="scope">
-            <span>{{ scope.row.id }}</span>
+            <span style="margin-left: 10px">{{ scope.row.accountNumber }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="账户">
+        <el-table-column label="身份" prop="status">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+            <span>{{ scope.row.status }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="用户名称" prop="name">
+          <template slot-scope="scope">
+            <span style="margin-left: ">{{ scope.row.name }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="small" @click="handleChange()">编辑信息</el-button>
-            <el-button
-              size="small"
-              type="danger"
-              @click="userdelete(scope.$index, scope.row)"
-              >删除</el-button
-            >
+            <!-- <el-button size="small" @click="handleChange()">编辑信息</el-button> -->
+            <div v-if="scope.row.status == '组织'">
+              <router-link
+                :to="{
+                  ////////////name不可以 path可以？
+                  path: 'UserModify',
+                  //name:'SystemAdminUserModify',
+                  query: {
+                    accountNumber: scope.row.accountNumber,
+                  },
+                }"
+                size="small"
+                type="primary"
+                tag="el-button"
+                @click.native="
+                  uhandleEdit(scope.row.accountNumber, scope.$index)
+                "
+                >编辑信息</router-link
+              >
+              <el-button
+                size="small"
+                type="danger"
+                @click="userdelete(scope.$index, scope.row)"
+                >删除</el-button
+              >
+            </div>
+            <div v-else>
+              <router-link
+                :to="{
+                  ////////////name不可以 path可以？
+                  path: 'StuModify',
+                  //name:'SystemAdminUserModify',
+                  query: {
+                    accountNumber: scope.row.accountNumber,
+                  },
+                }"
+                size="small"
+                type="primary"
+                tag="el-button"
+                @click.native="
+                  uhandleEdit(scope.row.accountNumber, scope.$index)
+                "
+                >编辑信息</router-link
+              >
+              <el-button
+                size="small"
+                type="danger"
+                @click="userdelete(scope.$index, scope.row)"
+                >删除</el-button
+              >
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -72,37 +121,66 @@ body,
 </style>
 
 <script>
+import { GETStudents, GETOrganizations } from "../../API/http";
+
 export default {
+  created() {
+    GETStudents()
+      .then((data) => {
+        this.axiosdata = data;
+        for (var i = 0; i < data.length; i++) {
+          var temp = {
+            name: "李",
+            accountNumber: "180034",
+            status: "学生",
+          };
+
+          temp.name = data[i].name;
+          temp.accountNumber = data[i].accountNumber;
+
+          this.tableData.push(temp);
+
+          this.matchList = this.tableData;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("学生数据请求错误");
+      });
+    GETOrganizations()
+      .then((data) => {
+        this.axiosdata = data;
+        for (var i = 0; i < data.length; i++) {
+          var temp = {
+            name: "软件学院",
+            accountNumber: "12234",
+            status: "组织",
+          };
+
+          temp.name = data[i].name;
+          temp.accountNumber = data[i].accountNumber;
+          this.tableData.push(temp);
+
+          this.matchList = this.tableData;
+          this.matchList.status = "组织";
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("组织数据请求错误");
+      });
+
+    this.matchList = this.tableData;
+  },
+
   data() {
     return {
+      axiosdata: null,
       toMatch: "",
       matchList: [],
-      tableData: [
-        {
-          id: "0000",
-          name: "公关部",
-        },
-        {
-          id: "0001",
-          name: "学生综合素质发展中心",
-        },
-        {
-          id: "0003",
-          name: "社发管",
-        },
-        {
-          id: "1003",
-          name: "王某",
-        },
-        {
-          id: "1007",
-          name: "李某",
-        },
-        {
-          id: "1010",
-          name: "张某",
-        },
-      ],
+      tableData: [],
+
+      status: "",
 
       options: [
         {
@@ -115,10 +193,6 @@ export default {
         },
       ],
     };
-  },
-
-  created() {
-    this.matchList = this.tableData;
   },
 
   methods: {
@@ -139,7 +213,7 @@ export default {
       })
         .then(() => {
           for (var i = 0; i < this.tableData.length; i++) {
-            if (this.tableData[i].id == row.id) {
+            if (this.tableData[i].accountNumber == row.accountNumber) {
               this.tableData.splice(i, 1);
               break;
             }
@@ -163,12 +237,23 @@ export default {
       } else {
         this.matchList = [];
         for (var i = 0; i < this.tableData.length; i++) {
-          if (this.tableData[i].id.search(this.toMatch) != -1) {
+          if (this.tableData[i].accountNumber.search(this.toMatch) != -1) {
             this.matchList.push(this.tableData[i]);
           }
         }
       }
     },
+
+    uhandleEdit() {
+      console.log("handleedit");
+      console.log(this.$route);
+      this.childPage = this.$route.name == "SystemAdminGroupVerify";
+    },
+  },
+
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    $route: "uhandleEdit", //getOrderInfo为自定义方法
   },
 };
 </script>

@@ -32,9 +32,12 @@
               :hide-required-asterisk="true"
             >
               <el-form-item label="账号：" prop="account">
-                <el-input v-model="ruleForm.account" :readonly="true"></el-input>
+                <el-input
+                  v-model="ruleForm.account"
+                  :readonly="true"
+                ></el-input>
               </el-form-item>
-              <el-form-item label="名称：" prop="name">
+              <el-form-item label="姓名：" prop="name">
                 <div v-if="isSet == false">
                   <el-input v-model="ruleForm.name" :readonly="true"></el-input>
                 </div>
@@ -42,45 +45,38 @@
                   <el-input v-model="ruleForm.name"></el-input>
                 </div>
               </el-form-item>
-              <el-form-item label="负责人：" prop="user">
-                <div v-if="isSet == false">
-                  <el-input v-model="ruleForm.user" :readonly="true"></el-input>
-                </div>
-                <div v-else>
-                  <el-input v-model="ruleForm.user"></el-input>
-                </div>
+              <el-form-item label="性别：" prop="gender">
+                <el-input
+                  v-model="ruleForm.gender"
+                  :readonly="true"
+                ></el-input>
               </el-form-item>
-              <el-form-item label="信用分：" prop="credit">
-                <el-input v-model="ruleForm.credit" :readonly="true"></el-input>
-              </el-form-item>
-              <el-form-item label="联系方式：" prop="telephone">
+              <el-form-item label="成绩：" prop="grade">
                 <div v-if="isSet == false">
                   <el-input
-                    v-model="ruleForm.telephone"
+                    v-model="ruleForm.grade"
                     :readonly="true"
                   ></el-input>
                 </div>
                 <div v-else>
-                  <el-input v-model="ruleForm.telephone"></el-input>
+                  <el-input v-model="ruleForm.grade"></el-input>
                 </div>
               </el-form-item>
-              <el-form-item label="详细信息：" prop="content">
+              <el-form-item label="学院：" prop="academy">
+                <el-input
+                  v-model="ruleForm.academy"
+                  :readonly="true"
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="邮箱：" prop="email">
                 <div v-if="isSet == false">
                   <el-input
-                    v-model="ruleForm.content"
+                    v-model="ruleForm.email"
                     :readonly="true"
                   ></el-input>
                 </div>
                 <div v-else>
-                  <el-input v-model="ruleForm.content"></el-input>
-                </div>
-              </el-form-item>
-              <el-form-item label="组织状态：" prop="state">
-                <div v-if="isSet == false">
-                  <el-input v-model="ruleForm.state" :readonly="true"></el-input>
-                </div>
-                <div v-else>
-                  <el-input v-model="ruleForm.state"></el-input>
+                  <el-input v-model="ruleForm.email"></el-input>
                 </div>
               </el-form-item>
             </el-form>
@@ -127,27 +123,24 @@ p {
 </style>
 
 <script>
-
-import { GETOrganizationsID } from "../../API/http";
+import { GETStudentsID } from "../../API/http";
 
 export default {
-
   mounted() {
-    console.log("aaa",this.$route.query.accountNumber)
-    GETOrganizationsID(this.$route.query.accountNumber)
+    console.log("aaa", this.$route.query.accountNumber);
+    GETStudentsID(this.$route.query.accountNumber)
       .then((data) => {
         this.ruleForm.account = data.accountNumber;
         this.ruleForm.name = data.name;
-        this.ruleForm.user = data.functionary;
-        this.ruleForm.credit = data.credit;
-        this.ruleForm.telephone = data.telephone;
-        this.ruleForm.content = data.detailInfo;
-        this.ruleForm.state = data.state;
+        this.ruleForm.gender = data.gender;
+        this.ruleForm.grade = data.grade;
+        this.ruleForm.academy = data.academy;
+        this.ruleForm.email = data.eMailAddress;
       })
       .catch((err) => {
         console.log(err);
         this.$message("信息获取错误");
-      });    
+      });
   },
 
   data() {
@@ -155,12 +148,10 @@ export default {
       ruleForm: {
         account: "",
         name: "",
-        user: "",
-        credit: "",
-        telephone: "",
-        content: "",
-        state: "",
-
+        gender: "",
+        grade: "",
+        academy: "",
+        email: "",
       },
 
       rules: {
@@ -178,7 +169,8 @@ export default {
             trigger: "blur",
           },
           {
-            pattern: /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/,
+            pattern:
+              /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/,
             message: "请正确输入联系电话，为11位数字",
             trigger: "change",
           },

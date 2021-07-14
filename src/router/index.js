@@ -296,12 +296,21 @@ const routes = [
             },
             {
                 path: "UserModify",
-                name: "SystemAdminAddUser",
+                name: "SystemAdminUserModify",
                 meta: {
-                    title: "添加用户",
+                    title: "修改信息",
                 },
                 component: () =>
                     import ('../page/SystemAdmin/SystemAdminUserModify.vue')
+            },
+            {
+                path: "StuModify",
+                name: "SystemAdminStudentModify",
+                meta: {
+                    title: "修改信息",
+                },
+                component: () =>
+                    import ('../page/SystemAdmin/SystemAdminStudentModify.vue')
             },
             {
                 path: "SystemAnnouncement",

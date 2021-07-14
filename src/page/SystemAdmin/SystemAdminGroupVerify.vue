@@ -62,7 +62,7 @@ body,
 .info {
   text-align: left;
 }
-
+ 
 .submit {
   /* margin: 1cm 1cm 1cm 17cm; */
   float: right;
@@ -77,7 +77,7 @@ p {
 <script>
 import { GETOrganizationsID } from "../../API/http";
 //import store from "../../state/state";
-
+ 
 export default {
   mounted() {
     console.log("aaa",this.$route.query.accountNumber)
@@ -105,7 +105,7 @@ export default {
   },
 
   methods: {
-    success() {
+    success() {     
       this.$alert("审核成功！", {
         confirmButtonText: "确定",
         callback: (action) => {
