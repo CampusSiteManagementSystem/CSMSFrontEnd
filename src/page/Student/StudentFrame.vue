@@ -192,6 +192,9 @@ export default {
     };
   },
   mounted() {
+   console.log("this.$route.path",this.$route.matched);
+    this.breadList=this.$route.matched
+  
     this.drawClock();
     //console.log("option", this.option);
     const that = this;
@@ -249,17 +252,17 @@ export default {
      */
     getBreadList(val) {
       // 过滤路由matched对象
-      // console.log("val.matched", val.matched);
+      console.log("val.matched", val.matched);
       if (val.matched) {
         let matched = val.matched.filter(
           (item) => item.meta && item.meta.title
         );
-        // console.log("matched", matched);
+        console.log("matched", matched);
         // 拿到过滤好的路由v-for遍历出来
         this.breadList = matched;
       }
-      this.breadList = val.matched;
-      // console.log("this.breadList", this.breadList);
+      // this.breadList = val.matched;
+      console.log("this.breadList", this.breadList);
     },
     updateSeries(time, series, type) {
       var isCritical = (Math.floor(time) === 0) || (type === 'second' && time === 1);
