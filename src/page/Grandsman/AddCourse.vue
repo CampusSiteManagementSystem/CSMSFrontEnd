@@ -71,7 +71,7 @@
               <el-button type="primary" @click="onSubmit('ruleForm')"
                 >提交</el-button
               >
-              <el-button @click="back">返回</el-button>
+              <!-- <el-button @click="back">返回</el-button> -->
             </el-form-item>
           </el-form>
         </el-card>
@@ -380,9 +380,9 @@ export default {
         }
       });
     },
-    back() {
-      this.$router.push({ path: "/GroundsAdmin/AddCourseGroundList" });
-    },
+    // back() {
+    //   this.$router.push({ path: "/GroundsAdmin/AddCourseGroundList" });
+    // },
     onSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -395,13 +395,9 @@ export default {
             decription: this.ruleForm.decription,
           }).then((data) => {
             console.log(data);
-            this.ruleForm.name="";
-            this.ruleForm.date1="";
-            this.ruleForm.date2="";
-            this.ruleForm.during="";
-            this.ruleForm.description="";
-            console.log("课程添加成功");
+            var temp = this.ruleForm.site;
             this.$refs["ruleForm"].resetFields();
+            this.ruleForm.site = temp;
             this.handleGroundChange(this.ruleForm.site);
             this.$message({
               message: "课程添加成功",

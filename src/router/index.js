@@ -510,6 +510,9 @@ const routes = [
     //场地管理员
     {
         path: '/GroundsAdmin',
+        meta: {
+            title: '场地管理员'
+        },
         component: () =>
             import ('../page/Grandsman/GroundsmanFrame'),
         children: [{
@@ -534,7 +537,7 @@ const routes = [
                 path: "Main",
                 name: "GroundAdminMain",
                 meta: {
-                    title: "场地管理员",
+                    title: "主页",
                 },
                 component: () =>
                     import ('../page/Grandsman/GroundsmanHome.vue')
