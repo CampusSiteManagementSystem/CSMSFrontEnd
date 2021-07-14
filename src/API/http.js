@@ -121,3 +121,4 @@ export const GETPositions = param => Get('/api/Positions', param); //wy测试ok
 
 //login
 export const Login = param => Get('/api/Login', param);
+export const LoginTest = param => Get('/api/Login/test', param);
