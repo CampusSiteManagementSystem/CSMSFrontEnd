@@ -121,7 +121,12 @@ body,
 </style>
 
 <script>
-import { GETStudents, GETOrganizations } from "../../API/http";
+import {
+  GETStudents,
+  GETOrganizations,
+  DELETEOrganizationsID,
+  DELETEStudentsID,
+} from "../../API/http";
 
 export default {
   created() {
@@ -203,8 +208,29 @@ export default {
     addUser() {
       this.$router.push({ path: "AddUserTest" });
     },
+    deleteStu(id) {
+      DELETEStudentsID(id)
+        .then(() => {
+          console.log("删除学生成功");
+        })
+        .catch((err) => {
+          console.log(err);
+          this.$message("删除学生错误");
+        });
+    },
+    deleteOrg(id) {
+      DELETEOrganizationsID(id)
+        .then(() => {
+          console.log("删除组织成功");
+        })
+        .catch((err) => {
+          console.log(err);
+          this.$message("删除组织错误");
+        });
+    },
 
     userdelete(index, row) {
+      const that = this;
       console.log(index, row);
       this.$confirm("此操作将永久删除该用户, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -212,19 +238,25 @@ export default {
         type: "warning",
       })
         .then(() => {
-          for (var i = 0; i < this.tableData.length; i++) {
-            if (this.tableData[i].accountNumber == row.accountNumber) {
-              this.tableData.splice(i, 1);
+          for (var i = 0; i < that.tableData.length; i++) {
+            if (that.tableData[i].accountNumber == row.accountNumber) {
+              that.tableData.splice(i, 1);
               break;
             }
+
+            if (row.status == '组织') {
+              that.deleteOrg(row.accountNumber);
+            } else {
+              that.deleteStu(row.accountNumber);
+            }
           }
-          this.$message({
+          that.$message({
             type: "success",
             message: "删除成功!",
           });
         })
         .catch(() => {
-          this.$message({
+          that.$message({
             type: "info",
             message: "已取消删除",
           });
