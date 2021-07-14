@@ -206,7 +206,7 @@ export default {
             // console.log(dateActivity >= dateNow)
             if (dateActivity < dateNow) {
               this.$message({ message: "活动已过期", type: "error" });
-            } else {
+            } else { 
               if (this.form.state != this.form.orgState) {
                 POSTExamineAndApproves({
                   activityId: this.id,
