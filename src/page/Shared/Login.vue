@@ -161,9 +161,9 @@ export default {
               secretPassword: this.form.password,
             })
               .then((data) => {
-                localStorage.setItem("membertype",this.identity);
-                localStorage.setItem("uuid",this.form.accountNumber)
-                localStorage.setItem("accessToken",data.accessToken)
+                localStorage.setItem("membertype", this.identity);
+                localStorage.setItem("uuid", this.form.accountNumber);
+                localStorage.setItem("accessToken", data.accessToken);
               })
               .catch((err) => {
                 console.log(err);
