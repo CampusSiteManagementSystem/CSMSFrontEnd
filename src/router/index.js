@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { LoginTest } from '../API/http'
+// import { LoginTest } from '../API/http'
 Vue.use(VueRouter)
 
 const routes = [
@@ -680,16 +680,16 @@ const router = new VueRouter({
     routes
 })
 
-router.beforeEach((to, from, next) => {
-    if (to.path === '/') {
-        next();
-    } else {
-        LoginTest()
-            .then(() => {
-                next();
-            })
-            .catch(() => {})
-    }
-})
+// router.beforeEach((to, from, next) => {
+//     if (to.path === '/') {
+//         next();
+//     } else {
+//         LoginTest()
+//             .then(() => {
+//                 next();
+//             })
+//             .catch(() => {})
+//     }
+// })
 
 export default router
