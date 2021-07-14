@@ -11,7 +11,7 @@
               :header-row-style="{ height: '20px' }"
               :cell-style="{ padding: '5px' }"
               ref="filterTable1"
-              :data="tableData"
+              :data="tableData.待举办"
               height="465"
               stripe
               highlight-current-row
@@ -40,7 +40,7 @@
                     </el-form-item>
                     <el-form-item label="申请地点">
                       <label slot="label">申请地点</label>
-                      <span>{{ props.row.address }}</span>
+                      <span>{{ props.row.groundname }}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
                       <label slot="label">参加人数</label>
@@ -57,7 +57,7 @@
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="180" sortable>
+              <el-table-column prop="date" label="日期" width="230" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -66,8 +66,8 @@
               <el-table-column prop="name" label="名称" width="180">
               </el-table-column>
               <el-table-column
-                prop="address"
-                label="地址"
+                prop="groundname"
+                label="场地名称"
                 :formatter="formatter"
               >
               </el-table-column>
@@ -119,7 +119,7 @@
               :header-row-style="{ height: '20px' }"
               :cell-style="{ padding: '5px' }"
               ref="filterTable2"
-              :data="tableData"
+              :data="tableData.审核中"
               height="465"
               stripe
               highlight-current-row
@@ -148,7 +148,7 @@
                     </el-form-item>
                     <el-form-item label="申请地点">
                       <label slot="label">申请地点</label>
-                      <span>{{ props.row.address }}</span>
+                      <span>{{ props.row.groundname }}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
                       <label slot="label">参加人数</label>
@@ -165,7 +165,7 @@
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="180" sortable>
+              <el-table-column prop="date" label="日期" width="230" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -174,8 +174,8 @@
               <el-table-column prop="name" label="名称" width="180">
               </el-table-column>
               <el-table-column
-                prop="address"
-                label="地址"
+                prop="groundname"
+                label="场地名称"
                 :formatter="formatter"
               >
               </el-table-column>
@@ -207,7 +207,11 @@
                       query: { activityID: scope.row.ID },
                     }"
                   >
-                    <el-button size="mini" @click.stop="handleEdit(scope.$index, scope.row)">更改预约</el-button>
+                    <el-button
+                      size="mini"
+                      @click.stop="handleEdit(scope.$index, scope.row)"
+                      >更改预约</el-button
+                    >
                   </router-link>
                   <el-button
                     size="mini"
@@ -225,7 +229,7 @@
               :header-row-style="{ height: '20px' }"
               :cell-style="{ padding: '5px' }"
               ref="filterTable"
-              :data="tableData"
+              :data="tableData.已完成"
               height="465"
               stripe
               highlight-current-row
@@ -254,7 +258,7 @@
                     </el-form-item>
                     <el-form-item label="申请地点">
                       <label slot="label">申请地点</label>
-                      <span>{{ props.row.address }}</span>
+                      <span>{{ props.row.groundname }}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
                       <label slot="label">参加人数</label>
@@ -271,7 +275,7 @@
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="180" sortable>
+              <el-table-column prop="date" label="日期" width="230" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -280,8 +284,8 @@
               <el-table-column prop="name" label="名称" width="180">
               </el-table-column>
               <el-table-column
-                prop="address"
-                label="地址"
+                prop="groundname"
+                label="场地名称"
                 :formatter="formatter"
               >
               </el-table-column>
@@ -307,11 +311,17 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-              <router-link :to="{
-                name: 'FeedBackWindow',
-                query: { activityID: scope.row.ID },
-              }">
-                    <el-button size="mini" type="primary" @click.stop="handleFeedback(scope.$index, scope.row)">反馈
+                  <router-link
+                    :to="{
+                      name: 'FeedBackWindow',
+                      query: { activityID: scope.row.ID },
+                    }"
+                  >
+                    <el-button
+                      size="mini"
+                      type="primary"
+                      @click.stop="handleFeedback(scope.$index, scope.row)"
+                      >反馈
                     </el-button>
                   </router-link>
                 </template>
@@ -323,7 +333,7 @@
               :header-row-style="{ height: '20px' }"
               :cell-style="{ padding: '5px' }"
               ref="filterTable"
-              :data="tableData"
+              :data="tableData.被驳回"
               height="465"
               stripe
               highlight-current-row
@@ -352,7 +362,7 @@
                     </el-form-item>
                     <el-form-item label="申请地点">
                       <label slot="label">申请地点</label>
-                      <span>{{ props.row.address }}</span>
+                      <span>{{ props.row.groundname }}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
                       <label slot="label">参加人数</label>
@@ -369,7 +379,7 @@
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="180" sortable>
+              <el-table-column prop="date" label="日期" width="230" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -378,8 +388,8 @@
               <el-table-column prop="name" label="名称" width="180">
               </el-table-column>
               <el-table-column
-                prop="address"
-                label="地址"
+                prop="groundname"
+                label="场地名称"
                 :formatter="formatter"
               >
               </el-table-column>
@@ -405,11 +415,17 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <router-link :to="{
-                    name: 'ApplySiteWindow',
-                    query: { activityName: scope.row.name },
-                  }">
-                    <el-button size="mini" type="success" @click.stop="handleRenew(scope.$index, scope.row)">重新申请
+                  <router-link
+                    :to="{
+                      name: 'ApplySiteWindow',
+                      query: { activityName: scope.row.name },
+                    }"
+                  >
+                    <el-button
+                      size="mini"
+                      type="success"
+                      @click.stop="handleRenew(scope.$index, scope.row)"
+                      >重新申请
                     </el-button>
                   </router-link>
                 </template>
@@ -429,7 +445,6 @@
         >
           <div id="pdfDom">
             <div class="proBox">
-              
               <p class="tit">场地使用凭证</p>
               <p class="proid"><span>编号：</span> <span>活动ID</span></p>
               <p class="con">
@@ -471,6 +486,8 @@
 </template>
 
 <script>
+import store from "../../state/state";
+import { GETActivities } from "../../API/http";
 export default {
   data() {
     return {
@@ -480,121 +497,107 @@ export default {
       isShow: true,
       isCanvas: false,
       downType: true, // false为 pdf , true为图片
-      htmlTitle:"场地使用凭证",
+      htmlTitle: "场地使用凭证",
 
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-          ID: "11111",
-          people: 40,
-          require: "无",
-          details: "听数据库开会",
-          tag: "室内",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄",
-          ID: "11112",
-          people: 40,
-          require: "无",
-          details: "听数据库开会",
-          tag: "室内",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄",
-          ID: "11113",
-          people: 40,
-          require: "无",
-          details: "听数据库开会",
-          tag: "室内",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11114",
-          people: 40,
-          require: "无",
-          details: "听数据库开会",
-          tag: "室内",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11115",
-          people: 4,
-          require: "无",
-          details: "听数据库开会",
-          tag: "室内",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11116",
-          people: 40,
-          require: "无",
-          details: "听数据库开会",
-          tag: "室外",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11117",
-          people: 40,
-          require: "无",
-          details: "听数据库开会",
-          tag: "室外",
-        },
-        {
-          date: "2016-05-15",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11118",
-          people: 40,
-          require: "无",
-          details: "听数据库开会",
-          tag: "室内",
-        },
-        {
-          date: "2016-06-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11119",
-          people: 40,
-          require: "无",
-          details: "听数据库开会",
-          tag: "室内",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11120",
-          people: 40,
-          require: "无",
-          details: "听数据库开会",
-          tag: "室外",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-          ID: "11121",
-          people: 40,
-          require: "无",
-          details: "听数据库开会",
-          tag: "室外",
-        },
-      ],
+      // tableData: [
+      //   {
+      //     审核中: [
+      //       {
+      //         id: "1000023",
+      //         name: "活动7",
+      //         accountNumber: "0      ",
+      //         organizationName: "aaaa",
+      //         activityDate: "2021-07-12T08:22:28",
+      //         startTime: "2021-07-12T08:22:28.282",
+      //         participantNum: 0,
+      //         description: "string",
+      //         additionalRequest: "string",
+      //         duration: 0,
+      //         activityState: "审核中",
+      //         groundId: "1000005",
+      //         groundName: "C202",
+      //         isGroundIndoor: true,
+      //         hasCredit: false,
+      //       },
+      //     ],
+      //     待举办: [],
+      //     被驳回: [
+      //       {
+      //         id: "1000008",
+      //         name: "活动6",
+      //         accountNumber: "1000064",
+      //         organizationName: "一班",
+      //         activityDate: "2021-07-11T17:30:11",
+      //         startTime: "2021-07-11T17:30:11.795",
+      //         participantNum: 0,
+      //         description: "string",
+      //         additionalRequest: "string",
+      //         duration: 0,
+      //         activityState: "被驳回",
+      //         groundId: "1000007",
+      //         groundName: "越野场",
+      //         isGroundIndoor: false,
+      //         hasCredit: false,
+      //       },
+      //     ],
+
+      //     已完成: [],
+      //     待反馈: [
+      //       {
+      //         id: "1000012",
+      //         name: "活动4",
+      //         accountNumber: "1000064",
+      //         organizationName: "一班",
+      //         activityDate: "2021-07-11T17:30:11",
+      //         startTime: "2021-07-11T13:30:11.795",
+      //         participantNum: 0,
+      //         description: "string",
+      //         additionalRequest: "string",
+      //         duration: 60,
+      //         activityState: "待反馈",
+      //         groundId: "1000007",
+      //         groundName: "越野场",
+      //         isGroundIndoor: false,
+      //         hasCredit: false,
+      //       },
+      //     ],
+      //     已反馈: [
+      //       {
+      //         id: "1000000",
+      //         name: "上课",
+      //         accountNumber: "1000114",
+      //         organizationName: "数学",
+      //         activityDate: "2021-05-18T00:00:00",
+      //         startTime: "2021-05-18T08:00:00",
+      //         participantNum: 50,
+      //         description: "小班授课",
+      //         additionalRequest: "无",
+      //         duration: 95,
+      //         activityState: "已反馈",
+      //         groundId: "1000005",
+      //         groundName: "C202",
+      //         isGroundIndoor: true,
+      //         hasCredit: true,
+      //       },
+      //     ],
+      //   },
+      // ],
+      tableData: {
+        审核中: [
+          
+        ],
+        待举办: [],
+        待反馈: [],
+        已反馈: [],
+        被驳回: [],
+        已完成: [],
+      },
+
       activeName: "second",
+
+      //以下是调用api后新增的内容
+      axiosdata: "",
+      orgId: store.state.ID,
     };
   },
   methods: {
@@ -605,9 +608,9 @@ export default {
       return row.tag === value;
     },
     formatter(row) {
-      return row.address;
+      return row.groundname;
     },
-    handleEdit(index, row){
+    handleEdit(index, row) {
       console.log(index, row);
     },
     handleDelete1(index, row) {
@@ -699,7 +702,88 @@ export default {
         },
       });
     },
+    //以下是调用api后新增的函数，有问题找wy
+    //取得所有活动信息
+    fetchData() {
+      const that = this;
+      GETActivities({ orgId: that.orgId }) //应该加accountNumber
+        .then((data) => {
+                console.log("fetchData",data);
+          console.log("run GETActivities");
+          that.axiosdata = data;
+          that.dealWithActivities(that.axiosdata);
+          console.log("that.axiosdata", that.axiosdata);
+        })
+        .catch((err) => {
+          that.data = err;
+        });
+    },
+    dealWithActivities(data) {
+      console.log("run dealwithActivities", data);
 
+      for (var key in data) {
+        // console.log("key",key);
+        for (var i = 0; i < data[key].length; i++) {
+          // console.log(data[key][i]);
+          var temp = {
+            // activityID: "22222",
+            // time: "2016-05-03",
+            // activityname: "王小虎",
+            // groupname: "上海市普陀区金沙江路 1516 弄",
+            // ground: "同心楼666",
+            // activityState: "审核中",
+
+            //           "待反馈": [
+            // {
+            //   "id": "1000012",
+            //   "name": "活动4",
+            //   "accountNumber": "1000064",
+            //   "organizationName": "一班",
+            //   "activityDate": "2021-07-11T17:30:11",
+            //   "startTime": "2021-07-11T13:30:11.795",
+            //   "participantNum": 0,
+            //   "description": "string",
+            //   "additionalRequest": "string",
+            //   "duration": 60,
+            //   "activityState": "待反馈",
+            //   "groundId": "1000007",
+            //   "groundName": "越野场",
+            //   "isGroundIndoor": false,
+            //   "hasCredit": false
+            // },
+
+            date: "2016-05-03",
+            name: "活动2",
+            groundname: "a楼",
+            ID: "11117",
+            people: 40,
+            require: "无",
+            details: "听数据库开会",
+            tag: "室外",
+          };
+          temp.ID = data[key][i].id;
+          temp.date = data[key][i].activityDate.replace("T", " ");
+          temp.name = data[key][i].name;
+          temp.groupname = data[key][i].organizationName;
+          temp.groundname = data[key][i].groundName;
+          // temp.activityState = data[key][i].activityState;
+          // console.log("before", this.tableData[key]);
+          // console.log("key",key)
+          this.tableData[key].push(temp);
+          // console.log("after", this.tableData[key]);
+          // console.log("待反馈", this.tableData["待反馈"]);
+        }
+      }
+  
+      for(let j =0;j<this.tableData["待反馈"].length;j++){
+        this.tableData["已完成"].push(this.tableData["待反馈"][j]);
+      }
+      for(let j =0;j<this.tableData["已反馈"].length;j++){
+        this.tableData["已完成"].push(this.tableData["已反馈"][j]);
+      }
+       console.log(this.tableData);
+      
+    },
     //以下是下载的函数，有问题找wy
     handleClose() {
       this.dialogVisible = false;
@@ -789,11 +873,11 @@ export default {
     },
   },
   computed: {
-    formatTime(){
+    formatTime() {
       var Y, m, d, H, i, s, sresult;
-     
-        const date = new Date();
-      
+
+      const date = new Date();
+
       (Y = date.getFullYear()),
         (m = date.getMonth() + 1),
         (d = date.getDate()),
@@ -818,7 +902,10 @@ export default {
       sresult = Y + "-" + m + "-" + d + " " + H + ":" + i + ":" + s;
 
       return sresult;
-    }
+    },
+  },
+  mounted() {
+    this.fetchData();
   },
 };
 </script>

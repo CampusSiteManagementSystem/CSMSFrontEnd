@@ -5,7 +5,11 @@
       class="IdentitySelectionBackImage"
     />
     <!--"IdentitySelectionContainer"-->
-    <el-card id="logincard" class="IdentitySelectionContainer" style="border-radius: 12px">
+    <el-card
+      id="logincard"
+      class="IdentitySelectionContainer"
+      style="border-radius: 12px"
+    >
       <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="24">
@@ -77,6 +81,7 @@
           type="primary"
           >登录</el-button
         >
+        <el-button @click="test">test</el-button>
       </el-row>
 
       <el-row>
@@ -96,12 +101,9 @@
 </template>
 
 <script>
-import { Login } from "../../API/http";
-import store from "../../state/state"
+import { Login, LoginTest } from "../../API/http";
+//import store from "../../state/state";
 export default {
-  created(){
-    document.getElementById("logincard").focus();
-  },
   data() {
     return {
       res: null,
@@ -140,35 +142,41 @@ export default {
     };
   },
   methods: {
+    test() {
+      LoginTest()
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //提交表单到后台验证身份，并路由到指定页面
-          if (this.identity === 1) {
-            Login({
-              accountNumber: this.form.accountNumber,
-              secretPassword: this.form.password,
-            })
+          Login({
+            accountNumber: this.form.accountNumber,
+            secretPassword: this.form.password,
+          })
             .then((data) => {
-              store.state.membertype===1;
-              store.state.ID=this.form.accountNumber;
-              data;
-              console.log(document.cookie);
-              // co=JSON.parse(data);
-              // console.log(co);
-
+              localStorage.setItem("uutype", this.identity);
+              localStorage.setItem("uuid", this.form.accountNumber);
+              localStorage.setItem("uutoken", data.accessToken);
+              if (this.identity === 1) {
+                this.$router.push("/StuFrame/Main");
+              } else if (this.identity === 2) {
+                this.$router.push("/GroundsAdmin/Main");
+              } else if (this.identity === 3) {
+                this.$router.push("/OrgFrame/Main");
+              } else if (this.identity === 4) {
+                this.$router.push("/SysAdminFrame");
+              }
             })
             .catch((err) => {
+              this.$message("账户或密码错误");
               console.log(err);
             });
-            //this.$router.push("/StuFrame/Main");
-          } else if (this.identity === 2) {
-            this.$router.push("/GroundsAdmin/Main");
-          } else if (this.identity === 3) {
-            this.$router.push("/OrgFrame/Main");
-          } else if (this.identity === 4) {
-            this.$router.push("/SysAdminFrame");
-          }
         }
       });
     },
