@@ -11,6 +11,7 @@
       eventLimit="3"
       height="auto"
       slotDuration="00:30:00"
+      slot-label-format="HH:mm"
       :minTime="minTime"
       :maxTime="maxTime"
       
@@ -22,7 +23,19 @@
       eventBorderColor="#00bcd4"
       navLinks="true"
       nowIndicator="true"
+      selectable="true"
+
+
+      :unselect-auto="false"
+      :select-overlap="false"
+
+      select-mirror="true"
+
+
+
+
       @eventClick="eventClick"
+      @select="handleSelect"
     ></FullCalendar>
   </div>
 </template>
@@ -32,7 +45,7 @@ import FullCalendar from "@fullcalendar/vue";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; //点击日历触发的事件
-
+import momentPlugin from '@fullcalendar/moment';
 export default {
   name: "Mycalendar",
   components: {
@@ -41,14 +54,14 @@ export default {
   props: {
   
     groundId: {
-      type: String,
+      // type: String,
     },
 
     //每天开始时间
     minTime: {
       type: String,
       required: false,
-      default: "07:00:00",
+      default: "08:00:00",
     },
     //每天结束时间
     maxTime: {
@@ -59,7 +72,7 @@ export default {
   },
   data() {
     return {
-      calendarPlugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+      calendarPlugins: [dayGridPlugin, timeGridPlugin, interactionPlugin,momentPlugin],
       header: {
         left: "prev,next today",
         center: "title",
@@ -87,8 +100,20 @@ export default {
     handleDateClick(info) {
       console.log(info.event);
     },
+    // 当选择结束的时候获取开始和结束时间
+    handleSelect(info) {
+      console.log('form' + info.startStr + ' to ' + info.endStr)
+      let a={
+        start:info.startStr,
+        end:info.endStr,
+
+      }
+      
+      this.$emit("handleSelect", a);
+    },
     //点击事件查看详情
     eventClick(info) {
+      console.log(info);
       this.$emit("eventClick", info);
     },
     //fetch 当前数据

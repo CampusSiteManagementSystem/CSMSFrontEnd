@@ -129,81 +129,102 @@ import {
 } from "../../API/http";
 
 export default {
-  created() {
-    GETStudents()
-      .then((data) => {
-        this.axiosdata = data;
-        for (var i = 0; i < data.length; i++) {
-          var temp = {
-            name: "李",
-            accountNumber: "180034",
-            status: "学生",
-          };
-
-          temp.name = data[i].name;
-          temp.accountNumber = data[i].accountNumber;
-
-          this.tableData.push(temp);
-
-          this.matchList = this.tableData;
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        this.$message("学生数据请求错误");
-      });
-    GETOrganizations()
-      .then((data) => {
-        this.axiosdata = data;
-        for (var i = 0; i < data.length; i++) {
-          var temp = {
-            name: "软件学院",
-            accountNumber: "12234",
-            status: "组织",
-          };
-
-          temp.name = data[i].name;
-          temp.accountNumber = data[i].accountNumber;
-          this.tableData.push(temp);
-
-          this.matchList = this.tableData;
-          this.matchList.status = "组织";
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        this.$message("组织数据请求错误");
-      });
-
-    this.matchList = this.tableData;
-  },
-
-  data() {
-    return {
-      axiosdata: null,
-      toMatch: "",
-      matchList: [],
-      tableData: [],
-
-      status: "",
-
-      options: [
-        {
-          value: "option1",
-          label: "组织",
-        },
-        {
-          value: "option2",
-          label: "学生",
-        },
-      ],
-    };
+  mounted() {
+    this.fetchData();
   },
 
   methods: {
+    fetchData: async function () {
+      const that = this;
+      await GETStudents()
+        .then((data) => {
+          console.log("这是从后端获取的学生信息", data);
+          that.axiosdata = data;
+          for (var i = 0; i < data.length; i++) {
+            var temp = {
+              name: "李",
+              accountNumber: "180034",
+              status: "学生",
+            };
+
+            temp.name = data[i].name;
+            temp.accountNumber = data[i].accountNumber;
+
+            that.tableData.push(temp);
+            that.matchList = that.tableData;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          that.$message("学生数据请求错误");
+        });
+
+      console.log("这是已经加好的学生信息", that.matchList);
+
+      await GETOrganizations()
+        .then((data) => {
+          that.axiosdata = data;
+          console.log("这是从后端获取的组织信息", data);
+
+          console.log("这是信息长度", data.length);
+
+          for (var i = 0; i < data.length; i++) {
+            var temp = {
+              name: "软件学院",
+              accountNumber: "12234",
+              status: "组织",
+              state: "0",
+            };
+
+            temp.name = data[i].name;
+            temp.accountNumber = data[i].accountNumber;
+            temp.state = data[i].state;
+
+            console.log("这是每次获得的temp数据", i,data[i].state);
+            console.log("这是每个组织的state", i,data[i].state);
+
+            if (data[i].state == "通过") {
+              console.log("这是要添加的组织信息", that.temp.state);
+              that.matchList.push(temp);
+              console.log("这是通过的组织信息", that.matchList);
+            }
+
+            // that.matchList += that.tableData;
+            // that.matchList.status = "组织";
+            //console.log("测试",that.$route.params);
+            // if (that.$route.params.state != "") {
+            //   that.toMatchStatus = that.$route.params.building;
+            //   that.searchGroup();
+            // }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          that.$message("组织数据请求错误");
+        });
+
+      // that.matchList = that.tableData;
+    },
     handleChange() {
       this.$router.push({ path: "UserModify" });
     },
+
+    // searchGroup: function () {
+    //   this.toMatchStatus = "通过";
+    //   console.log("aaaaaaaaaaa",this.toMatchStatus)
+    //   if (this.toMatchStatus == "") {
+    //     this.matchList = this.tableData;
+    //   } else {
+    //     console.log("searchGroup函数中的tableData", this.tableData);
+    //     this.matchList = [];
+    //     for (var i = 0; i < this.tableData.length; i++) {
+    //       console.log("aaaaa", this.tableData[i].state);
+    //       if (this.tableData[i].state == "通过") {
+    //         this.matchList.push(this.tableData[i]);
+    //       }
+    //     }
+    //   }
+    // },
 
     addUser() {
       this.$router.push({ path: "AddUserTest" });
@@ -244,7 +265,7 @@ export default {
               break;
             }
 
-            if (row.status == '组织') {
+            if (row.status == "组织") {
               that.deleteOrg(row.accountNumber);
             } else {
               that.deleteStu(row.accountNumber);
@@ -286,6 +307,29 @@ export default {
   watch: {
     // 如果路由有变化，会再次执行该方法
     $route: "uhandleEdit", //getOrderInfo为自定义方法
+  },
+  data() {
+    return {
+      axiosdata: null,
+      //axiosdata2: null,
+      toMatch: "",
+      toMatchStatus: "",
+      matchList: [],
+      tableData: [],
+
+      status: "",
+
+      options: [
+        {
+          value: "option1",
+          label: "组织",
+        },
+        {
+          value: "option2",
+          label: "学生",
+        },
+      ],
+    };
   },
 };
 </script>
