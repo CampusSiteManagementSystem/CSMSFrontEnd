@@ -136,7 +136,7 @@ export default {
   methods: {
     fetchData: async function () {
       const that = this;
-      await GETStudents()
+      GETStudents()
         .then((data) => {
           console.log("这是从后端获取的学生信息", data);
           that.axiosdata = data;
@@ -161,14 +161,14 @@ export default {
 
       console.log("这是已经加好的学生信息", that.matchList);
 
-      await GETOrganizations()
+      GETOrganizations()
         .then((data) => {
           that.axiosdata = data;
           console.log("这是从后端获取的组织信息", data);
 
           console.log("这是信息长度", data.length);
 
-          for (var i = 0; i < data.length; i++) {
+          for (var j = 0; j < data.length; j++) {
             var temp = {
               name: "软件学院",
               accountNumber: "12234",
@@ -176,14 +176,14 @@ export default {
               state: "0",
             };
 
-            temp.name = data[i].name;
-            temp.accountNumber = data[i].accountNumber;
-            temp.state = data[i].state;
+            temp.name = data[j].name;
+            temp.accountNumber = data[j].accountNumber;
+            temp.state = data[j].state;
 
-            console.log("这是每次获得的temp数据", i,data[i].state);
-            console.log("这是每个组织的state", i,data[i].state);
+            console.log("这是每次获得的temp数据", j,data[j].state);
+            console.log("这是每个组织的state", j,data[j].state);
 
-            if (data[i].state == "通过") {
+            if (data[j].state == "通过") {
               console.log("这是要添加的组织信息", that.temp.state);
               that.matchList.push(temp);
               console.log("这是通过的组织信息", that.matchList);
