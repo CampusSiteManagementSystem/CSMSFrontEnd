@@ -106,16 +106,46 @@
 
 <script>
 // import newVue from "../SystemAdmin/new.vue";
-// import { GETDefaultOccupyTime } from "../../API/http";
+import { GETDefaultOccupyTime } from "../../API/http";
+import { POSTDefaultOccupyTime } from "../../API/http";
 
 // import store from "../../state/state.js"
 export default {
   name: "ActivityList",
   components: {},
   watch: {
-    'ruleForm.site'(val) {
+    "ruleForm.site"(val) {
       //普通的watch监听
-      console.log("new",val);
+      // console.log("new val", val.length);
+      console.log(this.ruleForm.date1);
+      console.log(this.ruleForm.date2);
+      this.tableData=[];
+      if (val.length != 0) {
+        GETDefaultOccupyTime({ groundId: val[val.length - 1] })
+          .then((data) => {
+            for (var i = 0; i < data.length; i++) {
+              var temp = {
+                courseName: "数据库课程设计",
+                courseDate: "2021-7-10",
+                courseTime: "15:00",
+                courseDuring: "95",
+              };
+              temp.courseName = data[i].name;
+              temp.courseDate = data[i].occupyDate.substr(
+                0,
+                data[i].occupyDate.search("T")
+              );
+              temp.courseTime = data[i].occupyDate.slice(
+                data[i].occupyDate.search("T") + 1
+              );
+              temp.courseDuring = data[i].duration;
+              this.tableData.push(temp);
+            }
+          })
+          .catch((err) => {
+            this.data = err;
+          });
+      }
     },
   },
   data() {
@@ -203,12 +233,12 @@ export default {
     axios(config1)
       .then((response) => {
         this.iGroundTable = [];
-        console.log(response.data);
+        // console.log(response.data);
         for (let gnd of response.data) {
           this.iGroundTable.push(gnd);
         }
-        console.log("ig");
-        console.log(this.iGroundTable);
+        // console.log("ig");
+        // console.log(this.iGroundTable);
         this.options = [];
         if (this.iGroundTable.length != 0) {
           this.options.push({
@@ -294,34 +324,6 @@ export default {
         console.log(error);
       });
 
-    //   console.log(this.ruleForm.site[this.ruleForm.site.length - 1]);
-    //   GETDefaultOccupyTime()
-    //     .then((data) => {
-    //       console.log("run GETDefaultOccupyTime");
-    //       console.log(data);
-    //       for (var i = 0; i < data.length; i++) {
-    //         var temp = {
-    //           courseName: "数据库课程设计",
-    //           courseDate: "2021-7-10",
-    //           courseTime: "15:00",
-    //           courseDuring: "95",
-    //         };
-    //         temp.courseName = data.name;
-    //         temp.courseDate = data.occupyDate.substr(
-    //           0,
-    //           data.occupyDate.search("T")
-    //         );
-    //         temp.courseTime = data.occupyDate.slice(
-    //           data.occupyDate.search("T") + 1
-    //         );
-    //         temp.courseDuring = data.duration;
-    //         this.tableData.push(temp);
-    //       }
-    //       console.log(this.tableData);
-    //     })
-    //     .catch((err) => {
-    //       this.data = err;
-    //     });
   },
 
   methods: {
@@ -341,6 +343,11 @@ export default {
     onSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          POSTDefaultOccupyTime({
+            groundId:this.ruleForm.site[this.ruleForm.site.length-1],
+            occupyDate:this.ruleForm,
+          })
+
           this.$message({
             message: "课程添加成功",
             type: "success",
