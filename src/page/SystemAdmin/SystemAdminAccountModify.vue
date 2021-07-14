@@ -10,7 +10,10 @@
             <h3>用户头像</h3>
           </div>
           <div class="image">
-            <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic" />
+            <img
+              src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+              class="pic"
+            />
           </div>
           <div class="modify">
             <el-button type="primary">更改照片</el-button>
@@ -23,17 +26,31 @@
           <div id="content">
             <transition name="fade-transform" mode="out-in">
               <div v-if="isForm == true">
-                <el-form ref="ruleForm" :rules="rules" :model="ruleForm" label-width="100px"
-                  :hide-required-asterisk="true">
+                <el-form
+                  ref="ruleForm"
+                  :rules="rules"
+                  :model="ruleForm"
+                  label-width="100px"
+                  :hide-required-asterisk="true"
+                >
                   <el-form-item label="账号：" prop="account">
-                    <el-input v-model="ruleForm.account" :readonly="true"></el-input>
+                    <el-input
+                      v-model="ruleForm.account"
+                      :readonly="true"
+                    ></el-input>
                   </el-form-item>
-                  <el-form-item label="名称：" prop="name">
-                    <el-input v-model="ruleForm.name" :readonly="true"></el-input>
+                  <el-form-item label="密码：" prop="password">
+                    <el-input
+                      v-model="ruleForm.password"
+                      :readonly="true"
+                    ></el-input>
                   </el-form-item>
                   <el-form-item label="邮箱：" prop="email">
                     <div v-if="isForm == false">
-                      <el-input v-model="ruleForm.email" :readonly="true"></el-input>
+                      <el-input
+                        v-model="ruleForm.email"
+                        :readonly="true"
+                      ></el-input>
                     </div>
                     <div v-else>
                       <el-input v-model="ruleForm.email"></el-input>
@@ -45,8 +62,13 @@
 
             <transition name="fade-transform" mode="out-in">
               <div v-if="isTable == true">
-                <el-table :show-header="false" :data="tableData" :cell-style="columnStyle" border
-                  style="width: 80%; margin-top: 20px">
+                <el-table
+                  :show-header="false"
+                  :data="tableData"
+                  :cell-style="columnStyle"
+                  border
+                  style="width: 80%; margin-top: 20px"
+                >
                   <el-table-column width="180" prop="title" label="标题">
                   </el-table-column>
                   <el-table-column prop="content" label="内容">
@@ -58,8 +80,10 @@
               <el-button type="primary" @click="edit">编辑个人信息</el-button>
             </div>
             <div v-if="isForm == true" class="modify">
-              <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-              <el-button @click="returnback">取消</el-button>              
+              <el-button type="primary" @click="submitForm('ruleForm')"
+                >提交</el-button
+              >
+              <el-button @click="returnback">取消</el-button>
             </div>
           </div>
         </el-col>
@@ -77,10 +101,10 @@ p {
   color: rgb(0, 0, 0);
   position: relative;
 }
-.fade-transform-enter-active{
+.fade-transform-enter-active {
   transition: all 0.3s;
 }
-.fade-transform-leave-active{
+.fade-transform-leave-active {
   transition: all 0.3s;
 }
 .image {
@@ -100,21 +124,40 @@ p {
 }
 </style>
 
+
 <script>
+
+import {GETSystemAdministrators} from "../../API/http"
+
 export default {
+  created() {
+    GETSystemAdministrators()
+      .then((data) => {
+        this.ruleForm.account = data.accountNumber;
+        this.ruleForm.password = data.secretPassword;
+        this.ruleForm.email = data.eMailAddress;
+        this.updateData();
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("管理员信息获取错误");
+      });
+  },
+
   data() {
     return {
       ruleForm: {
-        account: "123456",
-        name: "软件学院",
-        email: "www.ljj@sjk.com",
+        account: "",
+        password: "",
+        email: "",
       },
 
       rules: {
-        email: [{
+        email: [
+          {
             required: true,
             message: "请输入邮箱",
-            trigger: "blur"
+            trigger: "blur",
           },
           {
             type: "email",
@@ -123,13 +166,14 @@ export default {
           },
         ],
       },
-      tableData: [{
+      tableData: [
+        {
           title: "账号",
           content: "122234",
         },
         {
-          title: "名称",
-          content: "数据库小组",
+          title: "密码",
+          content: "7788Acb",
         },
         {
           title: "邮箱",
@@ -137,19 +181,14 @@ export default {
         },
       ],
       isForm: false,
-      isTable: true
+      isTable: true,
     };
   },
   mounted() {
     this.updateData();
   },
   methods: {
-    columnStyle({
-      row,
-      column,
-      rowIndex,
-      columnIndex
-    }) {
+    columnStyle({ row, column, rowIndex, columnIndex }) {
       row;
       column;
       //console.log(row, column, rowIndex, columnIndex, "row");
@@ -159,14 +198,14 @@ export default {
         return "background:#EFFBEF; font-weight: 700;";
       }
     },
-    returnData(){
+    returnData() {
       this.ruleForm.account = this.tableData[0].content;
-      this.ruleForm.name = this.tableData[1].content;
+      this.ruleForm.password = this.tableData[1].content;
       this.ruleForm.email = this.tableData[2].content;
     },
     updateData() {
       this.tableData[0].content = this.ruleForm.account;
-      this.tableData[1].content = this.ruleForm.name;
+      this.tableData[1].content = this.ruleForm.password;
       this.tableData[2].content = this.ruleForm.email;
     },
     edit() {
@@ -175,13 +214,13 @@ export default {
         this.isForm = true;
       }, 400);
     },
-    returnback(){
+    returnback() {
       this.isForm = false;
       setTimeout(() => {
         this.isTable = true;
         this.returnData();
       }, 400);
-    },    
+    },
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
