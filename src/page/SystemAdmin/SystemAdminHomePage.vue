@@ -196,7 +196,7 @@ export default {
       });
 
     //获取管理员信息
-    GETSystemAdministratorsID("1000001")
+    GETSystemAdministratorsID("1000003")
       .then((data) => {
         this.sysInfo = data;
         console.log(">>>>>>", data);
