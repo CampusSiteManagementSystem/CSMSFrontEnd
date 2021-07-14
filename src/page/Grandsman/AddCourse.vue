@@ -123,7 +123,8 @@ export default {
       groundID: "1000003",
       // tableData: Array(20).fill(course),
       tableData: [],
-      groundTable: [],
+      iGroundTable: [],
+      oGroundTable: [],
 
       ruleForm: {
         site: [],
@@ -391,39 +392,40 @@ export default {
 
   mounted() {
     var axios = require("axios");
-    var config = {
-      method: "get",
-      url: "http://139.196.114.7/api/Grounds",
-      //url: 'http://139.196.114.7/api/Grounds?accountNumber=thisNum',
+    var config1 = {
+      method: 'get',
+      url: 'http://139.196.114.7/api/IndoorGrounds/1000003',   //改
       headers: {},
     };
 
-    axios(config)
+    var config2 = {
+      method: 'get',
+      url: 'http://139.196.114.7/api/OutdoorGrounds/1000003',  //改
+      headers: {},
+    };
+
+    axios(config1)
       .then((response) => {
         this.groundTable = [];
         for (let gnd of response.data) {
-          this.groundTable.push(gnd);
+          this.iGroundTable.push(gnd);
         }
       })
       .catch(function (error) {
         console.log(error);
       });
-    // var axios = require("axios");
 
-    // var config = {
-    //   method: "get",
-    //   url: "http://139.196.114.7/api/DefaultOccupyTimes",
-    //   headers: {},
-    // };
-
-    // axios(config)
-    //   .then((response) =>{
-    //     console.log(JSON.stringify(response.data));
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
+    axios(config2)
+      .then((response) => {
+        this.groundTable = [];
+        for (let gnd of response.data) {
+          this.oGroundTable.push(gnd);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
     const that = this;
     console.log(that.groundID);
     GETDefaultOccupyTime()
