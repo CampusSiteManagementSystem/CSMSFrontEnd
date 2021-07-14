@@ -201,7 +201,7 @@ export default {
     },
 
     addUser() {
-      this.$router.push({ path: "AddUser" });
+      this.$router.push({ path: "AddUserTest" });
     },
 
     userdelete(index, row) {
