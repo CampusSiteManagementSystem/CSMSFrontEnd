@@ -19,7 +19,6 @@ axios.defaults.timeout = 10000; //10s
 //axios.defaults.withCredentials = true
 
 
-
 // 请求拦截器
 axios.interceptors.request.use(
     config => {
