@@ -26,7 +26,9 @@
       :unselect-auto="false"
       :select-overlap="false"
       select-mirror="true"
+        :select-allow="handlerSeelctAllow"
       @eventClick="eventClick"
+      
       @select="handleSelect"
     ></FullCalendar>
   </div>
@@ -44,9 +46,9 @@ export default {
     FullCalendar, //
   },
   props: {
-    // groundId: {
-    //   // type: String,
-    // },
+    groundId: {
+      // type: String,
+    },
 
     //每天开始时间
     minTime: {
@@ -88,17 +90,24 @@ export default {
         },
       ],
       axiosdata: "",
+      realGroundId:"1000003",
+      handlerSeelctAllow: info => {
+        const currentDate = new Date()
+        const start = info.start
+        const end = info.end
+        return (start <= end && start >= currentDate)
+      }
     };
   },
   methods: {
     //@dateClick="handleDateClick"
     //点击日期
-    handleDateClick(info) {
-      console.log(info.event);
-    },
+    // handleDateClick(info) {
+    //   console.log(info.event);
+    // },
     // 当选择结束的时候获取开始和结束时间
     handleSelect(info) {
-      console.log("form" + info.startStr + " to " + info.endStr);
+      // console.log("form" + info.startStr + " to " + info.endStr);
       let a = {
         start: info.startStr,
         end: info.endStr,
@@ -121,14 +130,18 @@ export default {
 
         url: "http://139.196.114.7/api/OccupyTimes/",
         params: {
-          groundId: that.groundId,
-          time: "2021-07-17T17:19:20",
+          groundId: that.realGroundId,
+          time: this.formatTime,
         },
         headers: {},
       };
+      console.log(config.params);
 
       axios(config)
         .then(function (response) {
+          console.log("resresponse",response);
+          console.log("that.groundId",that.groundId);
+
           that.axiosdata = response.data;
           that.events = response.data;
           for (var i = 0; i < this.events.length; i++) {
@@ -177,13 +190,22 @@ export default {
     }
   },
   mounted() {
+    this.realGroundId=this.groundId;
     this.fetchdata();
   },
   watch: {
-    groundId() { // 接收父组件传来的参数名
-      this.updateGround();
+    groundId:{ // 接收父组件传来的参数名
+    handler: function (val, oldVal) { 
+      if(val!=oldVal){ 
+        this.realGroundId=val;
+        console.log("new realGroundId", this.realGroundId);
+        this.updateGround();
+     }
+     
+
+      
     },
-  },
+  },},
   computed:{
     formatTime() {
       var Y, m, d, H, i, s, sresult;
@@ -217,7 +239,7 @@ export default {
     },
   }
  
-};
+}
 </script>
 
 
