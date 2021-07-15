@@ -149,6 +149,7 @@
 import * as echarts from "echarts";
 import { GETOrganizationsID } from "../../API/http";
 import store from "../../state/state";
+import router from "../../router/index"
 export default {
   created() {
     GETOrganizationsID(this.OrgID)
@@ -242,7 +243,9 @@ export default {
         localStorage.removeItem("uutype");
         localStorage.removeItem("uutoken");
         store.state.ID =null;
-        this.$router.replace("/");
+        const routeHistory = history.length - 1;
+        router.go(-routeHistory);
+        router.replace("/");
       });
     },
     clickAccountInfo() {

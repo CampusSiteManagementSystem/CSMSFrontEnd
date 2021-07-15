@@ -351,6 +351,14 @@ export default {
 </script>
 
 <style scpoed>
+html,
+body
+ {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+}
+
 .upper-card,
 .lower-card{
   overflow: auto;

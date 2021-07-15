@@ -192,6 +192,7 @@ body,
 
 
 <script>
+import router from "../../router/index";
 // import sidebar from "../../components/GrandsmanSidebar.vue";
 import store from "../../state/state.js";
 import * as echarts from "echarts";
@@ -273,8 +274,10 @@ export default {
         localStorage.removeItem("uuid");
         localStorage.removeItem("uutype");
         localStorage.removeItem("uutoken");
-        store.state.ID =null;
-        this.$router.replace("/");
+        store.state.ID = null;
+        const routeHistory = history.length - 1;
+        router.go(-routeHistory);
+        router.replace("/");
       });
     },
 
