@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-card v-if="!childPage">
+  <div class="main-div">
+    <el-card class="table-card" v-if="!childPage">
       <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="20">
@@ -164,6 +164,15 @@ export default {
 </script>
 
 <style scoped>
+html,
+body,
+#app,
+.el-container {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+}
+
 .clearfix:before,
 .clearfix:after {
   display: table;
@@ -171,5 +180,12 @@ export default {
 }
 .clearfix:after {
   clear: both;
+}
+.main-div{
+  height: 100%;
+}
+.table-card{
+  height: 100%;
+  border-radius: 12px;
 }
 </style>

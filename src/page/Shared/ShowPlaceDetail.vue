@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card class="box-card" v-if="!childPage">
+    <el-card class="box-card" v-show="!childPage">
       <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="18">
@@ -106,7 +106,7 @@
         </el-pagination> -->
       </div>
     </el-card>
-    <keep-alive v-else>
+    <keep-alive  v-show="childPage">
       <transition name="fade-transform" mode="out-in">
         <router-view style="height: 100%"></router-view>
       </transition>
@@ -227,6 +227,7 @@ body,
   margin: 0px;
   height: 100%;
 }
+
 .text {
   font-size: 14px;
 }

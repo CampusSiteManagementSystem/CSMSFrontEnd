@@ -30,14 +30,26 @@
                 <el-form-item label="名称：" prop="name">
                   <el-input v-model="ruleForm.name" :readonly="true"></el-input>
                 </el-form-item>
-                <el-form-item label="类型：" prop="type">
-                  <el-input v-model="ruleForm.type" :readonly="true"></el-input>
-                </el-form-item>
                 <el-form-item label="信用分：" prop="credit">
                   <el-input v-model="ruleForm.credit" :readonly="true"></el-input>
                 </el-form-item>
                 <el-form-item label="加入时间：" prop="joinTime">
                   <el-input v-model="ruleForm.joinTime" :readonly="true"></el-input>
+                </el-form-item>
+                <el-form-item label="类型：" prop="type">
+                  <div v-if="isForm == false">
+                    <el-input v-model="ruleForm.type" :readonly="true"></el-input>
+                  </div>
+                  <div v-else>
+                      <el-select v-model="ruleForm.type" placeholder="请选择">
+                      <el-option
+                        v-for="item in types"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                      </el-select>
+                  </div>                  
                 </el-form-item>
                 <el-form-item label="邮箱：" prop="email">
                   <div v-if="isForm == false">
@@ -175,6 +187,23 @@ export default {
           },
         ],
       },
+      types:[{
+        value: '社团',
+        label: '社团'
+      }, {
+        value: '班级',
+        label: '班级'
+      }, {
+        value: '学院',
+        label: '学院'
+      }, {
+        value: '学生组织',
+        label: '学生组织'
+      },{
+        value: '其他',
+        label: '其他'
+      },
+      ],
       tableData: [
         {
           title: "账号",
@@ -185,15 +214,15 @@ export default {
           content: "",
         },
         {
-          title: "类型",
+          title: "信用分",
           content: "",
         },
         {
-          title: "信用分",
+          title: "加入时间",
           content: 0,
         },
         {
-          title: "加入时间",
+          title: "类型",
           content: "",
         },        
         {
@@ -248,7 +277,7 @@ export default {
       row;
       column;
       //console.log(row, column, rowIndex, columnIndex, "row");
-      if (columnIndex == 0 && rowIndex < 5) {
+      if (columnIndex == 0 && rowIndex < 4) {
         return "background:#FBFBEF; font-weight: 700;";
       } else if (columnIndex == 0) {
         return "background:#EFFBEF; font-weight: 700;";
@@ -257,9 +286,9 @@ export default {
     returnData(){
       this.ruleForm.account = this.tableData[0].content;
       this.ruleForm.name = this.tableData[1].content;
-      this.ruleForm.type = this.tableData[2].content;
-      this.ruleForm.credit = this.tableData[3].content;
-      this.ruleForm.joinTime = this.tableData[4].content;
+      this.ruleForm.credit = this.tableData[2].content;
+      this.ruleForm.joinTime = this.tableData[3].content;
+      this.ruleForm.type = this.tableData[4].content;      
       this.ruleForm.email = this.tableData[5].content;
       this.ruleForm.user = this.tableData[6].content;
       this.ruleForm.telephone = this.tableData[7].content;
@@ -268,9 +297,9 @@ export default {
     updateData() {
       this.tableData[0].content=this.ruleForm.account;
       this.tableData[1].content=this.ruleForm.name;
-      this.tableData[2].content=this.ruleForm.type;
-      this.tableData[3].content=this.ruleForm.credit;
-      this.tableData[4].content=this.ruleForm.joinTime;
+      this.tableData[2].content=this.ruleForm.credit;
+      this.tableData[3].content=this.ruleForm.joinTime;
+      this.tableData[4].content=this.ruleForm.type;      
       this.tableData[5].content=this.ruleForm.email;
       this.tableData[6].content=this.ruleForm.user;
       this.tableData[7].content=this.ruleForm.telephone;

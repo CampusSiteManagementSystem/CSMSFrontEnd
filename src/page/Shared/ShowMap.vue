@@ -83,7 +83,7 @@ export default {
       // console.log("this.$router",this.$router);
       const tempTest = this.$router;
       const membertype = this.$props.membertype;
-      console.log("membertype", membertype);
+      // console.log("membertype", membertype);
       // console.log("tempTest", tempTest);
       const bounds = [
         // Southwest coordinates
@@ -303,7 +303,7 @@ export default {
       // 2021-07-15T00:07:00.273Z
       GETPositions({dateTime:date})
         .then((data) => {
-          console.log(data);
+          // console.log(data);
 
           that.axiosdata = data;
           // console.log("that.axiosdata", that.axiosdata);

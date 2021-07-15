@@ -5,8 +5,8 @@
   <el-steps direction="vertical" :model="formInline" :active="1" finish-status="success">
     <el-step title="申请预约">
         <template slot="description">
-                  <p>活动名称：{{formInline.area}}</p>
-                  <p>活动时间：{{formInline.time}}</p>
+                  <p>活动名称：{{formInline.groundName}}</p>
+                  <p>活动时间：{{formInline.startTime}}</p>
         </template>
     </el-step>
     <el-step title="待审核" description="请等待审核"></el-step>
@@ -19,25 +19,25 @@
                 <p><b>预约信息</b></p>
                 <el-form ref="form" :model="formInline" label-width="150px" label-position="left">
                     <el-form-item label="活动ID">
-                        <span class="size">{{formInline.ID}}</span>
+                        <span class="size">{{formInline.id}}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
-                        <span>{{formInline.area}}</span>
+                        <span>{{formInline.groundName}}</span>
                     </el-form-item>
                     <el-form-item label="时间">
-                        <span>{{formInline.time}}</span>
+                        <span>{{formInline.startTime}}</span>
                     </el-form-item>
                     <el-form-item label="活动名称">
                         <span>{{formInline.name}}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
-                        <span>{{formInline.people}}</span>
+                        <span>{{formInline.participantNum}}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
-                        <span>{{formInline.require}}</span>
+                        <span>{{formInline.additionalRequest}}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
-                        <span>{{formInline.details}}</span>
+                        <span>{{formInline.description}}</span>
                     </el-form-item>
                 </el-form>
             </div>
@@ -46,18 +46,22 @@
 </template>
 
 <script>
+import { GETActivitiesID } from "../../API/http";
 export default {
+    created() {
+        GETActivitiesID(this.$route.params.activityID)
+      .then((data) => {
+        this.formInline=data;
+        this.formInline.startTime=(data.startTime.replace("T"," ").split('.'))[0];
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("信息获取错误");
+      });
+    },
         data() {
       return {
     formInline: {
-          ID: '11111121111111111111111',
-          area: 'G301',
-          time:'2021-06-08 12:30',
-          name:'班会',
-          people:45,
-          require:'无',
-          details:'听数据库开会',
-          idea:false
         },
         checked1: false,
         checked2: false

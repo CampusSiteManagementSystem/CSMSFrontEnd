@@ -105,7 +105,7 @@
       <el-col :span="12">
         <!-- <el-card> -->
         <div style="padding-left:5%;height:500px">
-         <Mycalendar :groundId="this.$route.query.groundId"  @handleSelect="myfun($event)"/>
+         <Mycalendar :groundId="groundId"  @handleSelect="myfun($event)"/>
         </div>
         <!-- </el-card> -->
 
