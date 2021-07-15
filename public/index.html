@@ -28,7 +28,9 @@
 </body>
 
 <script>
-    window.onresize = function() { //窗口大小改变监听
+    window.onresize = setSize();
+
+    function setSize(){
         const w = window.innerWidth
         const h = window.innerHeight
 

@@ -138,10 +138,9 @@ body,
 .el-main {
   overflow: auto;
   /* background-color: wheat; */
-  background-color: rgb(237, 241, 245);
+  /* background-color: rgb(70, 107, 145); */
 }
 .header {
-  background-color: red;
   padding-left: 16px;
   border-bottom: 0.5px solid rgba(85, 79, 78, 0.178);
 }
