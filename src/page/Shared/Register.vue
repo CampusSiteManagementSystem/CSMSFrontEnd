@@ -125,7 +125,13 @@ export default {
       rules: {
         accountNo: [
           { required: true, message: "请输入账号", trigger: "blur" },
-          { type: "number", message: "年龄必须为数字值", trigger: "change" },
+          {
+            type: "number",
+            message: "账号必须为7位数字",
+            trigger: "change",
+            min: 1000000,
+            max: 9999999,
+          },
         ],
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
@@ -274,7 +280,9 @@ export default {
   width: auto;
   height: 10%;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .logoImage {
   height: 100%;
   width: 100%;

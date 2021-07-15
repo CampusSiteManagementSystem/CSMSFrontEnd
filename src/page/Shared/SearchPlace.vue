@@ -83,7 +83,9 @@
   color: #333;
   line-height: 60px;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .el-aside {
   color: #333;
 }

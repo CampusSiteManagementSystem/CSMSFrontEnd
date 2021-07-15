@@ -1,27 +1,28 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-      <el-row>
-        <el-col :span="18">
-          <div>
-            <h2>查看组织</h2>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <el-input
-            clearable
-            v-model="toMatch"
-            placeholder="输入组织名称以搜索"
-            @input="search"
-          ></el-input>
-        </el-col>
-      </el-row>
+      <div slot="header" class="clearfix">
+        <el-row type="flex" align="middle">
+          <el-col :span="18">
+            <span><b>查看组织 </b></span>
+          </el-col>
+          <el-col :span="6">
+            <el-input
+              clearable
+              v-model="toMatch"
+              placeholder="输入组织名称以搜索"
+              @input="search"
+            ></el-input>
+          </el-col>
+        </el-row>
+      </div>
+
       <el-table
         :header-row-style="{ height: '10px' }"
         :cell-style="{ padding: '5px' }"
         :data="matchList"
         :default-sort="{ prop: 'time', order: 'ascending' }"
-        height="450"
+        height="500"
         stripe
       >
         <el-table-column prop="name" label="组织名称"> </el-table-column>
@@ -101,7 +102,12 @@ body,
   margin: 0px;
   height: 100%;
 }
-
+.maincard{
+  height: 100%;
+}
+.el-card {
+  border-radius: 15px;
+}
 .maintabs {
   border-radius: 8px;
 }

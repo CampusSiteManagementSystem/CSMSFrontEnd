@@ -85,7 +85,9 @@ body,
   display: table;
   content: "";
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .clearfix:after {
   clear: both;
 }

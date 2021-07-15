@@ -1,9 +1,9 @@
 <template>
   <div class="page">
     <el-card class="infoMain">
-      <div>
-        <h2>用户信息</h2>
-      </div>
+       <div slot="header" class="clearfix">
+            <span><b>用户信息</b></span>
+          </div>
       <el-row>
         <el-col :span="12">
           <div>
@@ -121,6 +121,20 @@ p {
   width: 45%;
   margin-top: 1cm;
   margin-left: 2.2cm;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  font-size: 18px;
+}
+.el-card {
+  border-radius: 15px;
 }
 </style>
 

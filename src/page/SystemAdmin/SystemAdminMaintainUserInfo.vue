@@ -1,7 +1,28 @@
 <template>
   <div>
     <el-card class="mycard">
-      <el-row :gutter="1" type="flex" align="middle">
+ <div slot="header" class="clearfix">
+        <el-row type="flex" align="middle">
+          <el-col :span="18">
+            <span><b>维护用户信息 </b></span>
+          </el-col>
+          <el-col :span="2" class="buttoncol">
+            <el-button size="medium" @click="addUser()" type="primary" plain
+            >添加用户</el-button
+          >
+          </el-col>
+          <el-col :span="4">
+             <el-input
+            clearable
+            v-model="toMatch"
+            placeholder="请输入用户ID搜索"
+            @input="search"
+          ></el-input>
+          </el-col>
+        </el-row>
+      </div>
+
+      <!-- <el-row :gutter="1" type="flex" align="middle">
         <el-col :span="16">
           <div class="maintitle">维护用户信息</div>
         </el-col>
@@ -18,11 +39,11 @@
             @input="search"
           ></el-input>
         </el-col>
-      </el-row>
+      </el-row> -->
 
       <el-table
         :data="matchList"
-        max-height="480"
+        max-height="500"
         stripe
         style="width: 100%"
         :header-row-style="{ height: '20px' }"
@@ -33,9 +54,23 @@
             <span style="margin-left: 10px">{{ scope.row.accountNumber }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="身份" prop="status">
+        <el-table-column
+          label="身份"
+          prop="status"
+          :filters="[
+            { text: '组织', value: '组织' },
+            { text: '学生', value: '学生' },
+          ]"
+          :filter-method="filterTag"
+          filter-placement="bottom-end"
+        >
           <template slot-scope="scope">
-            <span>{{ scope.row.status }}</span>
+                <el-tag
+                  :type="scope.row.status=='组织'?'primary':'success'"
+                  disable-transitions
+                >
+                  {{ scope.row.status }}
+                </el-tag>
           </template>
         </el-table-column>
         <el-table-column label="用户名称" prop="name">
@@ -107,8 +142,22 @@
 html,
 body,
 .mycard {
-  /* height: 100%; */
+  height: 100%;
   border-radius: 12px;
+}
+.buttoncol{
+  float:right;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  font-size: 18px;
 }
 
 .maintitle {
@@ -117,6 +166,9 @@ body,
   font-weight: bold;
   padding: 5px;
   margin-bottom: 30px;
+}
+.el-card {
+  border-radius: 15px;
 }
 </style>
 
@@ -134,6 +186,10 @@ export default {
   },
 
   methods: {
+    filterTag(value, row, column) {
+      const property = column["property"];
+      return row[property] === value;
+    },
     fetchData: async function () {
       const that = this;
       GETStudents()
@@ -164,9 +220,9 @@ export default {
       GETOrganizations()
         .then((data) => {
           that.axiosdata = data;
-          console.log("这是从后端获取的组织信息", data);
+          // console.log("这是从后端获取的组织信息", data);
 
-          console.log("这是信息长度", data.length);
+          // console.log("这是信息长度", data.length);
 
           for (var j = 0; j < data.length; j++) {
             var temp = {
@@ -180,13 +236,13 @@ export default {
             temp.accountNumber = data[j].accountNumber;
             temp.state = data[j].state;
 
-            console.log("这是每次获得的temp数据", j,data[j].state);
+            console.log("这是每次获得的temp数据", j,data[j]);
             console.log("这是每个组织的state", j,data[j].state);
 
             if (data[j].state == "通过") {
-              console.log("这是要添加的组织信息", that.temp.state);
+              // console.log("这是要添加的组织信息", temp.state);
               that.matchList.push(temp);
-              console.log("这是通过的组织信息", that.matchList);
+              // console.log("这是通过的组织信息", that.matchList);
             }
 
             // that.matchList += that.tableData;

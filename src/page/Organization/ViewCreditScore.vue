@@ -334,4 +334,7 @@ export default {
     width: 98%;
     border-radius: 12px;
   }
+  .el-card {
+  border-radius: 15px;
+}
 </style>

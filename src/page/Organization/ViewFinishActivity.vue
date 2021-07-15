@@ -1,10 +1,9 @@
 ﻿<template>
-  <div class="page">
-    <div class="background">
-      <el-card>
-        <div>
-          <h2>完成活动列表</h2>
-        </div>
+<div>
+      <el-card class="maincard">
+        <div slot="header" class="clearfix">
+            <span><b>完成活动列表</b></span>
+          </div>
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="待反馈" name="p1">
             <el-table
@@ -120,7 +119,6 @@
           </el-tab-pane>
         </el-tabs>
       </el-card>
-    </div>
     <el-dialog title="场地反馈" :visible.sync="feedbackVisible" class="dialog">
       <div class="content">
         <el-form
@@ -187,6 +185,8 @@
                   :rows="5"
                   placeholder="请输入内容"
                   v-model="ruleForm.textarea"
+                  maxlength="100"
+                show-word-limit
                 >
                 </el-input>
               </span>
@@ -429,8 +429,23 @@ export default {
 
 
 <style>
+.el-card {
+  border-radius: 15px;
+  height: 100%;
+}
 .el-dialog {
   border-radius: 12px;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  font-size: 18px;
 }
 </style>
 <style scoped>
@@ -447,7 +462,7 @@ export default {
 .dialog {
   backdrop-filter: blur(10px);
 }
-.background {
+/* .background {
   margin: 0;
   height: 98%;
   width: 99%;
@@ -455,7 +470,7 @@ export default {
   background: rgba(255, 255, 255, 0.5);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
   position: relative;
-}
+} */
 .demo-table-expand {
   font-size: 0;
 }

@@ -66,7 +66,7 @@
                 :autosize="{ minRows: 5, maxRows: 10 }"
                 v-model="ruleForm.reason"
                 placeholder="请输入评分理由"
-                maxlength="50"
+                maxlength="100"
                 show-word-limit
               ></el-input>
             </el-form-item>
@@ -130,6 +130,9 @@ body,
 
 .detailinfo {
   padding-left: 15px;
+}
+.el-card {
+  border-radius: 15px;
 }
 </style>
 

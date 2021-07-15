@@ -111,7 +111,9 @@ body,
   height: 100%;
   overflow: auto;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .upper-row {
   height: 250px;
   padding: 20px;

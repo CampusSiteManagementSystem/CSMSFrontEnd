@@ -66,7 +66,12 @@ body,
   margin: 0px;
   height: 100%;
 }
-
+.miancard{
+  height: 100%;
+}
+.el-card {
+  border-radius: 15px;
+}
 .maintitle {
   text-align: center;
   font-size: 27px;

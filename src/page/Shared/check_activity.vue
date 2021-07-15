@@ -1,7 +1,27 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-      <el-row>
+
+       <div slot="header" class="clearfix">
+        <el-row type="flex" align="middle">
+          <el-col :span="18">
+            <span><b>{{
+                this.$route.params.ID == "AllActivities"
+                  ? "全部活动"
+                  : this.orgName + "举办的活动"
+              }}</b></span>
+          </el-col>
+          <el-col :span="6">
+            <el-input
+            clearable
+            v-model="toMatch"
+            placeholder="输入活动名称以搜索"
+            @input="search"
+          ></el-input>
+          </el-col>
+        </el-row>
+      </div>
+      <!-- <el-row>
         <el-col :span="18">
           <div>
             <h2>
@@ -21,7 +41,7 @@
             @input="search"
           ></el-input>
         </el-col>
-      </el-row>
+      </el-row> -->
       <el-tabs v-model="activeTab" :before-leave="leaveTab">
         <el-tab-pane label="未举办" name="pane1">
           <el-table
@@ -119,7 +139,9 @@ body,
   margin: 0px;
   height: 100%;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .content {
   height: 320px;
 }

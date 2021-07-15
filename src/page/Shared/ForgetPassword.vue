@@ -119,7 +119,8 @@ export default {
       rules: {
         accountNumber: [
           { required: true, message: "请输入账号", trigger: "blur" },
-          { type: "number", message: "账号只能由数字构成", trigger: "blur" },
+          { type: "number", message: "账号必须为7位数字", trigger: "blur" ,min: 1000000,
+            max: 9999999,},
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
@@ -252,7 +253,9 @@ export default {
   width: auto;
   height: 10%;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .logoImage {
   height: 100%;
   width: 100%;

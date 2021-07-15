@@ -89,7 +89,9 @@ export default {
 .text {
   font-size: 14px;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .item {
   padding: 18px 0;
 }

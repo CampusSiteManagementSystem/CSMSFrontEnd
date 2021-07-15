@@ -1,6 +1,9 @@
 <template>
   <el-card class="maincard">
-    <div class="maintitle">发布场地公告</div>
+    <div slot="header" class="clearfix">
+            <span><b>发布场地公告</b></span>
+          </div>
+    <!-- <div class="maintitle">发布场地公告</div> -->
     <el-form
       :model="ruleForm"
       :rules="rules"
@@ -27,7 +30,7 @@
           :autosize="{ minRows: 8, maxRows: 10 }"
           v-model="ruleForm.content"
           placeholder="请输入公告内容"
-          maxlength="80"
+          maxlength="100"
           show-word-limit
         ></el-input>
       </el-form-item>
@@ -72,6 +75,9 @@
 .groundinfo {
   text-align: center;
 }
+.el-card {
+  border-radius: 15px;
+}
 </style>
 
 
@@ -95,7 +101,7 @@ export default {
         ],
         title: [
           { required: true, message: "请输入公告标题", trigger: "blur" },
-          { max: 18, message: "长度为1~18个字符", trigger: "blur" },
+          { max: 10, message: "长度为1~10个字符", trigger: "blur" },
         ],
       },
 

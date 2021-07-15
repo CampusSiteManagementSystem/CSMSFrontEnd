@@ -2,11 +2,9 @@
   <div>
     <el-card class="box-card" v-show="!childPage">
       <div slot="header" class="clearfix">
-        <el-row>
+        <el-row type="flex" align="middle">
           <el-col :span="18">
-            <div>
-              <h2>查看场地</h2>
-            </div>
+            <span><b>查看场地</b></span>
           </el-col>
           <el-col :span="6">
             <el-input
@@ -24,7 +22,7 @@
           :header-row-style="{ height: '10px' }"
           :cell-style="{ padding: '1px' }"
           :data="matchList"
-          height="450"
+          height="500"
           stripe
         >
           <el-table-column prop="groundId" label="场地编号"> </el-table-column>
@@ -89,8 +87,8 @@
               >
               <router-link
                 :to="{
-                name: 'ApplySiteWindow',
-                query: { groundId: scope.row.groundId },
+                  name: 'ApplySiteWindow',
+                  query: { groundId: scope.row.groundId },
                 }"
                 v-show="othertype"
                 size="mini"
@@ -106,7 +104,7 @@
         </el-pagination> -->
       </div>
     </el-card>
-    <keep-alive  v-show="childPage">
+    <keep-alive v-show="childPage">
       <transition name="fade-transform" mode="out-in">
         <router-view style="height: 100%"></router-view>
       </transition>
@@ -227,11 +225,15 @@ body,
   margin: 0px;
   height: 100%;
 }
-
+.box-card{
+  height: 100%;
+}
 .text {
   font-size: 14px;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .item {
   margin-bottom: 18px;
 }

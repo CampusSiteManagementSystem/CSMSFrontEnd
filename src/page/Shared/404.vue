@@ -44,6 +44,9 @@ body,
   background-color: white;
   height: 100%;
 }
+.el-card {
+  border-radius: 15px;
+}
 </style>
 
 <script>

@@ -1,11 +1,13 @@
 <template>
   <div>
-    <el-card style="border-radius: 12px">
-      <div class="maintitle">审核组织注册</div>
+    <el-card class="miancard" style="border-radius: 12px">
+      <div slot="header" class="clearfix">
+            <span><b>审核组织注册</b></span>
+          </div>
       <div>
         <el-table 
           :data="matchList"
-          max-height="480"
+          height="520"
           stripe
           style="width: 100%"
           :header-row-style="{ height: '20px' }"
@@ -69,6 +71,23 @@
   font-weight: bold;
   padding: 5px;
   margin-bottom: 30px;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.el-card {
+  border-radius: 15px;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  font-size: 18px;
+}
+.miancard{
+  height: 100%;
 }
 </style>
 
