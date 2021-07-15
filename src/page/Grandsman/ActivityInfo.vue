@@ -47,7 +47,7 @@
           <el-button v-if="state == 0" type="primary" @click="onSubmit"
             >提交</el-button
           >
-          <el-button @click="back">返回列表</el-button>
+          <el-button @click="back">活动列表</el-button>
         </el-form-item>
       </el-form>
 
@@ -67,7 +67,7 @@
             <el-button type="primary" @click="submitReReview" v-else
               >提交</el-button
             >
-            <el-button @click="back">返回列表</el-button>
+            <el-button @click="back">活动列表</el-button>
           </el-form-item>
         </el-form>
        
