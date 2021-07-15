@@ -326,7 +326,6 @@
               <el-table-column
                 prop="tag"
                 label="标签"
-               
                 :filters="[
                   { text: '室内', value: '室内' },
                   { text: '室外', value: '室外' },
@@ -342,14 +341,14 @@
                   </el-tag>
                 </template>
               </el-table-column>
-              <el-table-column
-                prop="activityState"
-                label="状态"
-               
-              >
+              <el-table-column prop="activityState" label="状态">
                 <template slot-scope="scope">
                   <el-tag
-                    :type="scope.row.activityState === '已反馈' ? 'primary' : 'success'"
+                    :type="
+                      scope.row.activityState === '已反馈'
+                        ? 'primary'
+                        : 'success'
+                    "
                     disable-transitions
                     >{{ scope.row.activityState }}
                   </el-tag>
@@ -358,17 +357,13 @@
               <el-table-column label="操作">
                 <template slot-scope="scope">
                   <el-button
-                  v-if="scope.row.activityState === '待反馈'"
+                    v-if="scope.row.activityState === '待反馈'"
                     size="mini"
                     type="primary"
                     @click.stop="handleFeedback(scope.row)"
                     >反馈
                   </el-button>
-                  <el-button
-                  v-else
-                    size="mini"
-                    type="primary"
-                   disabled
+                  <el-button v-else size="mini" type="primary" disabled
                     >已反馈
                   </el-button>
                   <!-- <router-link
@@ -510,7 +505,6 @@
         :feedbackVisible="feedbackVisible"
         :message="feedbackRow"
       /> -->
- KU
 
       <!-- 以下需要增加参数  -->
 
@@ -625,7 +619,11 @@
 
 <script>
 import store from "../../state/state";
-import { GETActivities, DELETEActivitiesID, POSTFeedbackRecords } from "../../API/http";
+import {
+  GETActivities,
+  DELETEActivitiesID,
+  POSTFeedbackRecords,
+} from "../../API/http";
 // import FeedbackDialog from '../../components/FeedbackDialog.vue';
 export default {
   //  components: {
@@ -650,7 +648,7 @@ export default {
         被驳回: [],
         已完成: [],
 
-        已过期:[],
+        已过期: [],
       },
       ruleForm: {
         score: null,
@@ -661,7 +659,7 @@ export default {
           { required: true, message: "请输入场地反馈", trigger: "blur" },
         ],
       },
-      
+
       feedbackRow: {
         ID: "",
         additionalRequest: "",
@@ -978,15 +976,15 @@ export default {
         };
         console.log(tmp);
         POSTFeedbackRecords(tmp)
-            .then((data) => {
-              console.log(data);
-              this.$message({ message: "反馈成功", type: "success" });
-              this.$router.push({ path: "/OrgFrame/Appointment" });
-            })
-            .catch((err) => {
-              err;
-              this.$message({ message: "反馈失败", type: "error" });
-            });
+          .then((data) => {
+            console.log(data);
+            this.$message({ message: "反馈成功", type: "success" });
+            this.$router.push({ path: "/OrgFrame/Appointment" });
+          })
+          .catch((err) => {
+            err;
+            this.$message({ message: "反馈失败", type: "error" });
+          });
       }
       this.feedbackVisible = false;
     },
@@ -1033,7 +1031,6 @@ export default {
 .el-dialog {
   border-radius: 12px;
 }
-
 </style>
 <style scoped>
 body {
