@@ -106,11 +106,11 @@
         </el-pagination> -->
       </div>
     </el-card>
-    <!-- <keep-alive  v-show="childPage">
+    <keep-alive  v-show="childPage">
       <transition name="fade-transform" mode="out-in">
         <router-view style="height: 100%"></router-view>
       </transition>
-    </keep-alive> -->
+    </keep-alive>
   </div>
 </template>
 

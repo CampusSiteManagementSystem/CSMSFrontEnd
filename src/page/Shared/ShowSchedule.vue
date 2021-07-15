@@ -33,7 +33,9 @@ export default {
     PicCard,
     Mycalendar
   },
-  created() {},
+  created() {
+    console.log("degub detail")
+  },
   mounted() {
     this.desideType();
   },

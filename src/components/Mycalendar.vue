@@ -26,9 +26,8 @@
       :unselect-auto="false"
       :select-overlap="false"
       select-mirror="true"
-        :select-allow="handlerSeelctAllow"
+      :select-allow="handlerSeelctAllow"
       @eventClick="eventClick"
-      
       @select="handleSelect"
     ></FullCalendar>
   </div>
@@ -90,13 +89,13 @@ export default {
         },
       ],
       axiosdata: "",
-      realGroundId:"1000003",
-      handlerSeelctAllow: info => {
-        const currentDate = new Date()
-        const start = info.start
-        const end = info.end
-        return (start <= end && start >= currentDate)
-      }
+      realGroundId: "1000003",
+      handlerSeelctAllow: (info) => {
+        const currentDate = new Date();
+        const start = info.start;
+        const end = info.end;
+        return start <= end && start >= currentDate;
+      },
     };
   },
   methods: {
@@ -131,7 +130,7 @@ export default {
         url: "http://139.196.114.7/api/OccupyTimes/",
         params: {
           groundId: that.realGroundId,
-          time: this.formatTime,
+          time: that.formatTime,
         },
         headers: {},
       };
@@ -139,8 +138,8 @@ export default {
 
       axios(config)
         .then(function (response) {
-          console.log("resresponse",response);
-          console.log("that.groundId",that.groundId);
+          console.log("resresponse", response);
+          console.log("that.groundId", that.groundId);
 
           that.axiosdata = response.data;
           that.events = response.data;
@@ -187,26 +186,35 @@ export default {
     },
     updateGround() {
       this.fetchdata();
-    }
+    },
   },
   mounted() {
-    this.realGroundId=this.groundId;
+    this.realGroundId = this.groundId;
     this.fetchdata();
   },
   watch: {
-    groundId:{ // 接收父组件传来的参数名
-    handler: function (val, oldVal) { 
-      if(val!=oldVal){ 
-        this.realGroundId=val;
-        console.log("new realGroundId", this.realGroundId);
-        this.updateGround();
-     }
-     
-
-      
+    groundId: {
+      // 接收父组件传来的参数名
+      handler: function (val, oldVal) {
+        if (val != oldVal) {
+          this.realGroundId = val;
+          console.log("new realGroundId", this.realGroundId);
+          this.updateGround();
+        }
+      },
     },
-  },},
-  computed:{
+    // realGroundId: {
+    //   // 接收父组件传来的参数名
+    //   handler: function (val, oldVal) {
+    //     if (val != oldVal) {
+    //       this.realGroundId = val;
+    //       console.log("new realGroundId", this.realGroundId);
+    //       this.updateGround();
+    //     }
+    //   },
+    // },
+  },
+  computed: {
     formatTime() {
       var Y, m, d, H, i, s, sresult;
 
@@ -237,9 +245,8 @@ export default {
 
       return sresult;
     },
-  }
- 
-}
+  },
+};
 </script>
 
 
