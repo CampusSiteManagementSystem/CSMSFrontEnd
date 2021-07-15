@@ -209,7 +209,7 @@ export default {
     };
   },
   mounted() {
-     this.breadList=this.$route.matched
+    this.breadList = this.$route.matched;
     this.drawClock();
     console.log("option", this.option);
     const that = this;
@@ -261,7 +261,10 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        this.$router.push({ path: "/" });
+        localStorage.removeItem("uuid");
+        localStorage.removeItem("uutype");
+        localStorage.removeItem("uutoken");
+        this.$router.replace("/");
       });
     },
 

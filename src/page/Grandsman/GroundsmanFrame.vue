@@ -44,7 +44,7 @@
             ></el-button>
             <el-dropdown trigger="click" @command="handleCommand">
               <span class="el-dropdown-link" trigger="click">
-                {{id}}<i class="el-icon-arrow-down el-icon--right"></i>
+                {{ id }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="accountInfo"
@@ -226,7 +226,7 @@ export default {
     };
   },
   mounted() {
-     this.breadList=this.$route.matched
+    this.breadList = this.$route.matched;
     this.drawClock();
     console.log("option", this.option);
     const that = this;
@@ -270,7 +270,10 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        this.$router.push({ path: "/" });
+        localStorage.removeItem("uuid");
+        localStorage.removeItem("uutype");
+        localStorage.removeItem("uutoken");
+        this.$router.replace("/");
       });
     },
 
