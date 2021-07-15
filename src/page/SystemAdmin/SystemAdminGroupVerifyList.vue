@@ -87,7 +87,7 @@ export default {
             name: "软件学院",
             functionary: "他",
             accountNumber: "12234",
-            state: "0",
+            state: "未审批",
           };
 
           temp.functionary = data[i].functionary;
