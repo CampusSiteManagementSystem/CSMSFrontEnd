@@ -149,7 +149,7 @@ import store from "../../state/state";
 
 export default {
   created() {
-    GETStudentsID("1850002")
+    GETStudentsID(this.StuID)
     .then(data =>{
       this.ruleForm.account=this.StuID;
       this.ruleForm.name=data.name;
@@ -499,8 +499,8 @@ export default {
       this.tableData[7].content = this.ruleForm.specialty;
     },
     setToDB() {
-      PUTStudentsID("1850002"/*this.ruleForm.account*/,{
-          accountNumber: "1850002"/*this.ruleForm.account*/,
+      PUTStudentsID(this.ruleForm.account,{
+          accountNumber: this.ruleForm.account,
           name: this.ruleForm.name,
           gender: this.numData.gender,
           grade: this.numData.grade,
