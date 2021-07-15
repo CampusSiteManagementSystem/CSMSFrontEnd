@@ -241,6 +241,7 @@ export default {
         localStorage.removeItem("uuid");
         localStorage.removeItem("uutype");
         localStorage.removeItem("uutoken");
+        store.state.ID =null;
         this.$router.replace("/");
       });
     },
