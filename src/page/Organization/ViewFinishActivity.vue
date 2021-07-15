@@ -253,37 +253,45 @@ export default {
     GETActivities({ orgId: that.orgId })
       .then((data) => {
         that.axiosdata = data;
-        console.log(data);
-        for (var i = 0; i < that.axiosdata.待反馈.length; i++) {
-          var temp = {
-            date: that.axiosdata.待反馈[i].activityDate.split("T")[0],
-            time: that.axiosdata.待反馈[i].activityDate.split("T")[1],
-            name: that.axiosdata.待反馈[i].name,
-            groundname: that.axiosdata.待反馈[i].groundName,
-            isGroundIndoor: that.axiosdata.待反馈[i].isGroundIndoor,
-            ID: that.axiosdata.待反馈[i].id,
-            participantNum: that.axiosdata.待反馈[i].participantNum,
-            additionalRequest: that.axiosdata.待反馈[i].additionalRequest,
-            description: that.axiosdata.待反馈[i].description,
-            activityState: that.axiosdata.待反馈[i].activityState,
-          };
-          this.tableData1.push(temp);
+        console.log(data)
+        if ("待反馈" in that.axiosdata) {
+          for (var i = 0; i < that.axiosdata.待反馈.length; i++) {
+            var temp = {
+              date: that.axiosdata.待反馈[i].activityDate.split("T")[0],
+              time: that.axiosdata.待反馈[i].activityDate.split("T")[1],
+              name: that.axiosdata.待反馈[i].name,
+              groundname: that.axiosdata.待反馈[i].groundName,
+              isGroundIndoor: that.axiosdata.待反馈[i].isGroundIndoor,
+              ID: that.axiosdata.待反馈[i].id,
+              participantNum: that.axiosdata.待反馈[i].participantNum,
+              additionalRequest: that.axiosdata.待反馈[i].additionalRequest,
+              description: that.axiosdata.待反馈[i].description,
+              activityState: that.axiosdata.待反馈[i].activityState,
+            };
+            that.tableData1.push(temp);
+          }
+          console.log("TABLEDATA_1");
+          console.log(that.tableData1);
         }
-        console.log("TABLEDATA_1",this.tableData1);
-        for (i = 0; i < that.axiosdata.已反馈.length; i++) {
-          temp = {
-            date: that.axiosdata.已反馈[i].activityDate.split("T")[0],
-            time: that.axiosdata.已反馈[i].activityDate.split("T")[1],
-            name: that.axiosdata.已反馈[i].name,
-            groundname: that.axiosdata.已反馈[i].groundName,
-            isGroundIndoor: that.axiosdata.已反馈[i].isGroundIndoor,
-            ID: that.axiosdata.已反馈[i].id,
-            participantNum: that.axiosdata.已反馈[i].participantNum,
-            additionalRequest: that.axiosdata.已反馈[i].additionalRequest,
-            description: that.axiosdata.已反馈[i].description,
-            activityState: that.axiosdata.已反馈[i].activityState,
-          };
-          this.tableData2.push(temp);
+        
+        if ("已反馈" in that.axiosdata) {
+          for (i = 0; i < that.axiosdata.已反馈.length; i++) {
+            temp = {
+              date: that.axiosdata.已反馈[i].activityDate.split("T")[0],
+              time: that.axiosdata.已反馈[i].activityDate.split("T")[1],
+              name: that.axiosdata.已反馈[i].name,
+              groundname: that.axiosdata.已反馈[i].groundName,
+              isGroundIndoor: that.axiosdata.已反馈[i].isGroundIndoor,
+              ID: that.axiosdata.已反馈[i].id,
+              participantNum: that.axiosdata.已反馈[i].participantNum,
+              additionalRequest: that.axiosdata.已反馈[i].additionalRequest,
+              description: that.axiosdata.已反馈[i].description,
+              activityState: that.axiosdata.已反馈[i].activityState,
+            };
+            that.tableData2.push(temp);
+          }
+          console.log("TABLEDATA_2");
+          console.log(that.tableData2);
         }
       })
       .catch((err) => {

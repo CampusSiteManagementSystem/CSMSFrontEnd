@@ -2,6 +2,7 @@
   <div style="padding: 1% 3% 0 3%">
     <!-- defaultView: 默认视图（dayGridMonth月视图） -->
     <!-- :timeGridEventMinHeight="auto" -->
+    <!-- editable= "true"   -->
     <FullCalendar
       defaultView="timeGridWeek"
       :events="events"
@@ -94,7 +95,9 @@ export default {
         const currentDate = new Date();
         const start = info.start;
         const end = info.end;
-        return start <= end && start >= currentDate;
+        
+      
+        return start <= end && start >= currentDate&&start.getDate()==end.getDate();
       },
     };
   },

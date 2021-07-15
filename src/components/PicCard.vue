@@ -30,7 +30,7 @@
                 {{ key }}:{{ value }}
               </p>
             </el-row> </el-main
-          ><el-footer >
+          ><el-footer>
             <time class="time"
               >{{ currentDate }}
               <router-link
@@ -40,16 +40,19 @@
                 }"
                 v-show="buttonshow"
               >
-                <el-button type="text" @click.stop="handleApply()" style="padding-right:2%"
+                <el-button
+                  type="text"
+                  @click.stop="handleApply()"
+                  style="padding-right: 2%"
                   >预约</el-button
                 ></router-link
               ></time
-            ><el-button 
+            ><el-button
               icon="el-icon-star-off"
-              class="button"
+              :type="type"
+              :disabled="liked"
               circle=""
               size="mini"
-             
               @click="pushLikeButton"
             ></el-button> </el-footer></el-container
       ></el-col>
@@ -122,6 +125,8 @@ export default {
       },
 
       currentDate: new Date(),
+      liked: false,
+    
     };
   },
   watch: {
@@ -143,6 +148,13 @@ export default {
       default: "",
     },
   },
+  computed:{
+    type(){
+      if(this.liked==true)return "danger";
+      else return "primary";
+
+    }
+  },
   methods: {
     handleApply() {
       // console.log("PICCARD groundId", this.$props.groundId);
@@ -156,6 +168,12 @@ export default {
           .then((data) => {
             // console.log(data);
             that.likes = data;
+            for (var i = 0; i < that.likes.length; i++) {
+              if (that.likes[i].groundId == that.groundId) {
+                that.liked = true;
+                break;
+              }
+            }
           })
           .catch((err) => {
             this.data = err;
@@ -166,6 +184,12 @@ export default {
           .then((data) => {
             //  console.log(data);
             that.likes = data;
+            for (var i = 0; i < that.likes.length; i++) {
+              if (that.likes[i].groundId == that.groundId) {
+                that.liked = true;
+                break;
+              }
+            }
           })
           .catch((err) => {
             this.data = err;

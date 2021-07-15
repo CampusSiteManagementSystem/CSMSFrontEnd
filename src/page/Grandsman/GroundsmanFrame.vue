@@ -2,7 +2,7 @@
   <el-container style="height: 100%">
     <el-header class="header" style="height: 8%">
       <el-row class="header-row">
-        <el-col :span="20" class="header-row-col1"
+        <el-col :span="19" class="header-row-col1"
           ><el-row class="headerrow" type="flex" justify="left" align="middle">
             <el-button class="fold-button" @click="test" type="text">
               <i v-if="isCollapse" class="el-icon-s-unfold"></i
@@ -35,7 +35,7 @@
             </el-popover>
           </el-row>
         </el-col>
-        <el-col :span="2" class="header-row-col2">
+        <el-col :span="3" class="header-row-col2">
           <el-row class="headerrow" type="flex" justify="end" align="middle">
             <el-button type="text" @click="clickAccountInfo"
               ><el-avatar
@@ -72,6 +72,10 @@
           <el-menu-item index="/GroundsAdmin/Main">
             <i class="el-icon-house"></i>
             <span slot="title">主页</span>
+          </el-menu-item>
+          <el-menu-item index="/GroundsAdmin/Map">
+            <i class="el-icon-map-location"></i>
+            <span slot="title">查看地图</span>
           </el-menu-item>
           <el-menu-item index="/GroundsAdmin/ReviewActivityList">
             <i class="el-icon-finished"></i>
@@ -313,7 +317,7 @@ export default {
         series.data[0].value = 0;
         series.clockwise = true;
         this.option.animationDurationUpdate = 0;
-        this.myChart.setOption(this.option, true);
+        //this.myChart.setOption(this.option, true);
       }
       series.data[0].value = time;
       series.clockwise = true;

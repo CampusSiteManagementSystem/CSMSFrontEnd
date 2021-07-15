@@ -652,6 +652,17 @@ const routes = [
             }
         },
         {
+            path: "Map",
+            name: "GroundsmanMap",
+            component: () =>
+                import('../page/Grandsman/MapForGroundsman.vue'),
+            meta: {
+                title: '地图',
+                requireAuth: true,
+                roles: ['groundsMan']
+            }
+        },
+        {
             path: "ModifyPassword",
             name: "GroundsmanModifyPassword",
             component: () =>

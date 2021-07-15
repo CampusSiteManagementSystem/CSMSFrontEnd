@@ -2,7 +2,7 @@
   <el-container style="border: 1px solid #eee; height: 100%">
     <el-header class="header" style="height: 8%">
       <el-row class="header-row">
-        <el-col :span="20" class="header-row-col1"
+        <el-col :span="19" class="header-row-col1"
           ><el-row class="headerrow" type="flex" justify="left" align="middle">
             <el-button class="fold-button" @click="test" type="text">
               <i v-if="isCollapse" class="el-icon-s-unfold"></i
@@ -35,7 +35,7 @@
             </el-popover>
           </el-row>
         </el-col>
-        <el-col :span="2" class="header-row-col3">
+        <el-col :span="3" class="header-row-col3">
           <el-row class="headerrow" type="flex" justify="end" align="middle">
             <el-button type="text" @click="handleClick"
               ><el-avatar
@@ -298,7 +298,7 @@ export default {
         series.data[0].value = 0;
         series.clockwise = true;
         this.option.animationDurationUpdate = 0;
-        this.myChart.setOption(this.option, true);
+        //this.myChart.setOption(this.option, true);
       }
       series.data[0].value = time;
       series.clockwise = true;

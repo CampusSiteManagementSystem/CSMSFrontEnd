@@ -41,13 +41,11 @@
                 :data="systemAnnouncement"
                 stripe
                 style="width: 100%"
-    
                 :height="upperTableHeight"
                 @row-click="onRowClick1"
                 :show-header="false"
               >
-                <el-table-column prop="title" width="auto">
-                </el-table-column>
+                <el-table-column prop="title" width="auto"> </el-table-column>
                 <el-table-column prop="systemAnnouncementDate" width="auto">
                 </el-table-column>
               </el-table>
@@ -61,8 +59,7 @@
                 @row-click="onRowClick2"
                 :show-header="false"
               >
-                <el-table-column prop="title" width="auto">
-                </el-table-column>
+                <el-table-column prop="title" width="auto"> </el-table-column>
                 <el-table-column prop="groundName" width="auto">
                 </el-table-column>
                 <el-table-column
@@ -97,7 +94,11 @@
           >
             <el-table-column prop="name" label="活动名称" width="auto">
             </el-table-column>
-            <el-table-column prop="organizationName" label="发起组织" width="auto">
+            <el-table-column
+              prop="organizationName"
+              label="发起组织"
+              width="auto"
+            >
             </el-table-column>
             <el-table-column prop="startTime" label="时间" width="auto">
             </el-table-column>
@@ -108,7 +109,7 @@
       </el-col>
       <el-col :span="9" class="lower-row-col2">
         <el-card class="lower-card" ref="lowerCardRef">
-          <div slot="header" class="clearfix" style="height:10%">
+          <div slot="header" class="clearfix" style="height: 10%">
             <span><b>最近一周场地使用情况</b></span>
             <router-link to="/StuFrame/ShowPlaceDetail">
               <el-button style="float: right; padding: 3px 0" type="text"
@@ -119,11 +120,13 @@
           <el-table
             :data="occupation"
             stripe
-            style="width: 100% ;"
+            style="width: 100%"
             :height="lowerTableHeight"
             @row-click="onOccupyRowClick"
             :show-header="false"
           >
+            <el-table-column prop="groundName" label="活动名称" width="auto">
+            </el-table-column>
             <el-table-column prop="name" label="活动名称" width="auto">
             </el-table-column>
             <el-table-column prop="start" label="开始时间" width="auto">
@@ -178,7 +181,7 @@ import {
   GETSystemAnnouncements,
   GETStudentsID,
   GETActivities,
-  GETOccupyTimes
+  GETOccupyTimes,
 } from "../../API/http";
 export default {
   created() {
@@ -187,24 +190,25 @@ export default {
       .then((data) => {
         //console.log(data);
         for (var i = 0; i < data.length; i++) {
-        var temp = {
-          groundId: "123123",
-          groundName:"",
-          title: "关于饮水机的公告##C楼饮水机坏了，望周知",
-          maintenanceAnnouncementDate: "2020-05-17T00:00:00",
-          content: "C楼饮水机坏了，望周知",
-        };
-        temp.groundName = data[i].groundName;
-        temp.groundId = data[i].groundId;
-        temp.maintenanceAnnouncementDate = data[i].maintenanceAnnouncementDate.replace(
-          "T",
-          " "
-        );
-        temp.title = data[i].content.substr(0, data[i].content.search("##"));
-        temp.content = data[i].content.slice(data[i].content.search("##") + 2);
-        this.groundAnnouncement.push(temp);
-      //console.log(temp);
-      }
+          var temp = {
+            groundId: "123123",
+            groundName: "",
+            title: "关于饮水机的公告##C楼饮水机坏了，望周知",
+            maintenanceAnnouncementDate: "2020-05-17T00:00:00",
+            content: "C楼饮水机坏了，望周知",
+          };
+          temp.groundName = data[i].groundName;
+          temp.groundId = data[i].groundId;
+          temp.maintenanceAnnouncementDate = data[
+            i
+          ].maintenanceAnnouncementDate.replace("T", " ");
+          temp.title = data[i].content.substr(0, data[i].content.search("##"));
+          temp.content = data[i].content.slice(
+            data[i].content.search("##") + 2
+          );
+          this.groundAnnouncement.push(temp);
+          //console.log(temp);
+        }
       })
       .catch((err) => {
         //console.log(err);
@@ -215,21 +219,23 @@ export default {
     GETSystemAnnouncements()
       .then((data) => {
         for (var i = 0; i < data.length; i++) {
-        var temp = {
-          accountNumber: "123123",
-          title: "关于饮水机的公告##C楼饮水机坏了，望周知",
-          systemAnnouncementDate: "2020-05-17T00:00:00",
-          content: "C楼饮水机坏了，望周知",
-        };
-        temp.accountNumber = data[i].accountNumber;
-        temp.systemAnnouncementDate = data[i].systemAnnouncementDate.replace(
-          "T",
-          " "
-        );
-        temp.title = data[i].content.substr(0, data[i].content.search("##"));
-        temp.content = data[i].content.slice(data[i].content.search("##") + 2);
-        this.systemAnnouncement.push(temp);
-      }
+          var temp = {
+            accountNumber: "123123",
+            title: "关于饮水机的公告##C楼饮水机坏了，望周知",
+            systemAnnouncementDate: "2020-05-17T00:00:00",
+            content: "C楼饮水机坏了，望周知",
+          };
+          temp.accountNumber = data[i].accountNumber;
+          temp.systemAnnouncementDate = data[i].systemAnnouncementDate.replace(
+            "T",
+            " "
+          );
+          temp.title = data[i].content.substr(0, data[i].content.search("##"));
+          temp.content = data[i].content.slice(
+            data[i].content.search("##") + 2
+          );
+          this.systemAnnouncement.push(temp);
+        }
       })
       .catch((err) => {
         //console.log(err);
@@ -251,24 +257,24 @@ export default {
     //未来活动
     GETActivities()
       .then((data) => {
-        this.futureActivity= data["待举办"]//未举办
+        this.futureActivity = data["待举办"]; //未举办
       })
       .catch((err) => {
         //console.log(err);
         err;
         this.$message("未来活动数据请求错误");
       });
-      //场地占用情况
-      GETOccupyTimes()
+    //场地占用情况
+    GETOccupyTimes()
       .then((data) => {
         console.log(data);
-        this.occupation=data;
+        this.occupation = data;
       })
-      .catch(err=>{
+      .catch((err) => {
         //console.log(err);
         err;
         this.$message("场地占用数据请求错误");
-      })
+      });
   },
   mounted () {
     this.upperTableHeight=this.$refs.upperCardRef.$el.clientHeight-95;
@@ -276,8 +282,8 @@ export default {
   },
   data() {
     return {
-      upperTableHeight:null,
-      lowerTableHeight:null,
+      upperTableHeight: null,
+      lowerTableHeight: null,
       //第一块卡片信息
       StuID: store.state.ID,
       StuInfo: {},
@@ -302,22 +308,28 @@ export default {
       futureActivity: [],
       //第四片卡片信息
       occupation: [],
-      colleges: [{
-        value: '软件学院',
-        label: '软件学院'
-      }, {
-        value: '土木工程学院',
-        label: '土木工程学院'
-      }, {
-        value: '经济与管理学院',
-        label: '经济与管理学院'
-      }, {
-        value: '数学科学学院',
-        label: '数学科学学院'
-      }, {
-        value: '电子与信息工程学院',
-        label: '电子与信息工程学院'
-      }],
+      colleges: [
+        {
+          value: "软件学院",
+          label: "软件学院",
+        },
+        {
+          value: "土木工程学院",
+          label: "土木工程学院",
+        },
+        {
+          value: "经济与管理学院",
+          label: "经济与管理学院",
+        },
+        {
+          value: "数学科学学院",
+          label: "数学科学学院",
+        },
+        {
+          value: "电子与信息工程学院",
+          label: "电子与信息工程学院",
+        },
+      ],
     };
   },
   methods: {
@@ -330,14 +342,13 @@ export default {
       this.dialogVisible = true;
     },
     onRowClick2(row) {
-      this.dialogTitle = row.groundName+" "+row.title;
+      this.dialogTitle = row.groundName + " " + row.title;
       this.dialogContent = row.content;
       this.dialogVisible = true;
     },
     NumToStr() {
-      if(this.StuInfo.academy<this.colleges.length)
-      {
-        this.StuInfo.academy=this.colleges[this.StuInfo.academy].label;        
+      if (this.StuInfo.academy < this.colleges.length) {
+        this.StuInfo.academy = this.colleges[this.StuInfo.academy].label;
       }
     },
     onActivityRowClick(row) {
