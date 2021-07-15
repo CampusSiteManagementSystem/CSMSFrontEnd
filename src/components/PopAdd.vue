@@ -47,9 +47,9 @@ export default {
     
         //stu
         this.$props.router.push({
-          name: "StuShowPlaceDetail",
+          name: "AddGround",
           params: {
-            building: this.building.split("楼")[0],
+            PositionName: this.building,
             // msgKey: this.msg,
           },
           /*query: {  

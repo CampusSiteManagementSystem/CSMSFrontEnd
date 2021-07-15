@@ -18,7 +18,7 @@
                 <br />工号：{{ this.personinfo.id }}<br />管理场地：<el-tag
                   v-for="(ground, i) in personinfo.grounds"
                   :key="i"
-                  :type="personinfo.type[(i+1) % 5]"
+                  :type="personinfo.type[(i + 1) % 5]"
                 >
                   {{ ground }}
                 </el-tag>
@@ -41,6 +41,8 @@
             :show-header="false"
             empty-text="目前没有场地被占用"
             @row-click="onOccupyRowClick"
+            stripe
+            highlight-current-row
           >
             <el-table-column prop="position" label="内容"> </el-table-column>
             <el-table-column prop="activityName" label="活动名称">
@@ -69,6 +71,8 @@
             :show-header="false"
             @row-click="onReviewRowClick"
             empty-text="目前没有待审核预约"
+            stripe
+            highlight-current-row
           >
             <el-table-column prop="title" label="内容"> </el-table-column>
             <el-table-column prop="ground" label="日期"> </el-table-column>
@@ -92,6 +96,9 @@
             height="249px"
             :show-header="false"
             @row-click="onRowClick"
+            :header-row-style="{ height: '20px' }"
+            stripe
+            highlight-current-row
           >
             <el-table-column prop="title" width="auto"> </el-table-column>
             <el-table-column prop="systemAnnouncementDate" width="auto">

@@ -663,6 +663,17 @@ const routes = [
             }
         },
         {
+            path: "AddGround/:PositionName",
+            name: "AddGround",
+            component: () =>
+                import('../page/Grandsman/AddGround.vue'),
+            meta: {
+                title: '添加场地',
+                requireAuth: true,
+                roles: ['groundsMan']
+            }
+        },
+        {
             path: "ModifyPassword",
             name: "GroundsmanModifyPassword",
             component: () =>
