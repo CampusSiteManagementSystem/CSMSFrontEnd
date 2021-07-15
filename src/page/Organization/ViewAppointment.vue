@@ -24,7 +24,6 @@
                   <el-form
                     label-position="left"
                     class="demo-table-expand"
-                    label-width="150px"
                   >
                     <el-form-item label="活动ID">
                       <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
@@ -61,7 +60,7 @@
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="230" sortable>
+              <el-table-column prop="date" label="日期" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -70,11 +69,10 @@
               <el-table-column
                 prop="time"
                 label="开始时间"
-                width="180"
                 sortable
               >
               </el-table-column>
-              <el-table-column prop="name" label="名称" width="180">
+              <el-table-column prop="name" label="名称">
               </el-table-column>
               <el-table-column
                 prop="groundname"
@@ -86,7 +84,6 @@
               <el-table-column
                 prop="tag"
                 label="标签"
-                width="100"
                 :filters="[
                   { text: '室内', value: '室内' },
                   { text: '室外', value: '室外' },
@@ -147,7 +144,6 @@
                   <el-form
                     label-position="left"
                     class="demo-table-expand"
-                    label-width="150px"
                   >
                     <el-form-item label="活动ID">
                       <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
@@ -184,7 +180,7 @@
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="230" sortable>
+              <el-table-column prop="date" label="日期" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -193,10 +189,9 @@
               <el-table-column
                 prop="time"
                 label="开始时间"
-                width="180"
                 sortable
               ></el-table-column>
-              <el-table-column prop="name" label="名称" width="180">
+              <el-table-column prop="name" label="名称">
               </el-table-column>
               <el-table-column
                 prop="groundname"
@@ -208,7 +203,6 @@
               <el-table-column
                 prop="tag"
                 label="标签"
-                width="100"
                 :filters="[
                   { text: '室内', value: '室内' },
                   { text: '室外', value: '室外' },
@@ -301,7 +295,7 @@
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="230" sortable>
+              <el-table-column prop="date" label="日期" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -310,10 +304,9 @@
               <el-table-column
                 prop="time"
                 label="开始时间"
-                width="180"
                 sortable
               ></el-table-column>
-              <el-table-column prop="name" label="名称" width="180">
+              <el-table-column prop="name" label="名称">
               </el-table-column>
               <el-table-column
                 prop="groundname"
@@ -401,7 +394,6 @@
                   <el-form
                     label-position="left"
                     class="demo-table-expand"
-                    label-width="150px"
                   >
                     <el-form-item label="活动ID">
                       <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
@@ -438,7 +430,7 @@
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="230" sortable>
+              <el-table-column prop="date" label="日期" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -447,10 +439,9 @@
               <el-table-column
                 prop="time"
                 label="开始时间"
-                width="180"
                 sortable
               ></el-table-column>
-              <el-table-column prop="name" label="名称" width="180">
+              <el-table-column prop="name" label="名称">
               </el-table-column>
               <el-table-column
                 prop="groundname"
@@ -461,7 +452,6 @@
               <el-table-column
                 prop="tag"
                 label="标签"
-                width="100"
                 :filters="[
                   { text: '室内', value: '室内' },
                   { text: '室外', value: '室外' },
@@ -532,7 +522,7 @@
               <p class="con-footer">同济大学校务处 监制</p>
 
               <div class="chapter" v-show="isShow">
-                <canvas id="chapterCanvas" width="150" height="150"></canvas>
+                <canvas id="chapterCanvas" height="150"></canvas>
               </div>
             </div>
           </div>
@@ -564,7 +554,6 @@
           ref="ruleForm"
           label-position="left"
           class="demo-table"
-          label-width="150px"
         >
           <el-form-item label="活动ID">
             <label slot="label"><b>活动ID</b></label>

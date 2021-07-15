@@ -16,13 +16,13 @@
             :default-sort="{ prop: 'time', order: 'ascending' }"
             height="480"
           >
-            <el-table-column prop="groupname" label="组织" width="">
+            <el-table-column prop="groupname" label="组织">
             </el-table-column>
-            <el-table-column prop="activityname" label="活动名称" >
+            <el-table-column prop="activityname" label="活动名称">
             </el-table-column>
             <el-table-column prop="ground" label="场地">
             </el-table-column>
-            <el-table-column prop="time" sortable label="时间" >
+            <el-table-column prop="time" sortable label="时间">
             </el-table-column>
             <el-table-column
               prop="activityState"
@@ -78,7 +78,7 @@
             </el-table-column>
             <el-table-column prop="activityname" label="活动名称">
             </el-table-column>
-            <el-table-column prop="ground" label="场地" >
+            <el-table-column prop="ground" label="场地">
             </el-table-column>
             <el-table-column prop="time" sortable label="时间">
             </el-table-column>

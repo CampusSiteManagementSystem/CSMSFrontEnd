@@ -3,7 +3,7 @@
     <el-row :gutter="50">
       <el-col :span="8"
         ><div>
-          <img src="../assets/Indoor.jpg" class="image" /></div
+          <img src="../assets/Indoor.jpg" class="image"  style="padding:6%"/></div
       ></el-col>
       <el-col :span="16">
         <el-container>

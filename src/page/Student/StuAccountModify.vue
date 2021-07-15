@@ -29,7 +29,6 @@
                 ref="ruleForm"
                 :rules="rules"
                 :model="ruleForm"
-                label-width="100px"
                 :hide-required-asterisk="true"
               >
                 <el-form-item label="账号：" prop="account">
@@ -126,7 +125,7 @@
                 border
                 style="width: 80%; margin-top: 20px"
               >
-                <el-table-column width="180" prop="title" label="标题">
+                <el-table-column prop="title" label="标题">
                 </el-table-column>
                 <el-table-column prop="content" label="内容"> </el-table-column>
               </el-table>

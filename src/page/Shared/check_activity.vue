@@ -53,14 +53,14 @@
             stripe
           >
             <el-table-column prop="name" label="活动名称"> </el-table-column>
-            <el-table-column prop="description" label="描述" width="450">
+            <el-table-column prop="description" label="描述">
             </el-table-column>
             <el-table-column prop="organizationName" label="举办组织">
             </el-table-column>
-            <el-table-column prop="startTime" label="时间" width="250" sortable>
+            <el-table-column prop="startTime" label="时间" sortable>
             </el-table-column>
             <el-table-column prop="groundName" label="地点"> </el-table-column>
-            <el-table-column fixed="right" width="100" label="操作">
+            <el-table-column fixed="right" label="操作">
               <template slot-scope="scope">
                 <el-button
                   @click="viewInfo(scope.row)"
@@ -83,14 +83,14 @@
             stripe
           >
             <el-table-column prop="name" label="活动名称"> </el-table-column>
-            <el-table-column prop="description" label="描述" width="450">
+            <el-table-column prop="description" label="描述">
             </el-table-column>
             <el-table-column prop="organizationName" label="举办组织">
             </el-table-column>
-            <el-table-column prop="startTime" label="时间" width="250" sortable>
+            <el-table-column prop="startTime" label="时间" sortable>
             </el-table-column>
             <el-table-column prop="groundName" label="地点"> </el-table-column>
-            <el-table-column fixed="right" width="100" label="操作">
+            <el-table-column fixed="right" label="操作">
               <template slot-scope="scope">
                 <el-button
                   @click="viewInfo(scope.row)"
