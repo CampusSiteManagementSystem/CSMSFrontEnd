@@ -826,7 +826,7 @@ export default {
           // console.log("run GETActivities");
           that.axiosdata = data;
           that.dealWithActivities(that.axiosdata);
-          // console.log("that.axiosdata", that.axiosdata);
+          //console.log("that.axiosdata", that.axiosdata);
         })
         .catch((err) => {
           that.data = err;
