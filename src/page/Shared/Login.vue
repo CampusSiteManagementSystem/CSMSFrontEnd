@@ -177,7 +177,7 @@ export default {
               } else if (this.identity === 3) {
                 this.$router.push("/OrgFrame/Main");
               } else if (this.identity === 4) {
-                this.$router.push("/SysAdminFrame");
+                this.$router.push("/SysAdminFrame/SysAdminHomePage");
               }
             })
             .catch((err) => {
