@@ -14,7 +14,6 @@
       slot-label-format="HH:mm"
       :minTime="minTime"
       :maxTime="maxTime"
-      
       locale="zh-cn"
       :header="header"
       :buttonText="buttonText"
@@ -24,16 +23,9 @@
       navLinks="true"
       nowIndicator="true"
       selectable="true"
-
-
       :unselect-auto="false"
       :select-overlap="false"
-
       select-mirror="true"
-
-
-
-
       @eventClick="eventClick"
       @select="handleSelect"
     ></FullCalendar>
@@ -45,17 +37,16 @@ import FullCalendar from "@fullcalendar/vue";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; //点击日历触发的事件
-import momentPlugin from '@fullcalendar/moment';
+import momentPlugin from "@fullcalendar/moment";
 export default {
   name: "Mycalendar",
   components: {
     FullCalendar, //
   },
   props: {
-  
-    groundId: {
-      // type: String,
-    },
+    // groundId: {
+    //   // type: String,
+    // },
 
     //每天开始时间
     minTime: {
@@ -72,7 +63,12 @@ export default {
   },
   data() {
     return {
-      calendarPlugins: [dayGridPlugin, timeGridPlugin, interactionPlugin,momentPlugin],
+      calendarPlugins: [
+        dayGridPlugin,
+        timeGridPlugin,
+        interactionPlugin,
+        momentPlugin,
+      ],
       header: {
         left: "prev,next today",
         center: "title",
@@ -102,13 +98,12 @@ export default {
     },
     // 当选择结束的时候获取开始和结束时间
     handleSelect(info) {
-      console.log('form' + info.startStr + ' to ' + info.endStr)
-      let a={
-        start:info.startStr,
-        end:info.endStr,
+      console.log("form" + info.startStr + " to " + info.endStr);
+      let a = {
+        start: info.startStr,
+        end: info.endStr,
+      };
 
-      }
-      
       this.$emit("handleSelect", a);
     },
     //点击事件查看详情
@@ -135,9 +130,12 @@ export default {
       axios(config)
         .then(function (response) {
           that.axiosdata = response.data;
-          that.events=response.data;
+          that.events = response.data;
+          for (var i = 0; i < this.events.length; i++) {
+            this.events[i].title = this.events[i].name;
+          }
 
-          that.transportData();
+          // that.transportData();
         })
         .catch(function (error) {
           console.log(error);
@@ -161,9 +159,9 @@ export default {
       //   this.event.push(temp);
       // }
       for (var i = 0; i < this.events.length; i++) {
-        this.events[i].title=this.events[i].name;
+        this.events[i].title = this.events[i].name;
         // console.log(this.events[i]);
-        
+
         //     "name": "体育课",
         // "day": 6,
         // "groundId": "1000003",
@@ -172,14 +170,53 @@ export default {
         // "end": "2021-07-17T17:31:20",
         // "description": "这是一条描述",
         // "type": "活动"
-       
       }
     },
+    updateGround() {
+      this.fetchdata();
+    }
   },
-  mounted(){
+  mounted() {
     this.fetchdata();
-
   },
+  watch: {
+    groundId() { // 接收父组件传来的参数名
+      this.updateGround();
+    },
+  },
+  computed:{
+    formatTime() {
+      var Y, m, d, H, i, s, sresult;
+
+      const date = new Date();
+
+      (Y = date.getFullYear()),
+        (m = date.getMonth() + 1),
+        (d = date.getDate()),
+        (H = date.getHours()),
+        (i = date.getMinutes()),
+        (s = date.getSeconds());
+      if (m < 10) {
+        m = "0" + m;
+      }
+      if (d < 10) {
+        d = "0" + d;
+      }
+      if (H < 10) {
+        H = "0" + H;
+      }
+      if (i < 10) {
+        i = "0" + i;
+      }
+      if (s < 10) {
+        s = "0" + s;
+      }
+      sresult = String(Y) + "-" + m + "-" + d + "T" + H + ":" + i + ":" + s;
+
+      return sresult;
+    },
+  }
+ 
 };
 </script>
 

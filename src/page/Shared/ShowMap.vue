@@ -45,7 +45,38 @@ export default {
       // default: true,
     },
   },
-  computed: {},
+  computed:{
+    formatTime() {
+      var Y, m, d, H, i, s, sresult;
+
+      const date = new Date();
+
+      (Y = date.getFullYear()),
+        (m = date.getMonth() + 1),
+        (d = date.getDate()),
+        (H = date.getHours()),
+        (i = date.getMinutes()),
+        (s = date.getSeconds());
+      if (m < 10) {
+        m = "0" + m;
+      }
+      if (d < 10) {
+        d = "0" + d;
+      }
+      if (H < 10) {
+        H = "0" + H;
+      }
+      if (i < 10) {
+        i = "0" + i;
+      }
+      if (s < 10) {
+        s = "0" + s;
+      }
+      sresult = String(Y) + "-" + m + "-" + d + "T" + H + ":" + i + ":" + s;
+
+      return sresult;
+    },
+  },
   methods: {
     initmap() {
       // console.log("data router",this.$data.router);
@@ -267,9 +298,12 @@ export default {
     },
     fetchData() {
       const that = this;
-      GETPositions()
+      let date=this.formatTime;
+      // console.log(data);
+      // 2021-07-15T00:07:00.273Z
+      GETPositions({dateTime:date})
         .then((data) => {
-          // console.log(data);
+          console.log(data);
 
           that.axiosdata = data;
           // console.log("that.axiosdata", that.axiosdata);
