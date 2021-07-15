@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { GETIdentity } from '../API/http'
+import store from '../state/state'
 Vue.use(VueRouter)
+
 
 const routes = [
     //注册、登录、忘记密码
@@ -841,6 +843,8 @@ router.beforeEach((to, from, next) => {
                 if (id === data.accountNumber && type === data.role && to.meta.roles.some(role => {
                         return role === type;
                     })) {
+                    store.state.ID = id;
+                    store.state.membertype = type;
                     if (to.meta.title) {
                         document.title = to.meta.title
                     }
