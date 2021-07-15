@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import { GETEmail, PUTStuPassword } from "../../API/http";
+import {  PUTStuPassword } from "../../API/http";
 export default {
   props: ["type"],
   data() {
@@ -166,15 +166,15 @@ export default {
           this.timeCnt = 30;
           this.isOK = true;
           this.cnt();
-          GETEmail({ email: this.form.email })
-            .then((data) => {
-              data;
-              this.$message("验证码发送成功");
-            })
-            .catch((err) => {
-              err;
-              this.$message.error("验证码发送失败");
-            });
+          // GETEmail({ email: this.form.email })
+          //   .then((data) => {
+          //     data;
+          //     this.$message("验证码发送成功");
+          //   })
+          //   .catch((err) => {
+          //     err;
+          //     this.$message.error("验证码发送失败");
+          //   });
         }
       });
     },

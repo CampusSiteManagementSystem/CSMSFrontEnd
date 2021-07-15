@@ -62,7 +62,7 @@ export const GETOutdoorGroundsID = ID => GetID('/api/OutdoorGrounds/', ID)
 //Groundsmen
 // export const GETGroundsmen = param => Get('/api/Groundsmen', param);
 export const GETGroundsmenID = ID => GetID('/api/Groundsmen/', ID); //ok
-// export const PUTGroundsmenID = (ID, param) => PutID('/api/Groundsmen/', ID, param); 
+export const PUTGroundsmenID = (ID, param) => PutID('/api/Groundsmen/', ID, param); 
 // export const DELETEGroundsmenID = ID => DeleteID('/api/Groundsmen/', ID);
 
 
