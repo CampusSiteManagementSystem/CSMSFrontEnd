@@ -873,7 +873,7 @@ router.beforeEach((to, from, next) => {
                 }
             })
             .catch(() => {
-
+                next(false);
             })
     }
 })

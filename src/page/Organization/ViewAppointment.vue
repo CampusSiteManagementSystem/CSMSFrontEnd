@@ -762,7 +762,7 @@ export default {
       this.currentRow = val;
       this.$router.push({
         name: "RejectedWindow",
-        query: {
+        params: {
           activityID: val.ID,
         },
       });
@@ -787,7 +787,7 @@ export default {
           // console.log("run GETActivities");
           that.axiosdata = data;
           that.dealWithActivities(that.axiosdata);
-          // console.log("that.axiosdata", that.axiosdata);
+          //console.log("that.axiosdata", that.axiosdata);
         })
         .catch((err) => {
           that.data = err;
