@@ -137,7 +137,7 @@
           </el-form-item>
           <el-form-item label="活动时间">
             <label slot="label"><b>活动时间</b></label>
-            <span>{{ feedbackRow.time }}</span>
+            <span>{{ feedbackRow.date + " " + feedbackRow.time }}</span>
           </el-form-item>
           <el-form-item label="活动地点">
             <label slot="label"><b>活动地点</b></label>
@@ -146,7 +146,17 @@
           <div v-if="feedbackState">
             <el-form-item>
               <label slot="label"><b>活动评分</b></label>
-              <span>{{ score }}</span>
+              <div>
+                <p>
+                  <el-rate
+                    class="block"
+                    v-model="score"
+                    :colors="colors"
+                    show-text
+                    disabled
+                  ></el-rate>
+                </p>
+              </div>
             </el-form-item>
             <el-form-item>
               <label slot="label"><b>详细意见</b></label>
@@ -184,7 +194,10 @@
           </div>
         </el-form>
       </div>
-      <span slot="footer" class="dialog-footer">
+      <span slot="footer" class="dialog-footer" v-if="feedbackState">
+        <el-button @click="feedbackVisible = false" type="primary">确定</el-button>
+      </span>
+      <span slot="footer" class="dialog-footer" v-else>
         <el-button @click="feedbackVisible = false">取消</el-button>
         <el-button type="primary" @click="submit">提交</el-button>
       </span>
@@ -297,12 +310,12 @@ export default {
     handleDelete(index, row) {
       console.log(index, row);
     },
-    handleFeedback(row, feedBackState) {
+    handleFeedback(row, feedbackState) {
       console.log(row);
       this.feedbackVisible = true;
       this.feedbackRow = row;
-      this.feedBackState = feedBackState;
-      if (feedBackState) {
+      this.feedbackState = feedbackState;
+      if (feedbackState) {
         var axios = require('axios');
         var config = {
           method: 'get',
@@ -414,6 +427,12 @@ export default {
 };
 </script>
 
+
+<style>
+.el-dialog {
+  border-radius: 12px;
+}
+</style>
 <style scoped>
 .page {
   height: 100%;
@@ -424,6 +443,9 @@ export default {
   background: rgba(240, 235, 235, 0.5);
   justify-content: center;
   align-items: center;
+}
+.dialog {
+  backdrop-filter: blur(10px);
 }
 .background {
   margin: 0;
