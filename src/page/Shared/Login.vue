@@ -167,6 +167,7 @@ export default {
               localStorage.setItem("uuid", this.form.accountNumber);
               localStorage.setItem("uutoken", data.accessToken);
               store.state.ID = this.form.accountNumber;
+              store.state.membertype=this.role;
               if (this.identity === 1) {
                 this.$router.push("/StuFrame/Main");
               } else if (this.identity === 2) {
