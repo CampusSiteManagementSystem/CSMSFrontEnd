@@ -107,9 +107,11 @@
       
       <el-col :span="12">
         <!-- <el-card> -->
-        <div style="padding-left:5%;height:500px">
+          <transition name="fade-transform" mode="in-out">
+        <div v-if="this.groundId != null" style="padding-left:5%;height:500px">
          <Mycalendar :groundId="groundId"  @handleSelect="myfun($event)"/>
         </div>
+        </transition>
         <!-- </el-card> -->
 
 
@@ -237,6 +239,7 @@ export default {
         startTime:"",
       },
       OrgID:store.state.ID,
+      groundId:null
     };
   },
   methods: {
@@ -249,23 +252,25 @@ export default {
       console.log("aaaaaaaaaaabbbbbb",this.ruleform.time);
       console.log(start.split("T")[1].toString());
       console.log(end.split("T")[1].toString());
-      this.ruleform.time[0]=start.split("T")[1].toString().substr(0,5)
-      this.ruleform.time[1]=end.split("T")[1].toString().substr(0,5)
-       console.log(this.ruleform.time);
+      var time=[];
+      time[0]=start.split("T")[1].toString().substr(0,5)
+      time[1]=end.split("T")[1].toString().substr(0,5)
+       console.log(time);
+      this.ruleform.time=[new Date(2016, 9, 10, parseInt(time[0][0]+time[0][1]), parseInt(time[0][3]+time[0][4]))
+      , new Date(2016, 9, 10,parseInt(time[1][0]+time[1][1]), parseInt(time[1][3]+time[1][4]))]
       this.ruleform.duration =
-        (this.ruleform.time[1][0] - this.ruleform.time[0][0]) * 600 +
-        (this.ruleform.time[1][1] - this.ruleform.time[0][1]) * 60 +
-        (this.ruleform.time[1][3] - this.ruleform.time[0][3]) * 10 +
-        (this.ruleform.time[1][4] - this.ruleform.time[0][4]) * 1;
-      
+        (time[1][0] - time[0][0]) * 600 +
+        (time[1][1] - time[0][1]) * 60 +
+        (time[1][3] - time[0][3]) * 10 +
+        (time[1][4] - time[0][4]) * 1;
+      this.ruleform.startTime=start.split("T")[0]+"T"+time[0]+":00.000";
+      console.log(this.ruleform.startTime);
 //       {start: "2021-07-12T09:00:00+08:00", end: "2021-07-12T12:30:00+08:00"}
 // end: "2021-07-12T12:30:00+08:00"
 // start: "2021-07-12T09:00:00+08:00"
 
-
 //用这个函数转化
 // var date = new Date(Date.parse(time.replace("T", " ").toString()));
-
 
     },
     handleChange(value) {
@@ -275,18 +280,20 @@ export default {
       JSON.parse(JSON.stringify(value));
       console.log(this.ruleform.site);
       console.log(this.options);
+      this.groundId=this.ruleform.site[this.ruleform.site.length-1];
       //console.log("name",this.$route.params.ID);
     },
     getDurTime(value) {
-      JSON.parse(JSON.stringify(value));
-      this.ruleform.duration =
-        (this.ruleform.time[1][0] - this.ruleform.time[0][0]) * 600 +
-        (this.ruleform.time[1][1] - this.ruleform.time[0][1]) * 60 +
-        (this.ruleform.time[1][3] - this.ruleform.time[0][3]) * 10 +
-        (this.ruleform.time[1][4] - this.ruleform.time[0][4]) * 1;
-      this.ruleform.startTime="T"+this.ruleform.time[0]+":00.000";
-      console.log(this.ruleform.time);
-      console.log(this.ruleform.duration);
+      console.log(value);
+      // JSON.parse(JSON.stringify(value));
+      // this.ruleform.duration =
+      //   (this.ruleform.time[1][0] - this.ruleform.time[0][0]) * 600 +
+      //   (this.ruleform.time[1][1] - this.ruleform.time[0][1]) * 60 +
+      //   (this.ruleform.time[1][3] - this.ruleform.time[0][3]) * 10 +
+      //   (this.ruleform.time[1][4] - this.ruleform.time[0][4]) * 1;
+      // this.ruleform.startTime="T"+this.ruleform.time[0]+":00.000";
+      // console.log(this.ruleform.time);
+      // console.log(this.ruleform.duration);
     },
     getAllSite:async function(){
     var axios = require("axios");
@@ -392,8 +399,8 @@ export default {
       POSTActivities({
         name:this.ruleform.name,
         accountNumber:this.OrgID,
-        activityDate:this.ruleform.date+this.ruleform.startTime,
-        startTime:this.ruleform.date+this.ruleform.startTime,
+        activityDate:this.ruleform.startTime,
+        startTime:this.ruleform.startTime,
         participantNum:this.ruleform.people,
         description:this.ruleform.description,
         additionalRequest:this.ruleform.special,
@@ -447,6 +454,7 @@ export default {
                 this.$route.query.groundId ==
                 this.options[i].children[j].children[k].value
               ) {
+                this.groundId=this.$route.query.groundId;
                 console.log("sure", this.$route.query.groundId);
                 this.ruleform.site = [
                   this.options[i].value,
@@ -479,7 +487,12 @@ export default {
 .clearfix {
   font-size: 18px;
 }
-
+.fade-transform-enter-active{
+  transition: all 0.3s;
+}
+.fade-transform-leave-active{
+  transition: all 0.3s;
+}
 .maincard {
   border-radius: 15px;
   height: 100%;
