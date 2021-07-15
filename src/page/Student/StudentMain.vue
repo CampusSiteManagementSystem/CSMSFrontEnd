@@ -23,7 +23,7 @@
               <div class="date">
                 {{ semesterInfo.fromYear }}-{{ semesterInfo.toYear }}年度第{{
                   semesterInfo.semester
-                }}学期第{{ semesterInfo.week }}周（数据库没有，要删了）
+                }}学期第{{ semesterInfo.week }}周
               </div>
               <div class="other-info">祝您学习愉快！</div>
             </el-col>
@@ -122,10 +122,11 @@
             @row-click="onOccupyRowClick"
             :show-header="false"
           >
-            <el-table-column prop="position" label="地点" width="auto">
+            <el-table-column prop="name" label="活动名称" width="auto">
             </el-table-column>
-            <el-table-column prop="activityName" label="活动名称" width="auto">
+            <el-table-column prop="start" label="开始时间" width="auto">
             </el-table-column>
+            <el-table-column prop="end" label="结束时间"></el-table-column>
           </el-table>
         </el-card>
       </el-col>
@@ -182,7 +183,7 @@ export default {
     //获取场地公告
     GETMaintenanceAnnouncements()
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         for (var i = 0; i < data.length; i++) {
         var temp = {
           groundId: "123123",
@@ -200,11 +201,12 @@ export default {
         temp.title = data[i].content.substr(0, data[i].content.search("##"));
         temp.content = data[i].content.slice(data[i].content.search("##") + 2);
         this.groundAnnouncement.push(temp);
-      console.log(temp);
+      //console.log(temp);
       }
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
+        err;
         this.$message("场地公告数据请求错误");
       });
     //获取系统公告
@@ -228,7 +230,8 @@ export default {
       }
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
+        err;
         this.$message("系统公告数据请求错误");
       });
     //获取学生信息
@@ -239,27 +242,29 @@ export default {
         //console.log(data);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
+        err;
         this.$message("学生信息请求错误");
       });
     //未来活动
     GETActivities()
       .then((data) => {
-        //console.log(data);
-        this.futureActivity= data["审核中"]//未举办
+        this.futureActivity= data["待举办"]//未举办
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
+        err;
         this.$message("未来活动数据请求错误");
       });
       //场地占用情况
       GETOccupyTimes()
       .then((data) => {
-        //console.log(data);
+        console.log(data);
         this.occupation=data;
       })
       .catch(err=>{
-        console.log(err);
+        //console.log(err);
+        err;
         this.$message("场地占用数据请求错误");
       })
   },
@@ -279,7 +284,7 @@ export default {
         fromYear: "2020",
         toYear: "2021",
         semester: "2",
-        week: "14",
+        week: "20",
       },
       //第二块卡片信息
       //弹出式公告
