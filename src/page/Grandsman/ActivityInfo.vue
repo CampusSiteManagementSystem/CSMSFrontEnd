@@ -1,7 +1,10 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-      <div class="maintitle">审批预约记录</div>
+      <div slot="header" class="clearfix">
+            <span><b>审批预约记录</b></span>
+          </div>
+      <!-- <div class="maintitle">审批预约记录</div> -->
       <el-row gutter="20">
         <el-col :span="10">
           <el-card class="info-card">
@@ -16,7 +19,7 @@
               </el-col>
               <el-col :span="15">
                 <p><b>组织名称：</b>{{ organization }}</p>
-                <p><b>组织账号：</b>{{ accountnumber }}</p>
+                <p><b>组织账号：</b>{{ accountNumber }}</p>
                 <p><b>组织信用分：</b>{{ credit }}</p>
                 <p><b>组织邮箱：</b>{{ email }}</p>
               </el-col>
@@ -135,6 +138,7 @@ export default {
     dealWithActivitiy(data) {
       this.id = data.id;
       this.name = data.name;
+      console.log(data);
       this.accountNumber = data.accountNumber;
       this.organization = data.organizationName;
       // this.credit  没有组织信用分
@@ -256,7 +260,9 @@ export default {
 .reason-input {
   width: 600px;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .maintitle {
   font-size: 22px;
   text-align: left;

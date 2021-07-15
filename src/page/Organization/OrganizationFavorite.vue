@@ -1,7 +1,22 @@
 ﻿<template>
   <div>
-    <el-card v-if="!childPage">
+    <el-card class="maincard" v-if="!childPage">
       <div slot="header" class="clearfix">
+        <el-row type="flex" align="middle">
+          <el-col :span="18">
+            <span><b>我的收藏 </b></span>
+          </el-col>
+          <el-col :span="6">
+            <el-input
+              clearable
+              v-model="toMatch"
+              placeholder="请输入关键字搜索"
+              @input="search"
+            ></el-input>
+          </el-col>
+        </el-row>
+      </div>
+      <!-- <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="20">
             <div>
@@ -17,9 +32,9 @@
             ></el-input>
           </el-col>
         </el-row>
-      </div>
+      </div> -->
 
-      <el-table :data="matchList" style="width: 100%" stripe>
+      <el-table :data="matchList" style="width: 100%" stripe height="500">
         <el-table-column
           label="场地编号"
           prop="groundId"
@@ -171,5 +186,11 @@ export default {
 }
 .clearfix:after {
   clear: both;
+}
+.maincard{
+  height: 100%;
+}
+.el-card {
+  border-radius: 15px;
 }
 </style>

@@ -172,7 +172,9 @@ body,
   font-size: 30px;
   height: 100%;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 /* 面包屑导航 */
 .el-breadcrumb {
   box-sizing: border-box;

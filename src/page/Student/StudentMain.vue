@@ -6,12 +6,13 @@
         <el-card class="upper-card">
           <el-row>
             <el-col :span="9">
+              <br />
               <div>
                 <el-avatar :size="130" :src="StuInfo.image"></el-avatar>
               </div>
             </el-col>
             <el-col :span="15">
-              <h1></h1>
+              <br />
               <div class="name">{{ StuInfo.name }}</div>
               <div class="other-info">
                 <br />学号：{{ StuID }}<br />学院专业：<el-tag type="success">
@@ -275,9 +276,9 @@ export default {
         this.$message("场地占用数据请求错误");
       });
   },
-  mounted() {
-    this.upperTableHeight = this.$refs.upperCardRef.$el.clientHeight - 95;
-    this.lowerTableHeight = this.$refs.lowerCardRef.$el.clientHeight - 100;
+  mounted () {
+    this.upperTableHeight=this.$refs.upperCardRef.$el.clientHeight-95;
+    this.lowerTableHeight=this.$refs.lowerCardRef.$el.clientHeight-105;
   },
   data() {
     return {
@@ -434,5 +435,8 @@ body,
   font-size: 20px;
   line-height: 40px;
   font-weight: 700;
+}
+.el-card {
+  border-radius: 15px;
 }
 </style>

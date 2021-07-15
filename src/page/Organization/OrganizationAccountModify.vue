@@ -129,7 +129,9 @@ p {
 .image {
   margin-top: -0.5cm;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .modify {
   margin-top: 1cm;
   margin-left: 5cm;

@@ -1,9 +1,9 @@
 ﻿<template>
   <div class="page">
     <el-card class="infoMain">
-      <div>
-        <h2>添加用户</h2>
-      </div>
+     <div slot="header" class="clearfix">
+            <span><b>添加用户</b></span>
+          </div>
       <el-row>
         <el-col :span="18" :offset="3">
           <div>
@@ -18,13 +18,13 @@
               :hide-required-asterisk="true"
             >
               <el-form-item label="账号：" prop="account">
-                <el-input v-model="ruleForm.account"></el-input>
+                <el-input v-model.number="ruleForm.account"></el-input>
               </el-form-item>
-              <el-form-item label="联系方式：" prop="email">
+              <el-form-item label="邮箱：" prop="email">
                 <el-input v-model="ruleForm.email"></el-input>
               </el-form-item>
-              <el-form-item label="密码：" prop="password">
-                <el-input v-model="ruleForm.password"></el-input>
+              <el-form-item label="密码：" prop="password" showPassword>
+                <el-input v-model="ruleForm.password" show-password></el-input>
               </el-form-item>
             </el-form>
             <div class="modify" style="float: right">
@@ -42,7 +42,9 @@
 .info {
   text-align: left;
 }
-
+.infoMain{
+  height: 100%;
+}
 p {
   color: rgb(0, 0, 0);
   position: relative;
@@ -63,6 +65,21 @@ p {
   margin-top: 1cm;
   margin-left: 2.2cm;
 }
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  font-size: 18px;
+}
+.el-card {
+  border-radius: 15px;
+}
 </style>
 
 <script>
@@ -79,7 +96,9 @@ export default {
 
       rules: {
         account: [
-          { required: true, message: "请输入账号名称", trigger: "blur" },
+          { required: true, message: "请输入账号", trigger: "blur" },
+          { type: "number", message: "账号必须为7位数字", trigger: "change" ,min: 1000000,
+            max:9999999,},
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },

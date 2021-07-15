@@ -541,6 +541,9 @@ body,
   /* background-color: wheat; */
   background-color: rgb(237, 241, 245);
 }
+.el-card {
+  border-radius: 15px;
+}
 .header-row {
   height: 100%;
 }

@@ -1,10 +1,9 @@
 ﻿<template>
-  <div class="page">
-    <div class="background">
+  <div>
       <el-card>
-        <div>
-          <h2>预约记录</h2>
-        </div>
+        <div slot="header" class="clearfix">
+            <span><b>预约记录</b></span>
+          </div>
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="待举办" name="first">
             <el-table
@@ -546,7 +545,6 @@
           </span>
         </el-dialog>
       </div>
-    </div>
     <!-- <feedback-dialog :feedbackRow="feedbackRow" :feedbackVisible="feedbackVisible" @closeDialog="feedbackVisible=false"></feedback-dialog> -->
     <el-dialog title="场地反馈" :visible.sync="feedbackVisible" class="dialog">
       <div class="content">
@@ -592,6 +590,8 @@
                 :rows="5"
                 placeholder="请输入内容"
                 v-model="ruleForm.textarea"
+                 maxlength="100"
+                show-word-limit
               >
               </el-input>
             </span>
@@ -1020,6 +1020,17 @@ export default {
 .el-dialog {
   border-radius: 12px;
 }
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  font-size: 18px;
+}
 </style>
 <style scoped>
 body {
@@ -1044,11 +1055,18 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
   position: relative;
 }
+.el-card {
+  border-radius: 15px;
+  height: 100%;
+}
 .modify {
   margin-left: 0.3cm;
 }
 .demo-table-expand {
   font-size: 0;
+}
+.el-card {
+  border-radius: 15px;
 }
 .demo-table-expand label {
   width: 90px;

@@ -98,6 +98,9 @@ body,
   left: 0px;
   top: 10px;
 }
+.el-card {
+  border-radius: 15px;
+}
 </style>
 
 

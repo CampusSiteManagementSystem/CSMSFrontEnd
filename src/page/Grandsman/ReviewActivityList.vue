@@ -1,7 +1,10 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-      <div class="maintitle">审核预约记录</div>
+      <div slot="header" class="clearfix">
+            <span><b>审核预约记录</b></span>
+          </div>
+      <!-- <div class="maintitle">审核预约记录</div> -->
       <el-tabs v-model="activeTab">
         <el-tab-pane label="待审批" name="panel1">
           <el-table
@@ -210,7 +213,9 @@ body,
   padding: 5px;
   margin-bottom: 8px;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .detailinfo {
   padding: 15px;
 }

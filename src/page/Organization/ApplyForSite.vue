@@ -508,4 +508,7 @@ export default {
 .titlename {
   width: 100%;
 }
+.el-card {
+  border-radius: 15px;
+}
 </style>

@@ -168,6 +168,9 @@ export default {
 .el-card {
   height: 100%;
 }
+.el-card {
+  border-radius: 15px;
+}
 .demo-table {
   font-family: Helvetica;
 }

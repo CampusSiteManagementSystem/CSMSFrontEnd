@@ -7,16 +7,18 @@
           <el-row>
             <el-col :span="8" class="person-info-card-photo-col">
               <div>
+                <br />
                 <el-avatar :size="130" :src="personinfo.photosrc"></el-avatar>
               </div>
             </el-col>
             <el-col :span="16">
+              <br />
               <div class="name">{{ personinfo.name }}</div>
               <div class="other-info">
-                <br />工号：{{this.personinfo.id}}<br />管理场地：<el-tag
+                <br />工号：{{ this.personinfo.id }}<br />管理场地：<el-tag
                   v-for="(ground, i) in personinfo.grounds"
                   :key="i"
-                  :type="personinfo.type[i % 5]"
+                  :type="personinfo.type[(i+1) % 5]"
                 >
                   {{ ground }}
                 </el-tag>
@@ -66,6 +68,7 @@
             height="249px"
             :show-header="false"
             @row-click="onReviewRowClick"
+            empty-text="目前没有待审核预约"
           >
             <el-table-column prop="title" label="内容"> </el-table-column>
             <el-table-column prop="ground" label="日期"> </el-table-column>
@@ -196,6 +199,9 @@
   overflow: auto;
   border-radius: 15px;
 }
+.el-card {
+  border-radius: 15px;
+}
 </style>
 
 
@@ -211,7 +217,7 @@ export default {
   name: "GrandsmanHome",
 
   mounted() {
-    this.personinfo.grounds=[];
+    this.personinfo.grounds = [];
     const that = this;
     // console.log(this.testtitle.substr(0,this.testtitle.search("##")));
     GETSystemAnnouncements()
@@ -336,8 +342,7 @@ export default {
       // systemAnnouncement: Array(20).fill(systemItem),
       systemAnnouncement: [],
       appointment: [],
-      busyground: [
-      ],
+      busyground: [],
       msg: "666",
     };
   },
@@ -380,18 +385,20 @@ export default {
     },
 
     dealWithActivities(data) {
-      for (var i = 0; i < data["审核中"].length; i++) {
-        var temp = {
-          activityID: "0006",
-          title: "数据库会议",
-          ground: "广楼101",
-          datetime: "2021-6-2 00:00",
-        };
-        temp.activityID = data["审核中"][i].id;
-        temp.datetime = data["审核中"][i].activityDate.replace("T", " ");
-        temp.title = data["审核中"][i].name;
-        temp.ground = data["审核中"][i].groundName;
-        this.appointment.push(temp);
+      if (data["审核中"] != null) {
+        for (var i = 0; i < data["审核中"].length; i++) {
+          var temp = {
+            activityID: "0006",
+            title: "数据库会议",
+            ground: "广楼101",
+            datetime: "2021-6-2 00:00",
+          };
+          temp.activityID = data["审核中"][i].id;
+          temp.datetime = data["审核中"][i].activityDate.replace("T", " ");
+          temp.title = data["审核中"][i].name;
+          temp.ground = data["审核中"][i].groundName;
+          this.appointment.push(temp);
+        }
       }
     },
 

@@ -8,13 +8,17 @@
           <el-row>
             <el-col :span="9">
               <div>
+                 <br />
                 <el-avatar :size="130" :src="sysInfo.image"></el-avatar>
               </div>
             </el-col>
             <el-col :span="15">
-              <div class="name">{{ 系统管理员 }}</div>
+              <br />
+              <div class="name">系统管理员 </div>
               <div class="other-info">
-                <br />账号：{{ sysInfo.accountNumber }}<br />
+                <br />账号：<el-tag type="success">
+                  {{ sysInfo.accountNumber }}
+                </el-tag><br />
               </div>
               <div class="date">
                 {{ semesterInfo.fromYear }}-{{ semesterInfo.toYear }}年度第{{
@@ -384,5 +388,8 @@ export default {
 }
 .dialog {
   backdrop-filter: blur(10px);
+}
+.el-card {
+  border-radius: 15px;
 }
 </style>

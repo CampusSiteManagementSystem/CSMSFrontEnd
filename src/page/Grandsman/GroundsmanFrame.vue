@@ -191,6 +191,9 @@ body,
   padding: 5%;
   /* border-bottom: 1px solid #eee; */
 }
+.el-card {
+  border-radius: 15px;
+}
 </style>
 
 

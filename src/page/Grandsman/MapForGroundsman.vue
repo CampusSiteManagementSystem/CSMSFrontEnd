@@ -45,7 +45,7 @@ export default {
       // default: true,
     },
   },
-  computed:{
+  computed: {
     formatTime() {
       var Y, m, d, H, i, s, sresult;
 
@@ -270,9 +270,17 @@ export default {
           // }).$mount('#base-detail');
         });
 
-        map.on("click", "places", function () {
-          map.getCanvas().style.cursor = "";
-          popup.remove();
+        // map.on("click", "places", function () {
+        //   map.getCanvas().style.cursor = "";
+        //   popup.remove();
+        // });
+        // map.on("mouseup",  function () {
+        //   map.getCanvas().style.cursor = "";
+        //   popup.remove();
+        // });
+        map.on("contextmenu", function (e) {
+          console.log("contextmenu",e);
+          /* adding marker is not a good idea here */
         });
       });
 
@@ -298,10 +306,10 @@ export default {
     },
     fetchData() {
       const that = this;
-      let date=this.formatTime;
+      let date = this.formatTime;
       // console.log(data);
       // 2021-07-15T00:07:00.273Z
-      GETPositions({dateTime:date})
+      GETPositions({ dateTime: date })
         .then((data) => {
           // console.log(data);
 

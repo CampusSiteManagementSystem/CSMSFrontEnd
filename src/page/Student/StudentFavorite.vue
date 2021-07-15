@@ -1,7 +1,23 @@
 <template>
   <div class="main-div">
     <el-card class="table-card" v-if="!childPage">
-      <div slot="header" class="clearfix">
+<div slot="header" class="clearfix">
+        <el-row type="flex" align="middle">
+          <el-col :span="18">
+            <span><b>我的收藏 </b></span>
+          </el-col>
+          <el-col :span="6">
+             <el-input
+              clearable
+              v-model="toMatch"
+              placeholder="请输入关键字搜索"
+              @input="search"
+            ></el-input>
+          </el-col>
+        </el-row>
+      </div>
+
+      <!-- <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="20">
             <div>
@@ -17,7 +33,7 @@
             ></el-input>
           </el-col>
         </el-row>
-      </div>
+      </div> -->
 
       <el-table :data="matchList" style="width: 100%" stripe>
         <el-table-column
@@ -143,13 +159,6 @@ export default {
         .catch((err) => {
           this.data = err;
         });
-
-      
-
-
-
-
-     
     },
   },
   mounted() {
@@ -187,5 +196,8 @@ body,
 .table-card{
   height: 100%;
   border-radius: 12px;
+}
+.el-card {
+  border-radius: 15px;
 }
 </style>

@@ -144,6 +144,9 @@ p {
   margin-top: 1cm;
   margin-left: 2.2cm;
 }
+.el-card {
+  border-radius: 15px;
+}
 </style>
 
 <script>

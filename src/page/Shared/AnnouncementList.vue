@@ -1,7 +1,9 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard" style="border-radius: 12px">
-      <div class="main-title">公告</div>
+     <div slot="header" class="clearfix">
+            <span><b>公告</b></span>
+          </div>
       <el-tabs v-model="activeTab">
         <el-tab-pane label="系统公告" name="pane1">
           <el-table
@@ -166,7 +168,9 @@ body,
 /* .maintabs {
   border-radius: 8px;
 } */
-
+.el-card {
+  border-radius: 15px;
+}
 .el-dialog {
   border-radius: 12px;
 }

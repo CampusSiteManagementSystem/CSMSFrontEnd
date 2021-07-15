@@ -63,7 +63,7 @@
                 :autosize="{ minRows: 2, maxRows: 10 }"
                 v-model="ruleForm.description"
                 placeholder="请输入描述内容"
-                maxlength="200"
+                maxlength="100"
                 show-word-limit
               ></el-input>
             </el-form-item>
@@ -445,7 +445,9 @@ export default {
 .detailinfo {
   padding: 15px;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .upperCol {
   /* height: 48%; */
   padding-bottom: 15px;

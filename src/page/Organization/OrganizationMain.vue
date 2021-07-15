@@ -7,6 +7,7 @@
           <el-row>
             <el-col :span="9">
               <div>
+                <br />
                 <el-avatar :size="130" :src="orgnizationInfo.image"></el-avatar>
               </div>
             </el-col>
@@ -388,7 +389,9 @@ body
   height: 100%;
   padding: 5px;
 }
-
+.el-card {
+  border-radius: 15px;
+}
 .clearfix:before,
 .clearfix:after {
   display: table;

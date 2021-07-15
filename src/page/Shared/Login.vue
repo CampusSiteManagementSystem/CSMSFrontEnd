@@ -118,8 +118,10 @@ export default {
           },
           {
             type: "number",
-            message: "账号只能由数字构成",
+            message: "账号必须为7位数字",
             trigger: "blur",
+            min: 1000000,
+            max: 9999999,
           },
         ],
         password: [
@@ -192,7 +194,9 @@ export default {
 <style scoped>
 @import "../../css/IdentitySelection.css";
 @import "../../css/Login.css";
-
+.el-card {
+  border-radius: 15px;
+}
 h1,
 h4 {
   color: white;

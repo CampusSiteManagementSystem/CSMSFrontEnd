@@ -1,7 +1,9 @@
 <template>
   <div class="maindiv">
     <el-card class="mycard">
-      <h3>组织注册</h3>
+      <div slot="header" class="clearfix">
+            <span><b>组织注册</b></span>
+          </div>
       <el-row>
         <el-col :span="23" :offset="1"
           ><div class="info">
@@ -62,7 +64,9 @@ body,
 .info {
   text-align: left;
 }
- 
+ .el-card {
+  border-radius: 15px;
+}
 .submit {
   /* margin: 1cm 1cm 1cm 17cm; */
   float: right;
@@ -83,6 +87,7 @@ export default {
     console.log("aaa",this.$route.query.accountNumber)
     GETOrganizationsID(this.$route.query.accountNumber)
       .then((data) => {
+        console.log(data);
         this.ruleForm.name = data.name;
         this.ruleForm.content = data.detailInfo;
       })

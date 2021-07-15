@@ -1,14 +1,19 @@
 <template>
   <el-card class="maincard">
-    <div class="maintitle">发布系统公告</div>
+    <div slot="header" class="clearfix">
+            <span><b>发布系统公告</b></span>
+          </div>
     <el-form
       ref="ruleform"
       :rules="rules"
       :model="ruleform"
       label-width="100px"
     >
-      <el-form-item label="公告标题：" prop="name" style="width:30%">
-        <el-input v-model="ruleform.name" placeholder="请输入公告标题"></el-input>
+      <el-form-item label="公告标题：" prop="name" style="width: 30%">
+        <el-input
+          v-model="ruleform.name"
+          placeholder="请输入公告标题"
+        ></el-input>
       </el-form-item>
       <el-form-item label="公告内容：" prop="content">
         <el-input
@@ -16,7 +21,7 @@
           :autosize="{ minRows: 8, maxRows: 10 }"
           v-model="ruleform.content"
           placeholder="请输入公告内容"
-          maxlength="80"
+          maxlength="100"
           show-word-limit
         ></el-input>
       </el-form-item>
@@ -55,6 +60,20 @@ body,
 .groundinfo {
   text-align: center;
 }
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  font-size: 18px;
+}
+.el-card {
+  border-radius: 15px;
+}
 </style>
 
 
@@ -69,10 +88,11 @@ export default {
       rules: {
         content: [
           { required: true, message: "请输入公告内容", trigger: "blur" },
+          { max: 100, message: "长度为1~100个字符", trigger: "blur" },
         ],
         name: [
           { required: true, message: "请输入公告标题", trigger: "blur" },
-          { max: 18, message: "长度为1~18个字符", trigger: "blur" },
+          { max: 10, message: "长度为1~10个字符", trigger: "blur" },
         ],
       },
 
@@ -106,7 +126,7 @@ export default {
           accountNumber: store.state.ID,
           systemAnnouncementDate: this.getFullTime(),
           systemAnnouncementTime: this.getFullTime(),
-          content: this.ruleform.name+"##"+this.ruleform.content,
+          content: this.ruleform.name + "##" + this.ruleform.content,
         })
           .then((data) => {
             // this.res = data;
@@ -121,7 +141,6 @@ export default {
       } else {
         this.$message({ message: "请输入公告内容", type: "warning" });
       }
-      
     },
     back() {
       this.$router.push({ path: "/SysAdminFrame/SysAdminHomePage" });
