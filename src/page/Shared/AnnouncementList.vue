@@ -184,6 +184,9 @@ body,
   padding: 5px;
   margin-bottom: 8px;
 }
+.maincard {
+  height: 100%;
+}
 .detailinfo {
   padding: 15px;
 }
