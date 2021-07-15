@@ -138,10 +138,9 @@ body,
 .el-main {
   overflow: auto;
   /* background-color: wheat; */
-  background-color: rgb(237, 241, 245);
+  /* background-color: rgb(70, 107, 145); */
 }
 .header {
-  background-color: red;
   padding-left: 16px;
   border-bottom: 0.5px solid rgba(85, 79, 78, 0.178);
 }
@@ -183,7 +182,7 @@ body,
 
 <script>
 import { GETStudentsID } from "../../API/http";
-
+import router from "../../router/index"
 import store from "../../state/state.js";
 import * as echarts from "echarts";
 export default {
@@ -284,7 +283,9 @@ export default {
         localStorage.removeItem("uutype");
         localStorage.removeItem("uutoken");
         store.state.ID =null;
-        this.$router.replace("/");
+        const routeHistory = history.length - 1;
+        router.go(-routeHistory);
+        router.replace("/");
       });
     },
 
