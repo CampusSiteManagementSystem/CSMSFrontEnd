@@ -7,7 +7,7 @@
           @click="jump()"
           style="float: right; padding: 3px 0"
           type="text"
-          >新增场地</el-button
+          >新增</el-button
         >
       </div>
       <p>场地总数量：{{ all }}</p>

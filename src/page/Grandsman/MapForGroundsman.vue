@@ -38,7 +38,13 @@ export default {
     this.fetchData();
     // console.log(this.$router);
   },
- 
+  props: {
+    membertype: {
+      //true代表学生，false代表组织
+      type: Boolean,
+      // default: true,
+    },
+  },
   computed:{
     formatTime() {
       var Y, m, d, H, i, s, sresult;
@@ -76,8 +82,8 @@ export default {
       // console.log("data router",this.$data.router);
       // console.log("this.$router",this.$router);
       const tempTest = this.$router;
-
-  
+      const membertype = this.$props.membertype;
+      // console.log("membertype", membertype);
       // console.log("tempTest", tempTest);
       const bounds = [
         // Southwest coordinates
@@ -136,7 +142,7 @@ export default {
         });
 
         // Create a popup, but don't add it to the map yet.
-        let popup = new temp.PopAdd({
+        let popup = new temp.Popup({
           closeButton: false,
           closeOnClick: false,
         });
@@ -216,14 +222,14 @@ export default {
 
               description: properties.description,
               router: tempTest,
-        
+              membertype: membertype,
             }, //传参
           }).$mount();
           // vm.$mount(); //挂载
           // this.popupHTML = vm.$el;
           // var popupHTML = '<div id="base-detail"></div>'
 
-          // var Comp = Vue.extend(PopMeg);
+          // var Comp = Vue.extend(PopAdd);
           // //只用于 new 创建的实例时传递 props.
           // var vm = new Comp({// eslint-disable-line no-unused-vars
 
@@ -252,7 +258,7 @@ export default {
           // var popupHTML = '<div id="base-detail"></div>'
           // popup.setLngLat(coordinates).setHTML(popupHTML).addTo(map);
 
-          // const p = Vue.extend(PopMeg);
+          // const p = Vue.extend(PopAdd);
           // let vm = new p({
           //   propsData: {
           //     building: "a",
