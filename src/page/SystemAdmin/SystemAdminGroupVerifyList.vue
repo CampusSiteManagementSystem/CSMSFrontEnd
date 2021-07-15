@@ -116,7 +116,7 @@ export default {
       } else {
         this.matchList = [];
         for (var i = 0; i < this.tableData.length; i++) {
-          if (this.tableData[i].state == "0") {
+          if (this.tableData[i].state == "未审批") {
             this.matchList.push(this.tableData[i]);
           }
         }

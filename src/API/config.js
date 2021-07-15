@@ -58,6 +58,9 @@ axios.interceptors.response.use(
         const routeHistory = history.length - 1;
         if (error.response.status) {
             switch (error.response.status) {
+                case 400:
+                    Message.error("400输入不合法");
+                    break;
                 case 401:
                     Message.error("身份有误，请重新登录")
                     localStorage.removeItem("uutype");
@@ -71,7 +74,13 @@ axios.interceptors.response.use(
                     Message.error("404NotFound")
                     break;
                 case 403:
-                    Message.error("403输入不合法");
+                    localStorage.removeItem("uutype");
+                    localStorage.removeItem("uuid");
+                    localStorage.removeItem("uutoken");
+                    //可以拿到历史记录栈，清空栈
+                    router.go(-routeHistory);
+                    router.replace('/')
+                    Message.error("403权限不足!");
                     break;
                 case 409:
                     Message.error("409冲突");
