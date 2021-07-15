@@ -73,6 +73,10 @@
             <i class="el-icon-house"></i>
             <span slot="title">主页</span>
           </el-menu-item>
+          <el-menu-item index="/GroundsAdmin/Map">
+            <i class="el-icon-map-location"></i>
+            <span slot="title">查看地图</span>
+          </el-menu-item>
           <el-menu-item index="/GroundsAdmin/ReviewActivityList">
             <i class="el-icon-finished"></i>
             <span slot="title">审核活动记录</span>
