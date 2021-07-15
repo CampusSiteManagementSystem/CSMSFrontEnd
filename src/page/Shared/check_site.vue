@@ -17,7 +17,7 @@
       </el-row>
       <el-table :data="matchList" height="450">
         <el-table-column prop="name" label="场地名称"> </el-table-column>
-        <el-table-column prop="description" label="场地描述" width="450">
+        <el-table-column prop="description" label="场地描述">
         </el-table-column>
         <el-table-column
           prop="type"
@@ -39,7 +39,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="area" label="面积/平方米"> </el-table-column>
-        <el-table-column width="100" label="操作">
+        <el-table-column label="操作">
           <template slot-scope="scope">
             <router-link
               :to="{

@@ -23,13 +23,13 @@
         style="width: 100%"
         :default-sort="{ prop: 'time', order: 'descending' }"
       >
-        <el-table-column prop="time" label="开始时间" sortable width="180">
+        <el-table-column prop="time" label="开始时间" sortable>
         </el-table-column>
-        <el-table-column prop="activityname" label="活动" width="180">
+        <el-table-column prop="activityname" label="活动">
         </el-table-column>
-        <el-table-column prop="groupname" label="组织" width="180">
+        <el-table-column prop="groupname" label="组织">
         </el-table-column>
-        <el-table-column prop="ground" label="场地" width="180">
+        <el-table-column prop="ground" label="场地">
         </el-table-column>
         <el-table-column
           prop="scoreingtag"
@@ -51,7 +51,7 @@
             >
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="100">
+        <el-table-column label="操作">
           <template slot-scope="scope">
             <router-link
               :to="{

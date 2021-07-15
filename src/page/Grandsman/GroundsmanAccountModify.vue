@@ -46,7 +46,7 @@
               <div v-if="isTable == true">              
           <el-table :show-header="false" :data="tableData" :cell-style="columnStyle" border
             style="width: 80%; margin-top: 20px">
-            <el-table-column width="180" prop="title" label="标题">
+            <el-table-column prop="title" label="标题">
             </el-table-column>
             <el-table-column prop="content" label="内容">
             </el-table-column>

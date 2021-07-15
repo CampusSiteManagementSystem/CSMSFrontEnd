@@ -38,9 +38,9 @@
             <div class="text item">
               <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" :data="tableData" style="width: 100%" height="200" stripe
                 :default-sort="{prop: 'score', order: 'descending'}">
-                <el-table-column prop="activityName" label="名称" width="180">
+                <el-table-column prop="activityName" label="名称">
                 </el-table-column>
-                <el-table-column prop="creditTime" label="日期" width="250" sortable>
+                <el-table-column prop="creditTime" label="日期" sortable>
                   <template slot-scope="scope">
                     <i class="el-icon-time"></i>
                     <span style="margin-left: 10px">{{ scope.row.creditTime }}</span>
@@ -48,7 +48,7 @@
                 </el-table-column>
                 <el-table-column prop="groundName" label="地址">
                 </el-table-column>
-                <el-table-column prop="relativeScore" label="分数" width="100" sortable filter-placement="bottom-end">
+                <el-table-column prop="relativeScore" label="分数" sortable filter-placement="bottom-end">
                   <template slot-scope="scope">
                     <el-tag :type="scope.row.relativeScore >= 0 ? 'success' : 'danger'" disable-transitions>
                       {{scope.row.relativeScore}}</el-tag>

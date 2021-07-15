@@ -18,13 +18,13 @@
               style="width: 100%"
               :default-sort="{ prop: 'date', order: 'descending' }"
             >
-              <el-table-column prop="date" label="日期" width="230" sortable>
+              <el-table-column prop="date" label="日期" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="name" label="名称" width="180">
+              <el-table-column prop="name" label="名称">
               </el-table-column>
               <el-table-column
                 prop="groundname"
@@ -74,13 +74,13 @@
               style="width: 100%"
               :default-sort="{ prop: 'date', order: 'descending' }"
             >
-              <el-table-column prop="date" label="日期" width="230" sortable>
+              <el-table-column prop="date" label="日期" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="name" label="名称" width="180">
+              <el-table-column prop="name" label="名称">
               </el-table-column>
               <el-table-column
                 prop="groundname"
@@ -129,7 +129,6 @@
           ref="ruleForm"
           label-position="left"
           class="demo-table"
-          label-width="150px"
         >
           <el-form-item label="活动ID">
             <label slot="label"><b>活动ID</b></label>
