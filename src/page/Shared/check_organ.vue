@@ -37,7 +37,7 @@
         </el-table-column>
         <el-table-column prop="type" label="组织类型" align="center">
           <template slot-scope="scope">
-            {{ scope.row.type == "1" ? "班级" : "社团" }}
+            {{ scope.row.type == "1" ? "社团" : "班级" }}
           </template>
         </el-table-column>
         <el-table-column width="100" label="操作">
@@ -66,7 +66,7 @@
           <el-col :span="16">
             <p><b>组织账号：</b>{{ orgSelected.accountNumber }}</p>
             <p>
-              <b>组织类型：</b>{{ orgSelected.type == "1" ? "班级" : "社团" }}
+              <b>组织类型：</b>{{ orgSelected.type == "1" ? "社团" : "班级" }}
             </p>
             <p><b>邮箱：</b>{{ orgSelected.emailAddress }}</p>
             <p><b>负责人：</b>{{ orgSelected.functionary }}</p>
