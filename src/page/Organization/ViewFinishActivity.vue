@@ -15,7 +15,6 @@
               height="465"
               stripe
               highlight-current-row
-              @current-change="handleCurrentChange1"
               style="width: 100%"
               :default-sort="{ prop: 'date', order: 'descending' }"
             >
@@ -34,40 +33,50 @@
                       <label slot="label">活动名称</label>
                       <span>{{ props.row.name }}</span>
                     </el-form-item>
-                    <el-form-item label="活动时间">
-                      <label slot="label">活动时间</label>
+                    <el-form-item label="活动日期">
+                      <label slot="label">活动日期</label>
                       <span>{{ props.row.date }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动开始时间">
+                      <label slot="label">活动开始时间</label>
+                      <span>{{ props.row.time }}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
                       <label slot="label">申请地点</label>
-                      <span>{{ props.row.address }}</span>
+                      <span>{{ props.row.groundname }}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
                       <label slot="label">参加人数</label>
-                      <span>{{ props.row.people }}</span>
+                      <span>{{ props.row.participantNum }}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
                       <label slot="label">特殊要求</label>
-                      <span>{{ props.row.require }}</span>
+                      <span>{{ props.row.additionalRequest }}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
                       <label slot="label">活动描述</label>
-                      <span>{{ props.row.details }}</span>
+                      <span>{{ props.row.description }}</span>
                     </el-form-item>
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="180" sortable>
+              <el-table-column prop="date" label="日期" width="230" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
                 </template>
               </el-table-column>
+              <el-table-column
+                prop="time"
+                label="开始时间"
+                width="180"
+                sortable
+              ></el-table-column>
               <el-table-column prop="name" label="名称" width="180">
               </el-table-column>
               <el-table-column
-                prop="address"
-                label="地址"
+                prop="groundname"
+                label="场地名称"
                 :formatter="formatter"
               >
               </el-table-column>
@@ -75,7 +84,6 @@
               <el-table-column
                 prop="tag"
                 label="标签"
-                width="100"
                 :filters="[
                   { text: '室内', value: '室内' },
                   { text: '室外', value: '室外' },
@@ -91,9 +99,32 @@
                   </el-tag>
                 </template>
               </el-table-column>
+              <el-table-column prop="activityState" label="状态">
+                <template slot-scope="scope">
+                  <el-tag
+                    :type="
+                      scope.row.activityState === '已反馈'
+                        ? 'primary'
+                        : 'success'
+                    "
+                    disable-transitions
+                    >{{ scope.row.activityState }}
+                  </el-tag>
+                </template>
+              </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <router-link
+                  <el-button
+                    v-if="scope.row.activityState === '待反馈'"
+                    size="mini"
+                    type="primary"
+                    @click.stop="handleFeedback(scope.row)"
+                    >反馈
+                  </el-button>
+                  <el-button v-else size="mini" type="primary" disabled
+                    >已反馈
+                  </el-button>
+                  <!-- <router-link
                     :to="{
                       name: 'FeedBackWindow',
                       query: { activityID: scope.row.ID },
@@ -102,10 +133,10 @@
                     <el-button
                       size="mini"
                       type="primary"
-                      @click="handleFeedback(scope.$index, scope.row)"
+                      @click.stop="handleFeedback(scope.$index, scope.row)"
                       >反馈
                     </el-button>
-                  </router-link>
+                  </router-link> -->
                 </template>
               </el-table-column>
             </el-table>
@@ -119,7 +150,6 @@
               height="465"
               stripe
               highlight-current-row
-              @current-change="handleCurrentChange2"
               style="width: 100%"
               :default-sort="{ prop: 'date', order: 'descending' }"
             >
@@ -138,44 +168,50 @@
                       <label slot="label">活动名称</label>
                       <span>{{ props.row.name }}</span>
                     </el-form-item>
-                    <el-form-item label="活动时间">
-                      <label slot="label">活动时间</label>
+                    <el-form-item label="活动日期">
+                      <label slot="label">活动日期</label>
                       <span>{{ props.row.date }}</span>
+                    </el-form-item>
+                    <el-form-item label="活动开始时间">
+                      <label slot="label">活动开始时间</label>
+                      <span>{{ props.row.time }}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
                       <label slot="label">申请地点</label>
-                      <span>{{ props.row.address }}</span>
+                      <span>{{ props.row.groundname }}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
                       <label slot="label">参加人数</label>
-                      <span>{{ props.row.people }}</span>
+                      <span>{{ props.row.participantNum }}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
                       <label slot="label">特殊要求</label>
-                      <span>{{ props.row.require }}</span>
+                      <span>{{ props.row.additionalRequest }}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
                       <label slot="label">活动描述</label>
-                      <span>{{ props.row.details }}</span>
-                    </el-form-item>
-                    <el-form-item label="反馈信息">
-                      <label slot="label">反馈信息</label>
-                      <span>{{ props.row.back }}</span>
+                      <span>{{ props.row.description }}</span>
                     </el-form-item>
                   </el-form>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" label="日期" width="180" sortable>
+              <el-table-column prop="date" label="日期" width="230" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
                 </template>
               </el-table-column>
+              <el-table-column
+                prop="time"
+                label="开始时间"
+                width="180"
+                sortable
+              ></el-table-column>
               <el-table-column prop="name" label="名称" width="180">
               </el-table-column>
               <el-table-column
-                prop="address"
-                label="地址"
+                prop="groundname"
+                label="场地名称"
                 :formatter="formatter"
               >
               </el-table-column>
@@ -183,7 +219,6 @@
               <el-table-column
                 prop="tag"
                 label="标签"
-                width="100"
                 :filters="[
                   { text: '室内', value: '室内' },
                   { text: '室外', value: '室外' },
@@ -199,9 +234,32 @@
                   </el-tag>
                 </template>
               </el-table-column>
+              <el-table-column prop="activityState" label="状态">
+                <template slot-scope="scope">
+                  <el-tag
+                    :type="
+                      scope.row.activityState === '已反馈'
+                        ? 'primary'
+                        : 'success'
+                    "
+                    disable-transitions
+                    >{{ scope.row.activityState }}
+                  </el-tag>
+                </template>
+              </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <router-link
+                  <el-button
+                    v-if="scope.row.activityState === '待反馈'"
+                    size="mini"
+                    type="primary"
+                    @click.stop="handleFeedback(scope.row)"
+                    >反馈
+                  </el-button>
+                  <el-button v-else size="mini" type="primary" disabled
+                    >已反馈
+                  </el-button>
+                  <!-- <router-link
                     :to="{
                       name: 'FeedBackWindow',
                       query: { activityID: scope.row.ID },
@@ -209,11 +267,11 @@
                   >
                     <el-button
                       size="mini"
-                      type="success"
-                      @click="handleRenew(scope.$index, scope.row)"
-                      >修改反馈</el-button
-                    >
-                  </router-link>
+                      type="primary"
+                      @click.stop="handleFeedback(scope.$index, scope.row)"
+                      >反馈
+                    </el-button>
+                  </router-link> -->
                 </template>
               </el-table-column>
             </el-table>
@@ -326,10 +384,11 @@ export default {
     GETActivities({ orgId: that.orgId }) //应该加accountNumber
       .then((data) => {
         // console.log("run GETActivities");
-        console.log(data);
+        console.log("ID=", that.orgId);
+        console.log("AXDT",data);
         that.axiosdata = data;
         // console.log("that.axiosdata", that.axiosdata);
-        for (var key in this.tableData) {
+        for (var key in this.tableData.key) {
           if (key in that.axiosdata.key) {
             // console.log("key",key);
             for (var i = 0; i < that.axiosdata[key].length; i++) {
@@ -359,7 +418,8 @@ export default {
               this.tableData[key].push(temp);
             }
           }
-    }
+        }
+        console.log("TABLEDATA",this.tableData);
       })
       .catch((err) => {
         that.data = err;
