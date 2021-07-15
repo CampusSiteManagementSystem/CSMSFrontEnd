@@ -105,7 +105,9 @@ import {
   POSTStudents,
   POSTOrganizations,
   GETOrgEmail,
+  Login,
 } from "../../API/http";
+import store from "../../state/state";
 export default {
   props: ["type"],
   data() {
@@ -187,12 +189,12 @@ export default {
           this.$message(ErrorMessage);
         } else {
           if (this.type === "1") {
-            this.$message("验证码发送成功");
             this.timeCnt = 30;
             this.isOK = true;
             this.cnt();
             GETStuEmail({ email: this.form.email })
               .then((data) => {
+                this.$message("验证码发送成功");
                 data;
               })
               .catch((err) => {
@@ -200,12 +202,12 @@ export default {
                 this.$message.error("验证码发送失败");
               });
           } else if (this.type === "3") {
-            this.$message("验证码发送成功");
             this.timeCnt = 30;
             this.isOK = true;
             this.cnt();
             GETOrgEmail({ email: this.form.email })
               .then((data) => {
+                this.$message("验证码发送成功");
                 data;
               })
               .catch((err) => {
@@ -232,6 +234,23 @@ export default {
                 data;
                 //console.log(data);
                 this.$message("学生用户创建成功");
+                Login({
+                  accountNumber: this.form.accountNumber,
+                  secretPassword: this.form.password,
+                  role: this.role,
+                })
+                  .then((data) => {
+                    localStorage.setItem("uutype", 'student');
+                    localStorage.setItem("uuid", this.form.accountNumber);
+                    localStorage.setItem("uutoken", data.accessToken);
+                    store.state.ID = this.form.accountNumber;
+                    store.state.membertype = 'student';
+                    this.$router.push("/StuFrame/Main");
+                  })
+                  .catch((err) => {
+                    this.$message("登录失败");
+                    console.log(err);
+                  });
               })
               .catch((err) => {
                 //console.log(err);
@@ -250,6 +269,23 @@ export default {
               .then((data) => {
                 data;
                 this.$message("组织用户创建成功");
+                Login({
+                  accountNumber: this.form.accountNumber,
+                  secretPassword: this.form.password,
+                  role: this.role,
+                })
+                  .then((data) => {
+                    localStorage.setItem("uutype", 'organization');
+                    localStorage.setItem("uuid", this.form.accountNumber);
+                    localStorage.setItem("uutoken", data.accessToken);
+                    store.state.ID = this.form.accountNumber;
+                    store.state.membertype = 'organization';
+                    this.$router.push("/OrgFrame/Main");
+                  })
+                  .catch((err) => {
+                    this.$message("登录失败");
+                    console.log(err);
+                  });
               })
               .catch((err) => {
                 err;
@@ -258,7 +294,7 @@ export default {
           }
         } else {
           //alert(msg);
-          alert("信息填写有误，请重新填写");
+          this.$message("信息填写有误，请重新填写");
           this.$refs[formName].clearValidate();
         }
       });
