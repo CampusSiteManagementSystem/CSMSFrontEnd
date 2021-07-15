@@ -17,8 +17,7 @@
             type="text"
             placeholder="请输入内容"
             v-model="ruleform.name"
-            maxlength="20"
-            show-word-limit
+            maxlength="10"
             clearable
           >
           </el-input>
@@ -67,6 +66,8 @@
             :rows="4"
             placeholder="请输入内容"
             v-model="ruleform.description"
+            maxlength="100"
+            show-word-limit
           >
           </el-input>
         </el-form-item>
@@ -88,6 +89,8 @@
             :rows="2"
             placeholder="请输入内容"
             v-model="ruleform.special"
+            maxlength="100"
+            show-word-limit
           >
           </el-input>
         </el-form-item>
@@ -135,9 +138,9 @@ export default {
         name: [
           { required: true, message: "请输入活动名称", trigger: "blur" },
           {
-            min: 0,
-            max: 20,
-            message: "长度在 0 到 20 个字符",
+            min: 1,
+            max: 10,
+            message: "长度在 1 到 10 个字符",
             trigger: "blur",
           },
         ],
@@ -166,8 +169,21 @@ export default {
             },
           },
         ],
+        special: [
+          { required: false, message: "请输入特殊需求", trigger: "blur" },
+          {
+            max: 100,
+            message: "长度在小于100个字符",
+            trigger: "blur",
+          },
+        ],
         description: [
-          { required: true, message: "请输入活动描述", trigger: "blur" },
+          { required: false, message: "请输入活动描述", trigger: "blur" },
+          {
+            max: 100,
+            message: "长度在小于100个字符",
+            trigger: "blur",
+          },
         ],
         site: [
           { required: true, message: "请选择一个活动地点", trigger: "blur" },
