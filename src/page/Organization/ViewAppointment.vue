@@ -220,14 +220,7 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <router-link
-                    :to="{
-                      name: 'ApplySiteWindow',
-                      query: { activityID: scope.row.ID },
-                    }"
-                  >
-                    <el-button size="mini">更改预约</el-button>
-                  </router-link>
+                    <el-button size="mini" @click.stop="handleChange(scope.$index, scope.row, 1)">更改预约</el-button>
                   <el-button
                     size="mini"
                     type="danger"
@@ -939,7 +932,16 @@ export default {
         context.restore();
       }
     },
-
+    handleChange(index, row, type){
+      index;
+      type;
+      this.$router.push({
+        name: "ApplySiteWindow",
+        params: {
+          activityID: row.ID,
+        },
+      });
+    },
     submit() {
       if (this.ruleForm.score == null || this.ruleForm.textarea == "") {
         this.$alert("未输入所有备选项", "反馈失败", {
