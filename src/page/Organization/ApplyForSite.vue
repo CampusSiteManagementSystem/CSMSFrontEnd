@@ -43,6 +43,7 @@
             placeholder="选择日期"
             :picker-options="pickerOptions"
             value-format="yyyy-MM-dd"
+            disabled
           ></el-date-picker>
         </el-form-item>
         <el-form-item label="选择时间：" prop="time">
@@ -55,6 +56,7 @@
             placeholder="选择时间范围"
             @change="getDurTime"
             value-format="HH:mm"
+            disabled
           ></el-time-picker>
         </el-form-item>
         <el-form-item label="活动描述：" prop="description">
@@ -103,7 +105,7 @@
       <el-col :span="12">
         <!-- <el-card> -->
         <div style="padding-left:5%;height:500px">
-         <Mycalendar :groundId="1000003"  @handleSelect="myfun($event)"/>
+         <Mycalendar :groundId="this.$route.query.groundId"  @handleSelect="myfun($event)"/>
         </div>
         <!-- </el-card> -->
 
@@ -224,6 +226,22 @@ export default {
   methods: {
     myfun(a){
       console.log("aaaaaaaaaaabbbbbb",a);
+      let start=a.start;
+      let end=a.end;
+
+      this.ruleform.date=start.replace("T", " ").toString()
+      console.log("aaaaaaaaaaabbbbbb",this.ruleform.time);
+      console.log(start.split("T")[1].toString());
+      console.log(end.split("T")[1].toString());
+      this.ruleform.time[0]=start.split("T")[1].toString().substr(0,5)
+      this.ruleform.time[1]=end.split("T")[1].toString().substr(0,5)
+       console.log(this.ruleform.time);
+      this.ruleform.duration =
+        (this.ruleform.time[1][0] - this.ruleform.time[0][0]) * 600 +
+        (this.ruleform.time[1][1] - this.ruleform.time[0][1]) * 60 +
+        (this.ruleform.time[1][3] - this.ruleform.time[0][3]) * 10 +
+        (this.ruleform.time[1][4] - this.ruleform.time[0][4]) * 1;
+      
 //       {start: "2021-07-12T09:00:00+08:00", end: "2021-07-12T12:30:00+08:00"}
 // end: "2021-07-12T12:30:00+08:00"
 // start: "2021-07-12T09:00:00+08:00"

@@ -60,7 +60,7 @@
         >
       </el-row>
     </el-header>
-    <el-container style="height: 92%">
+    <el-container calss = "test" style="height: 92%;">
       <el-aside style="width: auto">
         <el-menu
           class="el-menu-vertical-demo"
@@ -127,6 +127,13 @@ body,
   height: 100%;
   overflow: hidden;
 }
+/* #app{
+  background-color: bisque;
+}
+
+.test{
+  background-color: aqua;
+} */
 
 .el-main {
   overflow: auto;
@@ -134,7 +141,7 @@ body,
   background-color: rgb(237, 241, 245);
 }
 .header {
-  background-color: white;
+  background-color: red;
   padding-left: 16px;
   border-bottom: 0.5px solid rgba(85, 79, 78, 0.178);
 }
