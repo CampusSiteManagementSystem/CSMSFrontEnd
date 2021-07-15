@@ -762,7 +762,7 @@ export default {
       this.currentRow = val;
       this.$router.push({
         name: "RejectedWindow",
-        query: {
+        params: {
           activityID: val.ID,
         },
       });
