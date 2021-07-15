@@ -235,15 +235,15 @@ export default {
                 //console.log(data);
                 this.$message("学生用户创建成功");
                 Login({
-                  accountNumber: this.form.accountNumber,
+                  accountNumber: this.form.accountNo,
                   secretPassword: this.form.password,
-                  role: this.role,
+                  role: 'student',
                 })
                   .then((data) => {
                     localStorage.setItem("uutype", 'student');
-                    localStorage.setItem("uuid", this.form.accountNumber);
+                    localStorage.setItem("uuid", this.form.accountNo);
                     localStorage.setItem("uutoken", data.accessToken);
-                    store.state.ID = this.form.accountNumber;
+                    store.state.ID = this.form.accountNo;
                     store.state.membertype = 'student';
                     this.$router.push("/StuFrame/Main");
                   })
@@ -270,15 +270,15 @@ export default {
                 data;
                 this.$message("组织用户创建成功");
                 Login({
-                  accountNumber: this.form.accountNumber,
+                  accountNumber: this.form.accountNo,
                   secretPassword: this.form.password,
-                  role: this.role,
+                  role: 'organization',
                 })
                   .then((data) => {
                     localStorage.setItem("uutype", 'organization');
-                    localStorage.setItem("uuid", this.form.accountNumber);
+                    localStorage.setItem("uuid", this.form.accountNo);
                     localStorage.setItem("uutoken", data.accessToken);
-                    store.state.ID = this.form.accountNumber;
+                    store.state.ID = this.form.accountNo;
                     store.state.membertype = 'organization';
                     this.$router.push("/OrgFrame/Main");
                   })
