@@ -21,7 +21,7 @@
           >
             <el-table-column type="expand">
               <template slot-scope="props">
-                <el-form label-position="left" class="demo-table-expand">
+                <el-form label-position="left" class="demo-table-expand" label-width="150px">
                   <el-form-item label="活动ID">
                     <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
                     <span>{{ props.row.ID }}</span>
@@ -91,7 +91,7 @@
                 </el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" width=400>
               <template slot-scope="scope">
                 <router-link
                   :to="{
@@ -133,7 +133,7 @@
           >
             <el-table-column type="expand">
               <template slot-scope="props">
-                <el-form label-position="left" class="demo-table-expand">
+                <el-form label-position="left" class="demo-table-expand" label-width="150px">
                   <el-form-item label="活动ID">
                     <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
                     <span>{{ props.row.ID }}</span>
@@ -220,7 +220,7 @@
               </el-table-column>
             </el-table>
           </el-tab-pane>
-          <el-tab-pane label="已完成" name="third">
+          <!-- <el-tab-pane label="已完成" name="third">
             <el-table
               :header-row-style="{ height: '20px' }"
               :cell-style="{ padding: '5px' }"
@@ -233,16 +233,16 @@
               @current-change="handleCurrentChange3"
               style="width: 100%"
               :default-sort="{ prop: 'date', order: 'descending' }"
-            >
-              <template slot-scope="scope">
+            > -->
+              <!-- <template slot-scope="scope">
                 <el-tag
                   :type="scope.row.tag === '室内' ? 'primary' : 'success'"
                   disable-transitions
                   >{{ scope.row.tag }}
                 </el-tag>
               </template>
-            </el-table-column>
-            <el-table-column label="操作">
+            </el-table-column> -->
+            <!-- <el-table-column label="操作">
               <template slot-scope="scope">
                 <el-button
                   size="mini"
@@ -259,7 +259,7 @@
               </template>
             </el-table-column>
           </el-table>
-        </el-tab-pane>
+        </el-tab-pane> -->
         <el-tab-pane label="已完成" name="third">
           <el-table
             :header-row-style="{ height: '20px' }"
@@ -409,7 +409,7 @@
           >
             <el-table-column type="expand">
               <template slot-scope="props">
-                <el-form label-position="left" class="demo-table-expand">
+                <el-form label-position="left" class="demo-table-expand" label-width="150px">
                   <el-form-item label="活动ID">
                     <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
                     <span>{{ props.row.ID }}</span>
@@ -959,16 +959,6 @@ export default {
         context.fill();
         context.restore();
       }
-    },
-    handleChange(index, row, type){
-      index;
-      type;
-      this.$router.push({
-        name: "ApplySiteWindow",
-        params: {
-          activityID: row.ID,
-        },
-      });
     },
     submit() {
       if (this.ruleForm.score == null || this.ruleForm.textarea == "") {
