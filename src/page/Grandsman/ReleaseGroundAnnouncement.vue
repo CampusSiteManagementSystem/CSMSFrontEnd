@@ -115,13 +115,13 @@ export default {
     var axios = require("axios");
     var config1 = {
       method: "get",
-      url: "http://139.196.114.7/api/IndoorGrounds?accountNumber="+store.state.ID, //改
+      url: "http://139.196.114.7/api/IndoorGrounds?accountNumber="+store.state.ID,
       headers: {},
     };
 
     var config2 = {
       method: "get",
-      url: "http://139.196.114.7/api/OutdoorGrounds?accountNumber="+store.state.ID, //改
+      url: "http://139.196.114.7/api/OutdoorGrounds?accountNumber="+store.state.ID,
       headers: {},
     };
 

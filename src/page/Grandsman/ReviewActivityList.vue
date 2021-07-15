@@ -129,8 +129,8 @@
 </template>
 
 <script>
-import { GETActivities } from "../../API/http";
-// import store from "../../state/state.js"
+// import { GETActivities } from "../../API/http";
+import store from "../../state/state.js"
 export default {
   name: "ActivityList",
   components: {},
@@ -150,17 +150,19 @@ export default {
     };
   },
   mounted() {
-    const that = this;
-    console.log("run mounted");
-    GETActivities() //应该加accountNumber
-      .then((data) => {
-        console.log("run GETActivities");
-        that.axiosdata = data;
-        that.dealWithActivities(that.axiosdata);
-        //console.log(that.axiosdata);
+    var axios = require("axios");
+    var config = {
+      method: "get",
+      url: "http://139.196.114.7/api/Activities?accountNumber="+store.state.ID,
+      headers: {},
+    };
+    axios(config)
+      .then((response) => {
+        this.axiosdata = response.data;
+        this.dealWithActivities(this.axiosdata);
       })
-      .catch((err) => {
-        that.data = err;
+      .catch((error) => {
+        console.log(error);
       });
   },
   methods: {
