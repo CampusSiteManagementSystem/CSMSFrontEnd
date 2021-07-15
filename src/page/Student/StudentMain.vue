@@ -235,6 +235,7 @@ export default {
     GETStudentsID(this.StuID)
       .then((data) => {
         this.StuInfo = data;
+        this.NumToStr();
         //console.log(data);
       })
       .catch((err) => {
@@ -294,6 +295,22 @@ export default {
       futureActivity: [],
       //第四片卡片信息
       occupation: [],
+      colleges: [{
+        value: '软件学院',
+        label: '软件学院'
+      }, {
+        value: '土木工程学院',
+        label: '土木工程学院'
+      }, {
+        value: '经济与管理学院',
+        label: '经济与管理学院'
+      }, {
+        value: '数学科学学院',
+        label: '数学科学学院'
+      }, {
+        value: '电子与信息工程学院',
+        label: '电子与信息工程学院'
+      }],
     };
   },
   methods: {
@@ -309,6 +326,12 @@ export default {
       this.dialogTitle = row.groundName+" "+row.title;
       this.dialogContent = row.content;
       this.dialogVisible = true;
+    },
+    NumToStr() {
+      if(this.StuInfo.academy<this.colleges.length)
+      {
+        this.StuInfo.academy=this.colleges[this.StuInfo.academy].label;        
+      }
     },
     onActivityRowClick(row) {
       this.activitySelected = row;

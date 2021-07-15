@@ -44,7 +44,7 @@
             ></el-button>
             <el-dropdown trigger="click" @command="handleCommand">
               <span class="el-dropdown-link" trigger="click">
-                {{id}}<i class="el-icon-arrow-down el-icon--right"></i>
+                {{ id }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="accountInfo"
@@ -192,6 +192,7 @@ body,
 
 
 <script>
+import router from "../../router/index";
 // import sidebar from "../../components/GrandsmanSidebar.vue";
 import store from "../../state/state.js";
 import * as echarts from "echarts";
@@ -226,7 +227,7 @@ export default {
     };
   },
   mounted() {
-     this.breadList=this.$route.matched
+    this.breadList = this.$route.matched;
     this.drawClock();
     console.log("option", this.option);
     const that = this;
@@ -270,7 +271,13 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        this.$router.push({ path: "/" });
+        localStorage.removeItem("uuid");
+        localStorage.removeItem("uutype");
+        localStorage.removeItem("uutoken");
+        store.state.ID = null;
+        const routeHistory = history.length - 1;
+        router.go(-routeHistory);
+        router.replace("/");
       });
     },
 

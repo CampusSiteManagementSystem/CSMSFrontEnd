@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { GETIdentity } from '../API/http'
+import store from '../state/state'
 Vue.use(VueRouter)
+
 
 const routes = [
     //注册、登录、忘记密码
@@ -838,18 +840,26 @@ router.beforeEach((to, from, next) => {
             .then((data) => {
                 const id = localStorage.getItem('uuid');
                 const type = localStorage.getItem('uutype');
-                if (id === data.accountNumber && type === data.role && to.meta.roles.some(role => {
-                        return role === type;
-                    })) {
+                if (id === data.accountNumber && type === data.role) { //身份正确
+                    store.state.ID = id;
+                    store.state.membertype = type;
                     if (to.meta.title) {
                         document.title = to.meta.title
                     }
-                    next();
+                    if (to.meta.roles.some(role => { //拥有权限
+                            return role === type;
+                        })) {
+                        next();
+                    } else {
+                        next(false);
+                    }
                 } else {
                     localStorage.removeItem("uuid");
                     localStorage.removeItem("uutype");
                     localStorage.removeItem("uutoken");
-                    next('/');
+                    const routeHistory = history.length - 1;
+                    router.go(-routeHistory);
+                    router.replace('/')
                 }
             })
             .catch(() => {

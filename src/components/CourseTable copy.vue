@@ -156,4 +156,4 @@ export default {
   .clearfix:after {
     clear: both
   }
-</style>>
+</style>
