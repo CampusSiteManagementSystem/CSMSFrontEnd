@@ -1,111 +1,126 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-    <div class="maintitle">审核预约记录</div>
-    <el-tabs v-model="activeTab">
+      <div class="maintitle">审核预约记录</div>
+      <el-tabs v-model="activeTab">
         <el-tab-pane label="待审批" name="panel1">
-        <el-table
-          :data="tableData.filter((item, index, arr)=>{return item.activityState === '审核中'})"
-          :default-sort = "{prop: 'time', order: 'ascending'}"
-          height="480"
-        >
-        <el-table-column prop="groupname" label="组织" width="220">
-        </el-table-column>
-        <el-table-column prop="activityname" label="活动名称" width="380">
-        </el-table-column>
-        <el-table-column prop="ground" label="场地" width="180">
-        </el-table-column>
-        <el-table-column prop="time" sortable label="时间" width="280">
-        </el-table-column>
-       <el-table-column
-          prop="activityState"
-          label="状态"
-          width="120"
-          column-key="activityState"
-          :filters="[
-            { text: '审核中', value: '审核中' },
-            { text: '待举办', value: '待举办' },
-            { text: '待反馈', value: '待反馈' },
-            { text: '已反馈', value: '已反馈' },
-            { text: '被驳回', value: '被驳回' },
-          ]"
-          :filter-method="filterTag"
-          filter-placement="bottom-end"
-        >
-          <template slot-scope="scope1">
-            <el-tag
-              :type="tagType[ scope1.row.activityState]"
-              disable-transitions
+          <el-table
+            :data="
+              tableData.filter((item, index, arr) => {
+                return item.activityState === '审核中';
+              })
+            "
+            :default-sort="{ prop: 'time', order: 'ascending' }"
+            height="480"
+          >
+            <el-table-column prop="groupname" label="组织" width="220">
+            </el-table-column>
+            <el-table-column prop="activityname" label="活动名称" width="380">
+            </el-table-column>
+            <el-table-column prop="ground" label="场地" width="180">
+            </el-table-column>
+            <el-table-column prop="time" sortable label="时间" width="280">
+            </el-table-column>
+            <el-table-column
+              prop="activityState"
+              label="状态"
+              width="120"
+              column-key="activityState"
+              :filters="[
+                { text: '审核中', value: '审核中' },
+                { text: '待举办', value: '待举办' },
+                { text: '待反馈', value: '待反馈' },
+                { text: '已反馈', value: '已反馈' },
+                { text: '被驳回', value: '被驳回' },
+              ]"
+              :filter-method="filterTag"
+              filter-placement="bottom-end"
             >
-              {{scope1.row.activityState}}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column>
-            <template slot-scope="scope">
-            <router-link
-              :to="{ name: 'OrgActivityInfo', params: { ID: scope.row.activityID } }"
-            >
-              <el-button @click="handleClick(scope.row)" type="text"
-                >查看</el-button
-              >
-            </router-link>
-            </template>
-            <router-link to="/GroundsAdmin/ActivityInfo"></router-link>
-        </el-table-column>
-      </el-table>
+              <template slot-scope="scope1">
+                <el-tag
+                  :type="tagType[scope1.row.activityState]"
+                  disable-transitions
+                >
+                  {{ scope1.row.activityState }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column>
+              <template slot-scope="scope">
+                <router-link
+                  :to="{
+                    name: 'OrgActivityInfo',
+                    params: { ID: scope.row.activityID },
+                  }"
+                >
+                  <el-button @click="handleClick(scope.row)" type="text"
+                    >查看</el-button
+                  >
+                </router-link>
+              </template>
+              <router-link to="/GroundsAdmin/ActivityInfo"></router-link>
+            </el-table-column>
+          </el-table>
         </el-tab-pane>
         <el-tab-pane label="已审批" name="pane2">
-        <el-table
-          :data="tableData.filter((item, index, arr)=>{return item.activityState != '审核中'})"
-          :default-sort = "{prop: 'time', order: 'descending'}"
-          height="480"
-        >
-        <el-table-column prop="groupname" label="组织" width="220">
-        </el-table-column>
-        <el-table-column prop="activityname" label="活动名称" width="380">
-        </el-table-column>
-        <el-table-column prop="ground" label="场地" width="180">
-        </el-table-column>
-        <el-table-column prop="time" sortable label="时间" width="180">
-        </el-table-column>
-        <el-table-column
-          prop="activityState"
-          label="状态"
-          width="120"
-          column-key="activityState"
-          :filters="[
-            { text: '审核中', value: '审核中' },
-            { text: '待举办', value: '待举办' },
-            { text: '待反馈', value: '待反馈' },
-            { text: '已反馈', value: '已反馈' },
-            { text: '被驳回', value: '被驳回' },
-          ]"
-          :filter-method="filterTag"
-          filter-placement="bottom-end"
-        >
-          <template slot-scope="scope1">
-            <el-tag
-              :type="tagType[ scope1.row.activityState]"
-              disable-transitions
+          <el-table
+            :data="
+              tableData.filter((item, index, arr) => {
+                return item.activityState != '审核中';
+              })
+            "
+            :default-sort="{ prop: 'time', order: 'descending' }"
+            height="480"
+          >
+            <el-table-column prop="groupname" label="组织" width="220">
+            </el-table-column>
+            <el-table-column prop="activityname" label="活动名称" width="380">
+            </el-table-column>
+            <el-table-column prop="ground" label="场地" width="180">
+            </el-table-column>
+            <el-table-column prop="time" sortable label="时间" width="180">
+            </el-table-column>
+            <el-table-column
+              prop="activityState"
+              label="状态"
+              width="120"
+              column-key="activityState"
+              :filters="[
+                { text: '审核中', value: '审核中' },
+                { text: '待举办', value: '待举办' },
+                { text: '待反馈', value: '待反馈' },
+                { text: '已反馈', value: '已反馈' },
+                { text: '被驳回', value: '被驳回' },
+                { text: '已过期', value: '已过期' },
+              ]"
+              :filter-method="filterTag"
+              filter-placement="bottom-end"
             >
-              {{scope1.row.activityState}}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column>
-            <template slot-scope="scope">
-            <router-link
-              :to="{ name: 'OrgActivityInfo', params: { ID: scope.row.activityID } }"
-            >
-              <el-button @click="handleClick(scope.row)" type="text"
-                >查看</el-button
-              >
-            </router-link>
-            </template>
-            <router-link to="/GroundsAdmin/ActivityInfo"></router-link>
-        </el-table-column>
-      </el-table>
+              <template slot-scope="scope1">
+                <el-tag
+                  :type="tagType[scope1.row.activityState]"
+                  disable-transitions
+                >
+                  {{ scope1.row.activityState }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column>
+              <template slot-scope="scope">
+                <router-link
+                  :to="{
+                    name: 'OrgActivityInfo',
+                    params: { ID: scope.row.activityID },
+                  }"
+                >
+                  <el-button @click="handleClick(scope.row)" type="text"
+                    >查看</el-button
+                  >
+                </router-link>
+              </template>
+              <router-link to="/GroundsAdmin/ActivityInfo"></router-link>
+            </el-table-column>
+          </el-table>
         </el-tab-pane>
       </el-tabs>
     </el-card>
@@ -116,24 +131,24 @@
 import { GETActivities } from "../../API/http";
 // import store from "../../state/state.js"
 export default {
-  name: 'ActivityList',
-      components: {
-    },
-    data() {
-      return {
-        axiosdata:null,
-        activeTab: 'panel1',
-        tableData: [],
-        tagType: {
-        '审核中': "warning",
-        '待举办': "danger",
-        '待反馈': "primary",
-        '已反馈': "success",
-        '被驳回': "info",
+  name: "ActivityList",
+  components: {},
+  data() {
+    return {
+      axiosdata: null,
+      activeTab: "panel1",
+      tableData: [],
+      tagType: {
+        审核中: "warning",
+        待举办: "danger",
+        待反馈: "primary",
+        已反馈: "success",
+        被驳回: "info",
+        已过期: "",
       },
-      }
-    },
-     mounted() {
+    };
+  },
+  mounted() {
     const that = this;
     console.log("run mounted");
     GETActivities() //应该加accountNumber
@@ -147,8 +162,8 @@ export default {
         that.data = err;
       });
   },
-    methods: {
-      dealWithActivities(data) {
+  methods: {
+    dealWithActivities(data) {
       console.log("run dealwithActivities");
       for (var key in data) {
         for (var i = 0; i < data[key].length; i++) {
@@ -171,16 +186,13 @@ export default {
       }
       console.log(this.tableData);
     },
-      filterTag(value, row, column) {
-        const property = column["property"];
-        return row[property] === value;
+    filterTag(value, row, column) {
+      const property = column["property"];
+      return row[property] === value;
     },
-    handleClick(){
-
-    },
-    },
-  
-  };
+    handleClick() {},
+  },
+};
 </script>
 
 <style scpoed>
@@ -204,9 +216,8 @@ body,
 .detailinfo {
   padding: 15px;
 }
-.maincard{
+.maincard {
   border-radius: 15px;
   height: 100%;
 }
-
 </style>
