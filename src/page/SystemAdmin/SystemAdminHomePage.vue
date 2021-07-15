@@ -177,6 +177,10 @@ export default {
     GETOrganizations()
       .then((data) => {
         this.groupInfo = data;
+        for(var i = 0; i < data.length; i++)
+        {
+          this.groupInfo[i].joinDate=data[i].joinDate.replace("T", " ");
+        }
         console.log(">>>>>>", data);
       })
       .catch((err) => {
