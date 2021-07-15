@@ -81,10 +81,11 @@ export default {
   },
 
   mounted() {
-    var axios = require('axios');
+    let that=this;
+    var axios = require('axios'); 
     var config = {
       method: 'get',
-      url: 'http://139.196.114.7/api/GroundsaccountNumber=' + store.state.ID,
+      url: 'http://139.196.114.7/api/Grounds?accountNumber=' + store.state.ID,
       headers: { }
     };
                 
@@ -98,6 +99,12 @@ export default {
     })
     .catch(function (error) {
       console.log(error);
+      console.log("获取场地列表失败",store.state.ID);
+      that.$message({
+          showClose: true,
+          message: "获取场地列表失败",
+          type: "error",
+        });
     });
   },
 

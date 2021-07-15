@@ -60,7 +60,7 @@
         >
       </el-row>
     </el-header>
-    <el-container style="height: 92%">
+    <el-container calss="test" style="height: 92%">
       <el-aside style="width: auto">
         <el-menu
           class="el-menu-vertical-demo"
@@ -127,14 +127,20 @@ body,
   height: 100%;
   overflow: hidden;
 }
+/* #app{
+  background-color: bisque;
+}
+
+.test{
+  background-color: aqua;
+} */
 
 .el-main {
   overflow: auto;
   /* background-color: wheat; */
-  background-color: rgb(237, 241, 245);
+  /* background-color: rgb(70, 107, 145); */
 }
 .header {
-  background-color: white;
   padding-left: 16px;
   border-bottom: 0.5px solid rgba(85, 79, 78, 0.178);
 }
@@ -176,7 +182,7 @@ body,
 
 <script>
 import { GETStudentsID } from "../../API/http";
-
+import router from "../../router/index"
 import store from "../../state/state.js";
 import * as echarts from "echarts";
 export default {
@@ -223,9 +229,9 @@ export default {
           type: "error",
         });
       });
-   console.log("this.$route.path",this.$route.matched);
-    this.breadList=this.$route.matched
-  
+    console.log("this.$route.path", this.$route.matched);
+    this.breadList = this.$route.matched;
+
     this.drawClock();
     //console.log("option", this.option);
     const that = this;
@@ -273,7 +279,13 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        this.$router.push({ path: "/" });
+        localStorage.removeItem("uuid");
+        localStorage.removeItem("uutype");
+        localStorage.removeItem("uutoken");
+        store.state.ID =null;
+        const routeHistory = history.length - 1;
+        router.go(-routeHistory);
+        router.replace("/");
       });
     },
 

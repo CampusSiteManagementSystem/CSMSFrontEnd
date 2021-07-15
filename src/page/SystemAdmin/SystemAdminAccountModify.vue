@@ -130,10 +130,10 @@ p {
 import {GETSystemAdministratorsID,
       PUTSystemAdministratorsID
       } from "../../API/http"
-
+import store from "../../state/state";
 export default {
   created() {
-    GETSystemAdministratorsID("1000001")
+    GETSystemAdministratorsID(this.SysID)
       .then((data) => {
         this.ruleForm.accountNumber = data.accountNumber;
         this.ruleForm.secretPassword = data.secretPassword;
@@ -153,7 +153,7 @@ export default {
         secretPassword: "",
         eMailAddress: "",
       },
-
+      SysID:store.state.ID,
       tableData: [
         {
           title: "账号",
@@ -195,7 +195,7 @@ export default {
       this.tableData[2].content = this.ruleForm.eMailAddress;
     },
     setToDB() {
-      PUTSystemAdministratorsID("1000001",{
+      PUTSystemAdministratorsID(this.SysID,{
           accountNumber: this.ruleForm.accountNumber,
           secretPassword: this.ruleForm.secretPassword,
           eMailAddress: this.ruleForm.eMailAddress,

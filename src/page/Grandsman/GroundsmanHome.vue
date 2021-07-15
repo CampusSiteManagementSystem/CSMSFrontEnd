@@ -13,7 +13,7 @@
             <el-col :span="16">
               <div class="name">{{ personinfo.name }}</div>
               <div class="other-info">
-                <br />工号：1956666<br />管理场地：<el-tag
+                <br />工号：{{this.personinfo.id}}<br />管理场地：<el-tag
                   v-for="(ground, i) in personinfo.grounds"
                   :key="i"
                   :type="personinfo.type[i % 5]"
@@ -37,6 +37,7 @@
             style="width: 100%"
             height="129px"
             :show-header="false"
+            empty-text="目前没有场地被占用"
             @row-click="onOccupyRowClick"
           >
             <el-table-column prop="position" label="内容"> </el-table-column>
