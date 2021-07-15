@@ -10,6 +10,7 @@ module.exports = {
                     uglifyOptions: {
                         warnings: false,
                         compress: {
+                            warnings: false,
                             drop_console: true,
                             pure_funcs: ['console.log']
                         }

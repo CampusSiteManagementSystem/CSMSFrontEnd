@@ -129,6 +129,8 @@ export default {
   },
   data() {
     return {
+      iGroundTable: [],
+      oGroundTable: [],
       rules: {
         name: [
           { required: true, message: "请输入活动名称", trigger: "blur" },
