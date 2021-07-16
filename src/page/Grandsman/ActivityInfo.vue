@@ -118,7 +118,7 @@ export default {
       axiosdata: null,
       id: null,
       organization: null,
-      accountnumber: null,
+      accountNumber: null,
       credit: null,
       email: null,
       name: null,

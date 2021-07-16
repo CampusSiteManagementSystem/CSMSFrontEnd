@@ -539,6 +539,7 @@
         :visible.sync="dialogVisible"
         width="60%"
         :before-close="handleClose"
+        class="dialog"
       >
         <div id="pdfDom">
           <div class="proBox">
@@ -553,7 +554,7 @@
             </p>
             <div class="con-unit">
               <p>同济大学校园场地管理系统</p>
-              <p class="time">{{ formatTime }}</p>
+              <p class="time">{{ formatTime.replace("T", " ") }}</p>
             </div>
             <p class="con-footer">同济大学校务处 监制</p>
 

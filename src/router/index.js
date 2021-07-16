@@ -136,16 +136,6 @@ const routes = [
                     roles: ['student']
                 }
             }, {
-                path: "ActivityInfo/:ID",
-                name: "StuActivityInfo",
-                component: () =>
-                    import ('../page/Shared/ActivityInfo.vue'),
-                meta: {
-                    title: '活动详情',
-                    requireAuth: true,
-                    roles: ['student']
-                }
-            }, {
                 path: "ViewActivities/:ID",
                 name: "ViewActivities",
                 component: () =>
