@@ -132,7 +132,7 @@ export default {
             // this.res = data;
             console.log(data);
             this.$message({ message: "公告发布成功", type: "success" });
-            this.$router.push({ path: "/SysAdminFrame/SysAdminHomePage" });
+            this.$router.push("/SysAdminFrame/Announcement");
           })
           .catch((err) => {
             console.log("err", err);
