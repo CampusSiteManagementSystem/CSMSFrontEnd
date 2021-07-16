@@ -407,7 +407,7 @@ export default {
           }).catch(err=>{
             console.log(err);
             this.$message({
-              message: "课程添加失败",
+              message: "课程时间不合法，课程添加失败",
               type: "error",
             });
           });
