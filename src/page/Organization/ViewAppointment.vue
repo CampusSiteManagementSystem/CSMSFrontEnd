@@ -21,9 +21,13 @@
           >
             <el-table-column type="expand">
               <template slot-scope="props">
-                <el-form label-position="left" class="demo-table-expand" label-width="150px">
+                <el-form
+                  label-position="left"
+                  class="demo-table-expand"
+                  label-width="150px"
+                >
                   <el-form-item label="活动ID">
-                    <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
+                    <label slot="label">活动ID</label>
                     <span>{{ props.row.ID }}</span>
                   </el-form-item>
                   <el-form-item label="活动名称">
@@ -91,7 +95,7 @@
                 </el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="操作" width=400>
+            <el-table-column label="操作" width="400" align="center">
               <template slot-scope="scope">
                 <router-link
                   :to="{
@@ -133,9 +137,13 @@
           >
             <el-table-column type="expand">
               <template slot-scope="props">
-                <el-form label-position="left" class="demo-table-expand" label-width="150px">
+                <el-form
+                  label-position="left"
+                  class="demo-table-expand"
+                  label-width="150px"
+                >
                   <el-form-item label="活动ID">
-                    <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
+                    <label slot="label">活动ID</label>
                     <span>{{ props.row.ID }}</span>
                   </el-form-item>
                   <el-form-item label="活动名称">
@@ -188,39 +196,49 @@
             >
             </el-table-column>
 
-              <el-table-column
-                prop="tag"
-                label="标签"
-                :filters="[
-                  { text: '室内', value: '室内' },
-                  { text: '室外', value: '室外' },
-                ]"
-                :filter-method="filterTag"
-                filter-placement="bottom-end"
-              >
-                <template slot-scope="scope">
-                  <el-tag
-                    :type="scope.row.tag === '室内' ? 'primary' : 'success'"
-                    disable-transitions
-                    >{{ scope.row.tag }}
-                  </el-tag>
-                </template>
-              </el-table-column>
-              <el-table-column label="操作">
-                <template slot-scope="scope">
-                    <el-button size="mini" @click.stop="handleChange(scope.$index, scope.row, 1)">更改预约</el-button>
-                  <el-button
-                    size="mini"
-                    type="danger"
-                    class="modify"
-                    @click.stop="handleDelete(scope.$index, scope.row, 2)"
-                    >删除预约
-                  </el-button>
-                </template>
-              </el-table-column>
-            </el-table>
-          </el-tab-pane>
-          <!-- <el-tab-pane label="已完成" name="third">
+            <el-table-column
+              prop="tag"
+              label="标签"
+              :filters="[
+                { text: '室内', value: '室内' },
+                { text: '室外', value: '室外' },
+              ]"
+              :filter-method="filterTag"
+              filter-placement="bottom-end"
+            >
+              <template slot-scope="scope">
+                <el-tag
+                  :type="scope.row.tag === '室内' ? 'primary' : 'success'"
+                  disable-transitions
+                  >{{ scope.row.tag }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" width="250px" align="center">
+              <template slot-scope="scope">
+                <el-row gutter="10">
+                  <el-col span="12">
+                    <el-button
+                      size="mini"
+                      @click.stop="handleChange(scope.$index, scope.row, 1)"
+                      >更改预约</el-button
+                    >
+                  </el-col>
+                  <el-col span="12">
+                    <el-button
+                      size="mini"
+                      type="danger"
+                      class="modify"
+                      @click.stop="handleDelete(scope.$index, scope.row, 2)"
+                      >删除预约
+                    </el-button>
+                  </el-col>
+                </el-row>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+        <!-- <el-tab-pane label="已完成" name="third">
             <el-table
               :header-row-style="{ height: '20px' }"
               :cell-style="{ padding: '5px' }"
@@ -234,7 +252,7 @@
               style="width: 100%"
               :default-sort="{ prop: 'date', order: 'descending' }"
             > -->
-              <!-- <template slot-scope="scope">
+        <!-- <template slot-scope="scope">
                 <el-tag
                   :type="scope.row.tag === '室内' ? 'primary' : 'success'"
                   disable-transitions
@@ -242,7 +260,7 @@
                 </el-tag>
               </template>
             </el-table-column> -->
-            <!-- <el-table-column label="操作">
+        <!-- <el-table-column label="操作">
               <template slot-scope="scope">
                 <el-button
                   size="mini"
@@ -282,7 +300,7 @@
                   label-width="150px"
                 >
                   <el-form-item label="活动ID">
-                    <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
+                    <label slot="label">活动ID</label>
                     <span>{{ props.row.ID }}</span>
                   </el-form-item>
                   <el-form-item label="活动名称">
@@ -364,7 +382,7 @@
                 </el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" align="center">
               <template slot-scope="scope">
                 <el-button
                   v-if="scope.row.activityState === '待反馈'"
@@ -409,9 +427,13 @@
           >
             <el-table-column type="expand">
               <template slot-scope="props">
-                <el-form label-position="left" class="demo-table-expand" label-width="150px">
+                <el-form
+                  label-position="left"
+                  class="demo-table-expand"
+                  label-width="150px"
+                >
                   <el-form-item label="活动ID">
-                    <label slot="label">活&nbsp;&nbsp;动&nbsp;&nbsp;ID</label>
+                    <label slot="label">活动ID</label>
                     <span>{{ props.row.ID }}</span>
                   </el-form-item>
                   <el-form-item label="活动名称">
@@ -481,7 +503,7 @@
                 </el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" align="center">
               <template slot-scope="scope">
                 <router-link
                   :to="{
@@ -859,7 +881,7 @@ export default {
           temp.groundname = data[key][i].groundName;
           temp.additionalRequest = data[key][i].additionalRequest;
           temp.activityState = data[key][i].activityState;
-
+          temp.tag = data[key][i].isGroundIndoor ? '室内' : '室外';
           this.tableData[key].push(temp);
         }
       }
