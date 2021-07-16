@@ -16,7 +16,7 @@
               <div class="other-info">
                 <br />ID：{{ orgnizationInfo.accountNumber }}<br />负责人：{{
                   orgnizationInfo.functionary==null?"请完善个人信息":orgnizationInfo.functionary
-                }}<br />组织类型：<el-tag type="success">
+                }}<br />组织类型：<el-tag type="success" class="tag">
                   {{ orgnizationInfo.type==null?"请完善个人信息":orgnizationInfo.type }}
                 </el-tag>
               </div>
@@ -219,7 +219,7 @@ export default {
     var curTime = this.getCurrentTime();
     console.log("curTime", curTime);
     GETGrounds({
-        occupyDateTime:"2021-07-12T09:40:20"
+        occupyDateTime:curTime
       })
       .then((data) => {
         //console.log("12345698",data);
@@ -238,10 +238,10 @@ export default {
       semesterInfo: {
         //get semester from backend
 
-        fromYear: "2020",
-        toYear: "2021",
+        fromYear: "2021",
+        toYear: "2022",
         semester: "2",
-        week: "14",
+        week: "20",
       },
       //第二块卡片信息
       OrgID:store.state.ID,
@@ -360,7 +360,11 @@ body
   margin: 0px;
   height: 100%;
 }
-
+.tag{
+  margin-top: 4px;
+  margin-bottom: 1px;
+  margin-right: 5px;
+}
 .upper-card,
 .lower-card{
   overflow: auto;
@@ -408,7 +412,9 @@ body
 .lower-card {
   height: 340px;
 }
-
+.el-dialog__header {
+  border-bottom: 1px solid #ebebeb;
+}
 .name {
   font-size: 30px;
   font-weight: 550;

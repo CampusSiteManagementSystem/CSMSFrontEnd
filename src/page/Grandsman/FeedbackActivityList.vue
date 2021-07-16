@@ -20,7 +20,7 @@
       <el-table
         :header-row-style="{ height: '10px' }"
         :cell-style="{ padding: '3px' }"
-        height="520"
+        height="500"
         ref="filterTable"
         :data="matchList"
         style="width: 100%"
@@ -29,32 +29,24 @@
       >
         <el-table-column prop="time" label="开始时间" sortable>
         </el-table-column>
-        <el-table-column prop="activityname" label="活动">
-        </el-table-column>
-        <el-table-column prop="groupname" label="组织">
-        </el-table-column>
-        <el-table-column prop="ground" label="场地">
-        </el-table-column>
+        <el-table-column prop="activityname" label="活动"> </el-table-column>
+        <el-table-column prop="groupname" label="组织"> </el-table-column>
+        <el-table-column prop="ground" label="场地"> </el-table-column>
         <el-table-column
           prop="activityState"
           label="活动状态"
           column-key="activityState"
           :filters="[
-            { text: '审核中', value: '审核中' },
-            { text: '待举办', value: '待举办' },
             { text: '待反馈', value: '待反馈' },
             { text: '已反馈', value: '已反馈' },
-            { text: '被驳回', value: '被驳回' },
           ]"
           :filter-method="filterHandler"
         >
           <template slot-scope="scope">
             <el-tag
-              :type="tagType[ scope.row.activityState]"
+              :type="tagType[scope.row.activityState]"
               disable-transitions
-              >{{
-                scope.row.activityState
-              }}</el-tag
+              >{{ scope.row.activityState }}</el-tag
             >
           </template>
         </el-table-column>
@@ -123,11 +115,11 @@ export default {
   data() {
     return {
       tagType: {
-        '审核中': "warning",
-        '待举办': "danger",
-        '待反馈': "",
-        '已反馈': "success",
-        '被驳回': "info",
+        审核中: "warning",
+        待举办: "danger",
+        待反馈: "",
+        已反馈: "success",
+        被驳回: "info",
       },
       axiosdata: null,
       toMatch: "",
@@ -161,22 +153,24 @@ export default {
     dealWithActivities(data) {
       console.log("run dealwithActivities");
       for (var key in data) {
-        for (var i = 0; i < data[key].length; i++) {
-          var temp = {
-            activityID: "22222",
-            time: "2016-05-03",
-            activityname: "王小虎",
-            groupname: "上海市普陀区金沙江路 1516 弄",
-            ground: "同心楼666",
-            activityState: "审核中",
-          };
-          temp.activityID = data[key][i].id;
-          temp.time = data[key][i].activityDate.replace("T", " ");
-          temp.activityname = data[key][i].name;
-          temp.groupname = data[key][i].organizationName;
-          temp.ground = data[key][i].groundName;
-          temp.activityState = data[key][i].activityState;
-          this.tableData.push(temp);
+        if (key == "已反馈" || key == "待反馈") {
+          for (var i = 0; i < data[key].length; i++) {
+            var temp = {
+              activityID: "22222",
+              time: "2016-05-03",
+              activityname: "王小虎",
+              groupname: "上海市普陀区金沙江路 1516 弄",
+              ground: "同心楼666",
+              activityState: "审核中",
+            };
+            temp.activityID = data[key][i].id;
+            temp.time = data[key][i].activityDate.replace("T", " ");
+            temp.activityname = data[key][i].name;
+            temp.groupname = data[key][i].organizationName;
+            temp.ground = data[key][i].groundName;
+            temp.activityState = data[key][i].activityState;
+            this.tableData.push(temp);
+          }
         }
       }
     },

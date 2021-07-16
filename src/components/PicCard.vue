@@ -13,15 +13,26 @@
             </div>
 
             <el-row v-if="placeType == '室内'" :gutter="20">
-              <el-col :span="12">
-                <p>场地名称:{{ indoorGround.楼号 }}{{ indoorGround.房间号 }}</p>
+              <el-col :span="3">
+                <p>场地名称:</p>
                 <div v-for="(value, key, index) in indoorGround" :key="key">
-                  <p v-if="index < 3">{{ key }}:{{ value }}</p>
+                  <p v-if="index < 3">{{ key }}:</p>
                 </div>
               </el-col>
-              <el-col :span="12">
+              <el-col :span="9">
+                <p>{{ indoorGround.楼号 }}{{ indoorGround.房间号 }}</p>
                 <div v-for="(value, key, index) in indoorGround" :key="key">
-                  <p v-if="index >= 3">{{ key }}:{{ value }}</p>
+                  <p v-if="index < 3">{{ value }}</p>
+                </div>
+              </el-col>
+              <el-col :span="3">
+                <div v-for="(value, key, index) in indoorGround" :key="key">
+                  <p v-if="index >= 3">{{ key }}:</p>
+                </div>
+              </el-col>
+              <el-col :span="9">
+                <div v-for="(value, key, index) in indoorGround" :key="key">
+                  <p v-if="index >= 3">{{ value }}</p>
                 </div>
               </el-col>
             </el-row>

@@ -118,7 +118,7 @@ export default {
       axiosdata: null,
       id: null,
       organization: null,
-      accountnumber: null,
+      accountNumber: null,
       credit: null,
       email: null,
       name: null,
@@ -138,7 +138,7 @@ export default {
     dealWithActivitiy(data) {
       this.id = data.id;
       this.name = data.name;
-      console.log(data);
+      console.log("DATA",data);
       this.accountNumber = data.accountNumber;
       this.organization = data.organizationName;
       // this.credit  没有组织信用分

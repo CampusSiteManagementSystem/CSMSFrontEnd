@@ -87,6 +87,7 @@ export default {
           end: "2021-07-13T16:00:00",
           start: "2021-07-13T14:30:00",
           title: "吉他",
+          color: "red",
         },
       ],
       axiosdata: "",
@@ -95,9 +96,12 @@ export default {
         const currentDate = new Date();
         const start = info.start;
         const end = info.end;
-        
-      
-        return start <= end && start >= currentDate&&start.getDate()==end.getDate();
+
+        return (
+          start <= end &&
+          start >= currentDate &&
+          start.getDate() == end.getDate()
+        );
       },
     };
   },
@@ -126,7 +130,15 @@ export default {
     fetchdata() {
       var axios = require("axios");
       const that = this;
-
+      // day: 7
+      // description: "艺术传媒学院将举行素描基础教学，为之后的课程学习做准备。"
+      // duration: 120
+      // end: "2021-07-18T11:00:00"
+      // groundId: "1000009"
+      // groundName: "B202"
+      // name: "素描教学"
+      // start: "2021-07-18T09:00:00"
+      // type: "活动"
       var config = {
         method: "get",
 
@@ -134,6 +146,7 @@ export default {
         params: {
           groundId: that.realGroundId,
           time: that.formatTime,
+          within50: true,
         },
         headers: {},
       };
@@ -146,8 +159,10 @@ export default {
 
           that.axiosdata = response.data;
           that.events = response.data;
-          for (var i = 0; i < this.events.length; i++) {
-            this.events[i].title = this.events[i].name;
+          for (var i = 0; i < that.events.length; i++) {
+            if (that.events[i].type != "活动") {
+              that.events[i].color = "#EE82EE";
+            }
           }
 
           // that.transportData();
@@ -257,5 +272,9 @@ export default {
 @import "~@fullcalendar/core/main.css";
 @import "~@fullcalendar/daygrid/main.css";
 @import "~@fullcalendar/timegrid/main.css";
+.fc-toolbar h2 {
+  font-size: 1.3em;
+  margin: 0;
+}
 </style>
 

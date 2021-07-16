@@ -9,7 +9,7 @@
               ><i v-else class="el-icon-s-fold"></i
             ></el-button>
             <!-- <i class="el-icon-s-unfold" @click="test"></i> -->
-            <img src="../../assets/tjlogo.png" class="logoImage" />
+            <img src="../../assets/tjlogo.svg" class="logoImage" />
 
             <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item
@@ -53,7 +53,7 @@
                 <el-dropdown-item command="modifyPassword"
                   >修改密码</el-dropdown-item
                 >
-                <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+                <el-dropdown-item command="confirmLogout">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-row></el-col
@@ -155,12 +155,8 @@ body,
   height: 100%;
 }
 .logoImage {
-  height: 40px;
-  padding-left: 10px;
-  padding-bottom: 5px;
-  /* background-color: yellow; */
-  /* width: 40%; */
-  /* padding: 5%; */
+  height: 100%;
+  padding-left: 20px;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
@@ -194,12 +190,15 @@ body,
 .el-card {
   border-radius: 15px;
 }
+.el-main {
+  overflow: auto;
+}
 </style>
 
 
 
 <script>
-import router from "../../router/index";
+// import router from "../../router/index";
 // import sidebar from "../../components/GrandsmanSidebar.vue";
 import store from "../../state/state.js";
 import * as echarts from "echarts";
@@ -282,9 +281,10 @@ export default {
         localStorage.removeItem("uutype");
         localStorage.removeItem("uutoken");
         store.state.ID = null;
-        const routeHistory = history.length - 1;
-        router.go(-routeHistory);
-        router.replace("/");
+        // const routeHistory = history.length - 1;
+        // router.go(-routeHistory);
+        // router.replace("/");
+        this.$router.push({path: "/"});
       });
     },
 

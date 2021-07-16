@@ -9,7 +9,7 @@
       <div slot="header" class="clearfix">
         <el-row>
           <el-col :span="24">
-            <img src="../../assets/tjlogo.png" class="logoImage" />
+            <img src="../../assets/tjlogo.svg" class="logoImage" />
           </el-col>
         </el-row>
       </div>
@@ -275,6 +275,7 @@ export default {
             })
               .then((data) => {
                 data;
+                this.$router.push("/");
                 this.$message("组织用户创建成功");
               })
               .catch(()=>{
