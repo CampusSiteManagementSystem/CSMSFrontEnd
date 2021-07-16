@@ -405,6 +405,8 @@ export default {
             });
           }).catch(err=>{
             console.log(err);
+            console.log(this.ruleForm);
+            console.log(this.getFullTime());
             this.$message({
               message: "课程时间不合法，课程添加失败",
               type: "error",
