@@ -14,11 +14,12 @@
             <el-col :span="16">
               <br />
               <div class="name">{{ personinfo.name }}</div>
-              <div class="other-info">
+              <div class="other-info" >
                 <br />工号：{{ this.personinfo.id }}<br />管理场地：<el-tag
                   v-for="(ground, i) in personinfo.grounds"
                   :key="i"
                   :type="personinfo.type[(i + 1) % 5]"
+                  class="tag"
                 >
                   {{ ground }}
                 </el-tag>
@@ -42,7 +43,6 @@
             height="129px"
             :show-header="false"
             empty-text="目前没有场地被占用"
-            @row-click="onOccupyRowClick"
             stripe
             highlight-current-row
           >
@@ -182,7 +182,11 @@
 .clearfix:after {
   clear: both;
 }
-
+.tag{
+  margin-top: 2px;
+  margin-bottom: 1px;
+  margin-right: 5px;
+}
 /* .upperrow {
   padding: 5px;
   height: 40%;
@@ -333,7 +337,7 @@ export default {
         id: store.state.ID,
         grounds: [],
         type: ["", "success", "info", "warning", "danger"],
-        date: "2020-2021学年第2学期第13周",
+        date: "2021-2022学年第2学期20周",
       },
 
       //弹出式公告
@@ -467,9 +471,9 @@ export default {
       this.dialogContent = row.content;
       this.dialogVisible = true;
     },
-    onOccupyRowClick(row) {
-      this.$router.push("/GroundsAdmin/ShowSchedule/" + row.groundID);
-    },
+    // onOccupyRowClick(row) {
+    //   this.$router.push("/GroundsAdmin/ShowSchedule/" + row.groundID);
+    // },
     onReviewRowClick(row) {
       this.$router.push("/GroundsAdmin/ActivityInfo/" + row.activityID);
     },
