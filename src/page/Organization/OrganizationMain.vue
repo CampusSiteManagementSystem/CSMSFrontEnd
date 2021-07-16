@@ -202,7 +202,7 @@ export default {
       });
     GETActivities()
       .then((data) => {
-        this.futureActivity = data["审核中"]; //这里要改成待举办
+        this.futureActivity = data["待举办"];
         console.log("12345698",this.futureActivity[0].startTime);
         for(var i = 0; i < this.futureActivity.length; i++)
         {

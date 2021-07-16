@@ -179,9 +179,10 @@ export default {
               } else if (this.identity === 4) {
                 this.$router.push("/SysAdminFrame/SysAdminHomePage");
               }
+              this.$message("登录成功");
             })
             .catch((err) => {
-              this.$message("账户或密码错误");
+              this.$message.error("账户或密码错误");
               console.log(err);
             });
         }

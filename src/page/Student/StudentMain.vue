@@ -74,7 +74,7 @@
       </el-col>
     </el-row>
     <el-row class="lower-row">
-      <el-col :span="15" class="lower-row-col1">
+      <el-col :span="16" class="lower-row-col1">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
             <span><b>未来活动</b></span>
@@ -107,7 +107,7 @@
           </el-table>
         </el-card>
       </el-col>
-      <el-col :span="9" class="lower-row-col2">
+      <el-col :span="8" class="lower-row-col2">
         <el-card class="lower-card" ref="lowerCardRef">
           <div slot="header" class="clearfix" style="height: 10%">
             <span><b>最近一周场地使用情况</b></span>
@@ -258,6 +258,10 @@ export default {
     GETActivities()
       .then((data) => {
         this.futureActivity = data["待举办"]; //未举办
+        for(var i = 0; i < this.futureActivity.length; i++)
+        {
+          this.futureActivity[i].startTime=(this.futureActivity[i].startTime.replace("T", "   ").split('.'))[0];
+        }
       })
       .catch((err) => {
         //console.log(err);
@@ -269,6 +273,11 @@ export default {
       .then((data) => {
         console.log(data);
         this.occupation = data;
+        for(var i = 0; i < data.length; i++)
+        {
+          this.occupation[i].start=data[i].start.replace("T", "   ");
+          this.occupation[i].end=data[i].end.replace("T", "   ");
+        }
       })
       .catch((err) => {
         //console.log(err);
