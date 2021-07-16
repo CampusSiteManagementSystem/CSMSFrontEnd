@@ -9,7 +9,7 @@
               ><i v-else class="el-icon-s-fold"></i
             ></el-button>
             <!-- <i class="el-icon-s-unfold" @click="test"></i> -->
-            <img src="../../assets/tjlogo.png" class="logoImage" />
+            <img src="../../assets/tjlogo.svg" class="logoImage" />
 
             <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item

@@ -82,7 +82,7 @@ export default {
       // console.log("data router",this.$data.router);
       // console.log("this.$router",this.$router);
       const tempTest = this.$router;
-      const membertype = this.$props.membertype;
+      
       // console.log("membertype", membertype);
       // console.log("tempTest", tempTest);
       const bounds = [
@@ -222,7 +222,7 @@ export default {
 
               description: properties.description,
               router: tempTest,
-              membertype: membertype,
+              type: properties.type,
             }, //传参
           }).$mount();
           // vm.$mount(); //挂载
@@ -278,10 +278,7 @@ export default {
         //   map.getCanvas().style.cursor = "";
         //   popup.remove();
         // });
-        map.on("contextmenu", function (e) {
-          console.log("contextmenu",e);
-          /* adding marker is not a good idea here */
-        });
+       
       });
 
       // map.on("mousemove", function (e) {
@@ -322,6 +319,7 @@ export default {
                 description: "A楼",
                 count: 13,
                 empty: 1,
+                type:"室内",
               },
               geometry: {
                 type: "Point",
@@ -331,6 +329,7 @@ export default {
             temp.properties.description = data[i].positionName;
             temp.properties.count = data[i].count;
             temp.properties.empty = data[i].empty;
+            temp.properties.type = data[i].type;
             temp.geometry.coordinates = [
               parseFloat(data[i].longitude),
               parseFloat(data[i].latitude),

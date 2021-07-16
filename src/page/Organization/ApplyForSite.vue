@@ -128,7 +128,8 @@
 <script scoped>
 import Mycalendar from "../../components/Mycalendar.vue";
 import store from "../../state/state";
-import { POSTActivities } from "../../API/http";
+import { POSTActivities,
+         PUTActivitiesID } from "../../API/http";
 export default {
   components: {
     Mycalendar,
@@ -432,7 +433,8 @@ export default {
 
       this.searchSite();
     },
-    setToDB() {
+    setToDB(){
+      if (typeof this.$route.query.activityID == undefined) {
       POSTActivities({
         name: this.ruleform.name,
         accountNumber: this.OrgID,
@@ -461,17 +463,52 @@ export default {
         .catch((err) => {
           console.log(err);
           this.$message("活动申请信息传输错误");
-        });
+        })
+      }
+      else{
+        PUTActivitiesID(this.$route.query.activityID,
+        {id:this.$route.query.activityID,
+        name:this.ruleform.name,
+        accountNumber:this.OrgID,
+        activityDate:this.ruleform.startTime,
+        startTime:this.ruleform.startTime,
+        participantNum:this.ruleform.people,
+        description:this.ruleform.description,
+        additionalRequest:this.ruleform.special,
+        duration:this.ruleform.duration,
+        groundId:this.ruleform.site[this.ruleform.site.length-1],}
+        )
+        .then(()=>{
+          this.$alert("您的活动ID为" + this.$route.query.activityID, "活动ID分配", {
+            confirmButtonText: "确定",
+            callback: (action) => {
+              if (action === "confirm") {
+                this.$message({
+                  type: "success",
+                  message: "申请成功",
+                });
+              }
+            },
+          });
+        this.ruleform.id=this.$route.query.activityID;
+      })
+      .catch((err) => {
+          console.log(err);
+          this.$message("活动申请信息传输错误");
+        })
+      }
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.setToDB();
+          this.back();
         } else {
           console.log("ID", this.$route.query.activityID);
           console.log("name", this.$route.query.activityName);
           console.log("ground", this.$route.query.groundId);
           console.log("error submit!!");
+          this.back();
           return false;
         }
       });
