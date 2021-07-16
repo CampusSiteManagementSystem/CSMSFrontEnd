@@ -890,9 +890,7 @@ router.beforeEach((to, from, next) => {
                     localStorage.removeItem("uuid");
                     localStorage.removeItem("uutype");
                     localStorage.removeItem("uutoken");
-                    const routeHistory = history.length - 1;
-                    router.go(-routeHistory);
-                    next('/')
+                    next(next({ path: '/', replace: true }));
                 }
             })
             .catch(() => {
