@@ -94,6 +94,7 @@
 </template>
 
 <script>
+import md5 from 'js-md5';
 import {
   GETStuEmail,
   GETOrgEmail,
@@ -208,13 +209,13 @@ export default {
           if (this.type === "1") {
             PUTStuPassword({
               accountNumber: this.form.accountNumber,
-              secretPassword: this.form.password,
+              secretPassword: md5(this.form.password,"hhh"),
               eMailAddress: this.form.email,
               verificationCode: this.form.verifyEmail,
             })
               .then((data) => {
                 data;
-                this.$message("学生密码修改成功");
+                this.$message("学生密码修改成功，请重新登录");
               })
               .catch((err) => {
                 err;
@@ -223,13 +224,13 @@ export default {
           } else if (this.type === "3") {
             PUTOrgPassword({
               accountNumber: this.form.accountNumber,
-              secretPassword: this.form.password,
+              secretPassword: md5(this.form.password,"hhh"),
               eMailAddress: this.form.email,
               verificationCode: this.form.verifyEmail,
             })
               .then((data) => {
                 data;
-                this.$message("组织密码修改成功");
+                this.$message("组织密码修改成功，请重新登录");
               })
               .catch((err) => {
                 err;

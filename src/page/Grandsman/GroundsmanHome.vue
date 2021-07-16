@@ -35,6 +35,8 @@
             <span><b>占用中的场地</b></span>
           </div>
           <el-table
+            :header-row-style="{ height: '20px' }"
+            :cell-style="{ padding: '8px' }"
             :data="busyground"
             style="width: 100%"
             height="129px"
@@ -65,6 +67,8 @@
             </router-link>
           </div>
           <el-table
+            :header-row-style="{ height: '20px' }"
+            :cell-style="{ padding: '8px' }"
             :data="appointment"
             style="width: 100%"
             height="249px"
@@ -91,12 +95,13 @@
             >
           </div>
           <el-table
+            :header-row-style="{ height: '20px' }"
+            :cell-style="{ padding: '8px' }"
             :data="systemAnnouncement"
             style="width: 100%"
             height="249px"
             :show-header="false"
             @row-click="onRowClick"
-            :header-row-style="{ height: '20px' }"
             stripe
             highlight-current-row
           >
@@ -222,7 +227,6 @@ import { GETIndoorGrounds } from "../../API/http";
 import store from "../../state/state.js";
 export default {
   name: "GrandsmanHome",
-
   mounted() {
     this.personinfo.grounds = [];
     const that = this;
@@ -241,7 +245,7 @@ export default {
         });
       });
 
-    GETActivities() //应该加accountNumber
+    GETActivities({accountNumber:this.OrgID}) //应该加accountNumber
       .then((data) => {
         that.axiosdata = data;
         that.dealWithActivities(that.axiosdata);
@@ -351,6 +355,7 @@ export default {
       appointment: [],
       busyground: [],
       msg: "666",
+      OrgID: store.state.ID,
     };
   },
   methods: {

@@ -19,8 +19,8 @@
       <el-table
         :data="matchList"
         height="520"
-        :header-row-style="{ height: '20px' }"
-        :cell-style="{ padding: '5px' }"
+        :header-row-style="{ height: '10px' }"
+        :cell-style="{ padding: '3px' }"
         stripe=""
       >
         <el-table-column prop="name" label="场地名称" min-width="25%">

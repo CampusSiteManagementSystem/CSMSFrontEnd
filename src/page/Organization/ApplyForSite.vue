@@ -180,7 +180,7 @@ export default {
           },
         ],
         description: [
-          { required: false, message: "请输入活动描述", trigger: "blur" },
+          { required: true, message: "请输入活动描述", trigger: "blur" },
           {
             max: 100,
             message: "长度在小于100个字符",
@@ -366,7 +366,7 @@ export default {
             } else {
               var cPos = this.options.length - 1,
                 cFloor = this.options[cPos].children.length - 1;
-              this.options[cPos].children[cFloor].push({
+              this.options[cPos].children[cFloor].children.push({
                 value: this.iGroundTable[k].groundId,
                 label: this.iGroundTable[k].roomNo,
               });
@@ -446,25 +446,37 @@ export default {
       console.log(this.options);
       if (typeof this.$route.query.groundId != undefined) {
         for (var i = 0; i < this.options.length; i++) {
-          for (var j = 0; j < this.options[i].children.length; j++) {
-            for (
-              var k = 0;
-              k < this.options[i].children[j].children.length;
-              k++
-            ) {
-              if (
-                this.$route.query.groundId ==
-                this.options[i].children[j].children[k].value
+          if (this.options.length - i > this.oGroundTable.length) { //判断室内室外
+            for (var j = 0; j < this.options[i].children.length; j++) {
+              for (
+                var k = 0; k < this.options[i].children[j].children.length; k++
               ) {
-                this.groundId=this.$route.query.groundId;
-                console.log("sure", this.$route.query.groundId);
-                this.ruleform.site = [
-                  this.options[i].value,
-                  this.options[i].children[j].value,
-                  this.options[i].children[j].children[k].value,
-                ];
-                return;
+                if (
+                  this.$route.query.groundId ==
+                  this.options[i].children[j].children[k].value
+                ) {
+                  this.groundId = this.$route.query.groundId;
+                  console.log("sureIn", this.$route.query.groundId);
+                  this.ruleform.site = [
+                    this.options[i].value,
+                    this.options[i].children[j].value,
+                    this.options[i].children[j].children[k].value,
+                  ];
+                  return;
+                }
               }
+            }
+          } else {
+            if (
+              this.$route.query.groundId ==
+              this.options[i].value
+            ) {
+              this.groundId = this.$route.query.groundId;
+              console.log("sureOut", this.$route.query.groundId);
+              this.ruleform.site = [
+                this.options[i].value,
+              ];
+              return;
             }
           }
         }

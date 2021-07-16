@@ -190,7 +190,7 @@ export default {
             } else {
               var cPos = this.options.length - 1,
                 cFloor = this.options[cPos].children.length - 1;
-              this.options[cPos].children[cFloor].push({
+              this.options[cPos].children[cFloor].children.push({
                 value: this.iGroundTable[k].groundId,
                 label: this.iGroundTable[k].roomNo,
               });

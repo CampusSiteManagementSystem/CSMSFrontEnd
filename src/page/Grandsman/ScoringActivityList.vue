@@ -104,7 +104,7 @@
 
 <script>
 import { GETActivities } from "../../API/http";
-// import store from "../../state/state.js"
+import store from "../../state/state.js"
 export default {
   name: "ActivityList",
   data() {
@@ -125,6 +125,7 @@ export default {
       num: 16,
       tableData: [
       ],
+      OrgID: store.state.ID,
     };
   },
   created(){
@@ -134,7 +135,7 @@ export default {
     const that = this;
     console.log("run mounted");
     // console.log(this.testtitle.substr(0,this.testtitle.search("##")));
-    GETActivities() //应该加accountNumber
+    GETActivities({accountNumber:this.OrgID}) //应该加accountNumber(已添加)
       .then((data) => {
         console.log("run GETActivities");
         that.axiosdata = data;
@@ -149,6 +150,7 @@ export default {
     dealWithActivities(data) {
       console.log("run dealwithActivities");
       for (var key in data) {
+        if((key=="待反馈")||(key=="已反馈")){
         for (var i = 0; i < data[key].length; i++) {
           var temp = {
             activityID: "22222",
@@ -167,6 +169,7 @@ export default {
           temp.activityState = data[key][i].activityState;
           temp.scoreingtag = data[key][i].hasCredit;
           this.tableData.push(temp);
+        }
         }
       }
     },

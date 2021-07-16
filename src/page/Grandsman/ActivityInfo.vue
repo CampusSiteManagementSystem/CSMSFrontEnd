@@ -5,10 +5,10 @@
             <span><b>审批预约记录</b></span>
           </div>
       <!-- <div class="maintitle">审批预约记录</div> -->
-      <el-row gutter="20">
+      <el-row :gutter= '20'>
         <el-col :span="10">
           <el-card class="info-card">
-            <el-row gutter="20">
+            <el-row :gutter= '20'>
               <el-col :span="9">
                 <div class="image">
                   <img
@@ -168,7 +168,7 @@ export default {
             if (dateActivity > dateNow) {
               this.state = 2; //重审
             } else {
-              this.$message({ message: "活动已过期，不能重审", type: "error" });
+              this.$message({ message: "活动已完成，不能重审", type: "error" });
             }
           })
           .catch((err) => {

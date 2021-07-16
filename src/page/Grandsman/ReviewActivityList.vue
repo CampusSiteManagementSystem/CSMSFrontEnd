@@ -8,6 +8,8 @@
       <el-tabs v-model="activeTab">
         <el-tab-pane label="待审批" name="panel1">
           <el-table
+            :header-row-style="{ height: '10px' }"
+            :cell-style="{ padding: '3px' }"
             :data="
               tableData.filter((item, index, arr) => {
                 return item.activityState === '审核中';
@@ -15,6 +17,7 @@
             "
             :default-sort="{ prop: 'time', order: 'ascending' }"
             height="480"
+            stripe
           >
             <el-table-column prop="groupname" label="组织">
             </el-table-column>
@@ -66,13 +69,16 @@
         </el-tab-pane>
         <el-tab-pane label="已审批" name="pane2">
           <el-table
+            :header-row-style="{ height: '10px' }"
+            :cell-style="{ padding: '3px' }"
             :data="
               tableData.filter((item, index, arr) => {
-                return item.activityState != '审核中';
+                return ((item.activityState != '审核中')&&(item.activityState != '已过期'));
               })
             "
             :default-sort="{ prop: 'time', order: 'descending' }"
             height="480"
+            stripe
           >
             <el-table-column prop="groupname" label="组织">
             </el-table-column>
@@ -158,6 +164,7 @@ export default {
     };
     axios(config)
       .then((response) => {
+             console.log("run", response.data);
         this.axiosdata = response.data;
         this.dealWithActivities(this.axiosdata);
       })

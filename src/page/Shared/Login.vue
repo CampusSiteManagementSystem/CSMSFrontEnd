@@ -102,6 +102,7 @@
 <script>
 import { Login} from "../../API/http";
 import store from "../../state/state";
+import md5 from 'js-md5';
 export default {
   data() {
     return {
@@ -159,9 +160,10 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //提交表单到后台验证身份，并路由到指定页面
+          console.log(md5(this.form.password,"hhh"));
           Login({
             accountNumber: this.form.accountNumber,
-            secretPassword: this.form.password,
+            secretPassword: md5(this.form.password,"hhh"),
             role: this.role,
           })
             .then((data) => {
@@ -179,9 +181,10 @@ export default {
               } else if (this.identity === 4) {
                 this.$router.push("/SysAdminFrame/SysAdminHomePage");
               }
+              this.$message("登录成功");
             })
             .catch((err) => {
-              this.$message("账户或密码错误");
+              this.$message.error("账户或密码错误");
               console.log(err);
             });
         }

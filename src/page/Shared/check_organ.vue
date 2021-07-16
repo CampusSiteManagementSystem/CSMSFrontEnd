@@ -36,9 +36,6 @@
         >
         </el-table-column>
         <el-table-column prop="type" label="组织类型" align="center">
-          <template slot-scope="scope">
-            {{ scope.row.type == "1" ? "社团" : "班级" }}
-          </template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
