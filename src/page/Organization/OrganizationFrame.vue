@@ -558,12 +558,8 @@ body,
   height: 100%;
 }
 .logoImage {
-  height: 40px;
-  padding-left: 10px;
-  padding-bottom: 5px;
-  /* background-color: yellow; */
-  /* width: 40%; */
-  /* padding: 5%; */
+  height: 100%;
+  padding-left: 20px;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
