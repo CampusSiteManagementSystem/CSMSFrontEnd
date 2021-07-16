@@ -100,6 +100,7 @@
 </template>
 
 <script>
+import md5 from 'js-md5';
 import {
   GETStuEmail,
   POSTStudents,
@@ -231,7 +232,7 @@ export default {
             //stu
             POSTStudents({
               accountNumber: this.form.accountNo,
-              secretPassword: this.form.password,
+              secretPassword: md5(this.form.password,"hhh"),
               eMailAddress: this.form.email,
               name: this.form.username,
               verificationCode: this.form.verifyEmail,
@@ -242,7 +243,7 @@ export default {
                 this.$message("学生用户创建成功");
                 Login({
                   accountNumber: this.form.accountNo,
-                  secretPassword: this.form.password,
+                  secretPassword: md5(this.form.password,"hhh"),
                   role: 'student',
                 })
                   .then((data) => {
@@ -267,7 +268,7 @@ export default {
             //
             POSTOrganizations({
               accountNumber: this.form.accountNo,
-              secretPassword: this.form.password,
+              secretPassword: md5(this.form.password,"hhh"),
               eMailAddress: this.form.email,
               name: this.form.username,
               verificationCode: this.form.verifyEmail,
@@ -275,28 +276,10 @@ export default {
               .then((data) => {
                 data;
                 this.$message("组织用户创建成功");
-                Login({
-                  accountNumber: this.form.accountNo,
-                  secretPassword: this.form.password,
-                  role: 'organization',
-                })
-                  .then((data) => {
-                    localStorage.setItem("uutype", 'organization');
-                    localStorage.setItem("uuid", this.form.accountNo);
-                    localStorage.setItem("uutoken", data.accessToken);
-                    store.state.ID = this.form.accountNo;
-                    store.state.membertype = 'organization';
-                    this.$router.push("/OrgFrame/Main");
-                  })
-                  .catch((err) => {
-                    this.$message("登录失败");
-                    console.log(err);
-                  });
               })
-              .catch((err) => {
-                err;
-                this.$message.error("组织用户创建失败");
-              });
+              .catch(()=>{
+                this.$message("组织用户创建失败");
+              })
           }
         } else {
           //alert(msg);
