@@ -27,13 +27,18 @@
       >
         <el-table-column prop="name" label="组织名称"> </el-table-column>
         <el-table-column prop="detailInfo" label="组织描述">
+          <template slot-scope="scope">
+            <div>
+              {{
+                scope.row.detailInfo != null ? (scope.row.detailInfo.length > 10
+                  ? scope.row.detailInfo.substr(0, 10) + "..."
+                  : scope.row.detailInfo) : null
+              }}
+            </div>
+          </template>
         </el-table-column>
         <el-table-column prop="functionary" label="负责人"> </el-table-column>
-        <el-table-column
-          prop="telephone"
-          label="联系方式"
-          align="center"
-        >
+        <el-table-column prop="telephone" label="联系方式" align="center">
         </el-table-column>
         <el-table-column prop="type" label="组织类型" align="center">
         </el-table-column>
@@ -63,7 +68,7 @@
           <el-col :span="16">
             <p><b>组织账号：</b>{{ orgSelected.accountNumber }}</p>
             <p>
-              <b>组织类型：</b>{{ orgSelected.type == "1" ? "社团" : "班级" }}
+              <b>组织类型：</b>{{ orgSelected.type }}
             </p>
             <p><b>邮箱：</b>{{ orgSelected.emailAddress }}</p>
             <p><b>负责人：</b>{{ orgSelected.functionary }}</p>
@@ -98,7 +103,7 @@ body,
   margin: 0px;
   height: 100%;
 }
-.maincard{
+.maincard {
   height: 100%;
 }
 .el-card {
