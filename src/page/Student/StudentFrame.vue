@@ -183,7 +183,7 @@ body,
 
 <script>
 import { GETStudentsID } from "../../API/http";
-import router from "../../router/index"
+//import router from "../../router/index"
 import store from "../../state/state.js";
 import * as echarts from "echarts";
 export default {

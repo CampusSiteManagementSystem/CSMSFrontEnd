@@ -181,7 +181,7 @@ body,
 <script>
 import store from "../../state/state"
 import * as echarts from "echarts";
-import router from "../../router/index"
+//import router from "../../router/index"
 export default {
   data() {
     return {

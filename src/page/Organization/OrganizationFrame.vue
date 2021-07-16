@@ -149,7 +149,7 @@
 import * as echarts from "echarts";
 import { GETOrganizationsID } from "../../API/http";
 import store from "../../state/state";
-import router from "../../router/index"
+//import router from "../../router/index"
 export default {
   created() {
     GETOrganizationsID(this.OrgID)
