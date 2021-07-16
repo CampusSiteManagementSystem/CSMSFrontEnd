@@ -138,8 +138,8 @@ export default {
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
           {
-            pattern: /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/,
-            message: "字母开头，允许5-16字节，允许字母数字下划线",
+            // pattern: /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/,
+            max: 10, message: "长度为1~10个字符",
             trigger: "blur",
           },
         ],
@@ -286,7 +286,7 @@ export default {
                     localStorage.setItem("uutoken", data.accessToken);
                     store.state.ID = this.form.accountNo;
                     store.state.membertype = 'organization';
-                    this.$router.push("/OrgFrame/Main");
+                    this.$router.push("/");
                   })
                   .catch((err) => {
                     this.$message("登录失败");
