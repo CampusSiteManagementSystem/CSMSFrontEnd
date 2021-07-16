@@ -186,7 +186,10 @@ export default {
             .catch((err) => {
               if (err.response.status == 404) {
                 this.$message.error("账户不存在");
-              } else {
+              }else if (err.response.status == 401){
+                this.$message.error("该账户还未被审核，请稍后再试");
+              } 
+              else {
                 this.$message.error("账户或密码错误");
                 console.log(typeof err.response.status);
               }

@@ -126,7 +126,15 @@ export default {
     fetchdata() {
       var axios = require("axios");
       const that = this;
-
+// day: 7
+// description: "艺术传媒学院将举行素描基础教学，为之后的课程学习做准备。"
+// duration: 120
+// end: "2021-07-18T11:00:00"
+// groundId: "1000009"
+// groundName: "B202"
+// name: "素描教学"
+// start: "2021-07-18T09:00:00"
+// type: "活动"
       var config = {
         method: "get",
 
@@ -147,7 +155,7 @@ export default {
           that.axiosdata = response.data;
           that.events = response.data;
           for (var i = 0; i < this.events.length; i++) {
-            this.events[i].title = this.events[i].name;
+            this.events[i]['title'] = this.events[i].name;
           }
 
           // that.transportData();
