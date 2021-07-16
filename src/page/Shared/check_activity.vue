@@ -1,23 +1,24 @@
 <template>
   <div class="maindiv">
     <el-card class="maincard">
-
-       <div slot="header" class="clearfix">
+      <div slot="header" class="clearfix">
         <el-row type="flex" align="middle">
           <el-col :span="18">
-            <span><b>{{
+            <span
+              ><b>{{
                 this.$route.params.ID == "AllActivities"
                   ? "全部活动"
                   : this.orgName + "举办的活动"
-              }}</b></span>
+              }}</b></span
+            >
           </el-col>
           <el-col :span="6">
             <el-input
-            clearable
-            v-model="toMatch"
-            placeholder="输入活动名称以搜索"
-            @input="search"
-          ></el-input>
+              clearable
+              v-model="toMatch"
+              placeholder="输入活动名称以搜索"
+              @input="search"
+            ></el-input>
           </el-col>
         </el-row>
       </div>
@@ -53,7 +54,16 @@
             stripe
           >
             <el-table-column prop="name" label="活动名称"> </el-table-column>
-            <el-table-column prop="description" label="描述">
+            <el-table-column label="描述">
+              <template slot-scope="scope">
+                <div>
+                  {{
+                    scope.row.description != null ? (scope.row.description.length > 10
+                      ? scope.row.description.substr(0, 10) + "..."
+                      : scope.row.description) : null
+                  }}
+                </div>
+              </template>
             </el-table-column>
             <el-table-column prop="organizationName" label="举办组织">
             </el-table-column>
@@ -83,8 +93,7 @@
             stripe
           >
             <el-table-column prop="name" label="活动名称"> </el-table-column>
-            <el-table-column prop="description" label="描述">
-            </el-table-column>
+            <el-table-column prop="description" label="描述"> </el-table-column>
             <el-table-column prop="organizationName" label="举办组织">
             </el-table-column>
             <el-table-column prop="startTime" label="时间" sortable>
@@ -196,12 +205,11 @@ export default {
     var url =
       this.$route.params.ID == "AllActivities"
         ? "http://139.196.114.7/api/activities"
-        : "http://139.196.114.7/api/activities?orgId=" +
-          this.$route.params.ID;
+        : "http://139.196.114.7/api/activities?orgId=" + this.$route.params.ID;
     var config = {
       method: "get",
       url: url,
-      headers: {'Content-Type': 'application/json'}
+      headers: { "Content-Type": "application/json" },
     };
 
     axios(config)

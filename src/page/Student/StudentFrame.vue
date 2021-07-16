@@ -9,7 +9,7 @@
               ><i v-else class="el-icon-s-fold"></i
             ></el-button>
             <!-- <i class="el-icon-s-unfold" @click="test"></i> -->
-            <img src="../../assets/tjlogo.png" class="logoImage" />
+            <img src="../../assets/tjlogo.svg" class="logoImage" />
 
             <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item
@@ -157,9 +157,8 @@ body,
   height: 100%;
 }
 .logoImage {
-  height: 40px;
-  padding-left: 10px;
-  padding-bottom: 5px;
+  height: 100%;
+  padding-left: 20px;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 170px;

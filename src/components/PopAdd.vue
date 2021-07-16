@@ -4,6 +4,7 @@
       <div slot="header" class="clearfix">
         <span>{{ building }}</span>
         <el-button
+        v-show="type=='室内'?true:false"
           @click="jump()"
           style="float: right; padding: 3px 0"
           type="text"
@@ -25,6 +26,7 @@ export default {
     all: Number,
     freeRoom: Number,
     description: String,
+    type:String,
     router: null,
    
   },
