@@ -111,6 +111,11 @@
         <el-card class="lower-card" ref="lowerCardRef">
           <div slot="header" class="clearfix" style="height: 10%">
             <span><b>最近一周场地使用情况</b></span>
+              <el-popover placement="left" title="图表" width="1500" trigger="click">
+                <el-button type="text" style="white-space: pre-wrap" slot="reference"><i class="el-icon-s-data"></i></el-button>
+              <el-container id="pie" style="width: 1500px; height: 500px">
+              </el-container>
+              </el-popover>
             <router-link to="/StuFrame/ShowPlaceDetail">
               <el-button style="float: right; padding: 3px 0" type="text"
                 >查看更多</el-button
@@ -126,7 +131,7 @@
           >
             <el-table-column prop="groundName" label="场地名称" width="120">
             </el-table-column>
-            <el-table-column prop="name" label="活动名称" width="120">
+            <el-table-column prop="title" label="活动名称" width="120">
             </el-table-column>
             <el-table-column prop="start" label="开始时间">
             </el-table-column>
@@ -175,6 +180,7 @@
 
 <script>
 import store from "../../state/state";
+import * as echarts from "echarts";
 import {
   GETMaintenanceAnnouncements,
   GETSystemAnnouncements,
@@ -183,8 +189,8 @@ import {
   GETOccupyTimes,
 } from "../../API/http";
 export default {
-  created() {
-    //获取场地公告
+  mounted () {
+        //获取场地公告
     GETMaintenanceAnnouncements()
       .then((data) => {
         //console.log(data);
@@ -282,14 +288,72 @@ export default {
           this.occupation[i].start=data[i].start.replace("T", "   ");
           this.occupation[i].end=data[i].end.replace("T", "   ");
         }
+        console.log(this.occupation);
+        for(let j = 0; j < this.occupation.length; j++)
+        {
+          if(this.occupyGround.length==0){
+              let org={
+              value: 1, name: '其他'};
+              org.name=this.occupation[j].groundName;
+              this.occupyGround.push(org);
+              this.occupyName.push(org.name);
+          }
+          else{
+          for(let k = 0; k < this.occupyGround.length; ++k)
+          {
+            if(this.occupyGround[k].name==this.occupation[j].groundName)
+            {
+              this.occupyGround[k].value++;
+              break;
+            }
+            if(k==this.occupyGround.length-1){
+              let temp={
+                    value: 1, name: '其他'};
+              temp.name=this.occupation[j].groundName;
+              this.occupyGround.push(temp);
+              this.occupyName.push(temp.name);
+              k++;
+            }
+          }
+          }          
+        }
+        for(let j = 0; j < this.occupation.length; j++)
+        {
+          if(this.occupyPosition.length==0){
+              let org={
+              value: 1, name: '其他'};
+              org.name=this.occupation[j].positionName;
+              this.occupyPosition.push(org);
+              this.occupyName.push(org.name);
+          }
+          else{
+          for(let k = 0; k < this.occupyPosition.length; ++k)
+          {
+            if(this.occupyPosition[k].name==this.occupation[j].positionName)
+            {
+              this.occupyPosition[k].value++;
+              break;
+            }
+            if(k==this.occupyPosition.length-1){
+              let temp={
+                    value: 1, name: '其他'};
+              temp.name=this.occupation[j].positionName;
+              this.occupyPosition.push(temp);
+              this.occupyName.push(temp.name);
+              k++;
+            }
+          }
+          }          
+        }
+        console.log(this.occupyGround);
+        console.log(this.occupyName);
+        this.drawPic();
       })
       .catch((err) => {
         //console.log(err);
         err;
         this.$message("场地占用数据请求错误");
       });
-  },
-  mounted () {
     this.upperTableHeight=this.$refs.upperCardRef.$el.clientHeight-95;
     this.lowerTableHeight=this.$refs.lowerCardRef.$el.clientHeight-105;
   },
@@ -321,6 +385,9 @@ export default {
       futureActivity: [],
       //第四片卡片信息
       occupation: [],
+      occupyGround:[],
+      occupyName:[],
+      occupyPosition:[],
       colleges: [
         {
           value: "软件学院",
@@ -343,6 +410,8 @@ export default {
           label: "电子与信息工程学院",
         },
       ],
+      chart:null,
+      options:null,
     };
   },
   methods: {
@@ -371,6 +440,79 @@ export default {
     onOccupyRowClick(row) {
       this.$router.push("/StuFrame/ShowSchedule/" + row.groundId);
     },
+    drawPic()
+    {
+      console.log("47878787844",this.occupyName);
+      this.chart = echarts.init(document.getElementById('pie'));
+      this.option={
+    tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
+    },
+    legend: {
+        data: this.occupyName
+    },
+    series: [
+        {
+            name: '楼号',
+            type: 'pie',
+            selectedMode: 'single',
+            radius: [0, '30%'],
+            label: {
+                position: 'inner',
+                fontSize: 14,
+            },
+            labelLine: {
+                show: false
+            },
+            data: this.occupyPosition
+        },
+        {
+            name: '房间号',
+            type: 'pie',
+            radius: ['45%', '60%'],
+            labelLine: {
+                length: 30,
+            },
+            label: {
+                formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                backgroundColor: '#F6F8FC',
+                borderColor: '#8C8D8E',
+                borderWidth: 1,
+                borderRadius: 4,
+                
+                rich: {
+                    a: {
+                        color: '#6E7079',
+                        lineHeight: 22,
+                        align: 'center'
+                    },
+                    hr: {
+                        borderColor: '#8C8D8E',
+                        width: '100%',
+                        borderWidth: 1,
+                        height: 0
+                    },
+                    b: {
+                        color: '#4C5058',
+                        fontSize: 14,
+                        fontWeight: 'bold',
+                        lineHeight: 33
+                    },
+                    per: {
+                        color: '#fff',
+                        backgroundColor: '#4C5058',
+                        padding: [3, 4],
+                        borderRadius: 4
+                    }
+                }
+            },
+            data: this.occupyGround
+        }
+    ]
+      }
+      this.chart.setOption(this.option);
+    }
   },
 };
 </script>
