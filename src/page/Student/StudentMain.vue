@@ -8,7 +8,7 @@
             <el-col :span="9">
               <br />
               <div>
-                <el-avatar :size="130" :src="StuInfo.image"></el-avatar>
+                <el-avatar :size="130" :src="StuInfo.header"></el-avatar>
               </div>
             </el-col>
             <el-col :span="15">
@@ -16,10 +16,10 @@
               <div class="name">{{ StuInfo.name }}</div>
               <div class="other-info">
                 <br />学号：{{ StuID }}<br />学院专业：<el-tag type="success">
-                  {{ StuInfo.academy }}
+                  {{ StuInfo.academy==null?"请完善个人信息": StuInfo.academy}}
                 </el-tag>
-                <el-tag type="warning">
-                  {{ StuInfo.major }}
+                <el-tag type="warning" v-if="StuInfo.major!=null">
+                  {{ StuInfo.major==null?"": StuInfo.major }}
                 </el-tag>
               </div>
               <div class="date">
@@ -245,13 +245,18 @@ export default {
     //获取学生信息
     GETStudentsID(this.StuID)
       .then((data) => {
+        // if (data.header=null){
+        //   data.header="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
+        // }
         this.StuInfo = data;
+        this.StuInfo.header="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
         this.NumToStr();
         //console.log(data);
       })
       .catch((err) => {
         //console.log(err);
         err;
+        console.log(err);
         this.$message("学生信息请求错误");
       });
     //未来活动
@@ -356,7 +361,7 @@ export default {
       this.dialogVisible = true;
     },
     NumToStr() {
-      if (this.StuInfo.academy < this.colleges.length) {
+      if (this.StuInfo.academy!=null && this.StuInfo.academy < this.colleges.length) {
         this.StuInfo.academy = this.colleges[this.StuInfo.academy].label;
       }
     },

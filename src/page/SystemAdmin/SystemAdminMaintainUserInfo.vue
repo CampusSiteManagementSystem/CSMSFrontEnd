@@ -176,8 +176,9 @@ body,
 import {
   GETStudents,
   GETOrganizations,
-  DELETEOrganizationsID,
+  // DELETEOrganizationsID,
   DELETEStudentsID,
+  PUTOrganizations,
 } from "../../API/http";
 
 export default {
@@ -296,7 +297,7 @@ export default {
         });
     },
     deleteOrg(id) {
-      DELETEOrganizationsID(id)
+      PUTOrganizations({accountNumber:id,state:"未审批"})
         .then(() => {
           console.log("删除组织成功");
         })
@@ -304,6 +305,7 @@ export default {
           console.log(err);
           this.$message("删除组织错误");
         });
+      
     },
 
     userdelete(index, row) {
@@ -318,14 +320,15 @@ export default {
           for (var i = 0; i < that.tableData.length; i++) {
             if (that.tableData[i].accountNumber == row.accountNumber) {
               that.tableData.splice(i, 1);
-              break;
-            }
-
-            if (row.status == "组织") {
+              if (row.status == "组织") {
               that.deleteOrg(row.accountNumber);
             } else {
               that.deleteStu(row.accountNumber);
             }
+              break;
+            }
+           
+            
           }
           that.$message({
             type: "success",

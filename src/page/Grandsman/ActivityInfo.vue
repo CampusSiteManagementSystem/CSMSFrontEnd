@@ -138,7 +138,7 @@ export default {
     dealWithActivitiy(data) {
       this.id = data.id;
       this.name = data.name;
-      console.log(data);
+      console.log("DATA",data);
       this.accountNumber = data.accountNumber;
       this.organization = data.organizationName;
       // this.credit  没有组织信用分
