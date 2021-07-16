@@ -756,7 +756,7 @@ export default {
       type;
       this.$router.push({
         name: "ApplySiteWindow",
-        params: {
+        query: {
           activityID: row.ID,
         },
       });
