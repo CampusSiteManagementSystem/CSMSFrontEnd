@@ -146,6 +146,7 @@ export default {
         params: {
           groundId: that.realGroundId,
           time: that.formatTime,
+          within50: true,
         },
         headers: {},
       };
@@ -159,10 +160,9 @@ export default {
           that.axiosdata = response.data;
           that.events = response.data;
           for (var i = 0; i < that.events.length; i++) {
-            if(that.events[i].type!='活动'){
+            if (that.events[i].type != "活动") {
               that.events[i].color = "#EE82EE";
             }
-            
           }
 
           // that.transportData();
@@ -273,8 +273,8 @@ export default {
 @import "~@fullcalendar/daygrid/main.css";
 @import "~@fullcalendar/timegrid/main.css";
 .fc-toolbar h2 {
-    font-size: 1.3em;
-    margin: 0;
+  font-size: 1.3em;
+  margin: 0;
 }
 </style>
 
