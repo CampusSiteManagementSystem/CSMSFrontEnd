@@ -283,10 +283,11 @@ export default {
         localStorage.removeItem("uuid");
         localStorage.removeItem("uutype");
         localStorage.removeItem("uutoken");
-        store.state.ID =null;
-        const routeHistory = history.length - 1;
-        router.go(-routeHistory);
-        router.replace("/");
+        store.state.ID = null;
+        // const routeHistory = history.length - 1;
+        // router.go(-routeHistory);
+        // router.replace("/");
+        this.$router.push({path: "/"});
       });
     },
 
