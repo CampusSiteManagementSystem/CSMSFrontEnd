@@ -160,7 +160,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //提交表单到后台验证身份，并路由到指定页面
-          console.log(md5(this.form.password,"hhh"));
+          //console.log(md5(this.form.password,"hhh"));
           Login({
             accountNumber: this.form.accountNumber,
             secretPassword: md5(this.form.password,"hhh"),
