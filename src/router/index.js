@@ -875,6 +875,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.meta.requireAuth === false) {
+        if (to.meta.title) {
+            document.title = to.meta.title
+        }
         next();
     } else {
         GETIdentity()
