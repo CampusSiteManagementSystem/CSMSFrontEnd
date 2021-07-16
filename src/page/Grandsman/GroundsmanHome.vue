@@ -18,7 +18,7 @@
                 <br />工号：{{ this.personinfo.id }}<br />管理场地：<el-tag
                   v-for="(ground, i) in personinfo.grounds"
                   :key="i"
-                  :type="personinfo.type[(i+1) % 5]"
+                  :type="personinfo.type[(i + 1) % 5]"
                 >
                   {{ ground }}
                 </el-tag>
@@ -35,12 +35,16 @@
             <span><b>占用中的场地</b></span>
           </div>
           <el-table
+            :header-row-style="{ height: '20px' }"
+            :cell-style="{ padding: '8px' }"
             :data="busyground"
             style="width: 100%"
             height="129px"
             :show-header="false"
             empty-text="目前没有场地被占用"
             @row-click="onOccupyRowClick"
+            stripe
+            highlight-current-row
           >
             <el-table-column prop="position" label="内容"> </el-table-column>
             <el-table-column prop="activityName" label="活动名称">
@@ -63,12 +67,16 @@
             </router-link>
           </div>
           <el-table
+            :header-row-style="{ height: '20px' }"
+            :cell-style="{ padding: '8px' }"
             :data="appointment"
             style="width: 100%"
             height="249px"
             :show-header="false"
             @row-click="onReviewRowClick"
             empty-text="目前没有待审核预约"
+            stripe
+            highlight-current-row
           >
             <el-table-column prop="title" label="内容"> </el-table-column>
             <el-table-column prop="ground" label="日期"> </el-table-column>
@@ -87,11 +95,15 @@
             >
           </div>
           <el-table
+            :header-row-style="{ height: '20px' }"
+            :cell-style="{ padding: '8px' }"
             :data="systemAnnouncement"
             style="width: 100%"
             height="249px"
             :show-header="false"
             @row-click="onRowClick"
+            stripe
+            highlight-current-row
           >
             <el-table-column prop="title" width="auto"> </el-table-column>
             <el-table-column prop="systemAnnouncementDate" width="auto">
@@ -215,7 +227,6 @@ import { GETIndoorGrounds } from "../../API/http";
 import store from "../../state/state.js";
 export default {
   name: "GrandsmanHome",
-
   mounted() {
     this.personinfo.grounds = [];
     const that = this;
@@ -234,7 +245,7 @@ export default {
         });
       });
 
-    GETActivities() //应该加accountNumber
+    GETActivities({accountNumber:this.OrgID}) //应该加accountNumber
       .then((data) => {
         that.axiosdata = data;
         that.dealWithActivities(that.axiosdata);
@@ -344,6 +355,7 @@ export default {
       appointment: [],
       busyground: [],
       msg: "666",
+      OrgID: store.state.ID,
     };
   },
   methods: {

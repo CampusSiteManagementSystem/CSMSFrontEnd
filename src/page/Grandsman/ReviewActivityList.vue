@@ -8,6 +8,8 @@
       <el-tabs v-model="activeTab">
         <el-tab-pane label="待审批" name="panel1">
           <el-table
+            :header-row-style="{ height: '10px' }"
+            :cell-style="{ padding: '3px' }"
             :data="
               tableData.filter((item, index, arr) => {
                 return item.activityState === '审核中';
@@ -15,19 +17,19 @@
             "
             :default-sort="{ prop: 'time', order: 'ascending' }"
             height="480"
+            stripe
           >
-            <el-table-column prop="groupname" label="组织" width="220">
+            <el-table-column prop="groupname" label="组织">
             </el-table-column>
-            <el-table-column prop="activityname" label="活动名称" width="380">
+            <el-table-column prop="activityname" label="活动名称">
             </el-table-column>
-            <el-table-column prop="ground" label="场地" width="180">
+            <el-table-column prop="ground" label="场地">
             </el-table-column>
-            <el-table-column prop="time" sortable label="时间" width="280">
+            <el-table-column prop="time" sortable label="时间">
             </el-table-column>
             <el-table-column
               prop="activityState"
               label="状态"
-              width="120"
               column-key="activityState"
               :filters="[
                 { text: '审核中', value: '审核中' },
@@ -67,26 +69,28 @@
         </el-tab-pane>
         <el-tab-pane label="已审批" name="pane2">
           <el-table
+            :header-row-style="{ height: '10px' }"
+            :cell-style="{ padding: '3px' }"
             :data="
               tableData.filter((item, index, arr) => {
-                return item.activityState != '审核中';
+                return ((item.activityState != '审核中')&&(item.activityState != '已过期'));
               })
             "
             :default-sort="{ prop: 'time', order: 'descending' }"
             height="480"
+            stripe
           >
-            <el-table-column prop="groupname" label="组织" width="220">
+            <el-table-column prop="groupname" label="组织">
             </el-table-column>
-            <el-table-column prop="activityname" label="活动名称" width="380">
+            <el-table-column prop="activityname" label="活动名称">
             </el-table-column>
-            <el-table-column prop="ground" label="场地" width="180">
+            <el-table-column prop="ground" label="场地">
             </el-table-column>
-            <el-table-column prop="time" sortable label="时间" width="180">
+            <el-table-column prop="time" sortable label="时间">
             </el-table-column>
             <el-table-column
               prop="activityState"
               label="状态"
-              width="120"
               column-key="activityState"
               :filters="[
                 { text: '审核中', value: '审核中' },
@@ -131,8 +135,8 @@
 </template>
 
 <script>
-import { GETActivities } from "../../API/http";
-// import store from "../../state/state.js"
+// import { GETActivities } from "../../API/http";
+import store from "../../state/state.js"
 export default {
   name: "ActivityList",
   components: {},
@@ -152,17 +156,20 @@ export default {
     };
   },
   mounted() {
-    const that = this;
-    console.log("run mounted");
-    GETActivities() //应该加accountNumber
-      .then((data) => {
-        console.log("run GETActivities");
-        that.axiosdata = data;
-        that.dealWithActivities(that.axiosdata);
-        //console.log(that.axiosdata);
+    var axios = require("axios");
+    var config = {
+      method: "get",
+      url: "http://139.196.114.7/api/Activities?accountNumber="+store.state.ID,
+      headers: {},
+    };
+    axios(config)
+      .then((response) => {
+             console.log("run", response.data);
+        this.axiosdata = response.data;
+        this.dealWithActivities(this.axiosdata);
       })
-      .catch((err) => {
-        that.data = err;
+      .catch((error) => {
+        console.log(error);
       });
   },
   methods: {

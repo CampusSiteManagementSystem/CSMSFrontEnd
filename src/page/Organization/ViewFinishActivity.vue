@@ -17,13 +17,13 @@
               style="width: 100%"
               :default-sort="{ prop: 'date', order: 'descending' }"
             >
-              <el-table-column prop="date" label="日期" width="230" sortable>
+              <el-table-column prop="date" label="日期" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="name" label="名称" width="180">
+              <el-table-column prop="name" label="名称">
               </el-table-column>
               <el-table-column
                 prop="groundname"
@@ -73,13 +73,13 @@
               style="width: 100%"
               :default-sort="{ prop: 'date', order: 'descending' }"
             >
-              <el-table-column prop="date" label="日期" width="230" sortable>
+              <el-table-column prop="date" label="日期" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
                   <span style="margin-left: 10px">{{ scope.row.date }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="name" label="名称" width="180">
+              <el-table-column prop="name" label="名称">
               </el-table-column>
               <el-table-column
                 prop="groundname"
@@ -127,7 +127,6 @@
           ref="ruleForm"
           label-position="left"
           class="demo-table"
-          label-width="150px"
         >
           <el-form-item label="活动ID">
             <label slot="label"><b>活动ID</b></label>
@@ -249,56 +248,7 @@ export default {
     };
   },
   mounted() {
-    const that = this;
-    GETActivities({ orgId: that.orgId })
-      .then((data) => {
-        that.axiosdata = data;
-        console.log(data)
-        if ("待反馈" in that.axiosdata) {
-          for (var i = 0; i < that.axiosdata.待反馈.length; i++) {
-            var temp = {
-              date: that.axiosdata.待反馈[i].activityDate.split("T")[0],
-              time: that.axiosdata.待反馈[i].activityDate.split("T")[1],
-              name: that.axiosdata.待反馈[i].name,
-              groundname: that.axiosdata.待反馈[i].groundName,
-              isGroundIndoor: that.axiosdata.待反馈[i].isGroundIndoor,
-              ID: that.axiosdata.待反馈[i].id,
-              participantNum: that.axiosdata.待反馈[i].participantNum,
-              additionalRequest: that.axiosdata.待反馈[i].additionalRequest,
-              description: that.axiosdata.待反馈[i].description,
-              activityState: that.axiosdata.待反馈[i].activityState,
-            };
-            that.tableData1.push(temp);
-          }
-          console.log("TABLEDATA_1");
-          console.log(that.tableData1);
-        }
-        
-        if ("已反馈" in that.axiosdata) {
-          for (i = 0; i < that.axiosdata.已反馈.length; i++) {
-            temp = {
-              date: that.axiosdata.已反馈[i].activityDate.split("T")[0],
-              time: that.axiosdata.已反馈[i].activityDate.split("T")[1],
-              name: that.axiosdata.已反馈[i].name,
-              groundname: that.axiosdata.已反馈[i].groundName,
-              isGroundIndoor: that.axiosdata.已反馈[i].isGroundIndoor,
-              ID: that.axiosdata.已反馈[i].id,
-              participantNum: that.axiosdata.已反馈[i].participantNum,
-              additionalRequest: that.axiosdata.已反馈[i].additionalRequest,
-              description: that.axiosdata.已反馈[i].description,
-              activityState: that.axiosdata.已反馈[i].activityState,
-            };
-            that.tableData2.push(temp);
-          }
-          console.log("TABLEDATA_2");
-          console.log(that.tableData2);
-        }
-      })
-      .catch((err) => {
-        that.data = err;
-      });
-
-    
+    this.fetchData();
     console.log(this.tableData);
   },
 
@@ -344,26 +294,78 @@ export default {
     handleRenew(index, row) {
       console.log(index, row);
     },
-    handleCurrentChange1(val) {
-      this.currentRow = val;
-      this.$router.push({
-        name: "FeedBackWindow",
-        query: {
-          activityID: val.ID,
-        },
-      });
-    },
-    handleCurrentChange2(val) {
-      this.currentRow = val;
-      this.$router.push({
-        name: "FeedBackWindow",
-        query: {
-          activityID: val.ID,
-        },
+    // handleCurrentChange1(val) {
+    //   this.currentRow = val;
+    //   this.$router.push({
+    //     name: "FeedBackWindow",
+    //     query: {
+    //       activityID: val.ID,
+    //     },
+    //   });
+    // },
+    // handleCurrentChange2(val) {
+    //   this.currentRow = val;
+    //   this.$router.push({
+    //     name: "FeedBackWindow",
+    //     query: {
+    //       activityID: val.ID,
+    //     },
+    //   });
+    // },
+    fetchData() {
+ //const that = this;
+        this.tableData1=[];
+        this.tableData2=[];
+    GETActivities({ orgId: this.orgId })
+      .then((data) => {
+        this.axiosdata = data;
+        console.log(data)
+        if ("待反馈" in this.axiosdata) {
+          for (var i = 0; i < this.axiosdata.待反馈.length; i++) {
+            var temp = {
+              date: this.axiosdata.待反馈[i].activityDate.split("T")[0],
+              time: this.axiosdata.待反馈[i].activityDate.split("T")[1],
+              name: this.axiosdata.待反馈[i].name,
+              groundname: this.axiosdata.待反馈[i].groundName,
+              isGroundIndoor: this.axiosdata.待反馈[i].isGroundIndoor,
+              ID: this.axiosdata.待反馈[i].id,
+              participantNum: this.axiosdata.待反馈[i].participantNum,
+              additionalRequest: this.axiosdata.待反馈[i].additionalRequest,
+              description: this.axiosdata.待反馈[i].description,
+              activityState: this.axiosdata.待反馈[i].activityState,
+            };
+            this.tableData1.push(temp);
+          }
+          console.log("TABLEDATA_1");
+          console.log(this.tableData1);
+        }
+        
+        if ("已反馈" in this.axiosdata) {
+          for (i = 0; i < this.axiosdata.已反馈.length; i++) {
+            temp = {
+              date: this.axiosdata.已反馈[i].activityDate.split("T")[0],
+              time: this.axiosdata.已反馈[i].activityDate.split("T")[1],
+              name: this.axiosdata.已反馈[i].name,
+              groundname: this.axiosdata.已反馈[i].groundName,
+              isGroundIndoor: this.axiosdata.已反馈[i].isGroundIndoor,
+              ID: this.axiosdata.已反馈[i].id,
+              participantNum: this.axiosdata.已反馈[i].participantNum,
+              additionalRequest: this.axiosdata.已反馈[i].additionalRequest,
+              description: this.axiosdata.已反馈[i].description,
+              activityState: this.axiosdata.已反馈[i].activityState,
+            };
+            this.tableData2.push(temp);
+          }
+          console.log("TABLEDATA_2");
+          console.log(this.tableData2);
+        }
+      })
+      .catch((err) => {
+        this.data = err;
       });
     },
     submit() {
-      if (this.ruleForm.score == null || this.ruleForm.textarea == "") {
+      if (this.ruleForm.score == 0 || this.ruleForm.textarea == "") {
         this.$alert("未输入所有备选项", "反馈失败", {
           confirmButtonText: "确定",
           callback: (action) => {
@@ -390,7 +392,7 @@ export default {
           .then((data) => {
             console.log(data);
             this.$message({ message: "反馈成功", type: "success" });
-            this.$router.push({ path: "/OrgFrame/Appointment" });
+            this.fetchData();
           })
           .catch((err) => {
             err;

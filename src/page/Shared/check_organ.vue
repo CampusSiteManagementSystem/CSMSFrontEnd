@@ -26,22 +26,18 @@
         stripe
       >
         <el-table-column prop="name" label="组织名称"> </el-table-column>
-        <el-table-column prop="detailInfo" label="组织描述" width="450">
+        <el-table-column prop="detailInfo" label="组织描述">
         </el-table-column>
         <el-table-column prop="functionary" label="负责人"> </el-table-column>
         <el-table-column
           prop="telephone"
           label="联系方式"
-          width="250"
           align="center"
         >
         </el-table-column>
         <el-table-column prop="type" label="组织类型" align="center">
-          <template slot-scope="scope">
-            {{ scope.row.type == "1" ? "社团" : "班级" }}
-          </template>
         </el-table-column>
-        <el-table-column width="100" label="操作">
+        <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button @click="viewInfo(scope.row)" type="text" size="small"
               >查看详情</el-button

@@ -115,13 +115,13 @@ export default {
     var axios = require("axios");
     var config1 = {
       method: "get",
-      url: "http://139.196.114.7/api/IndoorGrounds?accountNumber="+store.state.ID, //改
+      url: "http://139.196.114.7/api/IndoorGrounds?accountNumber="+store.state.ID,
       headers: {},
     };
 
     var config2 = {
       method: "get",
-      url: "http://139.196.114.7/api/OutdoorGrounds?accountNumber="+store.state.ID, //改
+      url: "http://139.196.114.7/api/OutdoorGrounds?accountNumber="+store.state.ID,
       headers: {},
     };
 
@@ -190,7 +190,7 @@ export default {
             } else {
               var cPos = this.options.length - 1,
                 cFloor = this.options[cPos].children.length - 1;
-              this.options[cPos].children[cFloor].push({
+              this.options[cPos].children[cFloor].children.push({
                 value: this.iGroundTable[k].groundId,
                 label: this.iGroundTable[k].roomNo,
               });

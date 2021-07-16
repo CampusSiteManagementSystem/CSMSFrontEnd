@@ -74,7 +74,7 @@
           <el-form-item>
             <el-button type="primary" @click="onSubmit">提交</el-button>
             <router-link to="/GroundsAdmin/GroundList">
-              <el-button>取消</el-button></router-link
+              <el-button class="modify">取消</el-button></router-link
             >
           </el-form-item>
         </el-form>
@@ -105,7 +105,9 @@ body,
   /*统一设置高度为100%*/
   height: 100%;
 }
-
+.modify {
+  margin-left: 3cm;
+}
 .maincard {
   border-radius: 15px;
   height: 100%;
