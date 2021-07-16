@@ -17,11 +17,13 @@
         </el-row>
       </div>
       <el-table
+        :header-row-style="{height:'20px'}" :cell-style="{padding:'3px'}"
         height="520"
         ref="filterTable"
         :data="matchList"
         style="width: 100%"
         :default-sort="{ prop: 'time', order: 'descending' }"
+        stripe
       >
         <el-table-column prop="time" label="开始时间" sortable>
         </el-table-column>
