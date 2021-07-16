@@ -6,51 +6,53 @@
           <img src="../assets/Indoor.jpg" class="image" /></div
       ></el-col>
       <el-col :span="16">
-        <div>
-          <h3>场地详情</h3>
-        </div>
+        <el-container>
+          <el-main>
+            <div>
+              <h3>场地详情</h3>
+            </div>
 
-        <el-row v-if="placeType == '室内'" :gutter="20">
-          <el-col :span="12">
-            <p>场地名称:{{ indoorGround.楼号 }}{{ indoorGround.房间号 }}</p>
-            <div v-for="(value, key, index) in indoorGround" :key="key">
-              <p v-if="index < 3">{{ key }}:{{ value }}</p>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div v-for="(value, key, index) in indoorGround" :key="key">
-              <p v-if="index >= 3">{{ key }}:{{ value }}</p>
-            </div>
-          </el-col>
-        </el-row>
-        <el-row v-else>
-          <p v-for="(value, key) in outdoorGround" :key="key">
-            {{ key }}:{{ value }}
-          </p>
-        </el-row>
-        <el-row style="float: right">
-          <time class="time"
-            >{{ currentDate }}
-            <router-link
-              :to="{
-                name: 'ApplySiteWindow',
-                query: { groundId: groundId },
-              }"
-              v-show="buttonshow"
-            >
-              <el-button type="text" @click.stop="handleApply()"
-                >预约</el-button
-              ></router-link
-            ></time
-          ><el-button
-            icon="el-icon-star-off"
-            class="button"
-            circle=""
-            size="mini"
-            @click="pushLikeButton"
-          ></el-button>
-        </el-row>
-      </el-col>
+            <el-row v-if="placeType == '室内'" :gutter="20">
+              <el-col :span="12">
+                <p>场地名称:{{ indoorGround.楼号 }}{{ indoorGround.房间号 }}</p>
+                <div v-for="(value, key, index) in indoorGround" :key="key">
+                  <p v-if="index < 3">{{ key }}:{{ value }}</p>
+                </div>
+              </el-col>
+              <el-col :span="12">
+                <div v-for="(value, key, index) in indoorGround" :key="key">
+                  <p v-if="index >= 3">{{ key }}:{{ value }}</p>
+                </div>
+              </el-col>
+            </el-row>
+            <el-row v-else>
+              <p v-for="(value, key) in outdoorGround" :key="key">
+                {{ key }}:{{ value }}
+              </p>
+            </el-row> </el-main
+          ><el-footer >
+            <time class="time"
+              >{{ currentDate }}
+              <router-link
+                :to="{
+                  name: 'ApplySiteWindow',
+                  query: { groundId: groundId },
+                }"
+                v-show="buttonshow"
+              >
+                <el-button type="text" @click.stop="handleApply()" style="padding-right:2%"
+                  >预约</el-button
+                ></router-link
+              ></time
+            ><el-button 
+              icon="el-icon-star-off"
+              class="button"
+              circle=""
+              size="mini"
+             
+              @click="pushLikeButton"
+            ></el-button> </el-footer></el-container
+      ></el-col>
     </el-row>
   </div>
 </template>
@@ -170,7 +172,6 @@ export default {
           });
       }
 
-
       //先获得这个场地在GROUND的信息
       await GETGroundsID(that.$props.groundId)
         .then((data) => {
@@ -218,12 +219,11 @@ export default {
     pushLikeButton() {
       const that = this;
       console.log(that.likes);
-      for(var i=0;i<that.likes.length;i++){
-        if(that.likes[i].groundId== that.groundId){
-          that.$message( "您已收藏过该场地" );
+      for (var i = 0; i < that.likes.length; i++) {
+        if (that.likes[i].groundId == that.groundId) {
+          that.$message("您已收藏过该场地");
           return;
         }
-        
       }
 
       if (that.buttonshow) {
@@ -235,7 +235,7 @@ export default {
         })
           .then((data) => {
             // this.res = data;
-            console.log( data);
+            console.log(data);
             that.$message({ message: "成功收藏", type: "success" });
           })
           .catch((err) => {
@@ -250,7 +250,7 @@ export default {
           groundId: that.groundId,
         })
           .then((data) => {
-             that.$message({ message: "成功收藏", type: "success" });
+            that.$message({ message: "成功收藏", type: "success" });
             console.log(data);
           })
           .catch((err) => {

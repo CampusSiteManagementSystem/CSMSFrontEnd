@@ -81,17 +81,16 @@
           type="primary"
           >登录</el-button
         >
-        <el-button @click="test">test</el-button>
       </el-row>
 
       <el-row>
         <el-col :span="8" :offset="6">
-          <router-link to="/Register">
+          <router-link :to="'/Register/' + identity">
             <el-link :underline="false">注册</el-link>
           </router-link>
         </el-col>
         <el-col :span="8">
-          <router-link to="/ForgetPassword">
+          <router-link :to="'/ForgetPassword/'+ identity">
             <el-link :underline="false">忘记密码</el-link>
           </router-link>
         </el-col>
@@ -101,12 +100,11 @@
 </template>
 
 <script>
-import { Login, LoginTest } from "../../API/http";
-//import store from "../../state/state";
+import { Login} from "../../API/http";
+import store from "../../state/state";
 export default {
   data() {
     return {
-      res: null,
       form: {
         accountNumber: 1951459,
         password: "Zzy123456",
@@ -141,16 +139,20 @@ export default {
       identity: 1,
     };
   },
-  methods: {
-    test() {
-      LoginTest()
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+  computed: {
+    role() {
+      if (this.identity === 1) {
+        return "student";
+      } else if (this.identity === 3) {
+        return "organization";
+      } else if (this.identity === 2) {
+        return "groundsMan";
+      } else {
+        return "systemAdministrator";
+      }
     },
+  },
+  methods: {
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -158,11 +160,14 @@ export default {
           Login({
             accountNumber: this.form.accountNumber,
             secretPassword: this.form.password,
+            role: this.role,
           })
             .then((data) => {
-              localStorage.setItem("uutype", this.identity);
+              localStorage.setItem("uutype", this.role);
               localStorage.setItem("uuid", this.form.accountNumber);
               localStorage.setItem("uutoken", data.accessToken);
+              store.state.ID = this.form.accountNumber;
+              store.state.membertype=this.role;
               if (this.identity === 1) {
                 this.$router.push("/StuFrame/Main");
               } else if (this.identity === 2) {

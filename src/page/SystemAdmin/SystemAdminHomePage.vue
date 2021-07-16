@@ -141,7 +141,7 @@ import {
   GETSystemAnnouncements,
   GETOrganizations,
   GETStudents,
-  GETSystemAdministrators,
+  GETSystemAdministratorsID,
 
   // GETStudentsID,
   // GETActivities,
@@ -196,7 +196,7 @@ export default {
       });
 
     //获取管理员信息
-    GETSystemAdministrators()
+    GETSystemAdministratorsID("1000003")
       .then((data) => {
         this.sysInfo = data;
         console.log(">>>>>>", data);

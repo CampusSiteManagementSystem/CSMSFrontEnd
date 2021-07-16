@@ -37,7 +37,7 @@
         </el-table-column>
         <el-table-column prop="type" label="组织类型" align="center">
           <template slot-scope="scope">
-            {{ scope.row.type == '1' ? "班级" : "社团" }}
+            {{ scope.row.type == "1" ? "班级" : "社团" }}
           </template>
         </el-table-column>
         <el-table-column width="100" label="操作">
@@ -66,7 +66,7 @@
           <el-col :span="16">
             <p><b>组织账号：</b>{{ orgSelected.accountNumber }}</p>
             <p>
-              <b>组织类型：</b>{{ orgSelected.type == '1' ? "班级" : "社团" }}
+              <b>组织类型：</b>{{ orgSelected.type == "1" ? "班级" : "社团" }}
             </p>
             <p><b>邮箱：</b>{{ orgSelected.emailAddress }}</p>
             <p><b>负责人：</b>{{ orgSelected.functionary }}</p>
@@ -74,7 +74,7 @@
             <p><b>组织简介：</b>{{ orgSelected.detailInfo }}</p>
             <router-link
               :to="{
-                name: 'ViewActivities',
+                name: toRooterName,
                 params: { ID: orgSelected.accountNumber },
               }"
             >
@@ -121,61 +121,53 @@ body,
 </style>
 
   <script>
+import store from "../../state/state.js";
+
 export default {
   data() {
     return {
+      toRooterName:
+        store.state.membertype == "student"
+          ? "ViewActivities"
+          : "ViewActivitiesForOrg",
       toMatch: "",
       matchList: [],
       dialogVisible: false,
       orgSelected: {
-        accountNumber:"asdfng ",
-        name:"string",
-        credit:100,
-        detailInfo:"string",
-        emailAddress:"string",
-        joinDate:"2021-07-06T06:40:42",
-        functionary:"string",
-        telephone:"string",
-        type:"0",
-        state:"0"
+        accountNumber: "asdfng ",
+        name: "string",
+        credit: 100,
+        detailInfo: "string",
+        emailAddress: "string",
+        joinDate: "2021-07-06T06:40:42",
+        functionary: "string",
+        telephone: "string",
+        type: "0",
+        state: "0",
       },
       //表格的返回值
       tableData: [],
     };
   },
   mounted() {
-    var axios = require('axios');
+    var axios = require("axios");
     var config = {
-      method: 'get',
-      url: 'http://139.196.114.7/api/Organizations',
-      headers: { }
+      method: "get",
+      url: "http://139.196.114.7/api/Organizations",
+      headers: {},
     };
-                
+
     axios(config)
-    .then(response => {
-      this.tableData = [];
-      for (let org of response.data){
-        this.tableData.push(org);
-      }
-      this.matchList = this.tableData;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-                
-    axios(config)
-        .then(response => {
+      .then((response) => {
         this.tableData = [];
-        for (let key of Object.keys(response.data)){
-          for (let a of response.data[key]){
-            this.tableData.push(a);
-          }
+        for (let org of response.data) {
+          this.tableData.push(org);
         }
         this.matchList = this.tableData;
-    })
-    .catch(function (error) {
+      })
+      .catch(function (error) {
         console.log(error);
-    });
+      });
   },
 
   methods: {

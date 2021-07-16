@@ -5,14 +5,14 @@
   <el-steps direction="vertical" :model="formInline" :active="2" finish-status="success" process-status="error">
     <el-step title="申请预约">
         <template slot="description">
-                  <p>活动名称：{{formInline.area}}</p>
-                  <p>活动时间：{{formInline.time}}</p>
+                  <p>活动名称：{{formInline.groundName}}</p>
+                  <p>活动时间：{{formInline.startTime}}</p>
         </template>
     </el-step>
     <el-step title="待审核">
                 <template slot="description">
-                  <p>审核管理员ID：2333</p>
-                  <p>审核时间：{{formInline.time}}</p>
+                  <p>审核管理员ID：{{this.accountNumber}}</p>
+                  <p>审核时间：{{this.examineTime}}</p>
         </template>
     </el-step>
     <el-step title="被驳回">
@@ -28,25 +28,25 @@
                 <p><b>预约信息</b></p>
                 <el-form ref="form" :model="formInline" label-width="150px" label-position="left">
                     <el-form-item label="活动ID">
-                        <span class="size">{{formInline.ID}}</span>
+                        <span class="size">{{formInline.id}}</span>
                     </el-form-item>
                     <el-form-item label="申请地点">
-                        <span>{{formInline.area}}</span>
+                        <span>{{formInline.groundName}}</span>
                     </el-form-item>
                     <el-form-item label="时间">
-                        <span>{{formInline.time}}</span>
+                        <span>{{formInline.startTime}}</span>
                     </el-form-item>
                     <el-form-item label="活动名称">
                         <span>{{formInline.name}}</span>
                     </el-form-item>
                     <el-form-item label="参加人数">
-                        <span>{{formInline.people}}</span>
+                        <span>{{formInline.participantNum}}</span>
                     </el-form-item>
                     <el-form-item label="特殊要求">
-                        <span>{{formInline.require}}</span>
+                        <span>{{formInline.additionalRequest}}</span>
                     </el-form-item>
                     <el-form-item label="活动描述">
-                        <span>{{formInline.details}}</span>
+                        <span>{{formInline.description}}</span>
                     </el-form-item>
                     <el-form-item label="审核意见">
                         <el-checkbox v-model="checked1" v-on="reviewopinion(formInline.idea)" disabled>通过</el-checkbox>
@@ -59,19 +59,36 @@
 </template>
 
 <script>
+import { GETActivitiesID,
+        GETExamineAndApprovesID } from "../../API/http";
 export default {
+    created() {
+        GETActivitiesID(this.$route.params.activityID)
+      .then((data) => {
+        this.formInline=data;
+        this.formInline.startTime=(data.startTime.replace("T"," ").split('.'))[0];
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("信息获取错误");
+      });
+        GETExamineAndApprovesID(this.$route.params.activityID)
+      .then((data) => {
+        this.examineTime=data.examineTime;
+        this.accountNumber=data.accountNumber;
+        this.examineTime=(data.examineTime.replace("T"," ").split('.'))[0];
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$message("信息获取错误");
+      });
+    },
         data() {
       return {
     formInline: {
-          ID: '11111121111111111111111',
-          area: 'G301',
-          time:'2021-06-08 12:30',
-          name:'班会',
-          people:45,
-          require:'无',
-          details:'听数据库开会',
-          idea:false
         },
+        examineTime:null,
+        accountNumber:null,        
         checked1: false,
         checked2: false
       };
@@ -83,7 +100,7 @@ export default {
                 this.checked2=false;
             }
             else{
-                console.log("PICCARD activityID", this.$route.query.activityID);
+                console.log("PICCARD activityID", this.$route.params.activityID);
                 this.checked1=false;
                 this.checked2=true;
             }

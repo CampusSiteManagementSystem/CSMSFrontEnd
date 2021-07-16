@@ -10,6 +10,7 @@ module.exports = {
                     uglifyOptions: {
                         warnings: false,
                         compress: {
+                            warnings: false,
                             drop_console: true,
                             pure_funcs: ['console.log']
                         }
@@ -17,5 +18,9 @@ module.exports = {
                 })
             ]
         },
+        performance: {
+            maxEntrypointSize: 10000000,
+            maxAssetSize: 30000000,
+        }
     },
 }

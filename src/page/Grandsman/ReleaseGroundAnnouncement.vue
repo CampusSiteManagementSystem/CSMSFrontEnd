@@ -33,7 +33,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="publish">发布</el-button>
-        <el-button @click="back">取消</el-button>
+        <!-- <el-button @click="back">取消</el-button> -->
       </el-form-item>
     </el-form>
   </el-card>
@@ -79,7 +79,7 @@
 // <script>
 import { POSTMaintenanceAnnouncements } from "../../API/http";
 
-// import store from "../../state/state.js";
+import store from "../../state/state.js";
 export default {
   name: "ReleaseGroundAnnouncement",
   data() {
@@ -109,13 +109,13 @@ export default {
     var axios = require("axios");
     var config1 = {
       method: "get",
-      url: "http://139.196.114.7/api/IndoorGrounds?accountNumber=1000003", //改
+      url: "http://139.196.114.7/api/IndoorGrounds?accountNumber="+store.state.ID, //改
       headers: {},
     };
 
     var config2 = {
       method: "get",
-      url: "http://139.196.114.7/api/OutdoorGrounds?accountNumber=1000003", //改
+      url: "http://139.196.114.7/api/OutdoorGrounds?accountNumber="+store.state.ID, //改
       headers: {},
     };
 
@@ -214,13 +214,12 @@ export default {
       });
   },
   methods: {
-    
     publish() {
       this.$refs["ruleForm"].validate((valid) => {
         if (valid) {
-          console.log("公告数据");
-          console.log(this.ruleForm.site[this.ruleForm.site.length - 1]);
-          console.log(this.ruleForm.title + "##" + this.ruleForm.content);
+          // console.log("公告数据");
+          // console.log(this.ruleForm.site[this.ruleForm.site.length - 1]);
+          // console.log(this.ruleForm.title + "##" + this.ruleForm.content);
 
           POSTMaintenanceAnnouncements({
             groundId: this.ruleForm.site[this.ruleForm.site.length - 1],
@@ -229,11 +228,12 @@ export default {
             .then((data) => {
               console.log(data);
               this.$message({ message: "公告发布成功", type: "success" });
-              this.$router.push({ path: "/GroundsAdmin/Main" });
+              // this.$router.push({ path: "/GroundsAdmin/Main" });
+              this.$refs["ruleForm"].resetFields();
             })
             .catch((err) => {
               err;
-             // console.log("errann", err);
+              // console.log("errann", err);
               // console.log(this.ruleForm.site[this.ruleForm.site.length-1]);
               // console.log(this.ruleForm.title + "##" + this.ruleForm.content);
               this.$message({ message: "公告发布失败", type: "error" });
@@ -244,9 +244,9 @@ export default {
       });
     },
 
-    back() {
-      this.$router.push({ path: "/GroundsAdmin/Main" });
-    },
+    // back() {
+    //   this.$router.push({ path: "/GroundsAdmin/Main" });
+    // },
     filterTag(value, row, column) {
       const property = column["property"];
       return row[property] === value;

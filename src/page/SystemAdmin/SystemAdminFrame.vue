@@ -180,7 +180,9 @@ body,
 </style>
 
 <script>
+import store from "../../state/state"
 import * as echarts from "echarts";
+import router from "../../router/index"
 export default {
   data() {
     return {
@@ -209,6 +211,7 @@ export default {
     };
   },
   mounted() {
+    this.breadList = this.$route.matched;
     this.drawClock();
     console.log("option", this.option);
     const that = this;
@@ -260,7 +263,13 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        this.$router.push({ path: "/" });
+        localStorage.removeItem("uuid");
+        localStorage.removeItem("uutype");
+        localStorage.removeItem("uutoken");
+        store.state.ID=null;
+        const routeHistory = history.length - 1;
+        router.go(-routeHistory);
+        router.replace("/");
       });
     },
 

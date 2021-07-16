@@ -127,11 +127,13 @@ p {
 
 <script>
 
-import {GETSystemAdministratorsID} from "../../API/http"
-
+import {GETSystemAdministratorsID,
+      PUTSystemAdministratorsID
+      } from "../../API/http"
+import store from "../../state/state";
 export default {
   created() {
-    GETSystemAdministratorsID("1000001")
+    GETSystemAdministratorsID(this.SysID)
       .then((data) => {
         this.ruleForm.accountNumber = data.accountNumber;
         this.ruleForm.secretPassword = data.secretPassword;
@@ -151,7 +153,7 @@ export default {
         secretPassword: "",
         eMailAddress: "",
       },
-
+      SysID:store.state.ID,
       tableData: [
         {
           title: "账号",
@@ -192,6 +194,17 @@ export default {
       this.tableData[1].content = this.ruleForm.secretPassword;
       this.tableData[2].content = this.ruleForm.eMailAddress;
     },
+    setToDB() {
+      PUTSystemAdministratorsID(this.SysID,{
+          accountNumber: this.ruleForm.accountNumber,
+          secretPassword: this.ruleForm.secretPassword,
+          eMailAddress: this.ruleForm.eMailAddress,
+      })
+        .catch((err) => {
+          console.log(err);
+          this.$message("系统管理员信息传输错误");
+        })
+    },
     edit() {
       this.isTable = false;
       setTimeout(() => {
@@ -208,6 +221,7 @@ export default {
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.setToDB();
           this.isForm = false;
           setTimeout(() => {
             this.isTable = true;

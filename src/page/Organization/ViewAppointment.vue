@@ -326,7 +326,6 @@
               <el-table-column
                 prop="tag"
                 label="标签"
-                width="100"
                 :filters="[
                   { text: '室内', value: '室内' },
                   { text: '室外', value: '室外' },
@@ -342,13 +341,30 @@
                   </el-tag>
                 </template>
               </el-table-column>
+              <el-table-column prop="activityState" label="状态">
+                <template slot-scope="scope">
+                  <el-tag
+                    :type="
+                      scope.row.activityState === '已反馈'
+                        ? 'primary'
+                        : 'success'
+                    "
+                    disable-transitions
+                    >{{ scope.row.activityState }}
+                  </el-tag>
+                </template>
+              </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
                   <el-button
+                    v-if="scope.row.activityState === '待反馈'"
                     size="mini"
                     type="primary"
                     @click.stop="handleFeedback(scope.row)"
                     >反馈
+                  </el-button>
+                  <el-button v-else size="mini" type="primary" disabled
+                    >已反馈
                   </el-button>
                   <!-- <router-link
                     :to="{
@@ -485,48 +501,10 @@
       </el-card>
 
       <!-- 以下是场地反馈的弹出窗口 -->
-      <FeedbackDialog
+      <!-- <FeedbackDialog
         :feedbackVisible="feedbackVisible"
         :message="feedbackRow"
-      />
-      <!-- <el-dialog title="场地反馈" :visible.sync="feedbackVisible">
-          <span>这是一段信息</span>
-          <el-form ref="form" label-width="100px">
-          <el-form-item label="评分：">
-            <el-rate
-              class="block"
-              v-model="score"
-              :colors="colors"
-              disabled
-              show-text
-            >
-            </el-rate>
-          </el-form-item>
-
-          <el-form-item label="反馈：">
-            {{ content }}
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="back">返回</el-button>
-          </el-form-item>
-        </el-form> -->
-
-      <!-- <el-form :model="form">
-    <el-form-item label="活动名称" :label-width="formLabelWidth">
-      <el-input v-model="form.name" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item label="活动区域" :label-width="formLabelWidth">
-      <el-select v-model="form.region" placeholder="请选择活动区域">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
-      </el-select>
-    </el-form-item>
-  </el-form> -->
-      <!-- <div slot="footer" class="dialog-footer">
-    <el-button @click="feedbackVisible = false">取 消</el-button>
-    <el-button type="primary" @click="submitFeedback">提交</el-button>
-  </div>
-</el-dialog> -->
+      /> -->
 
       <!-- 以下需要增加参数  -->
 
@@ -571,7 +549,7 @@
             <el-checkbox v-model="isShow" style="margin-right: 20px"
               >添加盖章</el-checkbox
             >
-            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button @click="dialogVisible = false">取消</el-button>
             <el-button type="primary" @click="getPdf('#pdfDom')"
               >下载</el-button
             >
@@ -579,6 +557,7 @@
         </el-dialog>
       </div>
     </div>
+    <!-- <feedback-dialog :feedbackRow="feedbackRow" :feedbackVisible="feedbackVisible" @closeDialog="feedbackVisible=false"></feedback-dialog> -->
     <el-dialog title="场地反馈" :visible.sync="feedbackVisible" class="dialog">
       <div class="content">
         <el-form
@@ -607,14 +586,14 @@
               <p>
                 <el-rate
                   class="block"
-                  v-model="score"
+                  v-model="ruleForm.score"
                   :colors="colors"
                   show-text
                 ></el-rate>
               </p>
             </div>
           </el-form-item>
-          <el-form-item label="详细意见" prop="textarea">
+          <el-form-item label="详细意见">
             <label slot="label"><b>详细意见</b></label>
             <span>
               <el-input
@@ -623,22 +602,16 @@
                 type="textarea"
                 :rows="5"
                 placeholder="请输入内容"
-                v-model="textarea"
+                v-model="ruleForm.textarea"
               >
               </el-input>
             </span>
-          </el-form-item>
-          <el-form-item align="center" class="modify">
-            <el-button type="primary" @click="submit">提交</el-button>
-            <router-link to="/OrgFrame/FinishActivity" tag="el-button"
-              >取消</router-link
-            >
           </el-form-item>
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="feedbackVisible = false">取消</el-button>
-        <el-button type="primary" @click="feedbackVisible">提交</el-button>
+        <el-button type="primary" @click="submit">提交</el-button>
       </span>
     </el-dialog>
   </div>
@@ -646,12 +619,16 @@
 
 <script>
 import store from "../../state/state";
-//import FeedbackDialog from "../../components/FeedbackDialog";
-import { GETActivities, DELETEActivitiesID } from "../../API/http";
+import {
+  GETActivities,
+  DELETEActivitiesID,
+  POSTFeedbackRecords,
+} from "../../API/http";
+// import FeedbackDialog from '../../components/FeedbackDialog.vue';
 export default {
-  // components: {
-  //   FeedbackDialog,
-  // },
+  //  components: {
+  //     FeedbackDialog,
+  //  },
   data() {
     return {
       //这是下载pdf的参数 别删了嗷
@@ -670,8 +647,11 @@ export default {
         已反馈: [],
         被驳回: [],
         已完成: [],
+
+        已过期: [],
       },
       ruleForm: {
+        score: null,
         textarea: "",
       },
       rules: {
@@ -679,7 +659,7 @@ export default {
           { required: true, message: "请输入场地反馈", trigger: "blur" },
         ],
       },
-      
+
       feedbackRow: {
         ID: "",
         additionalRequest: "",
@@ -692,9 +672,7 @@ export default {
         tag: "",
         time: "",
       },
-      score: null,
       colors: ["#99A9BF", "#F7BA2A", "#FF9900"], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
-      textarea: "",
       activeName: "second",
 
       //以下是调用api后新增的内容
@@ -704,7 +682,6 @@ export default {
     };
   },
   methods: {
-    submitFeedback() {},
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -785,7 +762,7 @@ export default {
       this.currentRow = val;
       this.$router.push({
         name: "RejectedWindow",
-        query: {
+        params: {
           activityID: val.ID,
         },
       });
@@ -810,7 +787,7 @@ export default {
           // console.log("run GETActivities");
           that.axiosdata = data;
           that.dealWithActivities(that.axiosdata);
-          // console.log("that.axiosdata", that.axiosdata);
+          //console.log("that.axiosdata", that.axiosdata);
         })
         .catch((err) => {
           that.data = err;
@@ -860,6 +837,7 @@ export default {
             additionalRequest: "无",
             description: "听数据库开会",
             tag: "室外",
+            activityState: "审核中",
           };
           temp.ID = data[key][i].id;
           temp.date = data[key][i].activityDate.split("T")[0];
@@ -870,6 +848,7 @@ export default {
           temp.groupname = data[key][i].organizationName;
           temp.groundname = data[key][i].groundName;
           temp.additionalRequest = data[key][i].additionalRequest;
+          temp.activityState = data[key][i].activityState;
 
           this.tableData[key].push(temp);
         }
@@ -971,6 +950,44 @@ export default {
         context.restore();
       }
     },
+
+    submit() {
+      if (this.ruleForm.score == null || this.ruleForm.textarea == "") {
+        this.$alert("未输入所有备选项", "反馈失败", {
+          confirmButtonText: "确定",
+          callback: (action) => {
+            if (action === "confirm") {
+              console.log("ID", this.$route.query.activityID);
+              this.$message({
+                type: "error",
+                message: "反馈失败",
+              });
+            }
+          },
+        });
+      } else {
+        var tmp = {
+          feedbackDate: this.formatTime,
+          feedbackTime: this.formatTime,
+          content: this.ruleForm.textarea,
+          score: this.ruleForm.score,
+          id: this.feedbackRow.ID,
+          groundName: this.feedbackRow.groundname,
+        };
+        console.log(tmp);
+        POSTFeedbackRecords(tmp)
+          .then((data) => {
+            console.log(data);
+            this.$message({ message: "反馈成功", type: "success" });
+            this.$router.push({ path: "/OrgFrame/Appointment" });
+          })
+          .catch((err) => {
+            err;
+            this.$message({ message: "反馈失败", type: "error" });
+          });
+      }
+      this.feedbackVisible = false;
+    },
   },
   computed: {
     formatTime() {
@@ -999,7 +1016,7 @@ export default {
       if (s < 10) {
         s = "0" + s;
       }
-      sresult = Y + "-" + m + "-" + d + " " + H + ":" + i + ":" + s;
+      sresult = String(Y) + "-" + m + "-" + d + "T" + H + ":" + i + ":" + s;
 
       return sresult;
     },
@@ -1014,7 +1031,6 @@ export default {
 .el-dialog {
   border-radius: 12px;
 }
-
 </style>
 <style scoped>
 body {

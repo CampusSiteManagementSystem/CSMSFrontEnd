@@ -87,7 +87,7 @@ export default {
             name: "软件学院",
             functionary: "他",
             accountNumber: "12234",
-            state: "0",
+            state: "未审批",
           };
 
           temp.functionary = data[i].functionary;
@@ -108,7 +108,7 @@ export default {
         this.$message("未审批组织数据请求错误");
       });
   },
-
+ 
   methods: {
     search: function () {
       if (this.toMatch == "") {
@@ -116,7 +116,7 @@ export default {
       } else {
         this.matchList = [];
         for (var i = 0; i < this.tableData.length; i++) {
-          if (this.tableData[i].state == "0") {
+          if (this.tableData[i].state == "未审批") {
             this.matchList.push(this.tableData[i]);
           }
         }

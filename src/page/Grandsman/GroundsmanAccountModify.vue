@@ -101,7 +101,45 @@ p {
 
 
 <script>
+import store from "../../state/state";
+import {
+  GETGroundsmenID,
+  PUTGroundsmenID,
+  GETGrounds
+} from "../../API/http";
 export default {
+  created(){
+    GETGroundsmenID(this.GroID)
+    .then(data =>{
+      this.ruleForm.account=this.GroID;
+      this.ruleForm.email=data.eMailAddress;      
+      this.updateData();
+    })
+    .catch((err) => {
+      console.log(err);
+      this.$message("场地管理员信息获取错误");
+    })
+    GETGrounds({
+      accountNumber:this.GroID
+    })
+    .then(data =>{
+      var site="";
+      for(var i=0; i<data.length; i++)
+      {
+        site+=data[i].name;
+        if(i!=data.length-1)
+        {
+          site+=" , ";
+        }
+      }
+      this.ruleForm.site=site;    
+      this.updateData();
+    })
+    .catch((err) => {
+      console.log(err);
+      this.$message("场地管理员信息获取错误");
+    })
+  },
   data() {
     return {
       ruleForm: {
@@ -134,6 +172,7 @@ export default {
       }],
       radio: "1",
       textarea: "",
+      GroID:store.state.ID,
       isForm: false,
       isTable: true
     };
@@ -164,6 +203,16 @@ export default {
       this.tableData[0].content = this.ruleForm.account;
       this.tableData[1].content = this.ruleForm.site;
       this.tableData[2].content = this.ruleForm.email;
+    },
+    setToDB() {
+      PUTGroundsmenID(this.GroID,{
+          accountNumber: this.ruleForm.account,
+          eMailAddress: this.ruleForm.email,
+      })
+        .catch((err) => {
+          console.log(err);
+          this.$message("场地管理员信息传输错误");
+        })
     },    
     edit() {
       this.isTable = false;
@@ -181,6 +230,7 @@ export default {
     submitForm: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.setToDB();
           this.isForm = false;
           setTimeout(() => {
             this.isTable = true;
