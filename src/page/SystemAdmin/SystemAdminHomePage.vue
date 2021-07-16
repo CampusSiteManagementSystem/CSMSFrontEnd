@@ -139,7 +139,7 @@
 
 
 <script>
-// import store from "../../state/state";
+import store from "../../state/state";
 import {
   GETMaintenanceAnnouncements,
   GETSystemAnnouncements,
@@ -204,7 +204,7 @@ export default {
       });
 
     //获取管理员信息
-    GETSystemAdministratorsID("1951495")
+    GETSystemAdministratorsID(store.state.ID)
       .then((data) => {
         this.sysInfo = data;
         console.log(">>>>>>", data);
