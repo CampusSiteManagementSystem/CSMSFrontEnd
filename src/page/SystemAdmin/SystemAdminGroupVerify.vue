@@ -69,10 +69,10 @@ body,
 .el-card {
   border-radius: 15px;
 }
-.submit {
-  /* margin: 1cm 1cm 1cm 17cm; */
-  /* float: right; */
-}
+/* .submit {
+  margin: 1cm 1cm 1cm 17cm;
+   float: right;
+} */
 
 p {
   color: rgb(0, 0, 0);
