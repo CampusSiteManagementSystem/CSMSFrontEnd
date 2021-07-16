@@ -30,23 +30,13 @@
             <el-table-column
               prop="activityState"
               label="状态"
-              column-key="activityState"
-              :filters="[
-                { text: '审核中', value: '审核中' },
-                { text: '待举办', value: '待举办' },
-                { text: '待反馈', value: '待反馈' },
-                { text: '已反馈', value: '已反馈' },
-                { text: '被驳回', value: '被驳回' },
-              ]"
-              :filter-method="filterTag"
-              filter-placement="bottom-end"
             >
               <template slot-scope="scope1">
                 <el-tag
                   :type="tagType[scope1.row.activityState]"
                   disable-transitions
                 >
-                  {{ scope1.row.activityState }}
+                  待审核
                 </el-tag>
               </template>
             </el-table-column>
