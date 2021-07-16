@@ -149,7 +149,7 @@
 import * as echarts from "echarts";
 import { GETOrganizationsID } from "../../API/http";
 import store from "../../state/state";
-import router from "../../router/index"
+//import router from "../../router/index"
 export default {
   created() {
     GETOrganizationsID(this.OrgID)
@@ -242,10 +242,11 @@ export default {
         localStorage.removeItem("uuid");
         localStorage.removeItem("uutype");
         localStorage.removeItem("uutoken");
-        store.state.ID =null;
-        const routeHistory = history.length - 1;
-        router.go(-routeHistory);
-        router.replace("/");
+        store.state.ID = null;
+        // const routeHistory = history.length - 1;
+        // router.go(-routeHistory);
+        // router.replace("/");
+        this.$router.push({path: "/"});
       });
     },
     clickAccountInfo() {
@@ -558,12 +559,8 @@ body,
   height: 100%;
 }
 .logoImage {
-  height: 40px;
-  padding-left: 10px;
-  padding-bottom: 5px;
-  /* background-color: yellow; */
-  /* width: 40%; */
-  /* padding: 5%; */
+  height: 100%;
+  padding-left: 20px;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
