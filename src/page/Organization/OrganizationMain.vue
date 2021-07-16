@@ -8,16 +8,16 @@
             <el-col :span="9">
               <div>
                 <br />
-                <el-avatar :size="130" :src="orgnizationInfo.image"></el-avatar>
+                <el-avatar :size="130" :src="orgnizationInfo.header"></el-avatar>
               </div>
             </el-col>
             <el-col :span="15">
               <div class="name">{{ orgnizationInfo.name }}</div>
               <div class="other-info">
                 <br />ID：{{ orgnizationInfo.accountNumber }}<br />负责人：{{
-                  orgnizationInfo.functionary
+                  orgnizationInfo.functionary==null?"请完善个人信息":orgnizationInfo.functionary
                 }}<br />组织类型：<el-tag type="success">
-                  {{ orgnizationInfo.type }}
+                  {{ orgnizationInfo.type==null?"请完善个人信息":orgnizationInfo.type }}
                 </el-tag>
               </div>
               <div class="date">
@@ -179,6 +179,7 @@ export default {
       .then(data => {
         //console.log("12345698",data);
         this.orgnizationInfo = data;
+        this.orgnizationInfo.header="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
       })
       .catch((err) => {
         console.log(err);
