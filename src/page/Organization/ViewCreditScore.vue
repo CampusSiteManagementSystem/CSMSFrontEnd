@@ -37,7 +37,7 @@
             </div>
             <div class="text item">
               <el-table :header-row-style="{height:'20px'}" :cell-style="{padding:'5px'}" :data="tableData" style="width: 100%" height="200" stripe
-                :default-sort="{prop: 'score', order: 'descending'}">
+                :default-sort="{prop: 'creditTime', order: 'descending'}">
                 <el-table-column prop="activityName" label="名称">
                 </el-table-column>
                 <el-table-column prop="creditTime" label="日期" sortable>
@@ -113,7 +113,6 @@ export default {
     GETOrganizationsID(this.OrgID)
     .then(data =>{
       this.group.name=data.name;
-      this.group.score=data.credit;
     })
     .catch((err) => {
       console.log(err);
@@ -137,6 +136,7 @@ export default {
       return `${percentage}分`;
     },
     dealWithCredits(data) {
+      if(data.length>0){
       for (var i = 0; i < data.length; i++) {
         var temp = {
           activityName: "",
@@ -153,6 +153,8 @@ export default {
         this.date.push(temp.creditTime);
         this.creditScore.push(data[i].absoluteScore);
         this.tableData.push(temp);
+      }
+        this.group.score=this.creditScore[data.length-1];
       }
     },
     drawLine() {

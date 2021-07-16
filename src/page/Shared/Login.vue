@@ -90,7 +90,7 @@
           </router-link>
         </el-col>
         <el-col :span="8">
-          <router-link :to="'/ForgetPassword/'+ identity">
+          <router-link :to="'/ForgetPassword/' + identity">
             <el-link :underline="false">忘记密码</el-link>
           </router-link>
         </el-col>
@@ -100,9 +100,9 @@
 </template>
 
 <script>
-import { Login} from "../../API/http";
+import { Login } from "../../API/http";
 import store from "../../state/state";
-import md5 from 'js-md5';
+import md5 from "js-md5";
 export default {
   data() {
     return {
@@ -163,7 +163,7 @@ export default {
           //console.log(md5(this.form.password,"hhh"));
           Login({
             accountNumber: this.form.accountNumber,
-            secretPassword: md5(this.form.password,"hhh"),
+            secretPassword: md5(this.form.password, "hhh"),
             role: this.role,
           })
             .then((data) => {
@@ -171,7 +171,7 @@ export default {
               localStorage.setItem("uuid", this.form.accountNumber);
               localStorage.setItem("uutoken", data.accessToken);
               store.state.ID = this.form.accountNumber;
-              store.state.membertype=this.role;
+              store.state.membertype = this.role;
               if (this.identity === 1) {
                 this.$router.push("/StuFrame/Main");
               } else if (this.identity === 2) {
@@ -184,8 +184,15 @@ export default {
               this.$message("登录成功");
             })
             .catch((err) => {
-              this.$message.error("账户或密码错误");
-              console.log(err);
+              if (err.response.status == 404) {
+                this.$message.error("账户不存在");
+              }else if (err.response.status == 401){
+                this.$message.error("该账户还未被审核，请稍后再试");
+              } 
+              else {
+                this.$message.error("账户或密码错误");
+                console.log(typeof err.response.status);
+              }
             });
         }
       });
