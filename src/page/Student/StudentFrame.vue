@@ -158,7 +158,7 @@ body,
 }
 .logoImage {
   height: 100%;
-  padding-left: 20px;
+    padding-left: 20px;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 170px;
@@ -183,7 +183,7 @@ body,
 
 <script>
 import { GETStudentsID } from "../../API/http";
-import router from "../../router/index"
+//import router from "../../router/index"
 import store from "../../state/state.js";
 import * as echarts from "echarts";
 export default {
@@ -283,10 +283,11 @@ export default {
         localStorage.removeItem("uuid");
         localStorage.removeItem("uutype");
         localStorage.removeItem("uutoken");
-        store.state.ID =null;
-        const routeHistory = history.length - 1;
-        router.go(-routeHistory);
-        router.replace("/");
+        store.state.ID = null;
+        // const routeHistory = history.length - 1;
+        // router.go(-routeHistory);
+        // router.replace("/");
+        this.$router.push({path: "/"});
       });
     },
 

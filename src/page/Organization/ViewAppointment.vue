@@ -1089,6 +1089,9 @@ body {
   justify-content: center;
   align-items: center;
 }
+.el-dialog__header {
+  border-bottom: 1px solid #ebebeb;
+}
 .background {
   margin: 0;
   height: 98%;

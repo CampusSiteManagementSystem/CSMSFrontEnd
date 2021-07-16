@@ -190,6 +190,9 @@ body,
 .el-card {
   border-radius: 15px;
 }
+.el-main {
+  overflow: auto;
+}
 </style>
 
 
