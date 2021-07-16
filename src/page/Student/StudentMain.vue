@@ -15,10 +15,10 @@
               <br />
               <div class="name">{{ StuInfo.name }}</div>
               <div class="other-info">
-                <br />学号：{{ StuID }}<br />学院专业：<el-tag type="success">
+                <br />学号：{{ StuID }}<br />学院专业：<el-tag class="tag" type="success">
                   {{ StuInfo.academy==null?"请完善个人信息": StuInfo.academy}}
                 </el-tag>
-                <el-tag type="warning" v-if="StuInfo.major!=null">
+                <el-tag type="warning" class="tag" v-if="StuInfo.major!=null">
                   {{ StuInfo.major==null?"": StuInfo.major }}
                 </el-tag>
               </div>
@@ -34,7 +34,7 @@
       </el-col>
       <el-col :span="14" class="upper-row-col2">
         <el-card class="upper-card" ref="upperCardRef">
-          <el-tabs>
+          <el-tabs  :addable='true' @tab-add="showAnnouncement">
             <!-- addable="true" @tab-add="showAnnouncement" -->
             <el-tab-pane label="系统公告">
               <el-table
@@ -366,8 +366,8 @@ export default {
       StuInfo: {},
       semesterInfo: {
         //get semester from backend
-        fromYear: "2020",
-        toYear: "2021",
+        fromYear: "2021",
+        toYear: "2022",
         semester: "2",
         week: "20",
       },
@@ -526,7 +526,10 @@ body,
   margin: 0px;
   height: 100%;
 }
-
+.tag{
+  margin-top: 1px;
+  margin-right: 5px;
+}
 .upper-card,
 .lower-card {
   overflow: auto;
@@ -593,5 +596,8 @@ body,
 }
 .el-card {
   border-radius: 15px;
+}
+.el-dialog__header {
+  border-bottom: 1px solid #ebebeb;
 }
 </style>

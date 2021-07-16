@@ -234,7 +234,7 @@ export default {
             .then((data) => {
               console.log(data);
               this.$message({ message: "公告发布成功", type: "success" });
-              // this.$router.push({ path: "/GroundsAdmin/Main" });
+              this.$router.push({ path: "/GroundsAdmin/Main" });
               this.$refs["ruleForm"].resetFields();
             })
             .catch((err) => {
@@ -243,6 +243,7 @@ export default {
               // console.log(this.ruleForm.site[this.ruleForm.site.length-1]);
               // console.log(this.ruleForm.title + "##" + this.ruleForm.content);
               this.$message({ message: "公告发布失败", type: "error" });
+              this.$router.push({path: "/GroundsAdmin/Main"});
             });
         } else {
           this.$message({ message: "请输入符合规范的数据", type: "warning" });

@@ -5,7 +5,7 @@
         ><b>添加场地 - {{ this.ruleForm.PositionName }}</b></span
       >
     </div>
-    <div v-if="tag">
+    <el-row v-if="tag">
       <el-form
         :model="ruleForm"
         :rules="rules"
@@ -49,8 +49,9 @@
           <el-button @click="back">返回地图</el-button>
         </el-form-item>
       </el-form>
-    </div>
-    <div v-else>
+    </el-row>
+    <el-row v-else>
+        
       <el-form
         :model="ruleForm"
         :rules="rules"
@@ -83,7 +84,7 @@
           <el-button @click="back">返回地图</el-button>
         </el-form-item>
       </el-form>
-    </div>
+    </el-row>
   </el-card>
 </template>
 
@@ -232,7 +233,7 @@ export default {
 
 <style scpoed>
 .input{
-  width: 70%;
+  width: 60%;
 }
 .clearfix:before,
 .clearfix:after {

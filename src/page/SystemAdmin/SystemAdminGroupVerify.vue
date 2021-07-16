@@ -2,10 +2,10 @@
   <div class="maindiv">
     <el-card class="mycard">
       <div slot="header" class="clearfix">
-            <span><b>组织注册</b></span>
-          </div>
+        <span><b>组织注册</b></span>
+      </div>
       <el-row>
-        <el-col :span="23" :offset="1"
+        <el-col :span="10" :offset="2"
           ><div class="info">
             <el-form
               ref="ruleForm"
@@ -26,13 +26,13 @@
       ></el-row>
 
       <el-row>
-        <el-col :span="20"
+        <el-col :span="10" :offset="2"
           ><div class="status">
             <h3>审核意见</h3>
-            <el-col :span="2" :offset="1">
+            <el-col :span="2" :offset="2">
               <el-radio v-model="radio" label="通过">通过</el-radio>
             </el-col>
-            <el-col :span="2">
+            <el-col :span="2" :offset="2">
               <el-radio v-model="radio" label="不通过">不通过</el-radio>
             </el-col>
           </div></el-col
@@ -40,15 +40,17 @@
       </el-row>
 
       <el-row>
-        <div class="submit">
-          <router-link
-            to="/SysAdminFrame/GroupVerifyList"
-            tag="el-button"
-            type="primary"
-            >返回</router-link
-          >
-          <el-button type="primary" @click="submit">提交</el-button>
-        </div>
+        <el-col :span="5" :offset="15">
+          <div class="submit">
+            <router-link
+              to="/SysAdminFrame/GroupVerifyList"
+              tag="el-button"
+              type="primary"
+              >返回</router-link
+            >
+            <el-button type="primary" @click="submit">提交</el-button>
+          </div>
+        </el-col>
       </el-row>
     </el-card>
   </div>
@@ -64,13 +66,13 @@ body,
 .info {
   text-align: left;
 }
- .el-card {
+.el-card {
   border-radius: 15px;
 }
-.submit {
-  /* margin: 1cm 1cm 1cm 17cm; */
-  float: right;
-}
+/* .submit {
+  margin: 1cm 1cm 1cm 17cm;
+   float: right;
+} */
 
 p {
   color: rgb(0, 0, 0);
@@ -81,10 +83,10 @@ p {
 <script>
 import { GETOrganizationsID } from "../../API/http";
 //import store from "../../state/state";
- 
+
 export default {
   mounted() {
-    console.log("aaa",this.$route.query.accountNumber)
+    console.log("aaa", this.$route.query.accountNumber);
     GETOrganizationsID(this.$route.query.accountNumber)
       .then((data) => {
         console.log(data);
@@ -94,7 +96,7 @@ export default {
       .catch((err) => {
         console.log(err);
         this.$message("组织信息获取错误");
-      });    
+      });
   },
 
   data() {
@@ -113,9 +115,9 @@ export default {
     submit() {
       var axios = require("axios");
       var data = JSON.stringify({
-          accountNumber: this.$route.query.accountNumber,
-          state: this.radio,
-        });
+        accountNumber: this.$route.query.accountNumber,
+        state: this.radio,
+      });
 
       var config = {
         method: "put",
@@ -124,18 +126,18 @@ export default {
           "Content-Type": "application/json",
         },
         data: data,
-      }
+      };
       axios(config)
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-            this.$message({ message: "修改成功", type: "success" });
-            this.$router.push("/SysAdminFrame/GroupVerifyList");
-          })
-          .catch((error) => {
-            console.log(error);
-            this.$message({ message: "修改失败", type: "error" });
-            this.$router.push("/SysAdminFrame/GroupVerifyList");
-          });
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          this.$message({ message: "修改成功", type: "success" });
+          this.$router.push("/SysAdminFrame/GroupVerifyList");
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$message({ message: "修改失败", type: "error" });
+          this.$router.push("/SysAdminFrame/GroupVerifyList");
+        });
     },
   },
 };

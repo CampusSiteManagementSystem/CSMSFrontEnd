@@ -36,16 +36,14 @@
             <el-input v-model="groundinfo.computernum"></el-input>
           </el-form-item>
           <el-form-item label="楼层" prop="floor">
-            <el-input v-model="groundinfo.floor"></el-input>
+            <el-input v-model="groundinfo.floor" disabled></el-input>
           </el-form-item>
           <el-form-item label="面积" prop="area">
             <el-input v-model="groundinfo.area"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">提交</el-button>
-            <router-link to="/GroundsAdmin/GroundList">
-              <el-button>取消</el-button></router-link
-            >
+            <el-button @click="back">场地列表</el-button>
           </el-form-item>
         </el-form>
         <div v-else>
@@ -57,6 +55,7 @@
             <el-button @click="edit" type="primary" icon="el-icon-edit"
               >修改信息</el-button
             >
+            <el-button @click="back">场地列表</el-button>
           </div>
         </div>
       </div>
@@ -73,9 +72,10 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">提交</el-button>
-            <router-link to="/GroundsAdmin/GroundList">
+            <el-button @click="back">场地列表</el-button>
+            <!-- <router-link to="/GroundsAdmin/GroundList">
               <el-button class="modify">取消</el-button></router-link
-            >
+            > -->
           </el-form-item>
         </el-form>
         <div v-else>
@@ -156,7 +156,7 @@ body,
 <script>
 import { GETGroundsID } from "../../API/http";
 import { GETIndoorGroundsID } from "../../API/http";
-import store from "../../state/state.js"
+import store from "../../state/state.js";
 
 // import store from "../../state/state.js"
 export default {
@@ -176,7 +176,7 @@ export default {
         computernum: [
           { required: true, message: "请输入电脑数量", trigger: "blur" },
         ],
-        floor: [{ required: true, message: "请输入层数", trigger: "blur" }],
+        floor: [{ required: false, message: "请输入层数", trigger: "blur" }],
         area: [{ required: true, message: "请输入面积", trigger: "blur" }],
       },
       editstate: false,
@@ -222,11 +222,16 @@ export default {
   },
 
   methods: {
+    back() {
+      this.$router.push("/GroundsAdmin/GroundList");
+    },
     edit() {
       this.editstate = true;
     },
     onSubmit() {
-      var axios = require("axios"), data, config;
+      var axios = require("axios"),
+        data,
+        config;
       if (this.groundinfo.indoor) {
         data = JSON.stringify({
           groundId: this.$route.params.ID,
@@ -235,10 +240,11 @@ export default {
           floor: this.groundinfo.floor,
           roomNo: this.groundinfo.roomno,
         });
-
+        console.log(data);
         config = {
           method: "put",
-          url: "http://139.196.114.7/api/IndoorGrounds/" + this.$route.params.ID,
+          url:
+            "http://139.196.114.7/api/IndoorGrounds/" + this.$route.params.ID,
           headers: {
             "Content-Type": "application/json",
           },
@@ -248,16 +254,44 @@ export default {
         axios(config)
           .then((response) => {
             console.log(JSON.stringify(response.data));
-            this.$message({ message: "修改成功", type: "success" });
-            this.$router.push("/GroundsAdmin/GroundList");
+            console.log("修改信息");
+            this.$message({ message: "室内信息修改成功", type: "success" });
+            // this.$router.push("/GroundsAdmin/GroundList");
           })
           .catch((error) => {
             console.log(error);
             this.$message({ message: "修改失败", type: "error" });
-            this.$router.push("/GroundsAdmin/GroundList");
+            // this.$router.push("/GroundsAdmin/GroundList");
           });
-      }
-      else {
+
+        data = JSON.stringify({
+          groundId: this.$route.params.ID,
+          area: this.groundinfo.area,
+          description: this.groundinfo.description,
+          accountNumber: store.state.ID,
+        });
+
+        config = {
+          method: "put",
+          url: "http://139.196.114.7/api/Grounds/" + this.$route.params.ID,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: data,
+        };
+
+        axios(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+            this.$message({ message: "室外场地修改成功", type: "success" });
+            // this.$router.push("/GroundsAdmin/GroundList");
+          })
+          .catch((error) => {
+            console.log(error);
+            this.$message({ message: "修改失败", type: "error" });
+            // this.$router.push("/GroundsAdmin/GroundList");
+          });
+      } else {
         data = JSON.stringify({
           groundId: this.$route.params.ID,
           area: this.groundinfo.area,
@@ -278,12 +312,12 @@ export default {
           .then((response) => {
             console.log(JSON.stringify(response.data));
             this.$message({ message: "修改成功", type: "success" });
-            this.$router.push("/GroundsAdmin/GroundList");
+            // this.$router.push("/GroundsAdmin/GroundList");
           })
           .catch((error) => {
             console.log(error);
             this.$message({ message: "修改失败", type: "error" });
-            this.$router.push("/GroundsAdmin/GroundList");
+            // this.$router.push("/GroundsAdmin/GroundList");
           });
       }
       this.editstate = false;

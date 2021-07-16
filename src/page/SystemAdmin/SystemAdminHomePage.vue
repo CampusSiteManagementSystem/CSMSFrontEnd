@@ -32,7 +32,7 @@
       </el-col>
       <el-col :span="14" class="upper-row-col2">
         <el-card class="upper-card">
-          <el-tabs>
+          <el-tabs  :addable='true' @tab-add="showAnnouncement">
             <!-- addable="true" @tab-add="showAnnouncement" -->
             <el-tab-pane label="系统公告">
               <el-table
@@ -139,7 +139,7 @@
 
 
 <script>
-// import store from "../../state/state";
+import store from "../../state/state";
 import {
   GETMaintenanceAnnouncements,
   GETSystemAnnouncements,
@@ -204,9 +204,10 @@ export default {
       });
 
     //获取管理员信息
-    GETSystemAdministratorsID("1000003")
+    GETSystemAdministratorsID(store.state.ID)
       .then((data) => {
         this.sysInfo = data;
+        this.sysInfo.image = "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
         console.log(">>>>>>", data);
       })
       .catch((err) => {
@@ -309,7 +310,7 @@ export default {
     },
 
     showAnnouncement() {
-      this.$router.push("/StuFrame/Announcement");
+      this.$router.push("/SysAdminFrame/Announcement");
     },
 
     onRowClick(row) {
@@ -382,7 +383,9 @@ export default {
   line-height: 40px;
   font-weight: 600;
 }
-
+.el-dialog__header {
+  border-bottom: 1px solid #ebebeb;
+}
 .el-dialog {
   border-radius: 12px;
 }

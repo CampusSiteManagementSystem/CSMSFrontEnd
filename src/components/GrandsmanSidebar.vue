@@ -2,7 +2,7 @@
   <div>
     <el-row type="flex" justify="center" align="middle">
       <el-row type="flex">
-        <img src="../assets/tjlogo.png" class="logoImage" />
+        <img src="../assets/tjlogo.svg" class="logoImage" />
       </el-row>
     </el-row>
     <el-menu

@@ -55,7 +55,6 @@ axios.interceptors.response.use(
     },
     /*200 获取成功 201 创建成功 204 更新/删除成功 403 输入不合法 404 NotFound 409 冲突*/
     error => {
-        const routeHistory = history.length - 1;
         if (error.response.status) {
             switch (error.response.status) {
                 case 400:
@@ -67,7 +66,6 @@ axios.interceptors.response.use(
                     localStorage.removeItem("uuid");
                     localStorage.removeItem("uutoken");
                     //可以拿到历史记录栈，清空栈
-                    router.go(-routeHistory);
                     router.replace('/')
                     break;
                 case 404:
@@ -78,7 +76,6 @@ axios.interceptors.response.use(
                     localStorage.removeItem("uuid");
                     localStorage.removeItem("uutoken");
                     //可以拿到历史记录栈，清空栈
-                    router.go(-routeHistory);
                     router.replace('/')
                     Message.error("403权限不足!");
                     break;
