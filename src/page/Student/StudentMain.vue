@@ -452,4 +452,7 @@ body,
 .el-card {
   border-radius: 15px;
 }
+.el-dialog__header {
+  border-bottom: 1px solid #ebebeb;
+}
 </style>

@@ -408,7 +408,9 @@ body
 .lower-card {
   height: 340px;
 }
-
+.el-dialog__header {
+  border-bottom: 1px solid #ebebeb;
+}
 .name {
   font-size: 30px;
   font-weight: 550;

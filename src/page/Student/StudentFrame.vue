@@ -158,7 +158,7 @@ body,
 }
 .logoImage {
   height: 100%;
-  padding-left: 20px;
+    padding-left: 20px;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 170px;

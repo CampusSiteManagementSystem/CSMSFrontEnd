@@ -163,7 +163,9 @@ body,
 .el-aside {
   background-color: white;
 }
-
+.el-dialog__header {
+  border-bottom: 1px solid #ebebeb;
+}
 .detailinfo {
   padding: 15px;
 }

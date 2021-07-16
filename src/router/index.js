@@ -222,15 +222,8 @@ const routes = [
             },
         ]
     },
-    //系统管理员！！！！！！！！
-    //这个界面估计要删了
-    // {
-    //     path: "/SystemAdminHomePage",
-    //     name: "SystemAdminHomePage",
-    //     component: () =>
-    //         import('../page/SystemAdmin/SystemAdminHomePage.vue')
-    // },
-    //这两个中间要删了
+
+    //系统管理员
     {
         path: "/SysAdminFrame",
         name: "SystemAdminFrame",
@@ -638,6 +631,20 @@ const routes = [
                     import ('../page/Grandsman/GroundsmanAccountModify.vue'),
                 meta: {
                     title: '个人信息',
+                    requireAuth: true,
+                    roles: ['groundsMan']
+                }
+            },
+            {
+                path: "ShowSchedule/:groundId",
+                name: "ShowScheduleforGroundAdmin",
+                props: {
+                    membertype: true,
+                },
+                component: () =>
+                    import ('../page/Shared/ShowSchedule.vue'),
+                meta: {
+                    title: '场地详情',
                     requireAuth: true,
                     roles: ['groundsMan']
                 }
