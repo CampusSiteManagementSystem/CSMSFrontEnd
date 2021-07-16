@@ -383,7 +383,9 @@ export default {
   line-height: 40px;
   font-weight: 600;
 }
-
+.el-dialog__header {
+  border-bottom: 1px solid #ebebeb;
+}
 .el-dialog {
   border-radius: 12px;
 }

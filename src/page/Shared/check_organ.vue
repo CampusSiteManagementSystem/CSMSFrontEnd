@@ -121,7 +121,9 @@ body,
 .dialog {
   backdrop-filter: blur(10px);
 }
-
+.el-dialog__header {
+  border-bottom: 1px solid #ebebeb;
+}
 .detailinfo {
   padding: 15px;
 }
