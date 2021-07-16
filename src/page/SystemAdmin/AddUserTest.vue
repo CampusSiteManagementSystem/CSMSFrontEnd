@@ -5,7 +5,7 @@
             <span><b>添加用户</b></span>
           </div>
       <el-row>
-        <el-col :span="18" :offset="3">
+        <el-col :span="10" :offset="3">
           <div>
             <h3>用户信息</h3>
           </div>
