@@ -32,7 +32,7 @@
       </el-col>
       <el-col :span="14" class="upper-row-col2">
         <el-card class="upper-card">
-          <el-tabs>
+          <el-tabs  :addable='true' @tab-add="showAnnouncement">
             <!-- addable="true" @tab-add="showAnnouncement" -->
             <el-tab-pane label="系统公告">
               <el-table
@@ -310,7 +310,7 @@ export default {
     },
 
     showAnnouncement() {
-      this.$router.push("/StuFrame/Announcement");
+      this.$router.push("/SysAdminFrame/Announcement");
     },
 
     onRowClick(row) {
