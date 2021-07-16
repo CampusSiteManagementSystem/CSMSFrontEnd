@@ -259,6 +259,7 @@ export default {
       this.ruleForm.name=data.name;
       this.ruleForm.type=data.type;
       this.ruleForm.credit=data.credit;
+      console.log(data);
       this.ruleForm.joinTime=data.joinDate.replace(
           "T",
           " "

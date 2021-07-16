@@ -395,7 +395,7 @@ export default {
             this.fetchData();
           })
           .catch((err) => {
-            err;
+            console.log(err);
             this.$message({ message: "反馈失败", type: "error" });
           });
       }

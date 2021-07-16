@@ -119,8 +119,7 @@
 // import newVue from "../SystemAdmin/new.vue";
 import { GETDefaultOccupyTime } from "../../API/http";
 import { POSTDefaultOccupyTime } from "../../API/http";
-
-// import store from "../../state/state.js"
+import store from "../../state/state.js"
 export default {
   name: "ActivityList",
   components: {},
@@ -209,13 +208,13 @@ export default {
     var axios = require("axios");
     var config1 = {
       method: "get",
-      url: "http://139.196.114.7/api/IndoorGrounds?accountNumber=1000003", //改
+      url: "http://139.196.114.7/api/IndoorGrounds?accountNumber=" + store.state.ID, //改
       headers: {},
     };
 
     var config2 = {
       method: "get",
-      url: "http://139.196.114.7/api/OutdoorGrounds?accountNumber=1000003", //改
+      url: "http://139.196.114.7/api/OutdoorGrounds?accountNumber=" + store.state.ID, //改
       headers: {},
     };
 
@@ -284,7 +283,7 @@ export default {
             } else {
               var cPos = this.options.length - 1,
                 cFloor = this.options[cPos].children.length - 1;
-              this.options[cPos].children[cFloor].push({
+              this.options[cPos].children[cFloor].children.push({
                 value: this.iGroundTable[k].groundId,
                 label: this.iGroundTable[k].roomNo,
               });
@@ -407,7 +406,7 @@ export default {
           }).catch(err=>{
             console.log(err);
             this.$message({
-              message: "课程添加失败",
+              message: "课程时间不合法，课程添加失败",
               type: "error",
             });
           });
