@@ -219,7 +219,7 @@ export default {
     var curTime = this.getCurrentTime();
     console.log("curTime", curTime);
     GETGrounds({
-        occupyDateTime:"2021-07-12T09:40:20"
+        occupyDateTime:curTime
       })
       .then((data) => {
         //console.log("12345698",data);

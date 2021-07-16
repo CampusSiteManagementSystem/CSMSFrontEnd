@@ -434,38 +434,7 @@ export default {
       this.searchSite();
     },
     setToDB(){
-      if (typeof this.$route.query.activityID == undefined) {
-      POSTActivities({
-        name: this.ruleform.name,
-        accountNumber: this.OrgID,
-        activityDate: this.ruleform.startTime,
-        startTime: this.ruleform.startTime,
-        participantNum: this.ruleform.people,
-        description: this.ruleform.description,
-        additionalRequest: this.ruleform.special,
-        duration: this.ruleform.duration,
-        groundId: this.ruleform.site[this.ruleform.site.length - 1],
-      })
-        .then((data) => {
-          this.$alert("您的活动ID为" + data.id, "活动ID分配", {
-            confirmButtonText: "确定",
-            callback: (action) => {
-              if (action === "confirm") {
-                this.$message({
-                  type: "success",
-                  message: "申请成功",
-                });
-              }
-            },
-          });
-          this.ruleform.id = data.id;
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$message("活动申请信息传输错误");
-        })
-      }
-      else{
+      if (this.$route.query.activityID) {
         PUTActivitiesID(this.$route.query.activityID,
         {id:this.$route.query.activityID,
         name:this.ruleform.name,
@@ -496,6 +465,38 @@ export default {
           console.log(err);
           this.$message("活动申请信息传输错误");
         })
+      }
+      else{
+              POSTActivities({
+        name: this.ruleform.name,
+        accountNumber: this.OrgID,
+        activityDate: this.ruleform.startTime,
+        startTime: this.ruleform.startTime,
+        participantNum: this.ruleform.people,
+        description: this.ruleform.description,
+        additionalRequest: this.ruleform.special,
+        duration: this.ruleform.duration,
+        groundId: this.ruleform.site[this.ruleform.site.length - 1],
+      })
+        .then((data) => {
+          this.$alert("您的活动ID为" + data.id, "活动ID分配", {
+            confirmButtonText: "确定",
+            callback: (action) => {
+              if (action === "confirm") {
+                this.$message({
+                  type: "success",
+                  message: "申请成功",
+                });
+              }
+            },
+          });
+          this.ruleform.id = data.id;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.$message("活动申请信息传输错误");
+        })
+
       }
     },
     submitForm(formName) {
