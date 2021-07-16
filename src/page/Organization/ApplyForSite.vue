@@ -467,11 +467,13 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.setToDB();
+          this.back();
         } else {
           console.log("ID", this.$route.query.activityID);
           console.log("name", this.$route.query.activityName);
           console.log("ground", this.$route.query.groundId);
           console.log("error submit!!");
+          this.back();
           return false;
         }
       });
