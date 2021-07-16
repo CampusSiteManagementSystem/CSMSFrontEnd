@@ -74,7 +74,7 @@
       </el-col>
     </el-row>
     <el-row class="lower-row">
-      <el-col :span="16" class="lower-row-col1">
+      <el-col :span="12" class="lower-row-col1">
         <el-card class="lower-card">
           <div slot="header" class="clearfix">
             <span><b>未来活动</b></span>
@@ -102,12 +102,12 @@
             </el-table-column>
             <el-table-column prop="startTime" label="时间" width="auto">
             </el-table-column>
-            <el-table-column prop="groundName" label="地点" width="auto">
+            <el-table-column prop="groundName" label="地点" width="120">
             </el-table-column>
           </el-table>
         </el-card>
       </el-col>
-      <el-col :span="8" class="lower-row-col2">
+      <el-col :span="12" class="lower-row-col2">
         <el-card class="lower-card" ref="lowerCardRef">
           <div slot="header" class="clearfix" style="height: 10%">
             <span><b>最近一周场地使用情况</b></span>
@@ -123,13 +123,12 @@
             style="width: 100%"
             :height="lowerTableHeight"
             @row-click="onOccupyRowClick"
-            :show-header="false"
           >
-            <el-table-column prop="groundName" label="活动名称" width="auto">
+            <el-table-column prop="groundName" label="场地名称" width="120">
             </el-table-column>
-            <el-table-column prop="name" label="活动名称" width="auto">
+            <el-table-column prop="name" label="活动名称" width="120">
             </el-table-column>
-            <el-table-column prop="start" label="开始时间" width="auto">
+            <el-table-column prop="start" label="开始时间">
             </el-table-column>
             <el-table-column prop="end" label="结束时间"></el-table-column>
           </el-table>
